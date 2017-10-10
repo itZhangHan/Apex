@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.els.bean.HomeResult;
-import com.els.serviceimpl.HomeServiceImpl;
+import com.els.service.HomeService;
 
 @Controller
 @RequestMapping("/index")
 public class IndexController {
 
 	@Autowired
-	HomeServiceImpl sc = new HomeServiceImpl();
+	private HomeService sc;
 
 	@RequestMapping(value = "/getTransfer", method = RequestMethod.GET)
 	@ResponseBody
@@ -23,7 +23,7 @@ public class IndexController {
 			@RequestParam(value = "hid", defaultValue = "0") Integer hid, String callback) {
 		System.out.println(uid);
 		System.out.println(hid);
-		// 判断房间是否等于空 
+		// 判断房间是否等于空
 		HomeResult homeResult = sc.inOrCreateHome(uid, hid);
 		return homeResult;
 	}

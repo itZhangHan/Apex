@@ -1,8 +1,10 @@
-package com.els.service;
+package com.els.serviceinterface;
+
+import org.springframework.stereotype.Service;
 
 import com.els.bean.HomeResult;
-
-public interface HomeService {
+@Service
+public interface HomeServiceinterface {
 
 	public HomeResult inOrCreateHome(Integer uid, Integer hid);
 }
