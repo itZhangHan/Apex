@@ -2,7 +2,7 @@ package com.els.serviceinterface;
 
 import org.springframework.stereotype.Service;
 
-import com.els.bean.HomeResult;
+import com.els.common.HomeResult;
 @Service
 public interface HomeServiceinterface {
 

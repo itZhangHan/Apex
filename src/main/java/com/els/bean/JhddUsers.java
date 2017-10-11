@@ -4,7 +4,7 @@ public class JhddUsers {
     private Integer userid;
 
     private String username;
-
+    //头像url
     private String userportrait;
 
     private Boolean usersex;

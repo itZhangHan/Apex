@@ -1,41 +1,61 @@
-package com.els.bean;
+package com.els.common;
 
 import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class HomeResult {
+public class UserResult {
 
 	// 定义jackson对象
 	private static final ObjectMapper MAPPER = new ObjectMapper();
 
-	// 响应业务状态 0 成功 1失败
+	// 响应业务状态 0失败 1成功
 	private Integer status;
- 
+
 	// 响应消息
 	private String msg;
 
 	// 响应中的数据
 	private Object data;
-	
+
 	public static final int SUCCESS = 0;
 	public static final int ERROR = 1;
 
-	public Integer getStatus(int i) {
-		return status;
+	public static UserResult build(Integer status, String msg, Object data) {
+		return new UserResult(status, msg, data);
 	}
 
-	public HomeResult(Integer status, String msg, Object data) {
-		super();
+	public static UserResult ok(Object data) {
+		return new UserResult(data);
+	}
+
+	public static UserResult ok() {
+		return new UserResult(null);
+	}
+
+	public UserResult() {
+
+	}
+
+	public static UserResult build(Integer status, String msg) {
+		return new UserResult(status, msg, null);
+	}
+
+	public UserResult(Integer status, String msg, Object data) {
 		this.status = status;
 		this.msg = msg;
 		this.data = data;
 	}
 
-	public HomeResult() {
-		super();
-		// TODO Auto-generated constructor stub
+	public UserResult(Object data) {
+		this.status = 200;
+		this.msg = "SUCCESS";
+		this.data = data;
+	}
+
+	public Integer getStatus() {
+		return status;
 	}
 
 	public void setStatus(Integer status) {
@@ -58,14 +78,19 @@ public class HomeResult {
 		this.data = data;
 	}
 
-	public static ObjectMapper getMapper() {
-		return MAPPER;
-	}
-
-	public static HomeResult formatToPojo(String jsonData, Class<?> clazz) {
+	/**
+	 * 将json结果集转化为UserResult对象
+	 * 
+	 * @param jsonData
+	 *            json数据
+	 * @param clazz
+	 *            UserResult中的object类型
+	 * @return
+	 */
+	public static UserResult formatToPojo(String jsonData, Class<?> clazz) {
 		try {
 			if (clazz == null) {
-				return MAPPER.readValue(jsonData, HomeResult.class);
+				return MAPPER.readValue(jsonData, UserResult.class);
 			}
 			JsonNode jsonNode = MAPPER.readTree(jsonData);
 			JsonNode data = jsonNode.get("data");
@@ -89,9 +114,9 @@ public class HomeResult {
 	 * @param json
 	 * @return
 	 */
-	public static HomeResult format(String json) {
+	public static UserResult format(String json) {
 		try {
-			return MAPPER.readValue(json, HomeResult.class);
+			return MAPPER.readValue(json, UserResult.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -107,7 +132,7 @@ public class HomeResult {
 	 *            集合中的类型
 	 * @return
 	 */
-	public static HomeResult formatToList(String jsonData, Class<?> clazz) {
+	public static UserResult formatToList(String jsonData, Class<?> clazz) {
 		try {
 			JsonNode jsonNode = MAPPER.readTree(jsonData);
 			JsonNode data = jsonNode.get("data");
@@ -121,10 +146,4 @@ public class HomeResult {
 			return null;
 		}
 	}
-
-	private static HomeResult build(Integer status, String msg, Object data) {
-		// TODO Auto-generated method stub
-		return new HomeResult(status, msg, data);
-	}
-
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.els.bean.HomeResult;
+import com.els.common.HomeResult;
 import com.els.service.HomeService;
 
 @Controller

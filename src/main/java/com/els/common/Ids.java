@@ -1,4 +1,4 @@
-package com.els.bean;
+package com.els.common;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class Ids {
 	public static void main(String[] args) throws Exception {
 		List<String> warnings = new ArrayList<String>();
 		boolean overwrite = true;
-		File configFile = new File("D:/demo1/elsfk/src/main/resources/config/generatorConfig-base.xml");
+		File configFile = new File("D:/demo1/tetris/src/main/resources/config/generatorConfig-base.xml");
 		ConfigurationParser cp = new ConfigurationParser(warnings);
 		Configuration config = cp.parseConfiguration(configFile);
 		DefaultShellCallback callback = new DefaultShellCallback(overwrite);

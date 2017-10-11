@@ -4,47 +4,50 @@
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-	<properties resource="properties/db.properties"/>
+	<properties resource="properties/db.properties" />
 
-	<!-- classPathEntry:数据库的JDBC驱动的jar包地址 -->
-	 <classPathEntry location="D:\demo1\elsfk\src\main\webapp\js" /> 
+	<!-- classPathEntry:��ݿ��JDBC���jar���ַ -->
+	<classPathEntry location="E:\NewEclipse\workspace\repository\mysql\mysql-connector-java\5.1.32\mysql-connector-java-5.1.32.jar" />
 
 	<context id="testTables" targetRuntime="MyBatis3">
 		<commentGenerator>
-			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<!-- �Ƿ�ȥ���Զ���ɵ�ע�� true���� �� false:�� -->
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
-		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
-		 <jdbcConnection driverClass="${jdbc.driver}" connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
-		</jdbcConnection> 
+		<!--��ݿ����ӵ���Ϣ�����ࡢ���ӵ�ַ���û������� -->
+		<jdbcConnection driverClass="${jdbc.driver}"
+			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
+		</jdbcConnection>
 
-		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer true，把JDBC DECIMAL 和 
-			NUMERIC 类型解析为java.math.BigDecimal -->
+		<!-- Ĭ��false����JDBC DECIMAL �� NUMERIC ���ͽ���Ϊ Integer true����JDBC DECIMAL �� 
+			NUMERIC ���ͽ���Ϊjava.math.BigDecimal -->
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
-		<!-- targetProject:生成实体类的位置 -->
-		<javaModelGenerator targetPackage="com.els.bean" targetProject=".\src\main\java">
-			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+		<!-- targetProject:���ʵ�����λ�� -->
+		<javaModelGenerator targetPackage="com.els.bean"
+			targetProject=".\src\main\java">
+			<!-- enableSubPackages:�Ƿ���schema��Ϊ��ĺ�׺ -->
 			<property name="enableSubPackages" value="true" />
-			<!-- 从数据库返回的值被清理前后的空格 -->
+			<!-- ����ݿⷵ�ص�ֵ������ǰ��Ŀո� -->
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
-        <!-- targetProject:生成mapper.xml的位置 -->
-		<sqlMapGenerator targetPackage="com.els.mapper" targetProject=".\src\main\java">
+		<!-- targetProject:���mapper.xml��λ�� -->
+		<sqlMapGenerator targetPackage="com.els.mapper"
+			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
-        <!-- targetProject:生成mapper.java的位置 -->
+		<!-- targetProject:���mapper.java��λ�� -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.els.mapper" implementationPackage="com.els.mapper" targetProject=".\src\main\java">
+			targetPackage="com.els.mapper" implementationPackage="com.els.mapper"
+			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
-		
-		<table schema="" tableName="gamehome"/>
-		<table schema="" tableName="record"/>
-		<table schema="" tableName="user"/>
-		<table schema="" tableName="clickrate"/>
+
+		<table schema="" tableName="jhdd_rooms" />
+		<table schema="" tableName="jhdd_users" />
+
 
 	</context>
 </generatorConfiguration>
