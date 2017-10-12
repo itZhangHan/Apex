@@ -1,17 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
-
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
-<base href="<%=basePath%>">
-<title>My WebSocket</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
-
 <body>
 	Welcome
 	<br />
@@ -20,13 +12,13 @@
 	<button onclick="closeWebSocket()">Close</button>
 	<div id="message"></div>
 </body>
-
 <script type="text/javascript">
 	var websocket = null;
 
 	//判断当前浏览器是否支持WebSocket
 	if ('WebSocket' in window) {
-		websocket = new WebSocket("ws://192.168.188.98:8080/websocket/websocket");
+		websocket = new WebSocket(
+				"ws://192.168.188.98:8080/websocket/websocket");
 	} else {
 		alert('Not support websocket')
 	}
