@@ -26,7 +26,7 @@
 
 	//判断当前浏览器是否支持WebSocket
 	if ('WebSocket' in window) {
-		websocket = new WebSocket("ws://192.168.188.98:8080/websocket/websocket");
+		websocket = new WebSocket("ws://192.168.188.98:8080/WebSocketServer/websocket");
 	} else {
 		alert('Not support websocket')
 	}
@@ -64,7 +64,6 @@
 	//关闭连接
 	function closeWebSocket() {
 		websocket.close();
-		///
 	}
 
 	//发送消息

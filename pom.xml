@@ -37,6 +37,13 @@
 		<quartz.version>2.2.2</quartz.version>
 	</properties>
 	<dependencies>
+		<!--WebSocketAPI -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- Mybatis 逆向工程 -->
 		<dependency>
 			<groupId>org.mybatis.generator</groupId>

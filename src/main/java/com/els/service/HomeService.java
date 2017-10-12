@@ -1,22 +1,13 @@
 package com.els.service;
 
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.lang.math.RandomUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.els.common.HomeResult;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion.User;
 
 @Service
 @Transactional
 public class HomeService {
-	
-	
-	public HomeResult inOrCreateHome(Integer uid, Integer hid) {
+
+	public void inOrCreateHome(Integer uid, Integer hid) {
 		System.out.println("进入方法");
 		// // 查询房间信息 就判断为空，判断房子是否存在
 		// Gamehome home = gameHomeMapper.selectByPrimaryKey(hid);
@@ -95,7 +86,6 @@ public class HomeService {
 		// hr.setStatus(0);
 		// return hr;
 		// }
-		return null;
 	}
 
 }
