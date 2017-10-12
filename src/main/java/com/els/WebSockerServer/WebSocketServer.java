@@ -1,8 +1,10 @@
 package com.els.WebSockerServer;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+import javax.servlet.http.HttpSession;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -57,19 +59,10 @@ public class WebSocketServer {
 	@OnMessage
 	public void onMessage(String message, Session session) {
 		System.out.println("来自客户端的消息:" + message);
-		if(message!=null){
-			// 群发消息
-			for (WebSocketServer item : webSocketSet) {
-				try {
-					item.sendMessage(message);
-				} catch (IOException e) {
-					e.printStackTrace();
-					continue;
-				}
-			}
-			
-		}
-		
+		URI uri = session.getRequestURI();
+		System.out.println(uri.toString());
+		String str = "你好，客户端。";
+		session.getAsyncRemote().sendText("服务端:" + str);
 	}
 
 	/**
@@ -92,7 +85,7 @@ public class WebSocketServer {
 	 */
 	public void sendMessage(String message) throws IOException {
 		this.session.getBasicRemote().sendText(message);
-		// this.session.getAsyncRemote().sendText(message);
+
 	}
 
 	public static synchronized int getOnlineCount() {

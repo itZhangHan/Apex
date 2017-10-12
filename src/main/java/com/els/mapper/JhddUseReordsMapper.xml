@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.mapper.JhddUseReordsMapper" >
+  <resultMap id="BaseResultMap" type="com.els.bean.JhddUseReords" >
+    <id column="useRecordId" property="userecordid" jdbcType="INTEGER" />
+    <result column="roomId" property="roomid" jdbcType="INTEGER" />
+    <result column="userFrom" property="userfrom" jdbcType="VARCHAR" />
+    <result column="userTo" property="userto" jdbcType="VARCHAR" />
+    <result column="gamePropsName" property="gamepropsname" jdbcType="VARCHAR" />
+    <result column="gamePropState" property="gamepropstate" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    useRecordId, roomId, userFrom, userTo, gamePropsName, gamePropState
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.bean.JhddUseReordsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jhdd_use_reords
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jhdd_use_reords
+    where useRecordId = #{userecordid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jhdd_use_reords
+    where useRecordId = #{userecordid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.bean.JhddUseReordsExample" >
+    delete from jhdd_use_reords
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.bean.JhddUseReords" >
+    insert into jhdd_use_reords (useRecordId, roomId, userFrom, 
+      userTo, gamePropsName, gamePropState
+      )
+    values (#{userecordid,jdbcType=INTEGER}, #{roomid,jdbcType=INTEGER}, #{userfrom,jdbcType=VARCHAR}, 
+      #{userto,jdbcType=VARCHAR}, #{gamepropsname,jdbcType=VARCHAR}, #{gamepropstate,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.bean.JhddUseReords" >
+    insert into jhdd_use_reords
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userecordid != null" >
+        useRecordId,
+      </if>
+      <if test="roomid != null" >
+        roomId,
+      </if>
+      <if test="userfrom != null" >
+        userFrom,
+      </if>
+      <if test="userto != null" >
+        userTo,
+      </if>
+      <if test="gamepropsname != null" >
+        gamePropsName,
+      </if>
+      <if test="gamepropstate != null" >
+        gamePropState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userecordid != null" >
+        #{userecordid,jdbcType=INTEGER},
+      </if>
+      <if test="roomid != null" >
+        #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="userfrom != null" >
+        #{userfrom,jdbcType=VARCHAR},
+      </if>
+      <if test="userto != null" >
+        #{userto,jdbcType=VARCHAR},
+      </if>
+      <if test="gamepropsname != null" >
+        #{gamepropsname,jdbcType=VARCHAR},
+      </if>
+      <if test="gamepropstate != null" >
+        #{gamepropstate,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.bean.JhddUseReordsExample" resultType="java.lang.Integer" >
+    select count(*) from jhdd_use_reords
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update jhdd_use_reords
+    <set >
+      <if test="record.userecordid != null" >
+        useRecordId = #{record.userecordid,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomid != null" >
+        roomId = #{record.roomid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userfrom != null" >
+        userFrom = #{record.userfrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userto != null" >
+        userTo = #{record.userto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gamepropsname != null" >
+        gamePropsName = #{record.gamepropsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gamepropstate != null" >
+        gamePropState = #{record.gamepropstate,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update jhdd_use_reords
+    set useRecordId = #{record.userecordid,jdbcType=INTEGER},
+      roomId = #{record.roomid,jdbcType=INTEGER},
+      userFrom = #{record.userfrom,jdbcType=VARCHAR},
+      userTo = #{record.userto,jdbcType=VARCHAR},
+      gamePropsName = #{record.gamepropsname,jdbcType=VARCHAR},
+      gamePropState = #{record.gamepropstate,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.bean.JhddUseReords" >
+    update jhdd_use_reords
+    <set >
+      <if test="roomid != null" >
+        roomId = #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="userfrom != null" >
+        userFrom = #{userfrom,jdbcType=VARCHAR},
+      </if>
+      <if test="userto != null" >
+        userTo = #{userto,jdbcType=VARCHAR},
+      </if>
+      <if test="gamepropsname != null" >
+        gamePropsName = #{gamepropsname,jdbcType=VARCHAR},
+      </if>
+      <if test="gamepropstate != null" >
+        gamePropState = #{gamepropstate,jdbcType=TINYINT},
+      </if>
+    </set>
+    where useRecordId = #{userecordid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.bean.JhddUseReords" >
+    update jhdd_use_reords
+    set roomId = #{roomid,jdbcType=INTEGER},
+      userFrom = #{userfrom,jdbcType=VARCHAR},
+      userTo = #{userto,jdbcType=VARCHAR},
+      gamePropsName = #{gamepropsname,jdbcType=VARCHAR},
+      gamePropState = #{gamepropstate,jdbcType=TINYINT}
+    where useRecordId = #{userecordid,jdbcType=INTEGER}
+  </update>
+</mapper>

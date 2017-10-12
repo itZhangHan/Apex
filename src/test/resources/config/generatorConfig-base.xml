@@ -45,9 +45,11 @@
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
 
-		<table schema="" tableName="jhdd_rooms" />
-		<table schema="" tableName="jhdd_users" />
-
+		<table schema="" tableName="jhdd_game_props" />
+		<table schema="" tableName="jhdd_game_start" />
+		<table schema="" tableName="jhdd_sidelines" />
+		<table schema="" tableName="jhdd_use_reords" />
+		
 
 	</context>
 </generatorConfiguration>
