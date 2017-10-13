@@ -5,7 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class UserResult {
+public class ElsResult {
 
 	// 定义jackson对象
 	private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -22,33 +22,33 @@ public class UserResult {
 	public static final int SUCCESS = 0;
 	public static final int ERROR = 1;
 
-	public static UserResult build(Integer status, String msg, Object data) {
-		return new UserResult(status, msg, data);
+	public static ElsResult build(Integer status, String msg, Object data) {
+		return new ElsResult(status, msg, data);
 	}
 
-	public static UserResult ok(Object data) {
-		return new UserResult(data);
+	public static ElsResult ok(Object data) {
+		return new ElsResult(data);
 	}
 
-	public static UserResult ok() {
-		return new UserResult(null);
+	public static ElsResult ok() {
+		return new ElsResult(null);
 	}
 
-	public UserResult() {
+	public ElsResult() {
 
 	}
 
-	public static UserResult build(Integer status, String msg) {
-		return new UserResult(status, msg, null);
+	public static ElsResult build(Integer status, String msg) {
+		return new ElsResult(status, msg, null);
 	}
 
-	public UserResult(Integer status, String msg, Object data) {
+	public ElsResult(Integer status, String msg, Object data) {
 		this.status = status;
 		this.msg = msg;
 		this.data = data;
 	}
 
-	public UserResult(Object data) {
+	public ElsResult(Object data) {
 		this.status = 200;
 		this.msg = "SUCCESS";
 		this.data = data;
@@ -87,10 +87,10 @@ public class UserResult {
 	 *            UserResult中的object类型
 	 * @return
 	 */
-	public static UserResult formatToPojo(String jsonData, Class<?> clazz) {
+	public static ElsResult formatToPojo(String jsonData, Class<?> clazz) {
 		try {
 			if (clazz == null) {
-				return MAPPER.readValue(jsonData, UserResult.class);
+				return MAPPER.readValue(jsonData, ElsResult.class);
 			}
 			JsonNode jsonNode = MAPPER.readTree(jsonData);
 			JsonNode data = jsonNode.get("data");
@@ -114,9 +114,9 @@ public class UserResult {
 	 * @param json
 	 * @return
 	 */
-	public static UserResult format(String json) {
+	public static ElsResult format(String json) {
 		try {
-			return MAPPER.readValue(json, UserResult.class);
+			return MAPPER.readValue(json, ElsResult.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -132,7 +132,7 @@ public class UserResult {
 	 *            集合中的类型
 	 * @return
 	 */
-	public static UserResult formatToList(String jsonData, Class<?> clazz) {
+	public static ElsResult formatToList(String jsonData, Class<?> clazz) {
 		try {
 			JsonNode jsonNode = MAPPER.readTree(jsonData);
 			JsonNode data = jsonNode.get("data");

@@ -1,13 +1,13 @@
 package com.els.serviceinterface;
 
 import com.els.bean.JhddUsers;
-import com.els.common.UserResult;
+import com.els.common.ElsResult;
 
 public interface UserService {
 
-	public UserResult addUser(JhddUsers user);
+	public ElsResult addUser(JhddUsers user);
 
-	public UserResult findUserById(Integer userid);
+	public ElsResult findUserById(Integer userid);
 
-	public UserResult findUserList();
+	public ElsResult findUserList();
 }

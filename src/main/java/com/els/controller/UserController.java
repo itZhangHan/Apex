@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.els.bean.JhddUsers;
-import com.els.common.UserResult;
+import com.els.common.ElsResult;
 import com.els.serviceinterface.UserService;
 
 @Controller
@@ -17,29 +17,41 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	/*
+	 * url：http://192.168.188.98:8080/tetris/user/insertUser?userid=? 请求方式：get
+	 * 返回：{ status：1成功 msg：SUCCESS data:用户数据
+	 */
 	@RequestMapping(value = "/insertUser", method = RequestMethod.GET)
 	@ResponseBody
-	public UserResult InsertUser(JhddUsers user) {
+	public ElsResult InsertUser(JhddUsers user) {
 		// 插入数据
-		UserResult result = userService.addUser(user);
+		ElsResult result = userService.addUser(user);
 
 		return result;
 	}
 
+	/*
+	 * url：http://192.168.188.98:8080/tetris/user/insertUser?userid=? 请求方式：get
+	 * 参数：用户id 返回：{ status：1成功 msg：SUCCESS data:用户数据
+	 */
 	@RequestMapping("/findUserById")
 	@ResponseBody
-	public UserResult findUser(Integer userid) {
+	public ElsResult findUser(Integer userid) {
 		// 查询数据
-		UserResult result = userService.findUserById(userid);
+		ElsResult result = userService.findUserById(userid);
 
 		return result;
 	}
 
+	/*
+	 * url：http://192.168.188.98:8080/tetris/user/findUserList 请求方式：get 参数：无
+	 * 返回：{ status：1成功 msg：SUCCESS data:用户数据
+	 */
 	@RequestMapping("/findUserList")
 	@ResponseBody
-	public UserResult findUserList() {
+	public ElsResult findUserList() {
 		// 查询数据
-		UserResult result = userService.findUserList();
+		ElsResult result = userService.findUserList();
 
 		return result;
 	}
