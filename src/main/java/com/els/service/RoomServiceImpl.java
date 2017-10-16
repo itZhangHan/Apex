@@ -85,18 +85,8 @@ public class RoomServiceImpl implements RoomService {
 			sidelines.setRoomid(roomid);
 			sidelines.setUserid(userid);
 			// roomStatus:0=未开始 ,1=游戏中,2=游戏结束
-			if (roomStatus == 0) {// 游戏未开始
-				// 4.未开始状态加入用户为玩家
-				sidelines.setSidelinestate((byte) 1);
-			} else if (roomStatus == 1) {// 游戏中
-				// 3.房间处于开游戏中加入用户为旁观者
-				sidelines.setSidelinestate((byte) 2);
-			} else if (roomStatus == 2) {// 游戏结束
-				// 5.未开始状态加入用户为无状态
-				sidelines.setSidelinestate((byte) 1);
-			}
-			int insert = jhddSidelinesMapper.insert(sidelines);
-			System.out.println(insert);
+			sidelines.setSidelinestate((byte) 1);
+			jhddSidelinesMapper.insert(sidelines);
 			// 加入成功展示所有数据
 			JhddSidelinesExample jhddSidelinesExample = new JhddSidelinesExample();
 			jhddSidelinesExample.createCriteria().andRoomidEqualTo(roomid);
