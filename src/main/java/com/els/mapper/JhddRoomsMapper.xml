@@ -153,6 +153,10 @@
 			<include refid="Example_Where_Clause" />
 		</if>
 	</select>
+	<select id="selectRoomStatus" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		 SELECT jhdd_rooms.roomState FROM jhdd_rooms WHERE jhdd_rooms.roomId=#{roomid};
+	</select>
 	<update id="updateByExampleSelective" parameterType="map">
 		update jhdd_rooms
 		<set>

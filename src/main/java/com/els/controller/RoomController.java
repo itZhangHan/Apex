@@ -10,12 +10,12 @@ import com.els.common.ElsResult;
 import com.els.serviceinterface.RoomService;
 
 /*
- * 路径：http://192.168.188.98:8080/tetris/room/createRoom?userid=?
+ * 路径：http://192.168.188.98:8080/tetris/room/joinOrCreateRoom?userid=?
  * 请求方式：get
  * 返回：{
- * 	status：1成功
- * 	msg：SUCCESS
- * 	data:data
+ * 	status(状态)：1成功 0失败
+ * 	msg(信息)：SUCCESS
+ * 	data(返回数据):data
  * }
  */
 @Controller
@@ -25,18 +25,17 @@ public class RoomController {
 	@Autowired
 	private RoomService roomService;
 
-	@RequestMapping(value = "createRoom")
+	@RequestMapping(value = "joinOrCreateRoom")
 	@ResponseBody
 	public ElsResult CreateRome(Integer userid, Integer roomid) {
-		if (roomid != null) {
+		if (roomid != null & roomid != 0) {
 			// 房间ID不等于空跳转长连接加入房间
-			// WebSocketServer webSocketServer = new WebSocketServer();
-			ElsResult result = new ElsResult();
-			return result.build(0, "加入房间失败！");
+			ElsResult joinRoomResult = roomService.joinRoom(userid, roomid);
+			return joinRoomResult;
 		} else {
 			// 新建房间
-			ElsResult result = roomService.createRoom(userid, roomid);
-			return result;
+			ElsResult createRoomResult = roomService.createRoom(userid, roomid);
+			return createRoomResult;
 		}
 
 	}
