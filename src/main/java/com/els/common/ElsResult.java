@@ -18,15 +18,25 @@ public class ElsResult {
 
 	// 响应中的数据
 	private Object data;
+	
+	// 房间状态
+	private Object roomStatus;
 
-	public static final int SUCCESS = 0;
-	public static final int ERROR = 1;
-
-	public static ElsResult build(Integer status, String msg, Object data) {
-		return new ElsResult(status, msg, data);
+	public static final int SUCCESS = 1;
+	public static final int ERROR = 0;
+	public Object getRoomStatus() {
+		return roomStatus;
+	}
+	
+	public void setRoomStatus(Object roomStatus) {
+		this.roomStatus = roomStatus;
 	}
 
-	public static ElsResult ok(Object data) {
+	public static ElsResult build(Integer status, String msg, Object data ,Object roomStatus) {
+		return new ElsResult(status, msg, data ,roomStatus);
+	}
+
+	public static ElsResult ok(Object data ) {
 		return new ElsResult(data);
 	}
 
@@ -48,10 +58,18 @@ public class ElsResult {
 		this.data = data;
 	}
 
-	public ElsResult(Object data) {
-		this.status = 200;
-		this.msg = "SUCCESS";
+ 
+
+	public ElsResult(Integer status, String msg, Object data, Object roomStatus) {
+		super();
+		this.status = status;
+		this.msg = msg;
 		this.data = data;
+		this.roomStatus = roomStatus;
+	}
+
+	public ElsResult(Object object) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getStatus() {
@@ -102,7 +120,7 @@ public class ElsResult {
 					obj = MAPPER.readValue(data.asText(), clazz);
 				}
 			}
-			return build(jsonNode.get("status").intValue(), jsonNode.get("msg").asText(), obj);
+			return build(jsonNode.get("status").intValue(), jsonNode.get("msg").asText(), obj, obj);
 		} catch (Exception e) {
 			return null;
 		}
@@ -141,7 +159,7 @@ public class ElsResult {
 				obj = MAPPER.readValue(data.traverse(),
 						MAPPER.getTypeFactory().constructCollectionType(List.class, clazz));
 			}
-			return build(jsonNode.get("status").intValue(), jsonNode.get("msg").asText(), obj);
+			return build(jsonNode.get("status").intValue(), jsonNode.get("msg").asText(), obj, obj);
 		} catch (Exception e) {
 			return null;
 		}
