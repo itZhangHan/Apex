@@ -1,5 +1,6 @@
 package com.els.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class RoomServiceImpl implements RoomService {
 			// 新建房间成功时查询房间信息并返回�?
 			JhddSidelines jhddSidelines = jhddSidelinesMapper.selectByPrimaryKey(jhddSideline.getSidelinesid());
 			// 1成功 0失败
-			return result.build(1, "SUCCESS", jhddSidelines);
+			return result.build(1, "SUCCESS", jhddSidelines,null);
 		} else {
 			return result.build(1, "出现未知错误！");
 		}
@@ -91,11 +92,12 @@ public class RoomServiceImpl implements RoomService {
 			JhddSidelinesExample jhddSidelinesExample = new JhddSidelinesExample();
 			jhddSidelinesExample.createCriteria().andRoomidEqualTo(roomid);
 			List<JhddSidelines> JhddSidelines = jhddSidelinesMapper.selectByExample(jhddSidelinesExample);
-			return ElsResult.build(1, "SUCCESS", JhddSidelines);
+			 
+			return ElsResult.build(1, "SUCCESS", JhddSidelines,roomStatus);
 		} else {
 			// 不可加入 跳转新建房间页面
 			System.out.println("进入不可加入函数");
-			return ElsResult.build(0, "房间已满", user);
+			return ElsResult.build(0, "房间已满", user,null);
 		}
 
 	}
