@@ -1,6 +1,5 @@
 package com.els.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,10 @@ public class RoomServiceImpl implements RoomService {
 	private JhddSidelinesMapper jhddSidelinesMapper;
 
 	@Override
+	@SuppressWarnings("all")
 	public ElsResult createRoom(Integer userid, Integer romeid) {
 		// TODO Auto-generated method stub
+		String a="";
 		System.out.println("进入新建方法");
 		// 查询用户信息
 		JhddUsers user = jhddUsersMapper.selectByPrimaryKey(userid);
