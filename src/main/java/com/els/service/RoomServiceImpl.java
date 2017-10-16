@@ -1,11 +1,14 @@
 package com.els.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.els.bean.JhddRooms;
 import com.els.bean.JhddSidelines;
+import com.els.bean.JhddSidelinesExample;
 import com.els.bean.JhddUsers;
 import com.els.common.ElsResult;
 import com.els.mapper.JhddRoomsMapper;
@@ -61,15 +64,49 @@ public class RoomServiceImpl implements RoomService {
 
 	@Override
 	public ElsResult joinRoom(Integer userid, Integer roomid) {
-		// TODO Auto-generated method stub
+		System.out.println("进入加入房间函数");
+		// 查出用户信息备用
 		JhddUsers user = jhddUsersMapper.selectByPrimaryKey(userid);
-		JhddRooms jhddRooms = jhddRoomsMapper.selectByPrimaryKey(roomid);
-		while(jhddRooms.getRoomstate()==1){
-			
+		// 1.判断房间人数是否已满，已满则跳转创建房间页面
+		// JhddRooms jhddRooms = jhddRoomsMapper.selectByPrimaryKey(roomid);
+		JhddSidelinesExample example = new JhddSidelinesExample();
+		example.createCriteria().andRoomidEqualTo(roomid);
+		// 查询房间人数
+		int roomCount = jhddSidelinesMapper.countByExample(example);
+		System.out.println(roomCount);
+		// 可加入状态
+		if (roomCount > 0 & roomCount <= 8) {
+			System.out.println("进入可加入状态");
+			// 查询房间状态
+			int roomStatus = jhddRoomsMapper.selectRoomStatus(roomid);
+			System.out.println(roomStatus);
+			// 2.房间未满则判断房间是否处于开始状态。
+			JhddSidelines sidelines = new JhddSidelines();
+			sidelines.setRoomid(roomid);
+			sidelines.setUserid(userid);
+			// roomStatus:0=未开始 ,1=游戏中,2=游戏结束
+			if (roomStatus == 0) {// 游戏未开始
+				// 4.未开始状态加入用户为玩家
+				sidelines.setSidelinestate((byte) 1);
+			} else if (roomStatus == 1) {// 游戏中
+				// 3.房间处于开游戏中加入用户为旁观者
+				sidelines.setSidelinestate((byte) 2);
+			} else if (roomStatus == 2) {// 游戏结束
+				// 5.未开始状态加入用户为无状态
+				sidelines.setSidelinestate((byte) 1);
+			}
+			int insert = jhddSidelinesMapper.insert(sidelines);
+			System.out.println(insert);
+			// 加入成功展示所有数据
+			JhddSidelinesExample jhddSidelinesExample = new JhddSidelinesExample();
+			jhddSidelinesExample.createCriteria().andRoomidEqualTo(roomid);
+			List<JhddSidelines> JhddSidelines = jhddSidelinesMapper.selectByExample(jhddSidelinesExample);
+			return ElsResult.build(1, "SUCCESS", JhddSidelines);
+		} else {
+			// 不可加入 跳转新建房间页面
+			System.out.println("进入不可加入函数");
+			return ElsResult.build(0, "房间已满", user);
 		}
-		JhddSidelines jhddSidelines = new JhddSidelines();
-		jhddSidelines.setRoomid(roomid);
-		jhddSidelines.setUserid(userid);
-		return null;
+
 	}
 }

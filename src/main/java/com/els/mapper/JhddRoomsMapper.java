@@ -6,25 +6,28 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface JhddRoomsMapper {
-    int countByExample(JhddRoomsExample example);
+	// 查询房间状态
+	int selectRoomStatus(Integer roomid);
 
-    int deleteByExample(JhddRoomsExample example);
+	int countByExample(JhddRoomsExample example);
 
-    int deleteByPrimaryKey(Integer roomid);
+	int deleteByExample(JhddRoomsExample example);
 
-    int insert(JhddRooms record);
+	int deleteByPrimaryKey(Integer roomid);
 
-    int insertSelective(JhddRooms record);
+	int insert(JhddRooms record);
 
-    List<JhddRooms> selectByExample(JhddRoomsExample example);
+	int insertSelective(JhddRooms record);
 
-    JhddRooms selectByPrimaryKey(Integer roomid);
+	List<JhddRooms> selectByExample(JhddRoomsExample example);
 
-    int updateByExampleSelective(@Param("record") JhddRooms record, @Param("example") JhddRoomsExample example);
+	JhddRooms selectByPrimaryKey(Integer roomid);
 
-    int updateByExample(@Param("record") JhddRooms record, @Param("example") JhddRoomsExample example);
+	int updateByExampleSelective(@Param("record") JhddRooms record, @Param("example") JhddRoomsExample example);
 
-    int updateByPrimaryKeySelective(JhddRooms record);
+	int updateByExample(@Param("record") JhddRooms record, @Param("example") JhddRoomsExample example);
 
-    int updateByPrimaryKey(JhddRooms record);
+	int updateByPrimaryKeySelective(JhddRooms record);
+
+	int updateByPrimaryKey(JhddRooms record);
 }
