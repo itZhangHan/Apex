@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-
+    scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/WEB-INF/css/first.css">
+</head>
+<body>
+    <div class="page" id="page1">
+        <!--<div class="p1_lantern">点击屏幕<br>开启好运2016</div>
+        <div class="p1_imooc"></div>
+        <div class="p1_words">2016年慕课网新年特献</div>-->
+        <button id="openBtn"><!--<a href="http://192.168.188.98:8080/tetris/room/createRoom?userid=?">--><img src="img/openBtn.png"><!--</a>--></button>
+    </div>
+
+    <script>
+        var openBtn = document.getElementById("openBtn");
+        openBtn.onclick = function () {
+            console.log("jjjjjjjjjj")
+            window.location.href = "http://192.168.1.16:8080/tetris/room/createRoom?userid=?"
+
+        }
+    </script>
+
+</body>
+</html>
