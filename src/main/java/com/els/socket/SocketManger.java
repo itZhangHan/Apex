@@ -15,7 +15,7 @@ public class SocketManger {
 	private static HashMap<String,CopyOnWriteArraySet> totalRoomMap=new HashMap();
 	
 	
-	/**
+	/****
 	 * 增加创建房间
 	 * @param roomId
 	 * @param socketServer
@@ -52,7 +52,6 @@ public class SocketManger {
 		if(totalRoomMap.containsKey(roomId)){
 			delSocketMessage(totalRoomMap.get(roomId),socketServer);
 		}
-		
 	}
 	
 	public static  void delSocketMessage(CopyOnWriteArraySet copySet,WebSocketServer socketMessage){
@@ -74,7 +73,6 @@ public class SocketManger {
 			return totalRoomMap.get(roomId);
 		}
 		return null;
-		
 	}
 	public static synchronized int getOnlineCount() {
 		return onlineCount;
