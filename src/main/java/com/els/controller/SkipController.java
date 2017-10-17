@@ -1,6 +1,9 @@
 package com.els.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /*
@@ -11,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SkipController {
 	//创建房间
 	@RequestMapping("/first")
-	public String toFirst() {
-
+	public String toFirst(HttpServletRequest request,ModelMap map) {
+		map.put("base", request.getContextPath());
 		return "first";
 	}
 	//游戏场景
