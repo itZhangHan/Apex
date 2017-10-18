@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-
     scale=1,maximum-scale=1,user-scalable=no">
-    <link rel="stylesheet" href="../css/hall.css">
+    <link rel="stylesheet" href="css/hall.css">
 </head>
 <body>
     <div class="centainer">
@@ -14,54 +14,81 @@
                      <img src="img/logo.png">
                  </div>-->
         <div class="room">
-            <img id="iconBtn" src="../img/iconBtn.png">
+            <img id="iconBtn" src="img/iconBtn.png">
         </div>
 
         <div class="item_btn">
             <ul>
-                <li><img id = "item1" src="../img/music.png"></li>
-                <li><img id = "item2" src="../img/sprite7.png"></li>
-                <li><img id = "item3" src="../img/sprite10.png"></li>
+                <li><img id = "item1" src="img/music.png"></li>
+                <li><img id = "item2" src="img/sprite7.png"></li>
+                <li><img id = "item3" src="img/sprite10.png"></li>
             </ul>
         </div>
 
         <div class="game_go">
-            <img id="game_go" src="../img/startBtn.png">
+            <img id="game_go" src="img/startBtn.png">
         </div>
         
         <div class="player_btn">
             <ul>
                 <li id = "player1">
-                    <img src="../img/icon3.png">
+                    <img src="img/icon3.png">
                 </li>
-                <li id ="player2"><img src="../img/icon3.png"></li>
+                <li id ="player2"><img src="img/icon3.png"></li>
             </ul>
             <ul>
-                <li id = "player3"><img src="../img/icon3.png"></li>
-                <li id ="player4"><img src="../img/sprite5.png"></li>
+                <li id = "player3"><img src="img/icon3.png"></li>
+                <li id ="player4"><img src="img/sprite5.png"></li>
             </ul>
         </div>
 
- <!-- aa -->
+<!--
+        <div class="chatRoom">
+            <input id="sendTxt_0" type="text"/>
+            <button id="sendBtn_0"><img src="img/sendBtn.png"></button>
+        </div>-->
 
         <div class="chatRoom" id="chatRoom"></div>
         <div class="ele">
             <input id="sendTxt_0" type="text"/>
-            <button id="sendBtn_0" onclick="add()"><img src="../img/sendBtn.png"></button>
+            <button id="sendBtn_0" onclick="add()"><img src="img/sendBtn.png"></button>
         </div>
+
+
+
+        <!--聊天框-->
+        <!--<span class="notice">请点击“插入一行”按钮，插入最新信息，当出现滚动条时，滚动条将自动保持在底部。</span><br />
+-->
+      <!--  <div id="chatRoom">
+            <input id="sendTxt_0" type="text"/>
+            <button id="sendBtn_0"><img src="img/sendBtn.png"></button>
+        </div>
+        <input type="button" value="插入一行" onclick="add();">-->
+
+        <!--聊   天   框-->
+
+
 
         <div class="icon-player">
             <ul>
-                <li id = "icon1"><img src="../img/icon4.png"></li>
-                <li id = "icon2"><img src="../img/icon5.png"></li>
-                <li id = "icon3"><img src="../img/icon6.png"></li>
-                <li id = "icon4"><img src="../img/icon7.png"></li>
+                <li id = "icon1"><img id="img1" src="img/icon4.png"></li>
+                <li id = "icon2"><img id="img2" src="img/icon5.png"></li>
+                <li id = "icon3"><img id="img3" src="img/icon6.png"></li>
+                <li id = "icon4"><img id="img4" src="img/icon7.png"></li>
             </ul>
 
         </div>
 
 
- 
+         
+
+           <!-- <div class="bottom_btn">
+                <ul>
+                    &lt;!&ndash; <li id="btn_share"><img src="img/btn_share.png"></li>&ndash;&gt;
+                    <li id="btn_receive"><img src="img/btn_receive.png"></li>
+                    <li id="btn_ran"><img src="img/btn_ran.png"></li>
+                </ul>
+            </div>-->
     </div>
     <script type="text/javascript">
         function add()
@@ -70,16 +97,45 @@
             var div = document.getElementById('chatRoom');
             div.innerHTML = div.innerHTML + 'time_' + now.getTime() + '<br />';
             div.scrollTop = div.scrollHeight;*/
+         //   document.getElementById("sendTxt_0").style.textAlign = "center"
 
+      //      document.getElementById("img1").src = 'img/sprite2.png';
            var div_1 = document.getElementById("sendTxt_0").value;
             document.getElementById("sendTxt_0").value = ""
            var div_2 = document.getElementById("chatRoom");
-           div_2.innerHTML = div_2.innerHTML+div_1 + '<br />';
+            var image=document.createElement("img");
+            image.src="img/icon1.png";
+        /*    document.getElementById("images").appendChild(image);*/
+            div_2.style.overflowY = "scroll";//auto    scroll
+          //  div_1.style.display = "block"
+        //    document.getElementById("sendTxt_0").style.width = "100%"
+       //     document.getElementById("sendTxt_0").style.display = "init-block"
+
+
+            var div_3=document.createElement("div");
+            div_3.style.fontSize = "20px";
+            div_3.style.paddingRight = "20px";                                 /*init-block*/
+         //   {word-break:break-all;   normal    {white-space     wordWrap = "break-word"文字自动换行
+            div_3.style.wordBreak = "break-all"  /*文字自动换行*/
+            div_3.style.marginTop = "10px";
+            //    var ss = "img/icon4.png";
+
+           /* var img = new Image();
+            img.src='http://ubmcmm.baidustatic.com/media/v1/0f0005yYIsGLBGDGfPud10.png';
+            document.body.appendChild(img);*/
+            var ss = 7;
+            div_3.innerHTML = "<img src='img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"+
+                "&nbsp;&nbsp;&nbsp;&nbsp;"+div_1 + '<br />';
+        //    document.getElementById("aa").src = 'img/iconBtn.png'
+
+            div_2.appendChild(div_3)
+
+      //      div_2.innerHTML = div_2.innerHTML + div_3.innerHTML
            div_2.scrollTop = div_2.scrollHeight;
 
         }
     </script>
-    <script src="../js/hall.js"></script>
+    <script src="js/hall.js"></script>
 
 </body>
 </html>

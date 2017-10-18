@@ -1,45 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Title</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-<meta name="viewport"
-	content="width=device-width,initial-scale=1,minimum-
-    scale=1,user-scalable=no">
-<meta name="format-detection" content="telephone=no">
-<link rel="stylesheet" href="${base}/css/first.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-
+    scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="css/first.css">
 </head>
 <body>
-	 
-	<div class="page" id="page1">
-		<button id="openBtn">
-			<img src="${base}/img/openBtn.png">
-		</button>
-	</div>
-	<script>
-	  var curWwwPath=window.document.location.href;
-	  //获取主机地址之后的目录，如： myproj/view/my.jsp
-	
-	  var pathName=window.document.location.pathname;
-	  var pos=curWwwPath.indexOf(pathName);
-	
-	  //获取主机地址，如： http://localhost:8083
-	  var localhostPaht=curWwwPath.substring(0,pos);
-		
-	  //获取带"/"的项目名，如：/myproj
-	
-	  var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
-	 　//得到了 http://localhost:8083/myproj
-	
-	  var realPath=localhostPaht+projectName;
-	  var openBtn = document.getElementById("openBtn");
-			openBtn.onclick = function() {
-			console.log("jjjjjjjjjj")
-			window.location.href = "${base}/room/joinOrCreateRoom?userid=9"
+    <div class="page" id="page1">
+        <!--<div class="p1_lantern">点击屏幕<br>开启好运2016</div>
+        <div class="p1_imooc"></div>
+        <div class="p1_words">2016年慕课网新年特献</div>-->
+        <button id="openBtn"><!--<a href="http://192.168.188.98:8080/tetris/room/createRoom?userid=?">--><img src="img/openBtn.png"><!--</a>--></button>
+    </div>
 
-			}
-	</script>
+    <script>
+        var openBtn = document.getElementById("openBtn");
+        openBtn.onclick = function () {
+            console.log("jjjjjjjjjj")
+            window.location.href = "http://192.168.188.98:8080/tetris/room/createRoom?userid=?"
+        }
+    </script>
 
 </body>
 </html>
