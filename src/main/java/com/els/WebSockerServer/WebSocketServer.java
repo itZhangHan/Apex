@@ -11,10 +11,17 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import com.els.socket.MessageDecoder;
+import com.els.socket.MessageEncoder;
 import com.els.socket.SocketManger;
+import com.els.socket.SocketMessage;
 
 //该注解用来指定一个URI，客户端可以通过这个URI来连接到WebSocket。类似Servlet的注解mapping。无需在web.xml中配置。
-@ServerEndpoint("/websocket")
+@ServerEndpoint(
+		  value = "/websocket", 
+		  encoders = { MessageEncoder.class }, 
+		  decoders = { MessageDecoder.class}
+		)
 public class WebSocketServer {
 
 	// 与某个客户端的连接会话，需要通过它来给客户端发送数据
@@ -54,7 +61,7 @@ public class WebSocketServer {
 	 *            可选的参数
 	 */
 	@OnMessage
-	public void onMessage(String message, Session session) {
+	public void onMessage(SocketMessage message, Session session) {
 		System.out.println("来自客户端的消息:" + message);
 		URI uri = session.getRequestURI();
 		System.out.println(uri.toString());
