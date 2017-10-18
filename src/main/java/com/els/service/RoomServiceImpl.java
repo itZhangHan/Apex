@@ -41,7 +41,7 @@ public class RoomServiceImpl implements RoomService {
 		ElsResult result = new ElsResult();
 		// 设置房间属性。
 		JhddRooms room = new JhddRooms();
-		room.setRoomname(user.getUsername());
+		room.setRoomname(user.getUsername()+"的房间");
 		room.setRoomstate((byte) 0);
 		int insertid = jhddRoomsMapper.insert(room);
 		System.out.println(insertid);

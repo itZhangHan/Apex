@@ -6,39 +6,30 @@
 <generatorConfiguration>
 	<properties resource="properties/db.properties" />
 
-	<!-- classPathEntry:��ݿ��JDBC���jar���ַ -->
 	<classPathEntry location="E:\NewEclipse\workspace\repository\mysql\mysql-connector-java\5.1.32\mysql-connector-java-5.1.32.jar" />
 
 	<context id="testTables" targetRuntime="MyBatis3">
 		<commentGenerator>
-			<!-- �Ƿ�ȥ���Զ���ɵ�ע�� true���� �� false:�� -->
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
-		<!--��ݿ����ӵ���Ϣ�����ࡢ���ӵ�ַ���û������� -->
 		<jdbcConnection driverClass="${jdbc.driver}"
 			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
 		</jdbcConnection>
 
-		<!-- Ĭ��false����JDBC DECIMAL �� NUMERIC ���ͽ���Ϊ Integer true����JDBC DECIMAL �� 
-			NUMERIC ���ͽ���Ϊjava.math.BigDecimal -->
+		 
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
-		<!-- targetProject:���ʵ�����λ�� -->
 		<javaModelGenerator targetPackage="com.els.bean"
 			targetProject=".\src\main\java">
-			<!-- enableSubPackages:�Ƿ���schema��Ϊ��ĺ�׺ -->
 			<property name="enableSubPackages" value="true" />
-			<!-- ����ݿⷵ�ص�ֵ������ǰ��Ŀո� -->
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
-		<!-- targetProject:���mapper.xml��λ�� -->
 		<sqlMapGenerator targetPackage="com.els.mapper"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
-		<!-- targetProject:���mapper.java��λ�� -->
 		<javaClientGenerator type="XMLMAPPER"
 			targetPackage="com.els.mapper" implementationPackage="com.els.mapper"
 			targetProject=".\src\main\java">

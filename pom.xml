@@ -33,6 +33,7 @@
 		<pagehelper.version>3.2.2</pagehelper.version>
 	</properties>
 	<dependencies>
+
 		<!-- html视图解析器freemarker包 -->
 		<dependency>
 			<groupId>org.freemarker</groupId>
@@ -111,6 +112,12 @@
 			<artifactId>druid</artifactId>
 			<version>${druid.version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.6</version>
+		</dependency>
 
 		<!-- WebSocket -->
 		<dependency>
@@ -152,6 +159,7 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.1.2</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient-cache</artifactId>
