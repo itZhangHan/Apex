@@ -121,6 +121,7 @@ html,body{
     background: url(../img/layer3/sprite11.png) no-repeat;
     background-size: 100%;
     z-index: 1;
+    color: white;
 
     overflow:auto;
 
@@ -152,6 +153,7 @@ html,body{
     /*font-family: Arial;
     font-size: 66px;*/
     font-size: 30px;
+    color: dimgrey;
     /* font-family: Microsoft Yahei; -webkit-tap-highlight-color: rgba(100, 20, 60, 130);*/
 
 }

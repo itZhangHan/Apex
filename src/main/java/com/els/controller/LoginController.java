@@ -21,7 +21,7 @@ public class LoginController {
 		System.out.printf("进入登录方法");
 
 		// String backUrl = "http://atwjsw.s1.natapp.cc/WxAuth/callBack";
-		String backUrl = "http://192.168.1.16:8080/tetris/skip/first";
+		String backUrl = "www.apexgame.cn";
 
 		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?" + "appid=" + AuthUtil.APPID
 				+ "&redirect_uri=" + URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_userinfo"

@@ -35,15 +35,19 @@ game_go.onclick = function () { /*开始游戏按钮*/
     location.href = "index.html"
 }
 player1.onclick = function () {
-    console.log("mmmmmmmmmmmmm")
+    console.log("mmmmmmmmmmmmm2222")
+    document.getElementById("img1").src = '../img/sprite2.png';
 }
 player2.onclick = function () {
     console.log("mmmmmmmmmmmmm")
+    document.getElementById("img2").src = '../img/sprite1.png';
 }
 player3.onclick = function () {
     console.log("mmmmmmmmmmmmm")
+    document.getElementById("img3").src = '../img/sprite1.png';
 }
 player4.onclick = function () {
     console.log("mmmmmmmmmmmmm")
+    document.getElementById("img4").src = '../img/sprite1.png';
 }
 

@@ -4,8 +4,11 @@ import javax.websocket.Session;
 
 public class SocketMessage {
 	
+	
+	private String type;
 	private int roomId;
-	private int userId;
+	private String toUserName;
+	private String fromUserName;
 	private String msgStr;
 
 	public int getRoomId() { 
@@ -14,17 +17,31 @@ public class SocketMessage {
 	public void setRoomId(int roomId) {
 		this.roomId = roomId;
 	}
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+
 	public String getMsgStr() {
 		return msgStr;
 	}
+	
 	public void setMsgStr(String msgStr) {
 		this.msgStr = msgStr;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getToUserName() {
+		return toUserName;
+	}
+	public void setToUserName(String toUserName) {
+		this.toUserName = toUserName;
+	}
+	public String getFromUserName() {
+		return fromUserName;
+	}
+	public void setFromUserName(String fromUserName) {
+		this.fromUserName = fromUserName;
 	}
 
 }
