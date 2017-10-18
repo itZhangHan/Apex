@@ -66,8 +66,8 @@
 
         var div_2 = document.getElementById("chatRoom");
         div_2.scrollTop = div_2.scrollHeight;
-
-    //    var roomId = document.getElementById("roomID").innerHTML;
+        var count = 0;
+        var roomID = document.getElementById("roomID").innerHTML;
 
         var websocket = new WebSocket("http://192.168.100.143:8080/tetris/websocket");
         function showMessage(str) {
@@ -81,17 +81,24 @@
             div_3.innerHTML = "<img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"+
                 "&nbsp;&nbsp;&nbsp;&nbsp;"+str + '<br />';
             //    document.getElementById("aa").src = '../img/iconBtn.png'
-
             div_2.appendChild(div_3)
         }
         websocket.onOpen = function () {
             console.log("websocket open")
+            count++;
+            if(count == 0) {
+                /*var mes = {};
+                mes.roomId = roomID;
+                mes.data = document.getElementById("sendTxt_0").value;*/
+                if(roomID){
+                    websocket.send(roomID)
+                }
+            }
             document.getElementById("sendBtn_0").onclick = function () {
                 var txt = document.getElementById("sendTxt_0").value;
                 if(txt){
                     websocket.send(txt)
                 }
-
             }
         }
         websocket.onClose = function () {
