@@ -9,6 +9,7 @@ import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
+import net.sf.json.JSONObject;
 import net.sf.json.util.JSONUtils;
 
 public class MessageDecoder implements Decoder.Text<SocketMessage> {
@@ -29,13 +30,14 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 	public SocketMessage decode(String jsonMessage) throws DecodeException {
 		// TODO Auto-generated method stub
 		System.out.println("MessageDecoder == decode"+jsonMessage);
-		JsonObject jsonObject = Json.createReader(new StringReader(jsonMessage)).readObject();
+		JSONObject object = JSONObject.fromObject(jsonMessage);
+		//JsonObject jsonObject = Json.createReader(new StringReader(jsonMessage)).readObject();
 		SocketMessage message = new SocketMessage();
-		message.setType(jsonObject.getString("type"));
-		message.setRoomId(jsonObject.getInt("roomId"));
-		message.setToUserName(jsonObject.getString("toUserName"));
-		message.setFromUserName(jsonObject.getString("fromUserName"));
-		message.setMsgStr(jsonObject.getString("msgStr"));
+		message.setType(object.getString("type"));
+		message.setRoomId(object.getInt("roomId"));
+		message.setToUserName(object.getString("toUserName"));
+		message.setFromUserName(object.getString("fromUserName"));
+		message.setMsgStr(object.getString("msgStr"));
 		return message;
 	}
 
@@ -48,6 +50,7 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 			// String jsonToString = JSONUtils.
 			//Json.createReader(new StringReader(jsonMessage)).readObject();
 			//Json.createReader(new FileInputStream(jsonMessage.toString())).readObject();
+			JSONObject.fromObject(jsonMessage);
 			System.out.println("MessageDecoder == willDecode");
 			return true;
 		} catch (Exception e) {

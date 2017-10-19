@@ -101,6 +101,9 @@
 			if (txt) {
 				var mes = {};
 				mes.type = "message"
+				mes.roomId="1"
+				mes.toUserName = "aa"
+				mes.fromUserName ="bb"
 				mes.msgStr = txt
 				websocket.send(JSON.stringify(mes))
 			}
