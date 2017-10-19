@@ -70,7 +70,10 @@
         var roomID = document.getElementById("roomID").innerHTML;
 
         var websocket = new WebSocket("http://192.168.100.143:8080/tetris/websocket");
-        function showMessage(str) {
+        function showMessage(str,type) {
+
+        /*    if(type == "message")*/
+
             var div_3=document.createElement("div");
             div_3.style.fontSize = "20px";
             div_3.style.paddingRight = "20px";                                 /*init-block*/
@@ -85,7 +88,6 @@
         }
         websocket.onOpen = function () {
             console.log("websocket open")
-            count++;
             if(count == 0) {
                 /*var mes = {};
                 mes.roomId = roomID;
@@ -97,16 +99,21 @@
             document.getElementById("sendBtn_0").onclick = function () {
                 var txt = document.getElementById("sendTxt_0").value;
                 if(txt){
-                    websocket.send(txt)
+                    var mes = {};
+                    mes.type = "message"
+                    mes.data = txt
+                    websocket.send(JSON.stringify(mes))
                 }
             }
+            count++;
         }
         websocket.onClose = function () {
             console.log("websocket close")
         }
         websocket.onMessage = function (e) {
             console.log(e.data);
-            showMessage(e.data)
+            var mess = JSON.parse(e.data);
+            showMessage(mess.data,mess.type)
         }
 
         function add()

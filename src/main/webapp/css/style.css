@@ -191,9 +191,11 @@ html,body{
     width: 18%;
     top: 40%;
     right: 0%;
+    z-index: 999;
 }
 #stage1,#stage2{
     width: 100%;
+    z-index: 999;
 }
 #stage1 img{
     width: 100%;

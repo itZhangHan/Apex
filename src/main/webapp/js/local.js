@@ -6,13 +6,14 @@ var Local = function () {
 
   // 定时器
   var timer = null;
+  var sec_1 = null;
 
   // 时间计数器
   var time = 0;
   var timeCount = 0;
 
   // 绑定键盘事件
-  var bindKeyEvent = function () {
+  var bindKeyEvent = function (doms) {
    /* document.onkeydown = function (e) {
       if (e.keyCode == 38) { // up
         game.rotate();
@@ -26,25 +27,53 @@ var Local = function () {
         game.fall();
       }
     }*/
-
       var rotate = document.getElementById("btn_rotate");
       var left = document.getElementById("btn_left");
       var right = document.getElementById("btn_right");
 
       var down = document.getElementById("btn_down");
+      var stage2 = document.getElementById("stage2");
+
+      //    var friend = document.getElementById("friend");
+   /*       // 触摸
+      rotate.ontouchstart = function() {
+              // 背景变绿
+          console.log("鼠标按下=====================")
+    //          this.style.backgroundColor = "green";
+          }
+          // 停止触摸
+      rotate.ontouchend = function() {
+          console.log("鼠标松开-------------")
+       //   this.style.backgroundColor = "white";
+      }*/
+              // 还原白色
 
       rotate.onclick = function(){
-         game.rotate();
+          game.rotate();
       }
       left.onclick = function () {
-        game.left();
+          game.left();
       }
+
+  /*  left.ontouchstart = function()(
+        console.log("鼠标按下=====================")
+    )*/
       right.onclick = function(){
         game.right();
       }
       down.onclick = function () {
         game.fall();
       }
+
+    stage2.onclick = function () {
+     console.log("gggggggggg----"+game.stage);
+     if(game.stage>0){
+       game.stage-=1;
+       doms.stage2_num.innerHTML = game.stage;
+
+       game.addBotLine(generateBotLine(1)); /*道具向别人使用*/
+     }
+     }
   }
 
   // 移动
@@ -65,6 +94,14 @@ var Local = function () {
       }
     }
   }
+  var sec = function () {
+      time += 1;
+      game.setTime(time);
+      if (time % 60 == 0) { // 60秒生成一行
+          game.addBotLine(generateBotLine(1));
+      }
+
+  }
   // 随机生成干扰行
   var generateBotLine = function (lineNum) {
     var lines = [];
@@ -80,14 +117,14 @@ var Local = function () {
   // 计时函数
   var timeFunc = function () {
     timeCount += 1;
-    if (timeCount == 5) {
+  /*  if (timeCount == 5) {
       timeCount = 0;
       time += 1;
       game.setTime(time);
-      if (time % 30 == 0) { // 60秒生成一行
+      if (time % 10 == 0) { // 60秒生成一行
         game.addBotLine(generateBotLine(1));
       }
-    }
+    }*/
   }
   // 随机生成一个方块种类
   var generateType = function () {
@@ -119,9 +156,10 @@ var Local = function () {
 
     game = new Game();
     game.init(doms, generateType(), generateDir());
-    bindKeyEvent();
+    bindKeyEvent(doms);
     game.performNext(generateType(), generateDir());
     timer = setInterval(move, INTERVAL);
+    sec_1 = setInterval(sec, 1000);
   }
 
   this.start = start;
