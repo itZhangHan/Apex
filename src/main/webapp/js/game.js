@@ -5,9 +5,11 @@ var Game = function () {
   var timeDiv;
   var scoreDiv;
   var resultDiv;
+  var stage2_num;
 
   // 分数
   var score = 0;
+  var stage2num = 0;
 
   // 游戏矩阵
   var gameData = [
@@ -280,26 +282,78 @@ var Game = function () {
     var s = 0;
     switch (line) {
       case 1:
+
         s = 10;
         /*随机获取道具*/
         console.log("随机获取道具-------");
+
+        console.log("Math.random()"+Math.random() * 10)
+        if(Math.random() * 10>6.6){
+          if(Math.random() * 10>8.2){
+              stage2num+=2;
+          }else{
+              stage2num+=1;
+          }
+
+            stage2_num.innerHTML = stage2num;
+
+        }
+        console.log("stage2_num.innerHTML"+stage2_num.innerHTML)
+
+
 
 
         break;
       case 2:
         s = 30;
+
+          if(Math.random() * 10>3){
+            if(Math.random() * 10>7.2){
+                stage2num+=2;
+            }else{
+                stage2num+=1;
+            }
+
+              stage2_num.innerHTML = stage2num;
+
+          }
+          console.log("stage2_num.innerHTML"+stage2_num.innerHTML)
         break;
       case 3:
         s = 60;
+
+          if(Math.random() * 10>2){
+            if(Math.random() * 10>4.4){
+                stage2num+=2;
+            }else{
+                stage2num+=1;
+            }
+
+              stage2_num.innerHTML = stage2num;
+
+          }
+          console.log("stage2_num.innerHTML"+stage2_num.innerHTML)
         break;
       case 4:
         s = 100;
+
+          if(Math.random() * 10>1.2){
+              if(Math.random() * 10>3.1){
+                  stage2num+=2;
+              }else{
+                  stage2num+=1;
+              }
+
+              stage2_num.innerHTML = stage2num;
+
+          }
+          console.log("stage2_num.innerHTML"+stage2_num.innerHTML)
         break;
       default:
         break;
     }
     score += s;
-    scoreDiv.innerHTML = score;
+   // scoreDiv.innerHTML = score;
   }
 
   // 游戏结束
@@ -356,6 +410,7 @@ var Game = function () {
     timeDiv = doms.timeDiv;
     scoreDiv = doms.scoreDiv;
     resultDiv = doms.resultDiv;
+    stage2_num = doms.stage2_num;
     next = SquareFactory.prototype.make(type, dir);
     initDiv(gameDiv, gameData, gameDivs);
     initDiv0(nextDiv, next.data, nextDivs);

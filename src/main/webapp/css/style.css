@@ -169,7 +169,7 @@ html,body{
     z-index: 99;
 }
 .bottom_btn ul li{
-    width: 17%;
+    width: 15%;
     height: auto;
     text-align: center;
     display: inline-block;
@@ -203,8 +203,11 @@ html,body{
     float: left;
 }
 #stage2_num{
-
-    margin-top: 0%;
+    position: absolute;
+    right: 6%;
+   /* font-size: 13px;*/
+    font-size: 3.4vw;
+    margin-top: 10%;
 }
 .time{
     position: absolute;

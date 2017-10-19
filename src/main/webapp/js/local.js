@@ -113,6 +113,7 @@ var Local = function () {
       timeDiv: document.getElementById('local_time'),
       scoreDiv: document.getElementById('local_score'),
       resultDiv: document.getElementById('local_gameover'),
+      stage2_num: document.getElementById('stage2_num'),
     }
     console.log("gameDiv===="+doms.gameDiv.offsetWidth)
 
