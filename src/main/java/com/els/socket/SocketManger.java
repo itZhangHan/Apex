@@ -21,6 +21,7 @@ public class SocketManger {
 	 * @param socketServer
 	 */
 	public static void addRoom(String roomId,WebSocketServer socketServer){
+		System.out.println(11);
 		CopyOnWriteArraySet arraySet;
 		if(!totalRoomMap.containsKey(roomId)){
 			 arraySet= new CopyOnWriteArraySet<WebSocketServer>();
@@ -38,6 +39,7 @@ public class SocketManger {
      * @param socketServer
      */
 	public static void addSocketRoom(CopyOnWriteArraySet arraySet,WebSocketServer socketServer){
+		System.out.println(22);
 		if(arraySet!=null && socketServer!=null ){
 			arraySet.add(socketServer);
 		}
@@ -49,6 +51,7 @@ public class SocketManger {
 	 * @param socketServer
 	 */
 	public static void delSession(String roomId,WebSocketServer socketServer){
+		System.out.println(33);
 		if(totalRoomMap.containsKey(roomId)){
 			delSocketMessage(totalRoomMap.get(roomId),socketServer);
 		}
@@ -69,6 +72,7 @@ public class SocketManger {
 	 * @return
 	 */
 	public static CopyOnWriteArraySet getRoomArray(String roomId){
+		System.out.println(44);
 		if(totalRoomMap.containsKey(roomId)){
 			return totalRoomMap.get(roomId);
 		}
