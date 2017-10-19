@@ -38,25 +38,6 @@ public class SkipController {
 		request.setAttribute("info", userInfo);
 		request.getRequestDispatcher("/first.html").forward(request, response);
 
-		// // 2. 将微信与当前的系统账号绑定
-		// try {
-		// String nickName = getNickName(openid);
-		// if (!"".equals(nickName)) {
-		// // 已绑定。直接跳转登录成功页面
-		// request.setAttribute("nickname", nickName);
-		// request.getRequestDispatcher("/index2.jsp").forward(request,
-		// response);
-		// } else {
-		// // 未绑定。 跳转到绑定页面，要求用户输入账户密码
-		// // 更新数据库openid
-		// request.setAttribute("openid", openid);
-		// request.getRequestDispatcher("/login.jsp").forward(request,
-		// response);
-		// }
-		// } catch (SQLException e) {
-		// e.printStackTrace();
-		// }
-
 		return "first";
 	}
 

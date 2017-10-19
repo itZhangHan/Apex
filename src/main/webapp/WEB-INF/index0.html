@@ -39,11 +39,6 @@
                 <li id ="player4"><img src="../img/sprite5.png"></li>
             </ul>
         </div>
-<!--
-        <div class="chatRoom">
-            <input id="sendTxt_0" type="text"/>
-            <button id="sendBtn_0"><img src="../img/sendBtn.png"></button>
-        </div>-->
 
         <div class="chatRoom" id="chatRoom"></div>
         <div class="ele">
@@ -74,6 +69,8 @@
 
         /*    if(type == "message")*/
 
+        var websocket = new WebSocket("ws://192.168.1.16:8080/tetris/websocket");
+        function showMessage(str) {
             var div_3=document.createElement("div");
             div_3.style.fontSize = "20px";
             div_3.style.paddingRight = "20px";                                 /*init-block*/
@@ -104,6 +101,14 @@
                     mes.data = txt
                     websocket.send(JSON.stringify(mes))
                 }
+            
+            count++;
+        }
+        document.getElementById("sendBtn_0").onclick = function () {
+            alert("aa");
+        	var txt = document.getElementById("sendTxt_0").value;
+            if(txt){
+                websocket.send(txt)
             }
             count++;
         }
@@ -116,48 +121,30 @@
             showMessage(mess.data,mess.type)
         }
 
-        function add()
+       /* function add()
         {
-           /* var now = new Date();
-            var div = document.getElementById('chatRoom');
-            div.innerHTML = div.innerHTML + 'time_' + now.getTime() + '<br />';
-            div.scrollTop = div.scrollHeight;*/
-         //   document.getElementById("sendTxt_0").style.textAlign = "center"
-
-      //      document.getElementById("img1").src = '../img/sprite2.png';
            var div_1 = document.getElementById("sendTxt_0").value;
             document.getElementById("sendTxt_0").value = ""
            var div_2 = document.getElementById("chatRoom");
             var image=document.createElement("img");
             image.src="../img/icon1.png";
-        /*    document.getElementById("images").appendChild(image);*/
             div_2.style.overflowY = "scroll";//auto    scroll
-          //  div_1.style.display = "block"
-        //    document.getElementById("sendTxt_0").style.width = "100%"
-       //     document.getElementById("sendTxt_0").style.display = "init-block"
 
 
             var div_3=document.createElement("div");
             div_3.style.fontSize = "20px";
-            div_3.style.paddingRight = "20px";                                 /*init-block*/
-         //   {word-break:break-all;   normal    {white-space     wordWrap = "break-word"文字自动换行
-            div_3.style.wordBreak = "break-all"  /*文字自动换行*/
+            div_3.style.paddingRight = "20px";                                 /!*init-block*!/
+            div_3.style.wordBreak = "break-all"  /!*文字自动换行*!/
             div_3.style.marginTop = "10px";
-            //    var ss = "../img/icon4.png";
-
-           /* var img = new Image();
-            img.src='http://ubmcmm.baidustatic.com/media/v1/0f0005yYIsGLBGDGfPud10.png';
-            document.body.appendChild(img);*/
             var ss = 7;
             div_3.innerHTML = "<img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"+
                 "&nbsp;&nbsp;&nbsp;&nbsp;"+div_1 + '<br />';
-        //    document.getElementById("aa").src = '../img/iconBtn.png'
 
             div_2.appendChild(div_3)
 
       //      div_2.innerHTML = div_2.innerHTML + div_3.innerHTML
            div_2.scrollTop = div_2.scrollHeight;
-        }
+        }*/
     </script>
     <script src="../js/hall.js"></script>
 
