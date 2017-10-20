@@ -17,6 +17,12 @@ import net.sf.json.JSONObject;
 @Controller
 @RequestMapping("/skip")
 public class SkipController {
+	@RequestMapping("/aa")
+	public String aa() {
+
+		return "aa";
+	}
+
 	// 创建房间
 	@RequestMapping("/first")
 	public String toFirst(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws Exception {

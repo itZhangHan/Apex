@@ -4,7 +4,6 @@ import java.io.Serializable;
 /*
  * 数据属性bean
  */
-@SuppressWarnings("serial")
 public class SocketMessage implements Serializable{
 	
 	

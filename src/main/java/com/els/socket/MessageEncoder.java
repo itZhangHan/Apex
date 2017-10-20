@@ -8,7 +8,11 @@ import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
+import com.alibaba.fastjson.JSON;
+import com.els.common.JsonUtils;
+
 import net.sf.json.JSONObject;
+import net.sf.json.util.JSONUtils;
 
 public class MessageEncoder implements Encoder.Text<SocketMessage> {
 
@@ -29,12 +33,9 @@ public class MessageEncoder implements Encoder.Text<SocketMessage> {
 		// TODO Auto-generated method stub
 		// json编码
 		System.out.println("进入json编码方法");
-		JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();
-		jsonBuilder.add("type", message.getType()).add("roomId", message.getRoomId())
-				.add("toUserName", message.getToUserName()).add("fromUserName", message.getFromUserName())
-				.add("msgStr", message.getMsgStr()).build();
-		System.out.println("进入返回json");
-		return jsonBuilder.toString();
+		String jsonString = JSON.toJSONString(message);
+		System.out.println("转换成功："+jsonString);
+		return JSON.toJSONString(jsonString);
 	}
 
 }

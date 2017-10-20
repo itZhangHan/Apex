@@ -66,9 +66,8 @@
 		var count = 0;
 		var roomID = document.getElementById("roomID").innerHTML;
 
-		var websocket = new WebSocket("ws://192.168.1.16:8080/tetris/websocket");
-		function showMessage(str,type) {
-			alert("bb");			
+		var websocket = new WebSocket("ws://192.168.1.16:8080/tetris/websocket1");
+		function showMessage(str, type) {
 			var div_3 = document.createElement("div");
 			div_3.style.fontSize = "20px";
 			div_3.style.paddingRight = "20px"; /*init-block*/
@@ -103,9 +102,9 @@
 			if (txt) {
 				var mes = {};
 				mes.type = "message"
-				mes.roomId="444"
+				mes.roomId = "444"
 				mes.toUserName = "5"
-				mes.fromUserName ="55"
+				mes.fromUserName = "55"
 				mes.msgStr = txt
 				websocket.send(JSON.stringify(mes))
 			}
@@ -113,8 +112,8 @@
 		websocket.onClose = function() {
 			console.log("websocket close")
 		}
-		websocket.onMessage = function(event) {
-			alert(event);
+		websocket.onmessage = function(event) {
+			showMessage(event.data);
 			
 		}
 

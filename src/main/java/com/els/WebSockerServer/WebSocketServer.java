@@ -14,6 +14,7 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import javax.ws.rs.client.Client;
 
+import com.els.common.JsonUtils;
 import com.els.socket.MessageDecoder;
 import com.els.socket.MessageEncoder;
 import com.els.socket.SocketManger;
@@ -21,7 +22,7 @@ import com.els.socket.SocketMessage;
 
 @SuppressWarnings("all")
 // 该注解用来指定一个URI，客户端可以通过这个URI来连接到WebSocket。类似Servlet的注解mapping。无需在web.xml中配置。
-@ServerEndpoint(value = "/websocket", encoders = { MessageEncoder.class }, decoders = { MessageDecoder.class })
+@ServerEndpoint(value = "/websocket1", encoders = { MessageEncoder.class }, decoders = { MessageDecoder.class })
 public class WebSocketServer {
 
 	// 与某个客户端的连接会话，需要通过它来给客户端发送数据
@@ -63,30 +64,33 @@ public class WebSocketServer {
 	@OnMessage
 	public void onMessage(SocketMessage message, Session session) {
 		System.out.println("来自客户端的消息:" + message);
-		try {
-			sendMessage(message);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-//		this.roomId = message.getRoomId();
-//		SocketManger.addRoom(roomId, this);
-//		URI uri = session.getRequestURI();
-//		System.out.println(uri.toString());
-//		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(roomId);
-//		if (arrayset != null) {
-//			for (WebSocketServer object : arrayset) {
-//				try {
-//					object.session.getBasicRemote().sendText(message.getMsgStr());
-//				//	((WebSocketServer) object.session.getAsyncRemote()).sendMessage(message.getMsgStr());
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
+	 
+//		try {
+//			sendMessage(message);
+//			System.out.println("发送成功");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 //		}
-		// arrayset.size();
+//		
+		this.roomId = message.getRoomId();
+		SocketManger.addRoom(roomId, this);
+		URI uri = session.getRequestURI();
+		System.out.println(uri.toString());
+		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(roomId);
+		if (arrayset != null) {
+			for (WebSocketServer object : arrayset) {
+				try {
+					object.session.getBasicRemote().sendText(message.getMsgStr());
+				//	((WebSocketServer) object.session.getAsyncRemote()).sendMessage(message.getMsgStr());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		 arrayset.size();
 
 	}
 
@@ -112,7 +116,11 @@ public class WebSocketServer {
 	public void sendMessage(SocketMessage message) throws IOException {
 		//this.session.getBasicRemote().sendText(message);
 		try {
+			System.out.println("进入sendMessage方法");
+		 
 			this.session.getBasicRemote().sendObject(message);
+			System.out.println("发送成功");
+			
 		} catch (EncodeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
