@@ -1,8 +1,10 @@
 package com.els.socket;
 
+import java.io.Serializable;
+
 import javax.websocket.Session;
 
-public class SocketMessage {
+public class SocketMessage implements Serializable{
 	
 	
 	private String type;

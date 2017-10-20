@@ -24,6 +24,7 @@ public class MessageEncoder implements Encoder.Text<SocketMessage>  {
 	@Override
 	public String encode(SocketMessage message) throws EncodeException {
 		// TODO Auto-generated method stub
+		System.out.println("MessageEncoder == encode");
 		JsonObject jsonObject=Json.createObjectBuilder().add("type", message.getType())
         .add("roomId", message.getRoomId())
         .add("toUserName", message.getToUserName())
