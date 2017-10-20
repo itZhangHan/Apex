@@ -39,7 +39,9 @@
 			</ul>
 		</div>
 
-		<div class="chatRoom" id="chatRoom"></div>
+		<div class="chatRoom" id="chatRoom">
+			<!-- 接收后端数据 -->
+		</div>
 		<div class="ele">
 			<input id="sendTxt_0" type="text" />
 			<button id="sendBtn_0">
@@ -66,6 +68,7 @@
 
 		var websocket = new WebSocket("ws://192.168.1.16:8080/tetris/websocket");
 		function showMessage(str,type) {
+			alert("bb");			
 			var div_3 = document.createElement("div");
 			div_3.style.fontSize = "20px";
 			div_3.style.paddingRight = "20px"; /*init-block*/
@@ -93,7 +96,6 @@
 			count++;
 		}
 		document.getElementById("sendBtn_0").onclick = function() {
-			alert("aa");
 			var txt = document.getElementById("sendTxt_0").value;
 			//转json格式
 			//var jsonTxt = (new Function("return " + str))();  
@@ -101,9 +103,9 @@
 			if (txt) {
 				var mes = {};
 				mes.type = "message"
-				mes.roomId="1"
-				mes.toUserName = "aa"
-				mes.fromUserName ="bb"
+				mes.roomId="444"
+				mes.toUserName = "5"
+				mes.fromUserName ="55"
 				mes.msgStr = txt
 				websocket.send(JSON.stringify(mes))
 			}
@@ -111,10 +113,9 @@
 		websocket.onClose = function() {
 			console.log("websocket close")
 		}
-		websocket.onMessage = function(e) {
-			console.log(e.data);
-			var mess = JSON.parse(e.msgStr);
-			showMessage(mess.data, mess.type)
+		websocket.onMessage = function(event) {
+			alert(event);
+			
 		}
 
 		function add() {

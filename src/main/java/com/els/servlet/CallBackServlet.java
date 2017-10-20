@@ -15,6 +15,7 @@ import java.sql.*;
 /**
  * Created by wenda on 6/15/2017.
  */
+@SuppressWarnings("all")
 @WebServlet("/callBack")
 public class CallBackServlet extends HttpServlet {
 
