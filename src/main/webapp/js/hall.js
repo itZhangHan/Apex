@@ -2,7 +2,6 @@
  * Created by dell on 2017/10/12.
  */
 
-
 var iconBtn = document.getElementById("iconBtn");
 
 var item1 = document.getElementById("item1");
@@ -14,7 +13,7 @@ var player1 = document.getElementById("player1");
 var player2 = document.getElementById("player2");
 var player3 = document.getElementById("player3");
 var player4 = document.getElementById("player4");
-/*var player1 = document.getElementById("player1");*/
+
 
 
 iconBtn.onclick = function(){ /*新建房间按钮*/
@@ -50,4 +49,5 @@ player4.onclick = function () {
     console.log("mmmmmmmmmmmmm")
     document.getElementById("img4").src = '../img/sprite1.png';
 }
+
 
