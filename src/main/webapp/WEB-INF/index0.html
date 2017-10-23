@@ -6,10 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-
     scale=1,maximum-scale=1,user-scalable=no">
-    <link rel="stylesheet" href="../css/hall.css">
+    <link rel="stylesheet" href="css/hall.css">
 </head>
 <body>
     <div class="centainer">
+            <!-- <div class="logo">
+                     <img src="img/logo.png">
+                 </div>-->
         <div class="room">
             <span id="roomID">123</span>
             <img id="iconBtn" src="../img/iconBtn.png">
@@ -17,136 +20,130 @@
 
         <div class="item_btn">
             <ul>
-                <li><img id = "item1" src="../img/music.png"></li>
-                <li><img id = "item2" src="../img/sprite7.png"></li>
-                <li><img id = "item3" src="../img/sprite10.png"></li>
+                <li><img id = "item1" src="img/music.png"></li>
+                <li><img id = "item2" src="img/sprite7.png"></li>
+                <li><img id = "item3" src="img/sprite10.png"></li>
             </ul>
         </div>
 
         <div class="game_go">
-            <img id="game_go" src="../img/startBtn.png">
+            <img id="game_go" src="img/startBtn.png">
         </div>
         
         <div class="player_btn">
             <ul>
                 <li id = "player1">
-                    <img src="../img/icon3.png">
+                    <img src="img/icon3.png">
                 </li>
-                <li id ="player2"><img src="../img/icon3.png"></li>
+                <li id ="player2"><img src="img/icon3.png"></li>
             </ul>
             <ul>
-                <li id = "player3"><img src="../img/icon3.png"></li>
-                <li id ="player4"><img src="../img/sprite5.png"></li>
+                <li id = "player3"><img src="img/icon3.png"></li>
+                <li id ="player4"><img src="img/sprite5.png"></li>
             </ul>
         </div>
+
+<!--
+        <div class="chatRoom">
+            <input id="sendTxt_0" type="text"/>
+            <button id="sendBtn_0"><img src="img/sendBtn.png"></button>
+        </div>-->
 
         <div class="chatRoom" id="chatRoom"></div>
         <div class="ele">
-            <input id="sendTxt_0" type="text"/>
-            <button id="sendBtn_0"><img src="../img/sendBtn.png"></button>
+            <input id="sendTxt_0" type="text" maxlength = "30"/>
+            <button id="sendBtn_0" onclick="add()"><img src="img/sendBtn.png"></button>
         </div>
+
+
+
+        <!--聊天框-->
+        <!--<span class="notice">请点击“插入一行”按钮，插入最新信息，当出现滚动条时，滚动条将自动保持在底部。</span><br />
+-->
+      <!--  <div id="chatRoom">
+            <input id="sendTxt_0" type="text"/>
+            <button id="sendBtn_0"><img src="img/sendBtn.png"></button>
+        </div>
+        <input type="button" value="插入一行" onclick="add();">-->
+
+        <!--聊   天   框-->
+
+
 
         <div class="icon-player">
             <ul>
-                <li id = "icon1"><img id="img1" src="../img/icon4.png"></li>
-                <li id = "icon2"><img id="img2" src="../img/icon5.png"></li>
-                <li id = "icon3"><img id="img3" src="../img/icon6.png"></li>
-                <li id = "icon4"><img id="img4" src="../img/icon7.png"></li>
+                <li id = "icon1"><img id="img1" src="img/icon4.png"></li>
+                <li id = "icon2"><img id="img2" src="img/icon5.png"></li>
+                <li id = "icon3"><img id="img3" src="img/icon6.png"></li>
+                <li id = "icon4"><img id="img4" src="img/icon7.png"></li>
             </ul>
 
         </div>
 
+           <!-- <div class="bottom_btn">
+                <ul>
+                    &lt;!&ndash; <li id="btn_share"><img src="img/btn_share.png"></li>&ndash;&gt;
+                    <li id="btn_receive"><img src="img/btn_receive.png"></li>
+                    <li id="btn_ran"><img src="img/btn_ran.png"></li>
+                </ul>
+            </div>-->
     </div>
     <script type="text/javascript">
 
-        var div_2 = document.getElementById("chatRoom");
-        div_2.scrollTop = div_2.scrollHeight;
-        var count = 0;
-        var roomID = document.getElementById("roomID").innerHTML;
 
-        var websocket = new WebSocket("http://192.168.100.143:8080/tetris/websocket");
-        function showMessage(str,type) {
+     var div_2;
+     var count = 0;
+     var roomID = document.getElementById("roomID").innerHTML;
+     var websocket = new WebSocket("ws://192.168.1.16:8080/tetris/websocket1?");
+     function showMessage(str,type) {
+         var div_3=document.createElement("div");
+         div_3.style.fontSize = "20px";
+         div_3.style.paddingRight = "20px";
+         div_3.style.wordBreak = "break-all"
+         div_3.style.marginTop = "10px";
+         var ss = 7;
+         div_3.innerHTML = "< img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"+
+             "&nbsp;&nbsp;&nbsp;&nbsp;"+str + '<br />';
+         div_2.appendChild(div_3)
 
-        /*    if(type == "message")*/
+         div_2.scrollTop = div_2.scrollHeight;
+     }
+     websocket.onOpen = function () {
+         console.log("websocket open")
+         if(count == 0) {
+             if(roomID){
+                 websocket.send(roomID)
+             }
+         }
+     }
+     document.getElementById("sendBtn_0").onclick = function () {
+         var txt = document.getElementById("sendTxt_0").value;
+         div_2 = document.getElementById("chatRoom");
+         div_2.style.overflowY = "scroll";//auto    scroll
+         document.getElementById("sendTxt_0").value = "";
+         if(txt){
+             var mes = {};
+             mes.type = "message"
+             mes.roomId =  "aa"
+             mes.toUserName = "1"
+             mes.fromUserName="2"
+             mes.msgStr = txt
+             websocket.send(JSON.stringify(mes))
+         }
+         count++;
+     }
+     websocket.onClose = function () {
+         console.log("websocket close")
+     }
+     websocket.onmessage = function (e) {
+         var jsonObj=eval ("(" + e.data + ")");
+         console.log(jsonObj)
+         var b =JSON.parse(jsonObj);
+         showMessage(b.msgStr,b.type);
 
-        var websocket = new WebSocket("ws://192.168.1.16:8080/tetris/websocket");
-        function showMessage(str) {
-            var div_3=document.createElement("div");
-            div_3.style.fontSize = "20px";
-            div_3.style.paddingRight = "20px";                                 /*init-block*/
-            //   {word-break:break-all;   normal    {white-space     wordWrap = "break-word"文字自动换行
-            div_3.style.wordBreak = "break-all"  /*文字自动换行*/
-            div_3.style.marginTop = "10px";
-            var ss = 7;
-            div_3.innerHTML = "<img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"+
-                "&nbsp;&nbsp;&nbsp;&nbsp;"+str + '<br />';
-            //    document.getElementById("aa").src = '../img/iconBtn.png'
-            div_2.appendChild(div_3)
-        }
-        websocket.onOpen = function () {
-            console.log("websocket open")
-            if(count == 0) {
-                /*var mes = {};
-                mes.roomId = roomID;
-                mes.data = document.getElementById("sendTxt_0").value;*/
-                if(roomID){
-                    websocket.send(roomID)
-                }
-            }
-            document.getElementById("sendBtn_0").onclick = function () {
-                var txt = document.getElementById("sendTxt_0").value;
-                if(txt){
-                    var mes = {};
-                    mes.type = "message"
-                    mes.data = txt
-                    websocket.send(JSON.stringify(mes))
-                }
-            
-            count++;
-        }
-        document.getElementById("sendBtn_0").onclick = function () {
-            alert("aa");
-        	var txt = document.getElementById("sendTxt_0").value;
-            if(txt){
-                websocket.send(txt)
-            }
-            count++;
-        }
-        websocket.onClose = function () {
-            console.log("websocket close")
-        }
-        websocket.onMessage = function (e) {
-            console.log(e.data);
-            var mess = JSON.parse(e.data);
-            showMessage(mess.data,mess.type)
-        }
-
-       /* function add()
-        {
-           var div_1 = document.getElementById("sendTxt_0").value;
-            document.getElementById("sendTxt_0").value = ""
-           var div_2 = document.getElementById("chatRoom");
-            var image=document.createElement("img");
-            image.src="../img/icon1.png";
-            div_2.style.overflowY = "scroll";//auto    scroll
-
-
-            var div_3=document.createElement("div");
-            div_3.style.fontSize = "20px";
-            div_3.style.paddingRight = "20px";                                 /!*init-block*!/
-            div_3.style.wordBreak = "break-all"  /!*文字自动换行*!/
-            div_3.style.marginTop = "10px";
-            var ss = 7;
-            div_3.innerHTML = "<img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"+
-                "&nbsp;&nbsp;&nbsp;&nbsp;"+div_1 + '<br />';
-
-            div_2.appendChild(div_3)
-
-      //      div_2.innerHTML = div_2.innerHTML + div_3.innerHTML
-           div_2.scrollTop = div_2.scrollHeight;
-        }*/
+     }
     </script>
-    <script src="../js/hall.js"></script>
+    <script src="js/hall.js"></script>
 
 </body>
 </html>
