@@ -103,10 +103,11 @@
             console.log("websocket close")
         }
         websocket.onmessage = function (e) {
-           
-        //    var mess = JSON.parse(e.data);
-            console.log(e.type);
-            showMessage(e.data)
+        	var jsonObj=eval ("(" + e.data + ")");
+        	console.log(jsonObj)
+        	var b =JSON.parse(jsonObj);
+        	showMessage(b.msgStr,b.type);
+      
         }
        
     </script>

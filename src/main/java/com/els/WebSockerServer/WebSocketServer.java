@@ -14,6 +14,8 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import javax.ws.rs.client.Client;
 
+import com.alibaba.druid.support.json.JSONUtils;
+import com.alibaba.fastjson.JSON;
 import com.els.common.JsonUtils;
 import com.els.socket.MessageDecoder;
 import com.els.socket.MessageEncoder;
@@ -64,16 +66,7 @@ public class WebSocketServer {
 	@OnMessage
 	public void onMessage(SocketMessage message, Session session) {
 		System.out.println("来自客户端的消息:" + message);
-		
-	 
-//		try {
-//			sendMessage(message);
-//			System.out.println("发送成功");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
+
 		this.roomId = message.getRoomId();
 		SocketManger.addRoom(roomId, this);
 		URI uri = session.getRequestURI();
@@ -82,15 +75,21 @@ public class WebSocketServer {
 		if (arrayset != null) {
 			for (WebSocketServer object : arrayset) {
 				try {
-					object.session.getBasicRemote().sendText(message.getMsgStr());
-				//	((WebSocketServer) object.session.getAsyncRemote()).sendMessage(message.getMsgStr());
+					try {
+						object.session.getBasicRemote().sendObject(message);
+						//object.session.getBasicRemote().sendText(message.getMsgStr());
+					} catch (EncodeException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					// object.session.getAsyncRemote()).sendMessage(message.getMsgStr());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}
-		 arrayset.size();
+		arrayset.size();
 
 	}
 
@@ -114,13 +113,13 @@ public class WebSocketServer {
 	 * @throws IOException
 	 */
 	public void sendMessage(SocketMessage message) throws IOException {
-		//this.session.getBasicRemote().sendText(message);
+		// this.session.getBasicRemote().sendText(message);
 		try {
 			System.out.println("进入sendMessage方法");
-		 
+
 			this.session.getBasicRemote().sendObject(message);
 			System.out.println("发送成功");
-			
+
 		} catch (EncodeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

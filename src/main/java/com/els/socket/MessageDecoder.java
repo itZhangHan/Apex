@@ -34,6 +34,7 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		message.setToUserName(object.getString("toUserName"));
 		message.setFromUserName(object.getString("fromUserName"));
 		message.setMsgStr(object.getString("msgStr"));
+		System.out.println(message.toString());
 		return message;
 	}		
 
@@ -42,9 +43,7 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		//接收前端json数据 解析
 		try {
 			System.out.println("接收前端数据");
-			System.getProperty("java.classpath");
 			JSONObject.fromObject(jsonMessage);
-			System.out.println(JSONObject.fromObject(jsonMessage).toString());
 			return true;
 		} catch (Exception e) {
 			System.out.println("MessageDecoder == Exception");

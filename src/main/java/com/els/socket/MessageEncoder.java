@@ -34,6 +34,7 @@ public class MessageEncoder implements Encoder.Text<SocketMessage> {
 		// json编码
 		System.out.println("进入json编码方法");
 		String jsonString = JSON.toJSONString(message);
+		
 		System.out.println("转换成功："+jsonString);
 		return JSON.toJSONString(jsonString);
 	}
