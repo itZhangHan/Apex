@@ -1,16 +1,10 @@
 package com.els.socket;
 
-import java.io.FileInputStream;
-import java.io.StringReader;
-
-import javax.json.Json;
-import javax.json.JsonObject;
 import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
 import net.sf.json.JSONObject;
-import net.sf.json.util.JSONUtils;
 
 public class MessageDecoder implements Decoder.Text<SocketMessage> {
 
@@ -28,30 +22,28 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 
 	@Override
 	public SocketMessage decode(String jsonMessage) throws DecodeException {
+		//获取数据
 		// TODO Auto-generated method stub
 		System.out.println("MessageDecoder == decode"+jsonMessage);
 		JSONObject object = JSONObject.fromObject(jsonMessage);
+		//此方法错误  noFoundClassEroor : javax/json/json 狗屎异常
 		//JsonObject jsonObject = Json.createReader(new StringReader(jsonMessage)).readObject();
 		SocketMessage message = new SocketMessage();
 		message.setType(object.getString("type"));
-		message.setRoomId(object.getInt("roomId"));
+		message.setRoomId(object.getString("roomId"));
 		message.setToUserName(object.getString("toUserName"));
 		message.setFromUserName(object.getString("fromUserName"));
 		message.setMsgStr(object.getString("msgStr"));
+		System.out.println(message.toString());
 		return message;
-	}
+	}		
 
 	@Override
 	public boolean willDecode(String jsonMessage) {
+		//接收前端json数据 解析
 		try {
-			System.out.println(jsonMessage.toString());
-			System.getProperty("java.classpath");
-			// Check if incoming message is valid JSON
-			// String jsonToString = JSONUtils.
-			//Json.createReader(new StringReader(jsonMessage)).readObject();
-			//Json.createReader(new FileInputStream(jsonMessage.toString())).readObject();
+			System.out.println("接收前端数据");
 			JSONObject.fromObject(jsonMessage);
-			System.out.println("MessageDecoder == willDecode");
 			return true;
 		} catch (Exception e) {
 			System.out.println("MessageDecoder == Exception");

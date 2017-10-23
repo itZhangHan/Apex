@@ -12,6 +12,7 @@ import com.els.common.AuthUtil;
 /*
  * 授权登录
  */
+@SuppressWarnings("all")
 @Controller
 @RequestMapping("/WxAuth")
 public class LoginController {

@@ -2,7 +2,9 @@ package com.els.WebSockerServer;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.concurrent.CopyOnWriteArraySet;
 
+import javax.websocket.EncodeException;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -10,24 +12,26 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import javax.ws.rs.client.Client;
 
+import com.alibaba.druid.support.json.JSONUtils;
+import com.alibaba.fastjson.JSON;
+import com.els.common.JsonUtils;
 import com.els.socket.MessageDecoder;
 import com.els.socket.MessageEncoder;
 import com.els.socket.SocketManger;
 import com.els.socket.SocketMessage;
 
-//该注解用来指定一个URI，客户端可以通过这个URI来连接到WebSocket。类似Servlet的注解mapping。无需在web.xml中配置。
-@ServerEndpoint(
-		  value = "/websocket", 
-		  encoders = { MessageEncoder.class }, 
-		  decoders = { MessageDecoder.class}
-		)
+@SuppressWarnings("all")
+// 该注解用来指定一个URI，客户端可以通过这个URI来连接到WebSocket。类似Servlet的注解mapping。无需在web.xml中配置。
+@ServerEndpoint(value = "/websocket1", encoders = { MessageEncoder.class }, decoders = { MessageDecoder.class })
 public class WebSocketServer {
 
 	// 与某个客户端的连接会话，需要通过它来给客户端发送数据
 	private Session session;
-    
+
 	private String roomId;
+
 	/**
 	 * 连接建立成功调用的方法
 	 * 
@@ -35,9 +39,8 @@ public class WebSocketServer {
 	 *            可选的参数。session为与某个客户端的连接会话，需要通过它来给客户端发送数据
 	 */
 	@OnOpen
-	public void onOpen(EndpointConfig config,Session session) {
+	public void onOpen(EndpointConfig config, Session session) {
 		this.session = session;
-		SocketManger.addRoom(roomId, this);
 		addOnlineCount(); // 在线数加1
 		System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
 	}
@@ -47,7 +50,7 @@ public class WebSocketServer {
 	 */
 	@OnClose
 	public void onClose() {
-		SocketManger.delSession(roomId,this);
+		SocketManger.delSession(roomId, this);
 		subOnlineCount(); // 在线数减1
 		System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
 	}
@@ -63,10 +66,31 @@ public class WebSocketServer {
 	@OnMessage
 	public void onMessage(SocketMessage message, Session session) {
 		System.out.println("来自客户端的消息:" + message);
+
+		this.roomId = message.getRoomId();
+		SocketManger.addRoom(roomId, this);
 		URI uri = session.getRequestURI();
 		System.out.println(uri.toString());
-		String str = "你好，客户端。";
-		session.getAsyncRemote().sendText("服务端:" + str);
+		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(roomId);
+		if (arrayset != null) {
+			for (WebSocketServer object : arrayset) {
+				try {
+					try {
+						object.session.getBasicRemote().sendObject(message);
+						//object.session.getBasicRemote().sendText(message.getMsgStr());
+					} catch (EncodeException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					// object.session.getAsyncRemote()).sendMessage(message.getMsgStr());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		arrayset.size();
+
 	}
 
 	/**
@@ -88,8 +112,18 @@ public class WebSocketServer {
 	 * @param message
 	 * @throws IOException
 	 */
-	public void sendMessage(String message) throws IOException {
-		this.session.getBasicRemote().sendText(message);
+	public void sendMessage(SocketMessage message) throws IOException {
+		// this.session.getBasicRemote().sendText(message);
+		try {
+			System.out.println("进入sendMessage方法");
+
+			this.session.getBasicRemote().sendObject(message);
+			System.out.println("发送成功");
+
+		} catch (EncodeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static synchronized int getOnlineCount() {
