@@ -260,30 +260,33 @@ html,body{
 .bottom_btn{
     position: absolute;
     width: 100%;
-   /* top: 1%;*/
+    /* top: 1%;*/
     margin-top: 3%;
-    bottom: 1%;
+    bottom: 0.4%;
     text-align: center;
     z-index: 99;
 }
 
-.bottom_btn ul {
+.bottom_btn ul{
     width: 100%;
-    list-style-type: none;
+    list-style-type:none;
 }
 .bottom_btn ul li{
-    width: 15%;
+    width: 17%;
     height: auto;
     text-align: center;
-    margin: 0 3.5%;
-
-    /* display: inline-block; */
+    /*   display: inline-block;*/     /*换成下面的*/
     float: left;
     margin: 0 3.5%;
 }
 .bottom_btn ul li img{
     width: 100%;
 }
+
+
+
+
+
 
 .headImage{
     position: absolute;

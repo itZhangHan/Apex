@@ -27,11 +27,11 @@ var Local = function () {
         game.fall();
       }
     }*/
-      var rotate = document.getElementById("btn_rotate");
-      var left = document.getElementById("btn_left");
-      var right = document.getElementById("btn_right");
+      var rotate = document.getElementById("btnImg_rotate");
+      var left = document.getElementById("btnImg_left");
+      var right = document.getElementById("btnImg_right");
 
-      var down = document.getElementById("btn_down");
+      var down = document.getElementById("btnImg_down");
       var stage2 = document.getElementById("stage2");
 
       //    var friend = document.getElementById("friend");
@@ -48,16 +48,16 @@ var Local = function () {
       }*/
               // 还原白色
 
-      rotate.onclick = function(){
+   /*   rotate.onclick = function(){
           game.rotate();
       }
       left.onclick = function () {
           game.left();
       }
 
-  /*  left.ontouchstart = function()(
+  /!*  left.ontouchstart = function()(
         console.log("鼠标按下=====================")
-    )*/
+    )*!/
       right.onclick = function(){
         game.right();
       }
@@ -70,11 +70,11 @@ var Local = function () {
        game.stage-=1;
        doms.stage2_num.innerHTML = game.stage;
 
-       game.addBotLine(generateBotLine(1)); /*道具向别人使用*/
+       game.addBotLine(generateBotLine(1)); /!*道具向别人使用*!/
      }
-     }
+     }*/
 
-     /* rotate.addEventListener('touchstart', function () {
+      rotate.addEventListener('touchstart', function () {
           console.log("jjjjjjjjjj");
           this.style.width = "89%";
       }, false);
@@ -83,9 +83,9 @@ var Local = function () {
           console.log("jjjjjjjjjj44444")
           this.style.width = "100%";
 
-        /!*  if(noChanged){
+        /*  if(noChanged){
               return;
-          }*!/
+          }*/
           game.rotate();
       }, false);
 
@@ -111,7 +111,7 @@ var Local = function () {
       down.addEventListener('touchend', function () {
           this.style.width = "100%"
           game.fall();
-      },false);*/
+      },false);
   }
 
 
