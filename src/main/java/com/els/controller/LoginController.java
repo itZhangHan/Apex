@@ -29,6 +29,7 @@ public class LoginController {
 				+ "&state=STATE" + "#wechat_redirect";
 		// 重定向用户请求到微信授权URL
 		System.out.println("2");
+		System.out.println("33");
 		resp.sendRedirect(url);
 		// super.doGet(req, resp);
 	}
