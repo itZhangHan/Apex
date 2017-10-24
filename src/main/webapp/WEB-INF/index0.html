@@ -12,7 +12,7 @@
 <body>
 	<div class="centainer">
 		<div class="room">
-			<span id="roomID">123</span> <img id="iconBtn"
+			<span id="roomID"></span> <img id="iconBtn"
 				src="../img/iconBtn.png">
 		</div>
 
@@ -58,8 +58,8 @@
 
 	</div>
 	<script type="text/javascript">
-        var div_2 = document.getElementById("chatRoom");
-        
+       // var div_2 = document.getElementById("chatRoom");
+        var div_2;
         var count = 0;
         var roomID = document.getElementById("roomID").innerHTML;
         var websocket = new WebSocket("ws://192.168.1.16:8080/tetris/websocket1");
@@ -86,12 +86,14 @@
         }
             document.getElementById("sendBtn_0").onclick = function () {
                 var txt = document.getElementById("sendTxt_0").value;
-                
+                div_2 = document.getElementById("chatRoom");
+                div_2.style.overflowY = "scroll";//auto    scroll
+                var num = Math.random()*10;
                 document.getElementById("sendTxt_0").value = "";
                 if(txt){
                     var mes = {};
                     mes.type = "message"
-                    mes.roomId =  "aa"
+                    mes.roomId =  10025;
                     mes.toUserName = "1"
                     mes.fromUserName="2"
                     mes.msgStr = txt
@@ -107,7 +109,6 @@
         	console.log(jsonObj)
         	var b =JSON.parse(jsonObj);
         	showMessage(b.msgStr,b.type);
-      
         }
        
     </script>

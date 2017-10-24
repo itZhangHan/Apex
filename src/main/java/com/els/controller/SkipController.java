@@ -26,11 +26,13 @@ public class SkipController {
 	// 创建房间
 	@RequestMapping("/first")
 	public String toFirst(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws Exception {
+		System.out.println("进入callback页面");
 		map.put("base", request.getContextPath());
 		String code = request.getParameter("code");
 		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?" + "appid=" + AuthUtil.APPID + "&secret="
 				+ AuthUtil.APPSECRET + "&code=" + code + "&grant_type=authorization_code";
 		// 2. 向微信发出请求，带上APPSCECRET和code，获取openid和access_toekn
+		System.out.println("进入工具类方法");
 		JSONObject jsonObject = AuthUtil.doGetJson(url);
 		String openid = jsonObject.getString("openid");
 		String token = jsonObject.getString("access_token");
