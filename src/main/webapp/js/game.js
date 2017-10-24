@@ -349,6 +349,7 @@ var Game = function () {
         this.stage = stage2num;
         score += s;
         scoreDiv.innerHTML = score;
+        this.score = score;
         console.log("scoreDiv.innerHTML"+scoreDiv.innerHTML)
     }
 
@@ -379,7 +380,6 @@ var Game = function () {
             /*ctx1.fillText("num ",100,h-50);
              ctx1.fillText("double ",w*0.5,h-80);
              ctx1.fillText("score ",w/2,h-20);*/
-
             ctx1.restore();
         }
     }
@@ -398,7 +398,6 @@ var Game = function () {
         }
         refreshDiv(gameData, gameDivs);
     }
-
 
     var cleanBoLine = function (num) {
 
@@ -486,4 +485,5 @@ var Game = function () {
     this.cleanBoLine = cleanBoLine;
     this.stage = stage2num;         /*两个必须填写*/
     this.scoreDiv = scoreDiv;
+    this.score = score;
 }

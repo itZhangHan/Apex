@@ -284,10 +284,6 @@ html,body{
 }
 
 
-
-
-
-
 .headImage{
     position: absolute;
     width: 22%;
@@ -298,7 +294,7 @@ html,body{
 .stage_btn{
     position: absolute;
     width: 18%;
-    top: 60%;
+    top: 56%;
     right: 0%;
     z-index: 999;
 }

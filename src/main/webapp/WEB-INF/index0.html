@@ -63,7 +63,8 @@
         var div_2;
         var count = 0;
         var roomID = document.getElementById("roomID").innerHTML;
-        var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
+      //  var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
+	    var webSocket = new Socket("ws://thdd.apexgame.cn/tetris/websocket1");
         function showMessage(str,type) {
             var div_3=document.createElement("div");
             div_3.style.fontSize = "20px";
@@ -77,7 +78,7 @@
             
             div_2.scrollTop = div_2.scrollHeight;
         }
-        websocket.onOpen = function () {
+       webSocket.websocket.onOpen = function () {
             console.log("websocket open")
           /*  if(count == 0) {*/
                 if(roomID){
@@ -98,13 +99,13 @@
                     mes.toUserName = "1"
                     mes.fromUserName="2"
                     mes.msgStr = txt
-                    websocket.send(JSON.stringify(mes))
+                    webSocket.websocket.send(JSON.stringify(mes))
                 }
         }
-        websocket.onClose = function () {
+       webSocket.websocket.onClose = function () {
             console.log("websocket close")
         }
-        websocket.onmessage = function (e) {
+       webSocket.websocket.onmessage = function (e) {
         	var jsonObj=eval ("(" + e.data + ")");
         	console.log(jsonObj)
         	var b =JSON.parse(jsonObj);

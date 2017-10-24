@@ -1,6 +1,8 @@
 var Local = function () {
   // 游戏对象
   var game;
+
+  var socket;
   // 时间间隔
   var INTERVAL = 800;
 
@@ -118,11 +120,21 @@ var Local = function () {
   // 移动
   var move = function () {
     timeFunc();
+
+      var scoreMsg = {};
+      scoreMsg.type = "score"
+      scoreMsg.msgStr = game.score;
+      console.log("game.scoreDiv.innerHTML=="+game.score)
     if (!game.down()) {
       game.fixed();
       var line = game.checkClear();
       if (line) {
         game.addScore(line);  /*随机获取道具*/
+          var scoreMsg = {};
+          scoreMsg.type = "score"
+          scoreMsg.msgStr = game.score;
+          console.log("game.scoreDiv.innerHTML=="+game.score)
+          socket.websocket.send(JSON.stringify(scoreMsg))
       }
       var gameOver = game.checkGameOver();
       if (gameOver) {
@@ -194,6 +206,7 @@ var Local = function () {
     console.log("gameDiv===="+doms.gameDiv.offsetWidth)
 
     game = new Game();
+    socket = new Socket("ws://thdd.apexgame.cn/tetris/websocket1");
     game.init(doms, generateType(), generateDir());
     bindKeyEvent(doms);
     game.performNext(generateType(), generateDir());
