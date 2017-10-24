@@ -64,7 +64,6 @@ var Local = function () {
       down.onclick = function () {
         game.fall();
       }
-
     stage2.onclick = function () {
      console.log("gggggggggg----"+game.stage);
      if(game.stage>0){
@@ -74,7 +73,47 @@ var Local = function () {
        game.addBotLine(generateBotLine(1)); /*道具向别人使用*/
      }
      }
+
+     /* rotate.addEventListener('touchstart', function () {
+          console.log("jjjjjjjjjj");
+          this.style.width = "89%";
+      }, false);
+
+      rotate.addEventListener('touchend', function () {
+          console.log("jjjjjjjjjj44444")
+          this.style.width = "100%";
+
+        /!*  if(noChanged){
+              return;
+          }*!/
+          game.rotate();
+      }, false);
+
+      left.addEventListener('touchstart', function () {
+          this.style.width = "89%"
+      },false);
+      left.addEventListener('touchend', function () {
+          this.style.width = "100%"
+          game.left();
+      },false);
+
+      right.addEventListener('touchstart', function(){
+          this.style.width = "89%"
+      },false)
+      right.addEventListener('touchend', function () {
+          this.style.width = "100%"
+          game.right();
+      },false);
+
+      down.addEventListener('touchstart',function(){
+          this.style.width = "89%"
+      },false);
+      down.addEventListener('touchend', function () {
+          this.style.width = "100%"
+          game.fall();
+      },false);*/
   }
+
 
   // 移动
   var move = function () {
@@ -148,7 +187,7 @@ var Local = function () {
       gameDiv: document.getElementById('local_game'),
       nextDiv: document.getElementById('local_next'),
       timeDiv: document.getElementById('local_time'),
-      scoreDiv: document.getElementById('local_score'),
+      scoreDiv: document.getElementById('scoreMe'),
       resultDiv: document.getElementById('local_gameover'),
       stage2_num: document.getElementById('stage2_num'),
     }

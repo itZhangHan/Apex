@@ -11,7 +11,6 @@ var Game = function () {
     var score = 0;
     var stage2num = 0;
 
-
     // 游戏矩阵
     var gameData = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -27,6 +26,11 @@ var Game = function () {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -67,7 +71,7 @@ var Game = function () {
                 console.log("gameDiv===="+container.offsetWidth)
                 newNode.className = 'none';
                 //   newNode.style.top = (i*itemWidth/10)+'px';
-                newNode.style.top = (i*(container.offsetWidth/10))+'px';
+                newNode.style.top = (i*(container.offsetHeight/21))+'px';
                 newNode.style.left = (j*(container.offsetWidth/10))+'px';
                 newNode.style.width = (container.offsetWidth/10)+ 'px';
                 newNode.style.height = (container.offsetWidth/10)+ 'px';
@@ -90,10 +94,11 @@ var Game = function () {
                 console.log("gameDiv===="+container.offsetWidth)
                 newNode.className = 'none';
                 //   newNode.style.top = (i*itemWidth/10)+'px';
-                newNode.style.top = (i*(container.offsetWidth/4))+'px';
+                newNode.style.top = (i*(container.offsetHeight/4))+'px';
                 newNode.style.left = (j*(container.offsetWidth/4))+'px';
                 newNode.style.width = (container.offsetWidth/4)+ 'px';
-                newNode.style.height = (container.offsetWidth/4)+ 'px';
+                newNode.style.height = (container.offsetHeight/4)+ 'px';
+                //    newNode.style.marginBottom = 5+"px";
                 //      newNode.style.left = (j*itemWidth/10)+'px';
                 //  newNode.style.color = 'blue';
                 console.log("ggggggggggg")
@@ -114,16 +119,16 @@ var Game = function () {
                     divs[i][j].className = 'done';
                 } else if (data[i][j] == 2) {
                     divs[i][j].className = 'current';
-                  /*  var ran = Math.ceil(Math.random() * 9) - 1;
-                   if(ran<3){
-                   divs[i][j].className = 'current';
-                   }
-                   else if(ran<6){
-                   divs[i][j].className = 'current1';
-                   }
-                   else {
-                   divs[i][j].className = 'current2';
-                   }*/
+                    /*  var ran = Math.ceil(Math.random() * 9) - 1;
+                     if(ran<3){
+                     divs[i][j].className = 'current';
+                     }
+                     else if(ran<6){
+                     divs[i][j].className = 'current1';
+                     }
+                     else {
+                     divs[i][j].className = 'current2';
+                     }*/
                 }
             }
         }
@@ -283,11 +288,9 @@ var Game = function () {
         var s = 0;
         switch (line) {
             case 1:
-
                 s = 10;
-              /*随机获取道具*/
+                /*随机获取道具*/
                 console.log("随机获取道具-------");
-
                 console.log("Math.random()"+Math.random() * 10)
                 if(Math.random() * 10>1.6){
                     if(Math.random() * 10>8.2){
@@ -295,15 +298,15 @@ var Game = function () {
                     }else{
                         stage2num+=1;
                     }
-
                     stage2_num.innerHTML = stage2num;
 
                 }
                 console.log("stage2_num.innerHTML"+stage2_num.innerHTML)
+
+
                 break;
             case 2:
                 s = 30;
-
                 if(Math.random() * 10>3){
                     if(Math.random() * 10>7.2){
                         stage2num+=2;
@@ -344,9 +347,9 @@ var Game = function () {
                 break;
         }
         this.stage = stage2num;
-
         score += s;
-        // scoreDiv.innerHTML = score;
+        scoreDiv.innerHTML = score;
+        console.log("scoreDiv.innerHTML"+scoreDiv.innerHTML)
     }
 
     // 游戏结束
@@ -367,15 +370,15 @@ var Game = function () {
             console.log("khhhhh666666666666666666666")
 
             ctx1.save();
-          /*ctx1.lineWidth = 20;*/
+            /*ctx1.lineWidth = 20;*/
             ctx1.shadowBlur = 20;
             ctx1.shadowColor = "white";
             ctx1.fillStyle = "white";
             //   ctx1.fillStyle = "rgba(255,255,255,"+0.9+")";
             ctx1.fillText("GAMEOVER",w/2,h/2);
-          /*ctx1.fillText("num ",100,h-50);
-           ctx1.fillText("double ",w*0.5,h-80);
-           ctx1.fillText("score ",w/2,h-20);*/
+            /*ctx1.fillText("num ",100,h-50);
+             ctx1.fillText("double ",w*0.5,h-80);
+             ctx1.fillText("score ",w/2,h-20);*/
 
             ctx1.restore();
         }
@@ -396,6 +399,61 @@ var Game = function () {
         refreshDiv(gameData, gameDivs);
     }
 
+
+    var cleanBoLine = function (num) {
+
+        for (var i=gameData.length-1; i>=gameData.length-num; i--) { // 反过来遍历
+            for (var m=gameData.length-1; m>0; m--) {
+                for (var n=0; n<gameData[0].length; n++) {
+                    gameData[m][n] = gameData[m-1][n];
+                }
+            }
+            for (var n=0; n<gameData[0].length; n++) {
+                gameData[0][n] = 0;
+            }
+            cur.origin.x = cur.origin.x+1;
+            if(cur.origin.x>gameData.length-1){
+                cur.origin.x = gameData.length-1
+
+            }
+        }
+
+        refreshDiv(gameData, gameDivs);
+
+        /* /!*  cur.origin.x = cur.origin.x+2;
+         if (cur.origin.x >=  gameData.length-1) {
+         cur.origin.x = gameData.length -1;
+         }*!/*/
+
+        /*    for (var m=gameData.length -1; m>=2; m--) {
+         //    for (var n=0; n<gameData[0].length; n++) {
+         gameData[m] = gameData[m-2]
+         //      }
+         }
+         for (var n=0; n<gameData[0].length; n++) {
+         gameData[0][n] = 0;
+         gameData[1][n] = 0;
+         }
+         /!*  cur.origin.x = cur.origin.x+2;
+         if (cur.origin.x >=  gameData.length-1) {
+         cur.origin.x = gameData.length -1;
+         }*!/
+         console.log("jjjj")
+
+         refreshDiv(gameData, gameDivs);*/
+
+
+
+        /*    for (var m=gameData.length -1; m>0; m--) {
+         for (var n=0; n<gameData[0].length; n++) {
+         gameData[m][n] = gameData[m-1][n];
+         }
+         }
+         for (var n=0; n<gameData[0].length; n++) {
+         gameData[0][n] = 0;
+         }*/
+    }
+
     // 初始化函数
     var init = function (doms, type, dir) {
         gameDiv = doms.gameDiv;
@@ -409,9 +467,6 @@ var Game = function () {
         initDiv0(nextDiv, next.data, nextDivs);
         refreshDiv(next.data, nextDivs);
     }
- /*   var stage = function () {
-        return stage2num;
-    }*/
 
     // 导出API
     this.init = init;
@@ -428,6 +483,7 @@ var Game = function () {
     this.addScore = addScore;
     this.onGameOver = onGameOver;
     this.addBotLine = addBotLine;
+    this.cleanBoLine = cleanBoLine;
     this.stage = stage2num;         /*两个必须填写*/
-
+    this.scoreDiv = scoreDiv;
 }

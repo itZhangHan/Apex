@@ -5,8 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Tetris - Single</title>
-  <link rel="stylesheet" href="css/style.css">
   <title>游戏页面</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -26,7 +24,27 @@
       <div class="gameScene" id="local_gameScene">
         <img src="../img/bg2.png">
         <div class="game" id="local_game"></div>
-        <div class="next" id="local_next"></div>
+        <div class="next" id="local_next">
+          <img src="../img/a/nextLayer.png">
+        </div>
+      </div>
+      <div class="ranking">
+        <ul>
+          <li id="num1">
+            <img id="img1" src="../img/a/e.png">
+            <span id="score">000</span>
+           <!-- <div id="img23">
+              <img id="img2" src="../img/a/d.png">
+              <img id="img3" src="../img/a/c.png">
+            </div>-->
+
+          </li>
+          <li id="num2"></li>
+          <li id="num3"></li>
+          <li id="num4">
+            <span id="scoreMe">000</span>
+          </li>
+        </ul>
       </div>
       <div class="stage_btn">
           <!-- <li id="btn_share"><img src="../img/btn_share.png"></li>-->
@@ -67,11 +85,11 @@
   &lt;!&ndash;  <p><a href="../index.html">选择版本</a></p>&ndash;&gt;
   </div>-->
 
-  <script src="js/square.js"></script>
-  <script src="js/squareFactory.js"></script>
-  <script src="js/game.js"></script>
-  <script src="js/local.js"></script>
-  <script src="js/script.js"></script>
+  <script src="../js/square.js"></script>
+  <script src="../js/squareFactory.js"></script>
+  <script src="../js/game.js"></script>
+  <script src="../js/local.js"></script>
+  <script src="../js/script.js"></script>
 </body>
 
 </html>
