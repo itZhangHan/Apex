@@ -14,7 +14,6 @@ public class AuthUtil {
 
     public static final String APPID = "wx90b984cfe6134b69";
     public static final String APPSECRET = "e5b80c04a9d82905091235ad1e3928b1";
-
     /**
      * send http request and convert resposne into json object
      * @param url

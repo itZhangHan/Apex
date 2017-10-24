@@ -22,6 +22,8 @@ import com.els.socket.MessageEncoder;
 import com.els.socket.SocketManger;
 import com.els.socket.SocketMessage;
 
+import net.sf.json.JSONObject;
+
 @SuppressWarnings("all")
 // 该注解用来指定一个URI，客户端可以通过这个URI来连接到WebSocket。类似Servlet的注解mapping。无需在web.xml中配置。
 @ServerEndpoint(value = "/websocket1", encoders = { MessageEncoder.class }, decoders = { MessageDecoder.class })
@@ -66,8 +68,11 @@ public class WebSocketServer {
 	@OnMessage
 	public void onMessage(SocketMessage message, Session session) {
 		System.out.println("来自客户端的消息:" + message);
-
+		System.out.println(JSONObject.fromObject(message).toString());
+		System.out.println(roomId);
 		this.roomId = message.getRoomId();
+		System.out.println(roomId);
+	//	message.setRoomId("10024");
 		SocketManger.addRoom(roomId, this);
 		URI uri = session.getRequestURI();
 		System.out.println(uri.toString());
