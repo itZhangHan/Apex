@@ -11,25 +11,25 @@
 <body>
     <div class="backLayer">
         <div class="boxbg gameover">
-            <img id="close" src="img/layer3/close.png">
+            <img id="close" src="../img/layer3/close.png">
             <!--<input id="sendTxt" type="text"/>-->
             <div class="share">
-                <a herf="index.html"><img src="img/layer3/sprite6.png"></a>
+                <a herf="index.html"><img src="../img/layer3/sprite6.png"></a>
             </div>
             <div class="leave">
-                <img src="img/layer3/sprite5.png">
+                <img src="../img/layer3/sprite5.png">
             </div>
         </div>
        <!-- <div class="Dialogue">
             <input id="sendTxt" type="text"/>
-            <button id="sendBtn"><img src="img/sendBtn.png"></button>
+            <button id="sendBtn"><img src="../img/sendBtn.png"></button>
         </div>-->
 
         <div class="allShow">
             <div class="chatRoom" id="chatRoom"></div>
             <div class="ele">
                 <input id="sendTxt_0" type="text" maxlength="30"/>
-                <button id="sendBtn_0" onclick="add()"><img src="img/sendBtn.png"></button>
+                <button id="sendBtn_0" onclick="add()"><img src="../img/sendBtn.png"></button>
             </div>
 
         </div>
@@ -37,7 +37,7 @@
        <!-- <div class="chatRoom" id="chatRoom"></div>
         <div class="ele">
             <input id="sendTxt_0" type="text"/>
-            <button id="sendBtn_0" onclick="add()"><img src="img/sendBtn.png"></button>
+            <button id="sendBtn_0" onclick="add()"><img src="../img/sendBtn.png"></button>
         </div>-->
 
 
@@ -47,7 +47,7 @@
 <!--<div class="mask_bg"></div>    &lt;!&ndash; display: none; 隐藏外层遮罩&ndash;&gt;
 &lt;!&ndash;分享&ndash;&gt;
 <div class="over_share" style="display: none;">
-    <img src="img/share_tip.png">
+    <img src="../img/share_tip.png">
 </div>-->
 
    <!-- <script type="text/javascript">
@@ -69,12 +69,12 @@
              div.scrollTop = div.scrollHeight;*/
             //   document.getElementById("sendTxt_0").style.textAlign = "center"
 
-      //      document.getElementById("img1").src = 'img/sprite2.png';
+      //      document.getElementById("img1").src = '../img/sprite2.png';
             var div_1 = document.getElementById("sendTxt_0").value;
             document.getElementById("sendTxt_0").value = ""
             var div_2 = document.getElementById("chatRoom");
             var image=document.createElement("img");
-            image.src="img/icon1.png";
+            image.src="../img/icon1.png";
             /*    document.getElementById("images").appendChild(image);*/
             div_2.style.overflowY = "scroll";//auto    scroll
             //  div_1.style.display = "block"
@@ -87,15 +87,15 @@
             div_3.style.paddingRight = "20px";                                 /*init-block*/
             //   {word-break:break-all;   normal    {white-space     wordWrap = "break-word"文字自动换行
             div_3.style.wordBreak = "break-all"  /*文字自动换行*/
-            //    var ss = "img/icon4.png";
+            //    var ss = "../img/icon4.png";
 
             /* var img = new Image();
              img.src='http://ubmcmm.baidustatic.com/media/v1/0f0005yYIsGLBGDGfPud10.png';
              document.body.appendChild(img);*/
             var ss = 7;
-            div_3.innerHTML = "<img src='img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"+
+            div_3.innerHTML = "<img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"+
                 "&nbsp;&nbsp;&nbsp;&nbsp;"+div_1 + '<br />';
-            //    document.getElementById("aa").src = 'img/iconBtn.png'
+            //    document.getElementById("aa").src = '../img/iconBtn.png'
 
             div_2.appendChild(div_3)
 

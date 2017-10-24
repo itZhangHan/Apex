@@ -31,6 +31,11 @@ var Game = function () {
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
 
   ];
 
@@ -66,10 +71,10 @@ var Game = function () {
         console.log("gameDiv===="+container.offsetWidth)
         newNode.className = 'none';
      //   newNode.style.top = (i*itemWidth/10)+'px';
-          newNode.style.top = (i*(container.offsetHeight/17))+'px';
+          newNode.style.top = (i*(container.offsetHeight/21))+'px';
         newNode.style.left = (j*(container.offsetWidth/10))+'px';
           newNode.style.width = (container.offsetWidth/10)+ 'px';
-          newNode.style.height = (container.offsetHeight/17)+ 'px';
+          newNode.style.height = (container.offsetWidth/10)+ 'px';
     //      newNode.style.left = (j*itemWidth/10)+'px';
       //  newNode.style.color = 'blue';
           console.log("ggggggggggg")
