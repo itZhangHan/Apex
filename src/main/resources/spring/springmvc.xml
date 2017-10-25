@@ -12,7 +12,20 @@
 	<!-- 加载配置文件 -->
 	<context:property-placeholder
 		location="classpath:properties/resource.properties" />
-
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/WxAuth/wxLogin" />
+			<mvc:exclude-mapping path="/callback/first" />
+			<mvc:exclude-mapping path="/skip/auth_first" />
+			<mvc:exclude-mapping path="*.html" />
+			<mvc:exclude-mapping path="*.css" />
+			<mvc:exclude-mapping path="*.png" />
+			<mvc:exclude-mapping path="*.js" />
+			<bean class="com.els.common.WxInterceptor">
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	<!-- html视图解析器 必须先配置freemarkerConfig,注意html是没有prefix前缀属性的 -->
 	<bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
@@ -34,7 +47,8 @@
 		<property name="exposeRequestAttributes" value="true" />
 		<property name="exposeSessionAttributes" value="true" />
 		<property name="viewClass">
-			<value>org.springframework.web.servlet.view.freemarker.FreeMarkerView</value>
+			<value>org.springframework.web.servlet.view.freemarker.FreeMarkerView
+			</value>
 		</property>
 		<property name="cache">
 			<value>true</value>

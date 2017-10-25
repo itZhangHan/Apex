@@ -27,4 +27,6 @@ public interface JhddUsersMapper {
     int updateByPrimaryKeySelective(JhddUsers record);
 
     int updateByPrimaryKey(JhddUsers record);
+     
+	JhddUsers selectByOpenid(String openid);
 }

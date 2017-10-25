@@ -7,7 +7,11 @@ public class JhddUsers {
 
     private String userportrait;
 
-    private Boolean usersex;
+    private Integer usersex;
+
+    private String openid;
+
+    private String city;
 
     public Integer getUserid() {
         return userid;
@@ -21,8 +25,8 @@ public class JhddUsers {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setUsername(Object object) {
+        this.username = object == null ? null : ((String) object).trim();
     }
 
     public String getUserportrait() {
@@ -33,11 +37,27 @@ public class JhddUsers {
         this.userportrait = userportrait == null ? null : userportrait.trim();
     }
 
-    public Boolean getUsersex() {
+    public Integer getUsersex() {
         return usersex;
     }
 
-    public void setUsersex(Boolean usersex) {
-        this.usersex = usersex;
+    public void setUsersex(Object object) {
+        this.usersex = (Integer) object;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid == null ? null : openid.trim();
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
     }
 }

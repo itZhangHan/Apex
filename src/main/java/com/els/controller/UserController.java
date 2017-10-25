@@ -25,6 +25,7 @@ public class UserController {
 	@ResponseBody
 	public ElsResult InsertUser(JhddUsers user) {
 		// 插入数据
+		System.out.println("进入增加用户页面");
 		ElsResult result = userService.addUser(user);
 
 		return result;

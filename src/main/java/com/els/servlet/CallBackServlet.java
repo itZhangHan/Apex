@@ -16,7 +16,7 @@ import java.sql.*;
  * Created by wenda on 6/15/2017.
  */
 @SuppressWarnings("all")
-@WebServlet("/callBack")
+@WebServlet("/callBack111")
 public class CallBackServlet extends HttpServlet {
 
     private String dbUrl = "jdbc:mysql://rm-2ze38ihnc8ll25dxmo.mysql.rds.aliyuncs.com:3306/jhdd_database";

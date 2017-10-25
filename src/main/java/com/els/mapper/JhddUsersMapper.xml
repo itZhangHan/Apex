@@ -6,6 +6,8 @@
     <result column="userName" property="username" jdbcType="VARCHAR" />
     <result column="userPortrait" property="userportrait" jdbcType="VARCHAR" />
     <result column="userSex" property="usersex" jdbcType="BIT" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    userId, userName, userPortrait, userSex
+    userId, userName, userPortrait, userSex, openid, city
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.bean.JhddUsersExample" >
     select
@@ -88,6 +90,12 @@
     from jhdd_users
     where userId = #{userid,jdbcType=INTEGER}
   </select>
+   <select id="selectByOpenid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    *
+    from jhdd_users
+    where openId = #{openid,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from jhdd_users
     where userId = #{userid,jdbcType=INTEGER}
@@ -100,9 +108,9 @@
   </delete>
   <insert id="insert" parameterType="com.els.bean.JhddUsers" >
     insert into jhdd_users (userId, userName, userPortrait, 
-      userSex)
+      userSex, openid, city)
     values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userportrait,jdbcType=VARCHAR}, 
-      #{usersex,jdbcType=BIT})
+      #{usersex,jdbcType=BIT}, #{openid,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.els.bean.JhddUsers" >
     insert into jhdd_users
@@ -119,6 +127,12 @@
       <if test="usersex != null" >
         userSex,
       </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
@@ -132,6 +146,12 @@
       </if>
       <if test="usersex != null" >
         #{usersex,jdbcType=BIT},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,6 +176,12 @@
       <if test="record.usersex != null" >
         userSex = #{record.usersex,jdbcType=BIT},
       </if>
+      <if test="record.openid != null" >
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +192,9 @@
     set userId = #{record.userid,jdbcType=INTEGER},
       userName = #{record.username,jdbcType=VARCHAR},
       userPortrait = #{record.userportrait,jdbcType=VARCHAR},
-      userSex = #{record.usersex,jdbcType=BIT}
+      userSex = #{record.usersex,jdbcType=BIT},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +211,12 @@
       <if test="usersex != null" >
         userSex = #{usersex,jdbcType=BIT},
       </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
     </set>
     where userId = #{userid,jdbcType=INTEGER}
   </update>
@@ -190,7 +224,9 @@
     update jhdd_users
     set userName = #{username,jdbcType=VARCHAR},
       userPortrait = #{userportrait,jdbcType=VARCHAR},
-      userSex = #{usersex,jdbcType=BIT}
+      userSex = #{usersex,jdbcType=BIT},
+      openid = #{openid,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR}
     where userId = #{userid,jdbcType=INTEGER}
   </update>
 </mapper>
