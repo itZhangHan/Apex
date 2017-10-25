@@ -7,16 +7,7 @@
  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <link rel="stylesheet" href="../css/hall.css">
 </head>
-<body>	
-	openid:${userInfo.openId}
-	name:${userInfo.nickname}}
- 
-	<div class="centainer">
-		<div class="room">
-			<span id="roomID"></span> <img id="iconBtn"
-				src="../img/iconBtn.png">
-		</div>
-	</div>
+<body>
     <div class="centainer">
 
         <div class="room">
@@ -72,7 +63,8 @@
         var div_2;
         var count = 0;
         var roomID = document.getElementById("roomID").innerHTML;
-        var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
+      //  var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
+	    var webSocket = new Socket("ws://thdd.apexgame.cn/tetris/websocket1");
         function showMessage(str,type) {
             var div_3=document.createElement("div");
             div_3.style.fontSize = "20px";
@@ -86,13 +78,13 @@
             
             div_2.scrollTop = div_2.scrollHeight;
         }
-        websocket.onOpen = function () {
+       webSocket.websocket.onOpen = function () {
             console.log("websocket open")
-            if(count == 0) {
+          /*  if(count == 0) {*/
                 if(roomID){
                     websocket.send(roomID)
                 }
-            }
+        //    }
         }
             document.getElementById("sendBtn_0").onclick = function () {
                 var txt = document.getElementById("sendTxt_0").value;
@@ -102,19 +94,18 @@
                 document.getElementById("sendTxt_0").value = "";
                 if(txt){
                     var mes = {};
-                    mes.type = "message"
+                    mes.type = "score"
                     mes.roomId =  10025;
                     mes.toUserName = "1"
                     mes.fromUserName="2"
                     mes.msgStr = txt
-                    websocket.send(JSON.stringify(mes))
+                    webSocket.websocket.send(JSON.stringify(mes))
                 }
-            count++;
         }
-        websocket.onClose = function () {
+       webSocket.websocket.onClose = function () {
             console.log("websocket close")
         }
-        websocket.onmessage = function (e) {
+       webSocket.websocket.onmessage = function (e) {
         	var jsonObj=eval ("(" + e.data + ")");
         	console.log(jsonObj)
         	var b =JSON.parse(jsonObj);

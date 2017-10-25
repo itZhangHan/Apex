@@ -84,14 +84,17 @@ html,body{
 
 .next {
     position: absolute;
-    left: 24.8%;
+    left: 30.8%;
     top: 0.9%;
     width: 20%;
     height: 10%;
+  /*  background: url("../img/a/nextLayer.png") no-repeat center center;
+    background-size: 200% 200%;*/
    /* height: 80px;*/
   /*  background-color: #f2faff;*/
    /* border: 1px solid blue;*/
 }
+
 #canvas1{
     position:absolute;
     width:100%;
@@ -232,5 +235,7 @@ html,body{
 .time img{
     width: 100%;
 }
+
+
 
 

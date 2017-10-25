@@ -30,12 +30,14 @@ html,body{
     width: 78%;
    /* height: 1121px;*/
     top: 2vh;
-    left:3vw;
+    left:0;
     height: 85%;
+
 
 }
 .gameScene img{
    width:100%;
+    height: 100%;
 }
 .local  {
     position: absolute;
@@ -84,13 +86,103 @@ html,body{
 .next {
     position: absolute;
     /*left: 24.8%;*/
-    left: 92%;
+    left: 97%;
+    top: 13%;
+    width: 20%;
+    margin-left: 3%;
+
+    text-align: center;
+
+
+
+    height: 10%;
+
+
+  /*  position: absolute;
+    left: 30.8%;
     top: 0.9%;
     width: 20%;
+    height: 10%;*/
+
    /* height: 80px;*/
   /*  background-color: #f2faff;*/
    /* border: 1px solid blue;*/
 }
+.next img{
+    width: 170%;
+    height: 170%;
+    margin: -30% -35%;
+}
+.ranking{
+    position: absolute;
+    width: 21%;
+    top: 30%;
+    right: 0%;
+    z-index: 999;
+    height: 20%;
+
+    background: url("../img/a/ranking.png") no-repeat center center;
+    background-size: 100% 100%;
+
+   /* text-align: center;*/
+
+}
+
+.ranking ul{
+    list-style-type: none;
+    height: 80%;
+    width: 90%;
+   /* margin: 26% auto;*/
+   /* text-align: center;*/
+    margin-top: 26%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ranking ul li{
+ /*   position: absolute;*/
+  /*  width: 90%;
+    height: 25%;*/
+    background: url("../img/a/a.png") no-repeat center center;
+    background-size: 100% 100%;
+    height: 25%;
+    width: 100%;
+}
+#img1{
+    height: 80%;
+    margin-top: -10%;
+   /* display: inline-block;*/
+}
+
+#scoreMe{
+    width: 40%;
+    margin-left: 37%
+}
+/*
+#img23{
+    margin-top: -12%;
+    text-align: center;
+    margin-bottom: 0;
+
+    position: absolute;
+
+    width: 100%;
+    height: 18%;
+
+}
+#img2{
+   !* clear: left;*!
+    width: 20%;
+    margin-left: 12%;
+}
+
+#img3{
+    width: 20%;
+}
+*/
+
+
+
 #canvas1{
     position:absolute;
     width:100%;
@@ -122,11 +214,12 @@ html,body{
     -webkit-box-sizing: border-box;
 }
 
-/*.none {
-    !*background-color: #f2faff;*!
-  !*  background: url("../img/sprite.png") no-repeat center center;*!
- !*   background-size: 100%;*!
-}*/
+.none {
+   /*  background-color: #f2faff;*/
+    background: url("../img/sprite.png") no-repeat center center;
+    background-size: 100%;
+ }
+
 
 .current {
    /* background-color: #FF7569;
@@ -167,22 +260,29 @@ html,body{
 .bottom_btn{
     position: absolute;
     width: 100%;
-   /* top: 1%;*/
+    /* top: 1%;*/
     margin-top: 3%;
-    bottom: 1%;
+    bottom: 0.4%;
     text-align: center;
     z-index: 99;
 }
+
+.bottom_btn ul{
+    width: 100%;
+    list-style-type:none;
+}
 .bottom_btn ul li{
-    width: 15%;
+    width: 17%;
     height: auto;
     text-align: center;
-    display: inline-block;
+    /*   display: inline-block;*/     /*换成下面的*/
+    float: left;
     margin: 0 3.5%;
 }
 .bottom_btn ul li img{
     width: 100%;
 }
+
 
 .headImage{
     position: absolute;
@@ -194,7 +294,7 @@ html,body{
 .stage_btn{
     position: absolute;
     width: 18%;
-    top: 40%;
+    top: 56%;
     right: 0%;
     z-index: 999;
 }

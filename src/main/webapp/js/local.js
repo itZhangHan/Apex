@@ -1,6 +1,8 @@
 var Local = function () {
   // 游戏对象
   var game;
+
+  var socket;
   // 时间间隔
   var INTERVAL = 800;
 
@@ -27,11 +29,11 @@ var Local = function () {
         game.fall();
       }
     }*/
-      var rotate = document.getElementById("btn_rotate");
-      var left = document.getElementById("btn_left");
-      var right = document.getElementById("btn_right");
+      var rotate = document.getElementById("btnImg_rotate");
+      var left = document.getElementById("btnImg_left");
+      var right = document.getElementById("btnImg_right");
 
-      var down = document.getElementById("btn_down");
+      var down = document.getElementById("btnImg_down");
       var stage2 = document.getElementById("stage2");
 
       //    var friend = document.getElementById("friend");
@@ -48,42 +50,91 @@ var Local = function () {
       }*/
               // 还原白色
 
-      rotate.onclick = function(){
+   /*   rotate.onclick = function(){
           game.rotate();
       }
       left.onclick = function () {
           game.left();
       }
 
-  /*  left.ontouchstart = function()(
+  /!*  left.ontouchstart = function()(
         console.log("鼠标按下=====================")
-    )*/
+    )*!/
       right.onclick = function(){
         game.right();
       }
       down.onclick = function () {
         game.fall();
       }
-
     stage2.onclick = function () {
      console.log("gggggggggg----"+game.stage);
      if(game.stage>0){
        game.stage-=1;
        doms.stage2_num.innerHTML = game.stage;
 
-       game.addBotLine(generateBotLine(1)); /*道具向别人使用*/
+       game.addBotLine(generateBotLine(1)); /!*道具向别人使用*!/
      }
-     }
+     }*/
+
+      rotate.addEventListener('touchstart', function () {
+          console.log("jjjjjjjjjj");
+          this.style.width = "89%";
+      }, false);
+
+      rotate.addEventListener('touchend', function () {
+          console.log("jjjjjjjjjj44444")
+          this.style.width = "100%";
+
+        /*  if(noChanged){
+              return;
+          }*/
+          game.rotate();
+      }, false);
+
+      left.addEventListener('touchstart', function () {
+          this.style.width = "89%"
+      },false);
+      left.addEventListener('touchend', function () {
+          this.style.width = "100%"
+          game.left();
+      },false);
+
+      right.addEventListener('touchstart', function(){
+          this.style.width = "89%"
+      },false)
+      right.addEventListener('touchend', function () {
+          this.style.width = "100%"
+          game.right();
+      },false);
+
+      down.addEventListener('touchstart',function(){
+          this.style.width = "89%"
+      },false);
+      down.addEventListener('touchend', function () {
+          this.style.width = "100%"
+          game.fall();
+      },false);
   }
+
 
   // 移动
   var move = function () {
     timeFunc();
+
+      var scoreMsg = {};
+      scoreMsg.type = "score"
+      scoreMsg.msgStr = game.score;
+      console.log("game.scoreDiv.innerHTML=="+game.score)
     if (!game.down()) {
       game.fixed();
       var line = game.checkClear();
       if (line) {
         game.addScore(line);  /*随机获取道具*/
+          var scoreMsg = {};
+          scoreMsg.type = "score"
+          scoreMsg.msgStr = game.score;
+          console.log("game.scoreDiv.innerHTML=="+game.score)
+          socket.websocket.send(JSON.stringify(scoreMsg))
       }
       var gameOver = game.checkGameOver();
       if (gameOver) {
@@ -148,13 +199,14 @@ var Local = function () {
       gameDiv: document.getElementById('local_game'),
       nextDiv: document.getElementById('local_next'),
       timeDiv: document.getElementById('local_time'),
-      scoreDiv: document.getElementById('local_score'),
+      scoreDiv: document.getElementById('scoreMe'),
       resultDiv: document.getElementById('local_gameover'),
       stage2_num: document.getElementById('stage2_num'),
     }
     console.log("gameDiv===="+doms.gameDiv.offsetWidth)
 
     game = new Game();
+    socket = new Socket("ws://thdd.apexgame.cn/tetris/websocket1");
     game.init(doms, generateType(), generateDir());
     bindKeyEvent(doms);
     game.performNext(generateType(), generateDir());

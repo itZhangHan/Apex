@@ -95,7 +95,7 @@ var Local = function () {
           
       }
 
-      rotate.addEventListener('touchstart', function () {
+    /*  rotate.addEventListener('touchstart', function () {
           console.log("jjjjjjjjjj");
           this.style.width = "89%";
       }, false);
@@ -132,7 +132,7 @@ var Local = function () {
       down.addEventListener('touchend', function () {
           this.style.width = "100%"
           game.fall();
-      },false);
+      },false);*/
 
 
      /* rotate.onclick = function(){
