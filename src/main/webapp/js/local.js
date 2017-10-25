@@ -36,45 +36,29 @@ var Local = function () {
       var down = document.getElementById("btnImg_down");
       var stage2 = document.getElementById("stage2");
 
-      //    var friend = document.getElementById("friend");
-   /*       // 触摸
-      rotate.ontouchstart = function() {
-              // 背景变绿
-          console.log("鼠标按下=====================")
-    //          this.style.backgroundColor = "green";
+   /*   stage2.onclick = function () {
+          console.log("gggggggggg----" + game.stage);
+          if (game.stage > 0) {
+              game.stage -= 1;
+              doms.stage2_num.innerHTML = game.stage;
+
+              game.addBotLine(generateBotLine(1));
           }
-          // 停止触摸
-      rotate.ontouchend = function() {
-          console.log("鼠标松开-------------")
-       //   this.style.backgroundColor = "white";
       }*/
-              // 还原白色
+      stage2.addEventListener('touchstart', function () {
+          this.style.width = "89%";
 
-   /*   rotate.onclick = function(){
+      },false);
+      stage2.addEventListener('touchend', function () {
+          console.log("jjjjjjjjjj44444")
+          this.style.width = "100%";
+
+          /*  if(noChanged){
+           return;
+           }*/
           game.rotate();
-      }
-      left.onclick = function () {
-          game.left();
-      }
+      }, false);
 
-  /!*  left.ontouchstart = function()(
-        console.log("鼠标按下=====================")
-    )*!/
-      right.onclick = function(){
-        game.right();
-      }
-      down.onclick = function () {
-        game.fall();
-      }
-    stage2.onclick = function () {
-     console.log("gggggggggg----"+game.stage);
-     if(game.stage>0){
-       game.stage-=1;
-       doms.stage2_num.innerHTML = game.stage;
-
-       game.addBotLine(generateBotLine(1)); /!*道具向别人使用*!/
-     }
-     }*/
 
       rotate.addEventListener('touchstart', function () {
           console.log("jjjjjjjjjj");
@@ -109,10 +93,15 @@ var Local = function () {
 
       down.addEventListener('touchstart',function(){
           this.style.width = "89%"
+          $('#local_gameScene').addClass("gameSceneCss");//添加样式
+          $('#local_gameScene').toggleClass('gameSceneCss');
       },false);
       down.addEventListener('touchend', function () {
           this.style.width = "100%"
           game.fall();
+          $('#local_gameScene').removeClass("gameSceneCss");//添加样式
+          $('#local_gameScene').toggleClass('gameSceneCss');
+
       },false);
   }
 
@@ -134,7 +123,7 @@ var Local = function () {
           scoreMsg.type = "score"
           scoreMsg.msgStr = game.score;
           console.log("game.scoreDiv.innerHTML=="+game.score)
-          socket.websocket.send(JSON.stringify(scoreMsg))
+         // socket.websocket.send(JSON.stringify(scoreMsg))
       }
       var gameOver = game.checkGameOver();
       if (gameOver) {
@@ -206,7 +195,7 @@ var Local = function () {
     console.log("gameDiv===="+doms.gameDiv.offsetWidth)
 
     game = new Game();
-    socket = new Socket("ws://thdd.apexgame.cn/tetris/websocket1");
+  //  socket = new Socket("ws://thdd.apexgame.cn/tetris/websocket1");
     game.init(doms, generateType(), generateDir());
     bindKeyEvent(doms);
     game.performNext(generateType(), generateDir());

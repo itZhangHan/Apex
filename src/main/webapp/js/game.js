@@ -37,6 +37,7 @@ var Game = function () {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
 
+
     ];
 
     // 当前方块
@@ -74,7 +75,7 @@ var Game = function () {
                 newNode.style.top = (i*(container.offsetHeight/21))+'px';
                 newNode.style.left = (j*(container.offsetWidth/10))+'px';
                 newNode.style.width = (container.offsetWidth/10)+ 'px';
-                newNode.style.height = (container.offsetWidth/10)+ 'px';
+                newNode.style.height = (container.offsetHeight/21)+ 'px';
                 //      newNode.style.left = (j*itemWidth/10)+'px';
                 //  newNode.style.color = 'blue';
                 console.log("ggggggggggg")
@@ -111,6 +112,20 @@ var Game = function () {
 
     // 刷新div
     var refreshDiv = function (data, divs) {
+
+        /*  var ran = Math.ceil(Math.random() * 9) - 1;
+         if(ran<3){
+         /!*divs[i][j].className = 'current';*!/
+             ran = 1;
+         }
+         else if(ran<6){
+        // divs[i][j].className = 'current1';
+             ran = 2;
+         }
+         else {
+     //    divs[i][j].className = 'current2';
+             ran = 0
+         }*/
         for (var i=0; i<data.length; i++) {
             for (var j=0; j<data[0].length; j++) {
                 if (data[i][j] == 0) {
@@ -119,16 +134,7 @@ var Game = function () {
                     divs[i][j].className = 'done';
                 } else if (data[i][j] == 2) {
                     divs[i][j].className = 'current';
-                    /*  var ran = Math.ceil(Math.random() * 9) - 1;
-                     if(ran<3){
-                     divs[i][j].className = 'current';
-                     }
-                     else if(ran<6){
-                     divs[i][j].className = 'current1';
-                     }
-                     else {
-                     divs[i][j].className = 'current2';
-                     }*/
+
                 }
             }
         }

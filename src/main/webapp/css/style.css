@@ -38,6 +38,7 @@ html,body{
 .gameScene img{
    width:100%;
     height: 100%;
+    z-index: 0;
 }
 .local  {
     position: absolute;
@@ -69,18 +70,19 @@ html,body{
  .game {
      position: absolute;
      width: 81%;
-     height: 86%;
+     height: 89%;
      /* background-color: #f2faff; */
-     border: 1px solid white;
+     border: 1px solid;
  /*    border-top: none;*/
      left: -6%;
      right: 0;
-     top: -1%;
+     top: -2%;
      bottom: 0;
      margin: auto;
      /*   background-color: #f2faff;*/
      /*   border: 1px solid blue;*/
      border-top: none;
+     z-index: -1;
 }
 
 .next {
@@ -115,17 +117,16 @@ html,body{
 }
 .ranking{
     position: absolute;
-    width: 21%;
-    top: 30%;
+    width: 26%;
+    top: 26%;
     right: 0%;
     z-index: 999;
-    height: 20%;
+    height: 29%;
 
     background: url("../img/a/ranking.png") no-repeat center center;
     background-size: 100% 100%;
 
    /* text-align: center;*/
-
 }
 
 .ranking ul{
@@ -148,18 +149,26 @@ html,body{
     height: 25%;
     width: 100%;
 }
-#img1{
+#img1,#img4,#img7,#img10{
     height: 80%;
-    margin-top: -10%;
+   /* margin-top: -30%;*/
    /* display: inline-block;*/
 }
 
-#scoreMe{
+/*#scoreMe{
     width: 40%;
-    margin-left: 37%
+    margin-left: 37%;
+    font-size: 5.1vw;
+}*/
+
+#score,#score1,#score2,#scoreMe{
+    font-size: 3.0vw;
+    margin-left: 10%;
+    width: 36%;
+    position: absolute;
+    margin-top: -1px;
 }
-/*
-#img23{
+/*#img23{
     margin-top: -12%;
     text-align: center;
     margin-bottom: 0;
@@ -169,17 +178,21 @@ html,body{
     width: 100%;
     height: 18%;
 
-}
-#img2{
-   !* clear: left;*!
-    width: 20%;
-    margin-left: 12%;
+}*/
+#img2,#img5,#img8,#img11{
+    position: absolute;
+    clear: left;
+    width: 17%;
+    margin-left: 30%;
+    margin-top: 16%;
 }
 
-#img3{
-    width: 20%;
+#img3,#img6,#img9,#img12{
+    position: absolute;
+    width: 17%;
+    margin-top: 16%;
+    margin-left: 6%;
 }
-*/
 
 
 
@@ -206,6 +219,8 @@ html,body{
 
 .none,
 .current,
+/*.current1,
+.current2,*/
 .done {
     position: absolute;
    /* width: 20px;
@@ -224,7 +239,7 @@ html,body{
 .current {
    /* background-color: #FF7569;
     border: 1px solid #1F1F1F;*/
-    background: url("../img/sprite4.png") no-repeat center center;
+    background: url("../img/sprite3.png") no-repeat center center;
     background-size: 100%;
 }
 .current1 {
@@ -236,7 +251,7 @@ html,body{
 .current2 {
     /* background-color: #FF7569;
      border: 1px solid #1F1F1F;*/
-    background: url("../img/sprite3.png") no-repeat center center;
+    background: url("../img/sprite4.png") no-repeat center center;
     background-size: 100%;
 }
 
@@ -294,21 +309,25 @@ html,body{
 .stage_btn{
     position: absolute;
     width: 18%;
+    height: 24%;
     top: 56%;
-    right: 0%;
+    right: 3.2%;
     z-index: 999;
+    text-align: center;
 }
-#stage1,#stage2{
+
+.stage_btn li{
+    list-style-type: none;
     width: 100%;
-    z-index: 999;
+    height: 50%;
+    text-align: center;
 }
-#stage1 img{
+
+.stage_btn li img{
     width: 100%;
 }
-#stage2 img{
-    width: 100%;
-    float: left;
-}
+
+
 #stage2_num{
     position: absolute;
     right: 6%;
@@ -324,6 +343,41 @@ html,body{
 }
 .time img{
     width: 100%;
+}
+
+
+.gameSceneCss{
+
+    /*  position: relative;
+      !* z-index: -8;*!
+      width: 78%;
+      !* height: 1121px;*!
+
+      top: 2vh;
+      left:3vw;
+      height: 85%;*/
+    -webkit-animation-name: buzz-out;
+
+    -webkit-animation-duration: 0.2s;
+
+    -webkit-animation-timing-function: linear;
+
+    -webkit-animation-iteration-count: 1;
+
+}
+
+
+
+@-webkit-keyframes buzz-out {
+
+    25% {
+
+        -webkit-transform: translateY(20px);
+    }
+
+    50%, 100% {-webkit-transform: translateY(0);}
+
+    75% {-webkit-transform: translateY(10px);}
 }
 
 
