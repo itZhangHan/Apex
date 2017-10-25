@@ -22,6 +22,7 @@
 			<mvc:exclude-mapping path="*.css" />
 			<mvc:exclude-mapping path="*.png" />
 			<mvc:exclude-mapping path="*.js" />
+			
 			<bean class="com.els.common.WxInterceptor">
 			</bean>
 		</mvc:interceptor>

@@ -94,7 +94,7 @@
     select 
     *
     from jhdd_users
-    where openId = #{openid,jdbcType=INTEGER}
+    where openId = #{openid}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from jhdd_users

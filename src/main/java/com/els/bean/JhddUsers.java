@@ -41,7 +41,7 @@ public class JhddUsers {
         return usersex;
     }
 
-    public void setUsersex(Object object) {
+    public void setUsersex(Integer object) {
         this.usersex = (Integer) object;
     }
 
