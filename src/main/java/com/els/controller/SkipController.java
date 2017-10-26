@@ -2,6 +2,7 @@ package com.els.controller;
 
 import java.io.UnsupportedEncodingException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -17,52 +18,47 @@ import com.els.bean.JhddUsers;
 public class SkipController {
 
 
-	// 游戏场景
-	@RequestMapping("/index")
-	public String toIndex(HttpSession session) {
-		return "index"+"?"+getMsg(session);
-
-	}
-
-	// 大厅
-	@RequestMapping("/index0")
-	public String toIndex0(HttpSession session) {
-
-		
-		return "index0"+"?"+getMsg(session);
-
-	}
+//	// 游戏场景
+//	@RequestMapping("/index")
+//	public String toIndex(HttpSession session) {
+//		return "index"+"?"+getMsg(session);
+//
+//	}
+//
+//	// 大厅
+//	@RequestMapping("/index0")
+//	public String toIndex0(HttpSession session) {
+//
+//		
+//		return "index0"+"?"+getMsg(session);
+//
+//	}
 
 	// 结束
 	@RequestMapping("/over")
-	public String toOver(HttpSession session) {
+	public String toOver(HttpServletRequest request) {
 
-		return "over"+"?"+getMsg(session);
+		try {
+			return "over"+"?"+ WxCallbackController.getIntance().toFirst(request);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
 	
 	}
 
 	// 授权首页
 	@RequestMapping("/first")
-	public String toAuto(HttpSession session) {
-		return "first"+"?"+getMsg(session);
-	}
-	
-	private String getMsg(HttpSession session){
-		String nickname="";
-		String city="";
-		String headimgurl="";
-		String sex="";
+	public String toAuto(HttpServletRequest request) {
+		JhddUsers jhddUser=null;
 		try {
-			nickname= new String(session.getAttribute("urlName").toString().getBytes(), "UTF-8");
-			city=new String(session.getAttribute("city").toString().getBytes(), "UTF-8");
-			headimgurl=new String(session.getAttribute("headimgurl").toString().getBytes(), "UTF-8");
-			sex=new String(session.getAttribute("sex").toString().getBytes(), "UTF-8");
-		
-		} catch (UnsupportedEncodingException e) {
+			return "first"+"?"+ WxCallbackController.getIntance().toFirst(request);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "nickname="+ nickname+"&sex="+sex+"&headimgurl="+headimgurl+"&city="+city;
-		
+		return "";
 	}
+
 }

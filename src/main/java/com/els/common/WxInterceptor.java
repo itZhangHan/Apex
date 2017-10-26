@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.sf.json.JSONObject;
+
 /*
  * 判断用户是否授权登录拦截器
  */
@@ -21,8 +23,7 @@ public class WxInterceptor implements HandlerInterceptor {
 		// request.getSession().removeAttribute("openid");
 		System.out.println("进入拦截");
 		String requestURI = request.getRequestURI();
-		request.getSession().setAttribute("urlName",requestURI);
-		this.wxAuthorze(response);
+		this.wxAuthorze(response,requestURI);
 		return false;
 	}
 
@@ -42,16 +43,17 @@ public class WxInterceptor implements HandlerInterceptor {
 //		request.getRequestDispatcher(requestURI).forward(request, response);
 	}
 
-	public void wxAuthorze(HttpServletResponse resp) throws IOException {
+	public void wxAuthorze(HttpServletResponse resp,String url) throws IOException {
 		System.out.printf("进入认证方法");
-		String backUrl = "http://thdd.apexgame.cn/tetris/callback/first";
+		String backUrl = "http://thdd.apexgame.cn/"+url;
 		System.out.println("1");
 		// 回调微信接口
 		String url1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + AuthUtil.APPID + "&redirect_uri="
-				+ URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_userinfo"
+				+ URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_base"
 				+ "&state=STATE#wechat_redirect";
 		// 重定向用户请求到微信授权URL
 		resp.sendRedirect(url1);
+		
 	}
 
 }
