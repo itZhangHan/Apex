@@ -23,8 +23,9 @@ public class WxInterceptor implements HandlerInterceptor {
 		// request.getSession().removeAttribute("openid");
 		System.out.println("进入拦截");
 		String requestURI = request.getRequestURI();
-		this.wxAuthorze(response,requestURI);
-		return false;
+		request.getSession().setAttribute("urlName", requestURI);
+		this.wxAuthorze(response);
+		return true;
 	}
 
 	@Override
@@ -43,9 +44,9 @@ public class WxInterceptor implements HandlerInterceptor {
 //		request.getRequestDispatcher(requestURI).forward(request, response);
 	}
 
-	public void wxAuthorze(HttpServletResponse resp,String url) throws IOException {
+	public void wxAuthorze(HttpServletResponse resp) throws IOException {
 		System.out.printf("进入认证方法");
-		String backUrl = "http://thdd.apexgame.cn/"+url;
+		String backUrl = "http://thdd.apexgame.cn/callback/first";
 		System.out.println("1");
 		// 回调微信接口
 		String url1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + AuthUtil.APPID + "&redirect_uri="

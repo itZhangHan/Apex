@@ -1,7 +1,5 @@
 package com.els.controller;
 
-import java.io.UnsupportedEncodingException;
-
 import javax.json.Json;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +21,8 @@ import com.els.serviceinterface.UserService;
 
 import net.sf.json.JSONObject;
 
+@Controller
+@RequestMapping("/callback")
 public class WxCallbackController {
 
 	@Autowired
@@ -30,16 +30,11 @@ public class WxCallbackController {
 
 	@Autowired
 	private UserService userService;
-	
-	
-	private static  WxCallbackController controller=new WxCallbackController();
-	public static WxCallbackController getIntance(){
-		return controller;
-	}
-	
-	
-	
-	public  String toFirst(HttpServletRequest request) throws Exception {
+
+	// 创建房间
+	@RequestMapping("/first")
+	public String toFirst(RedirectAttributes attr, HttpServletRequest request, HttpServletResponse response,
+			ModelMap map, Model model, HttpSession session) throws Exception {
 		System.out.println("进入callback页面");
 		String code = request.getParameter("code");
 		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?" + "appid=" + AuthUtil.APPID + "&secret="
@@ -50,6 +45,8 @@ public class WxCallbackController {
 		// request.setAttribute("jsonObject", jsonObject);
 		String openid = jsonObject.getString("openid");
 		String token = jsonObject.getString("access_token");
+		session.setAttribute("token", token);
+		session.setAttribute("openid", openid);
 		// 1. 使用微信用户信息直接登录，无需注册和绑定
 		// 4. 获取用户信息
 		String infoUrl = "https://api.weixin.qq.com/sns/userinfo?" + "access_token=" + token + "&openid=" + openid
@@ -66,12 +63,19 @@ public class WxCallbackController {
 				+ "&grant_type=refresh_token" + "&refresh_token=" + refresh_token;
 		// response.sendRedirect(refresh_url);
 		AuthUtil.doGetJson(refresh_url);
+		System.out.println("刷新成功:" + refresh_url);
+
 		String nickname = (String) userInfo.get("nickname");
 		Integer sex = (Integer) userInfo.get("sex");
 		String headimgurl = userInfo.getString("headimgurl");
 		String city = userInfo.getString("city");
+//		JSONObject nickname = (JSONObject) JSON.toJSON(nickname);
+//		JSONObject sex = (JSONObject) JSON.toJSON(sex);
+//		JSONObject headimgurl = (JSONObject) JSON.toJSON(headimgurl);
+//		JSONObject city = (JSONObject) JSON.toJSON(city);
 		// 将授权用户信息加入数据库
 		JhddUsers users = userMapper.selectByOpenid(openid);
+
 		if (users == null) {
 			JhddUsers user = new JhddUsers();
 			user.setOpenid(openid);
@@ -82,30 +86,22 @@ public class WxCallbackController {
 			userService.addUser(user);
 			// userMapper.updateByPrimaryKeySelective(user);
 		}
-		return  getMsg(users);
+
+		// 将数据存入session 前端获取
+		session.setAttribute("openid", openid);
+		session.setAttribute("nickname", nickname);
+		session.setAttribute("city", city);
+		session.setAttribute("headimgurl", headimgurl);
+		session.setAttribute("sex", sex);
+		System.out.println("callback方法走完...");
+		String urlName = request.getSession().getAttribute("urlName").toString();
+		String[] split = urlName.split("/");
+		System.out.println("redirect:"+split[split.length - 1]+"?"+"nickname="+nickname+"&"+"sex="+sex+"&"+"headimgurl="+headimgurl+"&"+"city"+city);
+		System.out.println(split[split.length - 1].toString());
+		//重定向地址加用户信息
+		String urlAndInfo = split[split.length - 1]+"?"+"nickname="+nickname+"&"+"sex="+sex+"&"+"headimgurl="+headimgurl+"&"+"city="+city;
 		
+		return urlAndInfo;
+		//return split[split.length - 1];
 	}
-
-
-
-private String getMsg(JhddUsers jhddUser){
-	
-	String nickname="";
-	String city="";
-	String headimgurl="";
-	Integer sex=0;
-	try {
-		nickname= new String(jhddUser.getUsername().getBytes(), "UTF-8");
-		city=new String(jhddUser.getCity().getBytes(), "UTF-8");
-		headimgurl=new String(jhddUser.getUserportrait().getBytes(), "UTF-8");
-		sex=jhddUser.getUsersex();
-	
-	} catch (UnsupportedEncodingException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	return "nickname="+ nickname+"&sex="+sex+"&headimgurl="+headimgurl+"&city="+city;
-	
-}
-	
 }

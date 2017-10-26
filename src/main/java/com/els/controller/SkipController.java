@@ -1,6 +1,5 @@
 package com.els.controller;
 
-import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.els.bean.JhddUsers;
 
 /*
  * 跳转页面Controller
@@ -35,30 +33,32 @@ public class SkipController {
 //	}
 
 	// 结束
-	@RequestMapping("/over")
-	public String toOver(HttpServletRequest request) {
-
-		try {
-			return "over"+"?"+ WxCallbackController.getIntance().toFirst(request);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "";
-	
-	}
+//	@RequestMapping("/over")
+//	public String toOver(HttpServletRequest request) {
+//
+//		try {
+//			return "over"+"?"+ WxCallbackController.getIntance().toFirst(request);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return "";
+//	
+//	}
 
 	// 授权首页
 	@RequestMapping("/first")
-	public String toAuto(HttpServletRequest request) {
-		JhddUsers jhddUser=null;
-		try {
-			return "first"+"?"+ WxCallbackController.getIntance().toFirst(request);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "";
+	public String toAuto(HttpServletRequest request,HttpSession httpSession) {
+		
+		httpSession.setAttribute("urlName", "first");
+		return "first";
+//		try {
+//			return "first"+"?"+ WxCallbackController.getIntance().toFirst(request);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return "";
 	}
 
 }
