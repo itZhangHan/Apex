@@ -10,7 +10,7 @@ import com.els.common.ElsResult;
 import com.els.serviceinterface.RoomService;
 
 /*
- * 路径：http://192.168.1.16:8080/tetris/room/joinOrCreateRoom?userid=?
+ * 路径：http://thdd.apexgame.cn/tetris/room/joinOrCreateRoom?userid=?
  * 请求方式：get
  * 返回：{
  * 	status(状态)：1成功 0失败

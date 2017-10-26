@@ -35,9 +35,9 @@ public class SkipController {
 	}
 
 	// 授权首页
-	@RequestMapping("/auth_first")
+	@RequestMapping("/first")
 	public String toAuto() {
 
-		return "auth_first";
+		return "first";
 	}
 }

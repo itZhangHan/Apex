@@ -16,14 +16,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.alibaba.fastjson.JSON;
 import com.els.bean.JhddUsers;
 import com.els.common.AuthUtil;
+import com.els.common.WxInfo;
 import com.els.mapper.JhddUsersMapper;
 import com.els.serviceinterface.UserService;
 
 import net.sf.json.JSONObject;
 
 @Controller
-@RequestMapping("/callback")
-public class WxCallbackController {
+@RequestMapping("/callback1")
+public class CallBack {
 
 	@Autowired
 	private JhddUsersMapper userMapper;
@@ -32,8 +33,9 @@ public class WxCallbackController {
 	private UserService userService;
 
 	// 创建房间
-	@RequestMapping("/first")
-	public String toFirst(RedirectAttributes attr, HttpServletRequest request, HttpServletResponse response,
+	@RequestMapping("/second")
+	@ResponseBody
+	public WxInfo toFirst(RedirectAttributes attr, HttpServletRequest request, HttpServletResponse response,
 			ModelMap map, Model model, HttpSession session) throws Exception {
 		System.out.println("进入callback页面");
 		String code = request.getParameter("code");
@@ -69,10 +71,7 @@ public class WxCallbackController {
 		Integer sex = (Integer) userInfo.get("sex");
 		String headimgurl = userInfo.getString("headimgurl");
 		String city = userInfo.getString("city");
-//		JSONObject nickname = (JSONObject) JSON.toJSON(nickname);
-//		JSONObject sex = (JSONObject) JSON.toJSON(sex);
-//		JSONObject headimgurl = (JSONObject) JSON.toJSON(headimgurl);
-//		JSONObject city = (JSONObject) JSON.toJSON(city);
+//		 
 		// 将授权用户信息加入数据库
 		JhddUsers users = userMapper.selectByOpenid(openid);
 
@@ -86,22 +85,19 @@ public class WxCallbackController {
 			userService.addUser(user);
 			// userMapper.updateByPrimaryKeySelective(user);
 		}
-
-		// 将数据存入session 前端获取
-		session.setAttribute("openid", openid);
-		session.setAttribute("nickname", nickname);
-		session.setAttribute("city", city);
-		session.setAttribute("headimgurl", headimgurl);
-		session.setAttribute("sex", sex);
-		System.out.println("callback方法走完...");
+		WxInfo wxinfo = new WxInfo();
+		wxinfo.setCity(city);
+		wxinfo.setHeadimgurl(headimgurl);
+		wxinfo.setNickname(nickname);
+		wxinfo.setSex(sex);
+		System.out.println(wxinfo);
+		return wxinfo;
+	}
+	
+	@RequestMapping("/three")
+	public String toUrl(HttpServletRequest request, HttpServletResponse response){
 		String urlName = request.getSession().getAttribute("urlName").toString();
 		String[] split = urlName.split("/");
-		System.out.println("redirect:"+split[split.length - 1]+"?"+"nickname="+nickname+"&"+"sex="+sex+"&"+"headimgurl="+headimgurl+"&"+"city"+city);
-		System.out.println(split[split.length - 1].toString());
-		//重定向地址加用户信息
-		String urlAndInfo = "redirect:/skip/"+split[split.length - 1]+"?"+"&"+"nickname="+nickname+"&"+"sex="+sex+"&"+"headimgurl="+headimgurl+"&"+"city="+city;
-		
-		return urlAndInfo;
-		//return split[split.length - 1];
+		return split[split.length - 1];
 	}
 }
