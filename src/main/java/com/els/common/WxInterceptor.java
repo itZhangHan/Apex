@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import net.sf.json.JSONObject;
-
 /*
  * 判断用户是否授权登录拦截器
  */
@@ -39,9 +37,6 @@ public class WxInterceptor implements HandlerInterceptor {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-//		String requestURI = request.getRequestURI();
-//		// TODO Auto-generated method stub
-//		request.getRequestDispatcher(requestURI).forward(request, response);
 	}
 
 	public void wxAuthorze(HttpServletResponse resp) throws IOException {
@@ -49,11 +44,11 @@ public class WxInterceptor implements HandlerInterceptor {
 		String backUrl = "http://thdd.apexgame.cn/callback/first";
 		System.out.println("1");
 		// 回调微信接口
-		String url1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + AuthUtil.APPID + "&redirect_uri="
+		String authURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + AuthUtil.APPID + "&redirect_uri="
 				+ URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_base"
 				+ "&state=STATE#wechat_redirect";
 		// 重定向用户请求到微信授权URL
-		resp.sendRedirect(url1);
+		resp.sendRedirect(authURL);
 		
 	}
 
