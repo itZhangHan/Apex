@@ -1,11 +1,14 @@
 package com.els.controller;
 
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /*
@@ -33,32 +36,36 @@ public class SkipController {
 //	}
 
 	// 结束
-//	@RequestMapping("/over")
-//	public String toOver(HttpServletRequest request) {
-//
-//		try {
-//			return "over"+"?"+ WxCallbackController.getIntance().toFirst(request);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return "";
-//	
-//	}
-
-	// 授权首页
-	@RequestMapping("/first")
-	public String toAuto(HttpServletRequest request,HttpSession httpSession) {
+	@RequestMapping("/over")
+	public String toOver(HttpServletRequest request) {
+		try {
+			System.out.println("toOvertoOvertoOver");
+			return "first";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	
+	}
+	
+	
+	
+	
+	// 创建页面
+	@RequestMapping(value = "/firstsend")
+	public String toFirst(){
 		
-		httpSession.setAttribute("urlName", "first");
 		return "first";
-//		try {
-//			return "first"+"?"+ WxCallbackController.getIntance().toFirst(request);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return "";
+		
+		
+	}
+     
+	// 授权首页
+	@RequestMapping(value = "/first")
+	public void toAuto(HttpServletRequest request,HttpSession httpSession) {
+       
+		
 	}
 
 }

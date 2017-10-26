@@ -35,54 +35,37 @@
 		
 		var nickname = getQueryString("nickname");
 		alert(nickname); */
-
-		alert("aa");
-		function GetRequest() {
-			//var a = document.write(location.search);
-
-			var url = window.location.href; //获取url中"?"符后的字串   
-			url = encodeURIComponent(url);
-			
-			alert(url);
-			var theRequest = new Object();
-			if (url.indexOf("?") != -1) {
-				var str = url.substr(1);
-				strs = str.split("&");
-				for (var i = 0; i < strs.length; i++) {
-					theRequest[strs[i].split("=")[0]] = unescape(strs[i]
-							.split("=")[1]);
-
+		var request = {
+				QueryString : function(val) {
+				var uri = window.location.search;
+				var re = new RegExp("" +val+ "\=([^\&\?]*)", "ig");
+				return ((uri.match(re))?(uri.match(re)[0].substr(val.length+1)):null);
+				},
+				QueryStrings : function() {
+				var uri = window.location.search;
+				var re = /\w*\=([^\&\?]*)/ig;
+				var retval=[];
+				while ((arr = re.exec(uri)) != null)
+				retval.push(arr[0]);
+				return retval;
+				},
+				setQuery : function(val1, val2) {
+				var a = this.QueryStrings();
+				var retval = "";
+				var seted = false;
+				var re = new RegExp("^" +val1+ "\=([^\&\?]*)$", "ig");
+				for(var i=0; i<a.length; i++) {
+				if (re.test(a[i])) {
+				seted = true;
+				a[i] = val1 +"="+ val2;
 				}
-			}
-			return theRequest;
-		}
+				}
+				retval = a.join("&");
+				return "?" +retval+ (seted ? "" : (retval ? "&" : "") +val1+ "=" +val2);
+				}
+				} 
 
-		var Request = new Object();
-		Request = GetRequest();
-		var nickname = Request["nickname"];
-		var sex = Request["sex"];
-		var headimgurl = Request["headimgurl"];
-		var city = Request["city"];
-		alert(nickname);
-		alert(sex);
-		alert(headimgurl);
-		alert(city);
-
-		// 调用方法
-		//alert(GetQueryString("nickname"));
-		//alert(GetQueryString("sex"));
-		//alert(GetQueryString("headimgurl"));
-
-		/* var openBtn = document.getElementById("openBtn");
-		$.ajax(function(){
-			url:"http://thdd.apexgame.cn/tetris/callback/second",
-			dataType:"json",
-			type:"GET",
-			success:function(e){
-				location.href = "http://thdd.apexgame.cn/tetris/callback/three";
-			}
-			
-		}) */
+		alert(decodeURI(request.QueryString("urlName")));
 	</script>
 
 </body>

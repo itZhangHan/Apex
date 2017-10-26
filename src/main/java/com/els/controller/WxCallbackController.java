@@ -43,9 +43,7 @@ public class WxCallbackController {
 		String token = jsonObject.getString("access_token");
 		// 通过openid查询是否存在信息
 		JhddUsers users = userMapper.selectByOpenid(openid);
-		// 获取访问路径
 		String urlName = request.getSession().getAttribute("urlName").toString();
-		String[] split = urlName.split("/");
 		if (users == null) {
 			// 1. 使用微信用户信息直接登录，无需注册和绑定
 			// 4. 获取用户信息
@@ -78,21 +76,8 @@ public class WxCallbackController {
 			user.setUserportrait(headimgurl);
 			user.setUsersex(sex);
 			userService.addUser(user);
-			System.out.println("加入数据库成功...");
-			String urlAndInfo = split[split.length - 1] + "?" + "nickname=" + nickname + "&sex=" + sex + "&headimgurl="
-					+ headimgurl + "&city=" + city;
-			return urlAndInfo;
-		} else {
-
-			System.out.println("以有用户信息方法...");
-
-			// 重定向地址加用户信息
-			String urlAndInfo = split[split.length - 1] + "?" + "nickname=" + users.getUsername() + "&" + "sex="
-					+ users.getUsersex() + "&" + "headimgurl=" + users.getUserportrait() + "&" + "city="
-					+ users.getCity();
-
-			return "redirect:/skip/"+urlAndInfo;
-		}
-
+		} 
+		
+		return AuthUtil.getMsg(users, urlName);
 	}
 }

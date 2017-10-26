@@ -18,6 +18,7 @@
 			<mvc:exclude-mapping path="/WxAuth/wxLogin" />
 			<mvc:exclude-mapping path="/callback/first" />
 			<mvc:exclude-mapping path="/skip/auth_first" />
+		    <mvc:exclude-mapping path="/skip/firstsend" />
 			<mvc:exclude-mapping path="*.html" />
 			<mvc:exclude-mapping path="*.css" />
 			<mvc:exclude-mapping path="*.png" />
