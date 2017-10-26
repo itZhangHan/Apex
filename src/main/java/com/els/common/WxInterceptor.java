@@ -18,18 +18,11 @@ public class WxInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
 		// TODO Auto-generated method stub
 		// request.getSession().removeAttribute("openid");
-		if (request.getSession().getAttribute("openid") == null) {
-			// 查询不到openid走验证方法
-			System.out.println("进入拦截");
-			String requestURI = request.getRequestURI();
-			request.getSession().setAttribute("urlName",requestURI);
-			this.wxAuthorze(response);
-			return false;
-		} else {
-			System.out.println("没有拦截");
-			System.out.println("查询到openid————true");
-			return true;
-		}
+		System.out.println("进入拦截");
+		String requestURI = request.getRequestURI();
+		request.getSession().setAttribute("urlName",requestURI);
+		this.wxAuthorze(response);
+		return false;
 	}
 
 	@Override
@@ -52,7 +45,6 @@ public class WxInterceptor implements HandlerInterceptor {
 		String backUrl = "http://thdd.apexgame.cn/tetris/callback/first";
 		System.out.println("1");
 		// 回调微信接口
-		
 		String url1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + AuthUtil.APPID + "&redirect_uri="
 				+ URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_userinfo"
 				+ "&state=STATE#wechat_redirect";

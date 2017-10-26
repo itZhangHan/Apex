@@ -33,7 +33,7 @@ public class WxCallbackController {
 
 	// 创建房间
 	@RequestMapping("/first")
-	public String toFirst(RedirectAttributes attr, HttpServletRequest request, HttpServletResponse response,
+	public void toFirst(RedirectAttributes attr, HttpServletRequest request, HttpServletResponse response,
 			ModelMap map, Model model, HttpSession session) throws Exception {
 		System.out.println("进入callback页面");
 		String code = request.getParameter("code");
@@ -94,14 +94,6 @@ public class WxCallbackController {
 		session.setAttribute("headimgurl", headimgurl);
 		session.setAttribute("sex", sex);
 		System.out.println("callback方法走完...");
-		String urlName = request.getSession().getAttribute("urlName").toString();
-		String[] split = urlName.split("/");
-		System.out.println("redirect:"+split[split.length - 1]+"?"+"nickname="+nickname+"&"+"sex="+sex+"&"+"headimgurl="+headimgurl+"&"+"city"+city);
-		System.out.println(split[split.length - 1].toString());
-		//重定向地址加用户信息
-		String urlAndInfo = "redirect:/skip/"+split[split.length - 1]+"?"+"&"+"nickname="+nickname+"&"+"sex="+sex+"&"+"headimgurl="+headimgurl+"&"+"city="+city;
 		
-		return urlAndInfo;
-		//return split[split.length - 1];
 	}
 }
