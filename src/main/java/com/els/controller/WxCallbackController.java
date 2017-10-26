@@ -41,9 +41,9 @@ public class WxCallbackController {
 		JSONObject jsonObject = AuthUtil.doGetJson(url);
 		String openid = jsonObject.getString("openid");
 		String token = jsonObject.getString("access_token");
-		//通过openid查询是否存在信息
+		// 通过openid查询是否存在信息
 		JhddUsers users = userMapper.selectByOpenid(openid);
-		//获取访问路径
+		// 获取访问路径
 		String urlName = request.getSession().getAttribute("urlName").toString();
 		String[] split = urlName.split("/");
 		if (users == null) {
@@ -91,7 +91,7 @@ public class WxCallbackController {
 					+ users.getUsersex() + "&" + "headimgurl=" + users.getUserportrait() + "&" + "city="
 					+ users.getCity();
 
-			return urlAndInfo;
+			return "redirect:/skip/"+urlAndInfo;
 		}
 
 	}
