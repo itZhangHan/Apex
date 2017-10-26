@@ -33,7 +33,7 @@ public class WxCallbackController {
 
 	// 创建房间
 	@RequestMapping("/first")
-	public void toFirst(RedirectAttributes attr, HttpServletRequest request, HttpServletResponse response,
+	public String toFirst(RedirectAttributes attr, HttpServletRequest request, HttpServletResponse response,
 			ModelMap map, Model model, HttpSession session) throws Exception {
 		System.out.println("进入callback页面");
 		String code = request.getParameter("code");
@@ -94,6 +94,9 @@ public class WxCallbackController {
 		session.setAttribute("headimgurl", headimgurl);
 		session.setAttribute("sex", sex);
 		System.out.println("callback方法走完...");
+		String urlName = request.getSession().getAttribute("urlName").toString();
+		String[] split = urlName.split("/");
+		return split[split.length - 1];
 		
 	}
 }

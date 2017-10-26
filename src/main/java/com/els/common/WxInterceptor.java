@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class WxInterceptor implements HandlerInterceptor {
 
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
 		// TODO Auto-generated method stub
@@ -29,6 +30,7 @@ public class WxInterceptor implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mv)
 			throws Exception {
 		// TODO Auto-generated method stub
+		
 
 	}
 

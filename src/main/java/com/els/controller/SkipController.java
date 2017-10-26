@@ -20,27 +20,30 @@ public class SkipController {
 	// 游戏场景
 	@RequestMapping("/index")
 	public String toIndex(HttpSession session) {
-		return "index";
+		return "index"+"?"+getMsg(session);
+
 	}
 
 	// 大厅
 	@RequestMapping("/index0")
 	public String toIndex0(HttpSession session) {
 
-		return "index0";
+		
+		return "index0"+"?"+getMsg(session);
+
 	}
 
 	// 结束
 	@RequestMapping("/over")
 	public String toOver(HttpSession session) {
 
-		return "over";
+		return "over"+"?"+getMsg(session);
+	
 	}
 
 	// 授权首页
 	@RequestMapping("/first")
 	public String toAuto(HttpSession session) {
-		getMsg(session);
 		return "first"+"?"+getMsg(session);
 	}
 	
