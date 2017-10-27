@@ -76,6 +76,7 @@ public class AuthUtil {
 			return "redirect:/skip/" + topStr + urlName;
 
 		}
+		//
 		return "first";
 
 	}
