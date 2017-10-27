@@ -107,7 +107,7 @@
 			<include refid="Example_Where_Clause" />
 		</if>
 	</delete>
-
+	
 	<insert id="insert" parameterType="com.els.bean.JhddRooms"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into jhdd_rooms (roomId, roomName, roomState

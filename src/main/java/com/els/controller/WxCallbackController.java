@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.els.bean.JhddUsers;
 import com.els.common.AuthUtil;
+import com.els.common.ElsResult;
 import com.els.mapper.JhddUsersMapper;
 import com.els.serviceinterface.UserService;
 
@@ -20,7 +21,7 @@ public class WxCallbackController {
 
 	@Autowired
 	private JhddUsersMapper userMapper;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -38,7 +39,7 @@ public class WxCallbackController {
 		String token = jsonObject.getString("access_token");
 		// 通过openid查询是否存在信息
 		JhddUsers users = userMapper.selectByOpenid(openid);
-		//获取请求路径
+		// 获取请求路径
 		String urlName = request.getSession().getAttribute("urlName").toString();
 		if (users == null) {
 			// 1. 使用微信用户信息直接登录，无需注册和绑定
@@ -71,9 +72,13 @@ public class WxCallbackController {
 			user.setCity(city);
 			user.setUserportrait(headimgurl);
 			user.setUsersex(sex);
+			// 插入用户成功返回userID
 			userService.addUser(user);
+			int userid = userMapper.selectLastInsertUserId();
+			JhddUsers insertUsers = userMapper.selectByPrimaryKey(userid);
+			return AuthUtil.getMsg(insertUsers, urlName, userid);
 		}
 
-		return AuthUtil.getMsg(users, urlName);
+		return AuthUtil.getMsg(users, urlName, null);
 	}
 }
