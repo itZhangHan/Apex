@@ -1,11 +1,15 @@
 package com.els.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.els.bean.JhddUsers;
+import com.els.common.AuthUtil;
 import com.els.common.ElsResult;
 import com.els.serviceinterface.RoomService;
 
@@ -27,8 +31,7 @@ public class RoomController {
 	private RoomService roomService;
 
 	@RequestMapping(value = "joinOrCreateRoom")
-	@ResponseBody
-	public ElsResult CreateRome(Integer userid, Integer roomid,Model model) {
+	public String CreateRome(HttpServletRequest request,Integer userid, Integer roomid,Model model) {
 		System.out.println(userid+"aaaaas");
 		ElsResult result=null;
 		if (roomid != null && roomid != 0) {
@@ -36,13 +39,14 @@ public class RoomController {
 			System.out.println("加入房间");
 			result = roomService.joinRoom(userid, roomid);
 			model.addAttribute("result", result);
-			return result;
+			return "index";
 		} else{
 			// 新建房间
 			System.out.println("新建房间");
 			result = roomService.createRoom(userid, roomid);
-			model.addAttribute("result", result);
-			return result;
+			JhddUsers users = (JhddUsers) result.getData();
+			
+			return AuthUtil.getMsg(users, "index0", users.getUserid());
 		} 
 
 	}

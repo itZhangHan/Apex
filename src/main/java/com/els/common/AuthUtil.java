@@ -26,6 +26,7 @@ public class AuthUtil {
 		topName.put("index0", "index0send");
 		topName.put("index", "indexsend");
 		topName.put("over", "oversend");
+		
 	}
 
 	/**
@@ -74,7 +75,7 @@ public class AuthUtil {
 		}
 		// 获取请求路径
 		String topStr = getTopName(topName);
-		String urlName = "?nickname=" + nickname + "&sex=" + sex + "&headimgurl=" + headimgurl + "&city=" + city+"&openid="+openid+ "&userid=" + userid+"&insertUserId"+insertUserId;
+		String urlName = "?nickname=" + nickname + "&sex=" + sex + "&headimgurl=" + headimgurl + "&city=" + city+"&openid="+openid+ "&userid=" + userid+"&insertUserId="+insertUserId;
 		if (topStr != null && !"".equals(topStr)) {
 			System.out.println(topStr + urlName);
 			return "redirect:/skip/" + topStr + urlName;
@@ -95,6 +96,7 @@ public class AuthUtil {
 					return AuthUtil.topName.get(topStr);
 				}
 			}
+			return topName;
 		}
 		return null;
 	}

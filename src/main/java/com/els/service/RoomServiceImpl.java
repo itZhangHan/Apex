@@ -2,6 +2,8 @@ package com.els.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +47,7 @@ public class RoomServiceImpl implements RoomService {
 		room.setRoomstate((byte) 0);
 		int insertid = jhddRoomsMapper.insert(room);
 		System.out.println(insertid);
-		System.out.println(room.getRoomid());
+		
 		// 添加第三组表属�?
 		if (room.getRoomid() != null) {
 			JhddSidelines jhddSideline = new JhddSidelines();
@@ -57,9 +59,10 @@ public class RoomServiceImpl implements RoomService {
 			// 新建房间成功时查询房间信息并返回�?
 			JhddSidelines jhddSidelines = jhddSidelinesMapper.selectByPrimaryKey(jhddSideline.getSidelinesid());
 			// 1成功 0失败
-			return result.build(1, "SUCCESS", jhddSidelines,null);
+			return result.build(1, "SUCCESS", user,null);
+		 
 		} else {
-			return result.build(1, "出现未知错误！");
+			return result.build(0, "出现未知错误！");
 		}
 
 	}
