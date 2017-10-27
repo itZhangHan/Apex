@@ -12,9 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 /*
  * 判断用户是否授权登录拦截器
  */
+@SuppressWarnings("all")
 public class WxInterceptor implements HandlerInterceptor {
 
-	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
 		// TODO Auto-generated method stub
@@ -23,14 +23,13 @@ public class WxInterceptor implements HandlerInterceptor {
 		String requestURI = request.getRequestURI();
 		request.getSession().setAttribute("urlName", requestURI);
 		this.wxAuthorze(response);
-		return true;
+		return false;
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mv)
 			throws Exception {
 		// TODO Auto-generated method stub
-		
 
 	}
 
@@ -41,15 +40,15 @@ public class WxInterceptor implements HandlerInterceptor {
 
 	public void wxAuthorze(HttpServletResponse resp) throws IOException {
 		System.out.printf("进入认证方法");
-		String backUrl = "http://thdd.apexgame.cn/callback/first";
+		String backUrl = "http://thdd.apexgame.cn/tetris/callback/first";
 		System.out.println("1");
 		// 回调微信接口
-		String authURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + AuthUtil.APPID + "&redirect_uri="
-				+ URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_base"
+		String authURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + AuthUtil.APPID
+				+ "&redirect_uri=" + URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_base"
 				+ "&state=STATE#wechat_redirect";
 		// 重定向用户请求到微信授权URL
 		resp.sendRedirect(authURL);
-		
+
 	}
 
 }

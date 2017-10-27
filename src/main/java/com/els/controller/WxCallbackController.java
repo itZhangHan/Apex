@@ -1,15 +1,11 @@
 package com.els.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.els.bean.JhddUsers;
 import com.els.common.AuthUtil;
@@ -24,14 +20,13 @@ public class WxCallbackController {
 
 	@Autowired
 	private JhddUsersMapper userMapper;
-
+	
 	@Autowired
 	private UserService userService;
 
 	// 查询用户信息返回参数
 	@RequestMapping("/first")
-	public String toFirst(RedirectAttributes attr, HttpServletRequest request, HttpServletResponse response,
-			ModelMap map, Model model, HttpSession session) throws Exception {
+	public String toFirst(HttpServletRequest request, HttpSession session) throws Exception {
 		System.out.println("进入callback页面");
 		String code = request.getParameter("code");
 		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?" + "appid=" + AuthUtil.APPID + "&secret="
@@ -43,6 +38,7 @@ public class WxCallbackController {
 		String token = jsonObject.getString("access_token");
 		// 通过openid查询是否存在信息
 		JhddUsers users = userMapper.selectByOpenid(openid);
+		//获取请求路径
 		String urlName = request.getSession().getAttribute("urlName").toString();
 		if (users == null) {
 			// 1. 使用微信用户信息直接登录，无需注册和绑定
@@ -50,6 +46,7 @@ public class WxCallbackController {
 			String infoUrl = "https://api.weixin.qq.com/sns/userinfo?" + "access_token=" + token + "&openid=" + openid
 					+ "&lang=zh_CN";
 			JSONObject userInfo = AuthUtil.doGetJson(infoUrl);
+			System.out.println("5");
 			request.setAttribute("userInfo", userInfo);
 			// 当access_token过时时进行刷新
 			System.out.println("进入刷新呢token方法");
@@ -59,7 +56,6 @@ public class WxCallbackController {
 			// 刷新token
 			String refresh_url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=" + AuthUtil.APPID
 					+ "&grant_type=refresh_token" + "&refresh_token=" + refresh_token;
-			// response.sendRedirect(refresh_url);
 			AuthUtil.doGetJson(refresh_url);
 			System.out.println("刷新成功......");
 
@@ -76,8 +72,8 @@ public class WxCallbackController {
 			user.setUserportrait(headimgurl);
 			user.setUsersex(sex);
 			userService.addUser(user);
-		} 
-		
+		}
+
 		return AuthUtil.getMsg(users, urlName);
 	}
 }

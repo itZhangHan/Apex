@@ -18,12 +18,15 @@
 			<mvc:exclude-mapping path="/WxAuth/wxLogin" />
 			<mvc:exclude-mapping path="/callback/first" />
 			<mvc:exclude-mapping path="/skip/auth_first" />
-		    <mvc:exclude-mapping path="/skip/firstsend" />
-			<mvc:exclude-mapping path="*.html" />
-			<mvc:exclude-mapping path="*.css" />
-			<mvc:exclude-mapping path="*.png" />
-			<mvc:exclude-mapping path="*.js" />
-			
+			<mvc:exclude-mapping path="/skip/firstsend" />
+			<mvc:exclude-mapping path="/skip/indexsend" />
+			<mvc:exclude-mapping path="/skip/index0send" />
+			<mvc:exclude-mapping path="/skip/oversend" />
+			<mvc:exclude-mapping path="/*.html" />
+			<mvc:exclude-mapping path="/css/**" />
+			<mvc:exclude-mapping path="/img/**" />
+			<mvc:exclude-mapping path="/js/**" />
+
 			<bean class="com.els.common.WxInterceptor">
 			</bean>
 		</mvc:interceptor>
@@ -73,6 +76,9 @@
 	<mvc:resources location="/css/" mapping="/css/**" />
 	<mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/img/" mapping="/img/**" />
+	<mvc:resources location="/webapp/css/" mapping="/css/**" />
+	<mvc:resources location="/webapp/js/" mapping="/js/**" />
+	<mvc:resources location="/webapp/img/" mapping="/img/**" />
 	<!-- 配置文件上传解析器 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

@@ -9,63 +9,54 @@
     scale=1,maximum-scale=1,user-scalable=no">
 <meta name="format-detection" content="telephone=no">
 <link rel="stylesheet" href="../css/first.css">
-<link rel="stylesheet" href="../js/jquery-3.2.1.min.js">
 </head>
 <body>
-
-
 	<div class="page" id="page1">
-
 		<button id="openBtn">
 			<img src="../img/openBtn.png">
 		</button>
-
 	</div>
 
-	<script type="text/javascript">
-		//var nickname = $.getUrlParam('nickname');
-		//alert(nickname);
-		/* function getQueryString(name) {
-			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-			var r = window.location.search.substr(1).match(reg);
-			if (r != null)
-				return decodeURI(r[2]);
-			return null;
-		}
-		
-		var nickname = getQueryString("nickname");
-		alert(nickname); */
+	<script>
+		var openBtn = document.getElementById("openBtn");
+
 		var request = {
-				QueryString : function(val) {
+			QueryString : function(val) {
 				var uri = window.location.search;
-				var re = new RegExp("" +val+ "\=([^\&\?]*)", "ig");
-				return ((uri.match(re))?(uri.match(re)[0].substr(val.length+1)):null);
-				},
-				QueryStrings : function() {
+				var re = new RegExp("" + val + "\=([^\&\?]*)", "ig");
+				return ((uri.match(re)) ? (uri.match(re)[0]
+						.substr(val.length + 1)) : null);
+			},
+			QueryStrings : function() {
 				var uri = window.location.search;
 				var re = /\w*\=([^\&\?]*)/ig;
-				var retval=[];
+				var retval = [];
 				while ((arr = re.exec(uri)) != null)
-				retval.push(arr[0]);
+					retval.push(arr[0]);
 				return retval;
-				},
-				setQuery : function(val1, val2) {
+			},
+			setQuery : function(val1, val2) {
 				var a = this.QueryStrings();
 				var retval = "";
 				var seted = false;
-				var re = new RegExp("^" +val1+ "\=([^\&\?]*)$", "ig");
-				for(var i=0; i<a.length; i++) {
-				if (re.test(a[i])) {
-				seted = true;
-				a[i] = val1 +"="+ val2;
-				}
+				var re = new RegExp("^" + val1 + "\=([^\&\?]*)$", "ig");
+				for (var i = 0; i < a.length; i++) {
+					if (re.test(a[i])) {
+						seted = true;
+						a[i] = val1 + "=" + val2;
+					}
 				}
 				retval = a.join("&");
-				return "?" +retval+ (seted ? "" : (retval ? "&" : "") +val1+ "=" +val2);
-				}
-				} 
+				return "?"
+						+ retval
+						+ (seted ? "" : (retval ? "&" : "") + val1 + "=" + val2);
+			}
+		}
+		var nicakname = decodeURI(request.QueryString("nickname"));
+		var city = decodeURI(request.QueryString("city"));
+		var img = decodeURI(request.QueryString("headimgurl"));
+		var sex = decodeURI(request.QueryString("sex"));
 
-		alert(decodeURI(request.QueryString("urlName")));
 	</script>
 
 </body>
