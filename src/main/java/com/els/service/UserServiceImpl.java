@@ -23,10 +23,10 @@ public class UserServiceImpl implements UserService {
 	public ElsResult addUser(JhddUsers user) {
 		if (user != null) {
 			// 向数据库插入用户信息
-			int i = userMapper.insert(user);
-			if (i != 0) {
-				// 成功返回OK
-				return ElsResult.ok();
+			int userid = userMapper.insert(user);
+			if (userid != 0 && !"".equals(userid)) {
+				// 成功返回userid
+				return ElsResult.ok(userid);
 			} else {
 				// 失败返回错误信息
 				return ElsResult.build(0, "用户添加失败。");

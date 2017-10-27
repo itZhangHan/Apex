@@ -9,22 +9,24 @@
     scale=1,maximum-scale=1,user-scalable=no">
 <meta name="format-detection" content="telephone=no">
 <link rel="stylesheet" href="../css/first.css">
-
+<script src="../js/userInfo.js"></script>
 </head>
 <body>
 	<div class="page" id="page1">
 		<button id="openBtn">
 			<img src="../img/openBtn.png">
-			<h1>nickname</h1>
 		</button>
-		
 	</div>
 
 	<script>
 		var openBtn = document.getElementById("openBtn");
-		alert(nickname);
+		
+		var aa = document.getElementById("cityicon");
+		
+		aa.innerHTML = city;
+		 
 	</script>
-	<script src="../js/userInfo.js"></script>
+
 </body>
 
 </html>

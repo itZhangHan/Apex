@@ -29,7 +29,10 @@ var request = {
 				+ (seted ? "" : (retval ? "&" : "") + val1 + "=" + val2);
 	}
 }
-nicakname = decodeURI(request.QueryString("nickname"));
-city = decodeURI(request.QueryString("city"));
-img = decodeURI(request.QueryString("headimgurl"));
-sex = decodeURI(request.QueryString("sex"));
+	nicakname = decodeURI(request.QueryString("nickname"));
+	city = decodeURI(request.QueryString("city"));
+	img = decodeURI(request.QueryString("headimgurl"));
+	sex = decodeURI(request.QueryString("sex"));
+	openid = decodeURI(request.QueryString("openid"));
+	userid = decodeURI(request.QueryString("userid"));
+

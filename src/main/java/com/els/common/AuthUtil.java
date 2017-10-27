@@ -53,24 +53,28 @@ public class AuthUtil {
 		return jsonObject;
 	}
 
-	public static String getMsg(JhddUsers jhddUser, String topName) {
+	public static String getMsg(JhddUsers jhddUser, String topName, Integer insertUserId) {
 		System.out.println("getMsg");
+		Integer userid = 0;
 		String nickname = "";
 		String city = "";
 		String headimgurl = "";
 		Integer sex = 0;
+		String openid = "";
 		try {
+			openid = new String(new String(jhddUser.getOpenid()).getBytes("UTF-8"), "ISO8859-1");
 			nickname = new String(new String(jhddUser.getUsername()).getBytes("UTF-8"), "ISO8859-1");
 			city = new String(new String(jhddUser.getCity()).getBytes("UTF-8"), "ISO8859-1");
 			headimgurl = new String(new String(jhddUser.getUserportrait()).getBytes("UTF-8"), "ISO8859-1");
 			sex = jhddUser.getUsersex();
+			userid = jhddUser.getUserid();
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// 获取请求路径
 		String topStr = getTopName(topName);
-		String urlName = "?nickname=" + nickname + "&sex=" + sex + "&headimgurl=" + headimgurl + "&city=" + city;
+		String urlName = "?nickname=" + nickname + "&sex=" + sex + "&headimgurl=" + headimgurl + "&city=" + city+"&openid="+openid+ "&userid=" + userid+"&insertUserId"+insertUserId;
 		if (topStr != null && !"".equals(topStr)) {
 			System.out.println(topStr + urlName);
 			return "redirect:/skip/" + topStr + urlName;
