@@ -224,6 +224,7 @@ SquareFactory.prototype.make = function(index, dir) {
     switch (index) {
         case 1:
             s = new Square1();
+            s.row = true;
             break;
         case 2:
             s = new Square2();

@@ -13,6 +13,7 @@ var Square = function () {
   }
   // 方向
   this.dir = 0;
+  this.row = false;
 }
 
 // 旋转

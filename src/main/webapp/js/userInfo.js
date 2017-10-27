@@ -33,3 +33,4 @@ nicakname = decodeURI(request.QueryString("nickname"));
 city = decodeURI(request.QueryString("city"));
 img = decodeURI(request.QueryString("headimgurl"));
 sex = decodeURI(request.QueryString("sex"));
+userId = decodeURI(request.QueryString("userId"));

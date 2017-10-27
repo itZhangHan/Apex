@@ -83,6 +83,9 @@ html,body{
      /*   border: 1px solid blue;*/
      border-top: none;
      z-index: -1;
+
+     background: url("../img/a/bcg.png") no-repeat center center;
+     background-size: 100% 100%;
 }
 
 .next {
@@ -216,11 +219,13 @@ html,body{
     margin-top: -69%;
     font-size: 5.1vw;
 }
-
 .none,
+/*.none99,*/
 .current,
-/*.current1,
-.current2,*/
+.current1,
+.current2,
+.dj,
+.dj1,.dj2,.dj3,.dj4, .dj5,.dj6,.dj7,
 .done {
     position: absolute;
    /* width: 20px;
@@ -231,8 +236,8 @@ html,body{
 
 .none {
    /*  background-color: #f2faff;*/
-    background: url("../img/sprite.png") no-repeat center center;
-    background-size: 100%;
+  /*  background: url("../img/sprite.png") no-repeat center center;
+    background-size: 100% 100%;*/
  }
 
 
@@ -240,26 +245,61 @@ html,body{
    /* background-color: #FF7569;
     border: 1px solid #1F1F1F;*/
     background: url("../img/sprite3.png") no-repeat center center;
-    background-size: 100%;
+    background-size: 100% 100%;
 }
 .current1 {
     /* background-color: #FF7569;
      border: 1px solid #1F1F1F;*/
     background: url("../img/sprite2.png") no-repeat center center;
-    background-size: 100%;
+    background-size: 100% 100%;
 }
 .current2 {
     /* background-color: #FF7569;
      border: 1px solid #1F1F1F;*/
     background: url("../img/sprite4.png") no-repeat center center;
-    background-size: 100%;
+    background-size: 100% 100%;
 }
 
 .done {
   /*  background-color: #969696;
     border: 1px solid #1F1F1F;*/
     background: url("../img/sprite1.png") no-repeat center center;
-    background-size: 100%;
+    background-size: 100% 100%;
+}
+
+.dj{
+    background: url("../img/a/dj8.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.dj1{
+    background: url("../img/a/dj1.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.dj2{
+    background: url("../img/a/dj2.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+.dj3{
+    background: url("../img/a/dj3.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+.dj4{
+    background: url("../img/a/dj4.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+.dj5{
+    background: url("../img/a/dj5.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+.dj6{
+    background: url("../img/a/dj6.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+.dj7{
+    background: url("../img/a/dj7.png") no-repeat center center;
+    background-size: 100% 100%;
 }
 
 #local_gameover {
@@ -292,7 +332,7 @@ html,body{
     text-align: center;
     /*   display: inline-block;*/     /*换成下面的*/
     float: left;
-    margin: 0 3.5%;
+    margin: 0 3.9%;
 }
 .bottom_btn ul li img{
     width: 100%;

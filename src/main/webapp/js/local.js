@@ -56,13 +56,14 @@ var Local = function () {
           /*  if(noChanged){
            return;
            }*/
-          game.rotate();
+  //        game.rotate();
       }, false);
 
 
       rotate.addEventListener('touchstart', function () {
           console.log("jjjjjjjjjj");
           this.style.width = "89%";
+          game.rotate();
       }, false);
 
       rotate.addEventListener('touchend', function () {
@@ -72,51 +73,52 @@ var Local = function () {
         /*  if(noChanged){
               return;
           }*/
-          game.rotate();
+
       }, false);
 
       left.addEventListener('touchstart', function () {
           this.style.width = "89%"
+          game.left();
       },false);
       left.addEventListener('touchend', function () {
           this.style.width = "100%"
-          game.left();
+
       },false);
 
       right.addEventListener('touchstart', function(){
           this.style.width = "89%"
+          game.right();
       },false)
       right.addEventListener('touchend', function () {
           this.style.width = "100%"
-          game.right();
+
       },false);
 
       down.addEventListener('touchstart',function(){
           this.style.width = "89%"
-          $('#local_gameScene').addClass("gameSceneCss");//添加样式
+          game.fall();
+          $('#local_gameScene').removeClass("gameSceneCss");//添加样式
           $('#local_gameScene').toggleClass('gameSceneCss');
       },false);
       down.addEventListener('touchend', function () {
           this.style.width = "100%"
-          game.fall();
-          $('#local_gameScene').removeClass("gameSceneCss");//添加样式
+
+          $('#local_gameScene').addClass("gameSceneCss");//添加样式
           $('#local_gameScene').toggleClass('gameSceneCss');
 
       },false);
   }
-
-
   // 移动
   var move = function () {
     timeFunc();
-
       var scoreMsg = {};
       scoreMsg.type = "score"
       scoreMsg.msgStr = game.score;
-      console.log("game.scoreDiv.innerHTML=="+game.score)
+  //    console.log("game.scoreDiv.innerHTML=="+game.score)
     if (!game.down()) {
-      game.fixed();
+        game.fixed();
       var line = game.checkClear();
+        console.log("game.stage_arr.lenth===="+game.stage_arr.length)
       if (line) {
         game.addScore(line);  /*随机获取道具*/
           var scoreMsg = {};
