@@ -30,4 +30,6 @@ public interface JhddRoomsMapper {
 	int updateByPrimaryKeySelective(JhddRooms record);
 
 	int updateByPrimaryKey(JhddRooms record);
+	
+	int selectLastInsertRoomId();
 }

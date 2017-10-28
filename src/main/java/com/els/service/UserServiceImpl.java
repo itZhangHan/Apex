@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		if (userid != null & userid != 0) {
 			JhddUsers users = userMapper.selectByPrimaryKey(userid);
 			if (users != null) {
-				return ElsResult.build(1, "查询呢成功", users, null);
+				return ElsResult.build(1, "查询成功", users, null);
 			} else {
 				return ElsResult.build(0, "查询失败");
 			}

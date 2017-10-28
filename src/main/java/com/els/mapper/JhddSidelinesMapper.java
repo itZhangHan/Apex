@@ -27,4 +27,6 @@ public interface JhddSidelinesMapper {
     int updateByPrimaryKeySelective(JhddSidelines record);
 
     int updateByPrimaryKey(JhddSidelines record);
+    
+    JhddSidelines selectLastSidelines();
 }

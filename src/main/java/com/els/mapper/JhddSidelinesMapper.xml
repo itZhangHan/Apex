@@ -22,7 +22,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -54,7 +55,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -89,6 +91,17 @@
 			order by ${orderByClause}
 		</if>
 	</select>
+
+	<select id="selectLastSidelines" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		jhdd_sidelines
+
+		ORDER BY
+		jhdd_sidelines.sidelinesId DESC
+		LIMIT 1
+	</select>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select
@@ -97,7 +110,8 @@
 		where sidelinesId = #{sidelinesid,jdbcType=INTEGER}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from jhdd_sidelines
+		delete from
+		jhdd_sidelines
 		where sidelinesId = #{sidelinesid,jdbcType=INTEGER}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.els.bean.JhddSidelinesExample">
@@ -111,7 +125,8 @@
 		useGeneratedKeys="true" keyProperty="id">
 		insert into jhdd_sidelines (sidelinesId, roomId, userId,
 		sidelineState)
-		values (#{sidelinesid,jdbcType=INTEGER}, #{roomid,jdbcType=INTEGER},
+		values (#{sidelinesid,jdbcType=INTEGER},
+		#{roomid,jdbcType=INTEGER},
 		#{userid,jdbcType=INTEGER},
 		#{sidelinestate,jdbcType=TINYINT})
 
@@ -180,10 +195,14 @@
 	</update>
 	<update id="updateByExample" parameterType="map">
 		update jhdd_sidelines
-		set sidelinesId = #{record.sidelinesid,jdbcType=INTEGER},
-		roomId = #{record.roomid,jdbcType=INTEGER},
-		userId = #{record.userid,jdbcType=INTEGER},
-		sidelineState = #{record.sidelinestate,jdbcType=TINYINT}
+		set sidelinesId =
+		#{record.sidelinesid,jdbcType=INTEGER},
+		roomId =
+		#{record.roomid,jdbcType=INTEGER},
+		userId =
+		#{record.userid,jdbcType=INTEGER},
+		sidelineState =
+		#{record.sidelinestate,jdbcType=TINYINT}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -204,10 +223,14 @@
 		where sidelinesId = #{sidelinesid,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.els.bean.JhddSidelines">
-		update jhdd_sidelines
+		update
+		jhdd_sidelines
 		set roomId = #{roomid,jdbcType=INTEGER},
-		userId = #{userid,jdbcType=INTEGER},
-		sidelineState = #{sidelinestate,jdbcType=TINYINT}
-		where sidelinesId = #{sidelinesid,jdbcType=INTEGER}
+		userId =
+		#{userid,jdbcType=INTEGER},
+		sidelineState =
+		#{sidelinestate,jdbcType=TINYINT}
+		where sidelinesId =
+		#{sidelinesid,jdbcType=INTEGER}
 	</update>
 </mapper>

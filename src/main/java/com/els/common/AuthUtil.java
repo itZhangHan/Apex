@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import com.els.bean.JhddSidelines;
 import com.els.bean.JhddUsers;
 
 import net.sf.json.JSONObject;;
@@ -26,7 +27,8 @@ public class AuthUtil {
 		topName.put("index0", "index0send");
 		topName.put("index", "indexsend");
 		topName.put("over", "oversend");
-		
+		// topName.put("createRoom", "index0send");
+
 	}
 
 	/**
@@ -54,7 +56,7 @@ public class AuthUtil {
 		return jsonObject;
 	}
 
-	public static String getMsg(JhddUsers jhddUser, String topName, Integer insertUserId) {
+	public static String getMsg(JhddUsers jhddUser, String topName, JhddSidelines sidelines) {
 		System.out.println("getMsg");
 		Integer userid = 0;
 		String nickname = "";
@@ -62,6 +64,9 @@ public class AuthUtil {
 		String headimgurl = "";
 		Integer sex = 0;
 		String openid = "";
+		Integer roomid = 0;
+		 
+
 		try {
 			openid = new String(new String(jhddUser.getOpenid()).getBytes("UTF-8"), "ISO8859-1");
 			nickname = new String(new String(jhddUser.getUsername()).getBytes("UTF-8"), "ISO8859-1");
@@ -69,13 +74,17 @@ public class AuthUtil {
 			headimgurl = new String(new String(jhddUser.getUserportrait()).getBytes("UTF-8"), "ISO8859-1");
 			sex = jhddUser.getUsersex();
 			userid = jhddUser.getUserid();
+			roomid = sidelines.getRoomid();
+			
+			System.out.println("roomId*******************:" + roomid);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// 获取请求路径
 		String topStr = getTopName(topName);
-		String urlName = "?nickname=" + nickname + "&sex=" + sex + "&headimgurl=" + headimgurl + "&city=" + city+"&openid="+openid+ "&userid=" + userid+"&insertUserId="+insertUserId;
+		String urlName = "?nickname=" + nickname + "&sex=" + sex + "&headimgurl=" + headimgurl + "&city=" + city
+				+ "&openid=" + openid + "&userid=" + userid + "&roomId=" + roomid;
 		if (topStr != null && !"".equals(topStr)) {
 			System.out.println(topStr + urlName);
 			return "redirect:/skip/" + topStr + urlName;
@@ -90,6 +99,7 @@ public class AuthUtil {
 	public static String getTopName(String topName) {
 		if (topName != null && !"".equals(topName)) {
 			if (topName.contains("/")) {
+				System.out.println("进入解析字符串方法");
 				String[] split = topName.split("/");
 				String topStr = split[split.length - 1];
 				if (AuthUtil.topName.get(topStr) != null) {

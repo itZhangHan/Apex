@@ -2,8 +2,6 @@ package com.els.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,21 +31,21 @@ public class RoomServiceImpl implements RoomService {
 
 	@Override
 	@SuppressWarnings("all")
-	public ElsResult createRoom(Integer userid, Integer romeid) {
+	public ElsResult createRoom(Integer userid) {
 		// TODO Auto-generated method stub
-		String a="";
-		System.out.println("进入新建方法");
+		String a = "";
+		System.out.println("进入新建房间方法");
 		// 查询用户信息
 		JhddUsers user = jhddUsersMapper.selectByPrimaryKey(userid);
 		// 当房间ID为空的时候跳转创建房�?
 		ElsResult result = new ElsResult();
 		// 设置房间属性。
 		JhddRooms room = new JhddRooms();
-		room.setRoomname(user.getUsername()+"的房间");
+		room.setRoomname(user.getUsername() + "的房间");
 		room.setRoomstate((byte) 0);
 		int insertid = jhddRoomsMapper.insert(room);
 		System.out.println(insertid);
-		
+
 		// 添加第三组表属�?
 		if (room.getRoomid() != null) {
 			JhddSidelines jhddSideline = new JhddSidelines();
@@ -56,11 +54,15 @@ public class RoomServiceImpl implements RoomService {
 			// 0房主 1玩家 2旁观者
 			jhddSideline.setSidelinestate((byte) 0);
 			jhddSidelinesMapper.insert(jhddSideline);
+			JhddSidelinesExample example = new JhddSidelinesExample();
+			example.createCriteria().andRoomidEqualTo(insertid);
 			// 新建房间成功时查询房间信息并返回�?
-			JhddSidelines jhddSidelines = jhddSidelinesMapper.selectByPrimaryKey(jhddSideline.getSidelinesid());
+			JhddSidelines jhddSidelines = jhddSidelinesMapper.selectLastSidelines();
+
+			return result.build(1, "SUCCESS", jhddSidelines, null);
+
 			// 1成功 0失败
-			return result.build(1, "SUCCESS", user,null);
-		 
+
 		} else {
 			return result.build(0, "出现未知错误！");
 		}
@@ -96,13 +98,23 @@ public class RoomServiceImpl implements RoomService {
 			JhddSidelinesExample jhddSidelinesExample = new JhddSidelinesExample();
 			jhddSidelinesExample.createCriteria().andRoomidEqualTo(roomid);
 			List<JhddSidelines> JhddSidelines = jhddSidelinesMapper.selectByExample(jhddSidelinesExample);
-			 
-			return ElsResult.build(1, "SUCCESS", JhddSidelines,roomStatus);
+
+			return ElsResult.build(1, "SUCCESS", JhddSidelines, roomStatus);
 		} else {
 			// 不可加入 跳转新建房间页面
 			System.out.println("进入不可加入函数");
-			return ElsResult.build(0, "房间已满", user,null);
+			return ElsResult.build(0, "房间已满", user, null);
 		}
 
 	}
+
+	// @Override
+	// public JhddUsers selectUsers(JhddSidelines sidelines) {
+	// // TODO Auto-generated method stub
+	//
+	// JhddSidelinesExample example = new JhddSidelinesExample();
+	// example.createCriteria().andUseridEqualTo(sidelines.getUserid());
+	// List<JhddSidelines> user =jhddSidelinesMapper.selectByExample(example);
+	// return null;
+	// }
 }

@@ -14,7 +14,7 @@ import com.els.common.ElsResult;
 import com.els.serviceinterface.RoomService;
 
 /*
- * 路径：http://thdd.apexgame.cn/tetris/room/joinOrCreateRoom?userid=?
+ * 路径：http://thdd.apexgame.cn/tetris/room/joinRoom?userid=?&roomid=?
  * 请求方式：get
  * 返回：{
  * 	status(状态)：1成功 0失败
@@ -25,29 +25,25 @@ import com.els.serviceinterface.RoomService;
 
 @Controller
 @RequestMapping("room")
-public class RoomController {
+public class JoinRoomController {
 
 	@Autowired
 	private RoomService roomService;
 
-	@RequestMapping(value = "joinOrCreateRoom")
+	@RequestMapping(value = "joinRoom")
 	public String CreateRome(HttpServletRequest request,Integer userid, Integer roomid,Model model) {
-		System.out.println(userid+"aaaaas");
+		System.out.println(userid+"进入加入房间方法...");
 		ElsResult result=null;
 		if (roomid != null && roomid != 0) {
 			// 房间ID不等于空跳转长连接加入房间${}
 			System.out.println("加入房间");
 			result = roomService.joinRoom(userid, roomid);
 			model.addAttribute("result", result);
-			return "index";
-		} else{
-			// 新建房间
-			System.out.println("新建房间");
-			result = roomService.createRoom(userid, roomid);
-			JhddUsers users = (JhddUsers) result.getData();
-			
-			return AuthUtil.getMsg(users, "index0", users.getUserid());
-		} 
+			return AuthUtil.getMsg(null, "index0", null);
+		}else{
+			 return AuthUtil.getMsg(null, "first", null);
+		}
+		 
 
 	}
 }

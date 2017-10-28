@@ -22,7 +22,8 @@
 			<mvc:exclude-mapping path="/skip/indexsend" />
 			<mvc:exclude-mapping path="/skip/index0send" />
 			<mvc:exclude-mapping path="/skip/oversend" />
-			<mvc:exclude-mapping path="/room/joinOrCreateRoom"/>
+			<mvc:exclude-mapping path="/room/createRoom"/>
+			<mvc:exclude-mapping path="/room/joinRoom"/>
 			<mvc:exclude-mapping path="/*.html" />
 			<mvc:exclude-mapping path="/css/**" />
 			<mvc:exclude-mapping path="/img/**" />

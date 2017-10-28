@@ -107,7 +107,16 @@
 			<include refid="Example_Where_Clause" />
 		</if>
 	</delete>
-	
+	<select id="selectLastInsertRoomId" resultType="int">
+		SELECT
+		jhdd_rooms.roomId
+		FROM
+		jhdd_rooms
+		ORDER BY
+		jhdd_rooms.roomId DESC
+		LIMIT 1
+	</select>
+
 	<insert id="insert" parameterType="com.els.bean.JhddRooms"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into jhdd_rooms (roomId, roomName, roomState
@@ -155,7 +164,8 @@
 	</select>
 	<select id="selectRoomStatus" parameterType="java.lang.Integer"
 		resultType="java.lang.Integer">
-		 SELECT jhdd_rooms.roomState FROM jhdd_rooms WHERE jhdd_rooms.roomId=#{roomid};
+		SELECT jhdd_rooms.roomState FROM jhdd_rooms WHERE
+		jhdd_rooms.roomId=#{roomid};
 	</select>
 	<update id="updateByExampleSelective" parameterType="map">
 		update jhdd_rooms

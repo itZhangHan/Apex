@@ -1,5 +1,7 @@
 package com.els.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -7,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.els.bean.JhddSidelines;
+import com.els.bean.JhddSidelinesExample;
 import com.els.bean.JhddUsers;
 import com.els.common.AuthUtil;
-import com.els.common.ElsResult;
+import com.els.mapper.JhddSidelinesMapper;
 import com.els.mapper.JhddUsersMapper;
 import com.els.serviceinterface.UserService;
 
@@ -18,7 +22,8 @@ import net.sf.json.JSONObject;
 @Controller
 @RequestMapping("/callback")
 public class WxCallbackController {
-
+	@Autowired
+	private JhddSidelinesMapper jhddSidelinesMapper;
 	@Autowired
 	private JhddUsersMapper userMapper;
 
@@ -76,9 +81,15 @@ public class WxCallbackController {
 			userService.addUser(user);
 			int userid = userMapper.selectLastInsertUserId();
 			JhddUsers insertUsers = userMapper.selectByPrimaryKey(userid);
-			return AuthUtil.getMsg(insertUsers, urlName, userid);
+			JhddSidelines sidelines = jhddSidelinesMapper.selectLastSidelines();
+			return AuthUtil.getMsg(insertUsers, urlName, sidelines);
 		}
-
-		return AuthUtil.getMsg(users, urlName, null);
+		JhddSidelinesExample example = new JhddSidelinesExample();
+		example.createCriteria().andUseridEqualTo(users.getUserid());
+		List<JhddSidelines> list = jhddSidelinesMapper.selectByExample(example);
+		for (JhddSidelines jhddSidelines2 : list) {
+			return AuthUtil.getMsg(users, urlName, jhddSidelines2);
+		}
+		return AuthUtil.getMsg(users, urlName,null);
 	}
 }
