@@ -67,35 +67,14 @@ public class WebSocketServer {
 	 */
 	@OnMessage
 	public void onMessage(SocketMessage message, Session session) {
-		System.out.println("来自客户端的消息:" + message);
-		System.out.println(JSONObject.fromObject(message).toString());
-		System.out.println(roomId);
 		this.roomId = message.getRoomId();
-		System.out.println(roomId);
 	//	message.setRoomId("10024");
 		SocketManger.addRoom(roomId, this);
-		URI uri = session.getRequestURI();
-		System.out.println(uri.toString());
-		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(roomId);
-		if (arrayset != null) {
-			for (WebSocketServer object : arrayset) {
-				try {
-					try {
-						object.session.getBasicRemote().sendObject(message);
-						//object.session.getBasicRemote().sendText(message.getMsgStr());
-					} catch (EncodeException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					// object.session.getAsyncRemote()).sendMessage(message.getMsgStr());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		arrayset.size();
-
+		if(message!=null){
+        if(MessageManger.getType(message.getType())!=null){
+        	MessageManger.getType(message.getType()).onMessage(message);
+        }
+      }
 	}
 
 	/**
@@ -141,5 +120,9 @@ public class WebSocketServer {
 
 	public static synchronized void subOnlineCount() {
 		SocketManger.subOnlineCount();
+	}
+	
+	public Session getSession(){
+		return session;
 	}
 }
