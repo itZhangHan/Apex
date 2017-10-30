@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.els.bean.JhddRooms;
 import com.els.bean.JhddSidelines;
 import com.els.bean.JhddSidelinesExample;
 import com.els.bean.JhddUsers;
 import com.els.common.AuthUtil;
+import com.els.mapper.JhddRoomsMapper;
 import com.els.mapper.JhddSidelinesMapper;
 import com.els.mapper.JhddUsersMapper;
 import com.els.serviceinterface.UserService;
@@ -26,7 +28,8 @@ public class WxCallbackController {
 	private JhddSidelinesMapper jhddSidelinesMapper;
 	@Autowired
 	private JhddUsersMapper userMapper;
-
+	@Autowired
+	private JhddRoomsMapper roomsMapper;
 	@Autowired
 	private UserService userService;
 
@@ -44,6 +47,7 @@ public class WxCallbackController {
 		String token = jsonObject.getString("access_token");
 		// 通过openid查询是否存在信息
 		JhddUsers users = userMapper.selectByOpenid(openid);
+
 		// 获取请求路径
 		String urlName = request.getSession().getAttribute("urlName").toString();
 		if (users == null) {
@@ -82,14 +86,22 @@ public class WxCallbackController {
 			int userid = userMapper.selectLastInsertUserId();
 			JhddUsers insertUsers = userMapper.selectByPrimaryKey(userid);
 			JhddSidelines sidelines = jhddSidelinesMapper.selectLastSidelines();
-			return AuthUtil.getMsg(insertUsers, urlName, sidelines);
+			// 新建房间的用户状态为 0 房主
+			sidelines.setSidelinestate((byte) 0);
+			// 查询房间信息
+			int roomId = jhddSidelinesMapper.selectRoomId(sidelines.getSidelinesid());
+			JhddRooms roomsInfo = roomsMapper.selectByPrimaryKey(roomId);
+			return AuthUtil.getMsg(insertUsers, urlName, sidelines, roomsInfo);
 		}
 		JhddSidelinesExample example = new JhddSidelinesExample();
 		example.createCriteria().andUseridEqualTo(users.getUserid());
 		List<JhddSidelines> list = jhddSidelinesMapper.selectByExample(example);
 		for (JhddSidelines jhddSidelines2 : list) {
-			return AuthUtil.getMsg(users, urlName, jhddSidelines2);
+			jhddSidelines2.setSidelinestate((byte) 0);
+			int roomId = jhddSidelinesMapper.selectRoomId(jhddSidelines2.getSidelinesid());
+			JhddRooms roomsInfo = roomsMapper.selectByPrimaryKey(roomId);
+			return AuthUtil.getMsg(users, urlName, jhddSidelines2, roomsInfo);
 		}
-		return AuthUtil.getMsg(users, urlName,null);
+		return AuthUtil.getMsg(users, urlName, null, null);
 	}
 }

@@ -31,19 +31,18 @@ public class JoinRoomController {
 	private RoomService roomService;
 
 	@RequestMapping(value = "joinRoom")
-	public String CreateRome(HttpServletRequest request,Integer userid, Integer roomid,Model model) {
-		System.out.println(userid+"进入加入房间方法...");
-		ElsResult result=null;
+	public String CreateRome(HttpServletRequest request, Integer userid, Integer roomid, Model model) {
+		System.out.println(userid + "进入加入房间方法...");
+		ElsResult result = null;
 		if (roomid != null && roomid != 0) {
 			// 房间ID不等于空跳转长连接加入房间${}
 			System.out.println("加入房间");
 			result = roomService.joinRoom(userid, roomid);
 			model.addAttribute("result", result);
-			return AuthUtil.getMsg(null, "index0", null);
-		}else{
-			 return AuthUtil.getMsg(null, "first", null);
+			return AuthUtil.getMsg(null, "index0", null, null);
+		} else {
+			return AuthUtil.getMsg(null, "first", null, null);
 		}
-		 
 
 	}
 }

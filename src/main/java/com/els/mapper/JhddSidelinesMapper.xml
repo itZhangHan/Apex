@@ -76,6 +76,12 @@
 	<sql id="Base_Column_List">
 		sidelinesId, roomId, userId, sidelineState
 	</sql>
+	<!-- 查询房间id -->
+	<select id="selectRoomId" parameterType="java.lang.Integer"
+		resultType="int">
+		SELECT roomId FROM jhdd_sidelines WHERE sidelinesId =
+		#{sidelinesId}
+	</select>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.els.bean.JhddSidelinesExample">
 		select

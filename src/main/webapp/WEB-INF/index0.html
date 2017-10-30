@@ -2,36 +2,36 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>大厅</title>
+<title>游戏页面</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
- <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <link rel="stylesheet" href="../css/hall.css">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-
+    scale=1,maximum-scale=1,user-scalable=no">
+<script src="../js/userInfo.js"></script>
+<link rel="stylesheet" href="../css/hall.css">
 </head>
 <body>
-    <div class="centainer">
+	<div class="centainer">
+		<div class="room">
+			<span id="roomID"></span> <img id="iconBtn" src="../img/iconBtn.png">
+		</div>
 
-        <div class="room">
-            <span id="roomID">${sessionScope.nickname}</span>
-            <img id="iconBtn" src="../img/iconBtn.png">
-        </div>
-
-
-        <div class="item_btn">
-            <ul>
-                <li><img id = "item1" src="../img/music.png"></li>
-                <li><img id = "item2" src="../img/sprite7.png"></li>
-                <li><img id = "item3" src="../img/sprite10.png"></li>
-            </ul>
-        </div>
-
+		<div class="item_btn">
+			<ul>
+				<li><img id="item1" src="../img/music.png"></li>
+				<li><img id="item2" src="../img/sprite7.png"></li>
+				<li><img id="item3" src="../img/sprite10.png"></li>
+			</ul>
+		</div>
 
 		<div class="game_go">
+			<!-- 开始游戏 -->
 			<img id="game_go" src="../img/startBtn.png">
 		</div>
 
 		<div class="player_btn">
 			<ul>
-				<li id="player1"><img src="../img/icon3.png"></li>
+				<li id="player1"><img id="headImg1" src="../img/icon3.png"></li>
 				<li id="player2"><img src="../img/icon3.png"></li>
 			</ul>
 			<ul>
@@ -59,60 +59,75 @@
 
 	</div>
 	<script type="text/javascript">
-       // var div_2 = document.getElementById("chatRoom");
-        var div_2;
-        var count = 0;
-        var roomID = document.getElementById("roomID").innerHTML;
-      //  var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
-	    var webSocket = new Socket("ws://thdd.apexgame.cn/tetris/websocket1");
-        function showMessage(str,type) {	
-            var div_3=document.createElement("div");
-            div_3.style.fontSize = "20px";
-            div_3.style.paddingRight = "20px";                              
-            div_3.style.wordBreak = "break-all" 
-            div_3.style.marginTop = "10px";
-            var ss = 7;
-            div_3.innerHTML = "<img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"+
-                "&nbsp;&nbsp;&nbsp;&nbsp;"+str + '<br />';
-            div_2.appendChild(div_3)
-            
-            div_2.scrollTop = div_2.scrollHeight;
-        }
-       webSocket.websocket.onOpen = function () {
-            console.log("websocket open")
-          /*  if(count == 0) {*/
-                if(roomID){
-                    websocket.send(roomID)
-                }
-        //    }
-        }
-            document.getElementById("sendBtn_0").onclick = function () {
-                var txt = document.getElementById("sendTxt_0").value;
-                div_2 = document.getElementById("chatRoom");
-                div_2.style.overflowY = "scroll";//auto    scroll
-                var num = Math.random()*10;
-                document.getElementById("sendTxt_0").value = "";
-                if(txt){
-                    var mes = {};
-                    mes.type = "score"
-                    mes.roomId =  10025;
-                    mes.toUserName = "1"
-                    mes.fromUserName="2"
-                    mes.msgStr = txt
-                    webSocket.websocket.send(JSON.stringify(mes))
-                }
-        }
-       webSocket.websocket.onClose = function () {
-            console.log("websocket close")
-        }
-       webSocket.websocket.onmessage = function (e) {
-        	var jsonObj=eval ("(" + e.data + ")");
-        	console.log(jsonObj)
-        	var b =JSON.parse(jsonObj);
-        	showMessage(b.msgStr,b.type);
-        }
-</script>
-    
+		// var div_2 = document.getElementById("chatRoom");
+		var div_2;
+		var count = 0;
+		var roomID = document.getElementById("roomID").innerHTML;
+		var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
+		function showMessage(str, type) {
+			var div_3 = document.createElement("div");
+			div_3.style.fontSize = "20px";
+			div_3.style.paddingRight = "20px";
+			div_3.style.wordBreak = "break-all"
+			div_3.style.marginTop = "10px";
+			var ss = 7;
+			div_3.innerHTML = "<img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"
+					+ "&nbsp;&nbsp;&nbsp;&nbsp;" + str + '<br />';
+			div_2.appendChild(div_3)
+
+			div_2.scrollTop = div_2.scrollHeight;
+		}
+		websocket.onOpen = function() {
+			console.log("websocket open")
+
+			if (roomID) {
+				websocket.send(roomID)
+			}
+
+		}
+		document.getElementById("sendBtn_0").onclick = function() {
+			var txt = document.getElementById("sendTxt_0").value;
+			div_2 = document.getElementById("chatRoom");
+			div_2.style.overflowY = "scroll";//auto    scroll
+			var num = Math.random() * 10;
+			document.getElementById("sendTxt_0").value = "";
+			if (txt) {
+				var mes = {};
+				mes.type = "message"
+				mes.roomId = 10025;
+				mes.toUserName = "1"
+				mes.fromUserName = "2"
+				mes.msgStr = txt
+				mes.userStatus = userStatus
+				mes.roomState = roomState
+				websocket.send(JSON.stringify(mes))
+			}
+			count++;
+		}
+		websocket.onClose = function() {
+			console.log("websocket close")
+		}
+		websocket.onmessage = function(e) {
+			var jsonObj = eval("(" + e.data + ")");
+			console.log(jsonObj)
+			var b = JSON.parse(jsonObj);
+			showMessage(b.msgStr, b.type);
+		}
+		var head1 = document.getElementById("headImg1");
+		head1.onclick = function() {
+			console.log("890890980980980")
+			var upDown = {};
+			upDown.type = "upDown"
+			upDown.roomId = 10025;
+			upDown.toUserName = "1"
+			upDown.fromUserName = "2"
+			upDown.msgStr = txt
+			upDown.userStatus = userStatus
+			upDown.roomState = roomState
+			websocket.send(JSON.stringify(upDown))
+		}
+	</script>
+	<script src="../js/hall.js"></script>
 
 </body>
 </html>

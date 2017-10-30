@@ -22,25 +22,29 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 
 	@Override
 	public SocketMessage decode(String jsonMessage) throws DecodeException {
-		//获取数据
+		// 获取数据
 		// TODO Auto-generated method stub
-		System.out.println("MessageDecoder == decode"+jsonMessage);
+		System.out.println("MessageDecoder == decode" + jsonMessage);
 		JSONObject object = JSONObject.fromObject(jsonMessage);
-		//此方法错误  noFoundClassEroor : javax/json/json 狗屎异常
-		//JsonObject jsonObject = Json.createReader(new StringReader(jsonMessage)).readObject();
+		// 此方法错误 noFoundClassEroor : javax/json/json 狗屎异常
+		// JsonObject jsonObject = Json.createReader(new
+		// StringReader(jsonMessage)).readObject();
 		SocketMessage message = new SocketMessage();
 		message.setType(object.getString("type"));
 		message.setRoomId(object.getString("roomId"));
 		message.setToUserName(object.getString("toUserName"));
 		message.setFromUserName(object.getString("fromUserName"));
 		message.setMsgStr(object.getString("msgStr"));
+		message.setUserStatus(object.getString("userStatus"));
+		message.setRoomState(object.getString("roomState"));
+		message.setRoomName(object.getString("roomName"));
 		System.out.println(message.toString());
 		return message;
-	}		
+	}
 
 	@Override
 	public boolean willDecode(String jsonMessage) {
-		//接收前端json数据 解析
+		// 接收前端json数据 解析
 		try {
 			System.out.println("接收前端数据");
 			JSONObject.fromObject(jsonMessage);

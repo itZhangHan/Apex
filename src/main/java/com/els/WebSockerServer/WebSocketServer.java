@@ -68,13 +68,13 @@ public class WebSocketServer {
 	@OnMessage
 	public void onMessage(SocketMessage message, Session session) {
 		this.roomId = message.getRoomId();
-	//	message.setRoomId("10024");
+		// message.setRoomId("10024");
 		SocketManger.addRoom(roomId, this);
-		if(message!=null){
-        if(MessageManger.getType(message.getType())!=null){
-        	MessageManger.getType(message.getType()).onMessage(message);
-        }
-      }
+		if (message != null) {
+			if (MessageManger.getType(message.getType()) != null) {
+				MessageManger.getType(message.getType()).onMessage(message);
+			}
+		}
 	}
 
 	/**
@@ -121,8 +121,8 @@ public class WebSocketServer {
 	public static synchronized void subOnlineCount() {
 		SocketManger.subOnlineCount();
 	}
-	
-	public Session getSession(){
+
+	public Session getSession() {
 		return session;
 	}
 }

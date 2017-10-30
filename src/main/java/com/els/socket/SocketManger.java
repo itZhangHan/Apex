@@ -84,6 +84,15 @@ public class SocketManger {
 		}
 		return null;
 	}
+	
+	public static CopyOnWriteArraySet getUserStatus(String userStatus) {
+		System.out.println("进入获取房间session方法");
+		//如果集合中有次rooid包含的session则返回
+		if (totalRoomMap.containsKey(userStatus)) {
+			return totalRoomMap.get(userStatus);
+		}
+		return null;
+	}
 
 	public static synchronized int getOnlineCount() {
 		return onlineCount;

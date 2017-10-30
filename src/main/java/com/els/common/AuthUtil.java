@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import com.els.bean.JhddRooms;
 import com.els.bean.JhddSidelines;
 import com.els.bean.JhddUsers;
 
@@ -56,8 +57,10 @@ public class AuthUtil {
 		return jsonObject;
 	}
 
-	public static String getMsg(JhddUsers jhddUser, String topName, JhddSidelines sidelines) {
+	public static String getMsg(JhddUsers jhddUser, String topName, JhddSidelines sidelines, JhddRooms roomsInfo) {
 		System.out.println("getMsg");
+
+		// 给前端传递数据 玩家id 姓名 城市 头像 性别 openid 房间id 房间名字 房间状态 玩家状态
 		Integer userid = 0;
 		String nickname = "";
 		String city = "";
@@ -65,17 +68,22 @@ public class AuthUtil {
 		Integer sex = 0;
 		String openid = "";
 		Integer roomid = 0;
-		 
-
+		Byte userStatus = 0;
+		String roomName = "";
+		Byte roomState = 0;
 		try {
 			openid = new String(new String(jhddUser.getOpenid()).getBytes("UTF-8"), "ISO8859-1");
 			nickname = new String(new String(jhddUser.getUsername()).getBytes("UTF-8"), "ISO8859-1");
 			city = new String(new String(jhddUser.getCity()).getBytes("UTF-8"), "ISO8859-1");
 			headimgurl = new String(new String(jhddUser.getUserportrait()).getBytes("UTF-8"), "ISO8859-1");
+			roomName = new String(new String(roomsInfo.getRoomname()).getBytes("UTF-8"), "ISO8859-1");
 			sex = jhddUser.getUsersex();
 			userid = jhddUser.getUserid();
 			roomid = sidelines.getRoomid();
-			
+			// 0未开始 1：游戏中 2:游戏结束
+			roomState = roomsInfo.getRoomstate();
+			// 0房主 1：玩家 2:旁观者
+			userStatus = sidelines.getSidelinestate();
 			System.out.println("roomId*******************:" + roomid);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -84,7 +92,8 @@ public class AuthUtil {
 		// 获取请求路径
 		String topStr = getTopName(topName);
 		String urlName = "?nickname=" + nickname + "&sex=" + sex + "&headimgurl=" + headimgurl + "&city=" + city
-				+ "&openid=" + openid + "&userid=" + userid + "&roomId=" + roomid;
+				+ "&openid=" + openid + "&userid=" + userid + "&roomId=" + roomid + "&userStatus=" + userStatus
+				+ "&roomName=" + roomName + "&roomState=" + roomState;
 		if (topStr != null && !"".equals(topStr)) {
 			System.out.println(topStr + urlName);
 			return "redirect:/skip/" + topStr + urlName;
