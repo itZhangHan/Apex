@@ -24,8 +24,8 @@ public class MessageType extends BaseType {
 			for (WebSocketServer object : arrayset) {
 				try {
 					try {
+						System.out.println("sendmessage...");
 						object.getSession().getBasicRemote().sendObject(message);
-						// object.session.getBasicRemote().sendText(message.getMsgStr());
 					} catch (EncodeException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

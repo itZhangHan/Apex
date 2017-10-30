@@ -69,14 +69,12 @@ public class AuthUtil {
 		String openid = "";
 		Integer roomid = 0;
 		Byte userStatus = 0;
-		String roomName = "";
 		Byte roomState = 0;
 		try {
 			openid = new String(new String(jhddUser.getOpenid()).getBytes("UTF-8"), "ISO8859-1");
 			nickname = new String(new String(jhddUser.getUsername()).getBytes("UTF-8"), "ISO8859-1");
 			city = new String(new String(jhddUser.getCity()).getBytes("UTF-8"), "ISO8859-1");
 			headimgurl = new String(new String(jhddUser.getUserportrait()).getBytes("UTF-8"), "ISO8859-1");
-			roomName = new String(new String(roomsInfo.getRoomname()).getBytes("UTF-8"), "ISO8859-1");
 			sex = jhddUser.getUsersex();
 			userid = jhddUser.getUserid();
 			roomid = sidelines.getRoomid();
@@ -93,7 +91,7 @@ public class AuthUtil {
 		String topStr = getTopName(topName);
 		String urlName = "?nickname=" + nickname + "&sex=" + sex + "&headimgurl=" + headimgurl + "&city=" + city
 				+ "&openid=" + openid + "&userid=" + userid + "&roomId=" + roomid + "&userStatus=" + userStatus
-				+ "&roomName=" + roomName + "&roomState=" + roomState;
+				+ "&roomState=" + roomState;
 		if (topStr != null && !"".equals(topStr)) {
 			System.out.println(topStr + urlName);
 			return "redirect:/skip/" + topStr + urlName;

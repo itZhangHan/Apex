@@ -15,7 +15,21 @@ public class SocketMessage implements Serializable{
 	private String userStatus;
 	private String roomState;
 	private String roomName;
+	private String position;
+	private String headimgurl;
 	
+	public String getHeadimgurl() {
+		return headimgurl;
+	}
+	public void setHeadimgurl(String headimgurl) {
+		this.headimgurl = headimgurl;
+	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
+	}
 	public String getUserStatus() {
 		return userStatus;
 	}

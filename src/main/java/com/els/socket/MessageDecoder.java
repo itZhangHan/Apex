@@ -26,19 +26,28 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		// TODO Auto-generated method stub
 		System.out.println("MessageDecoder == decode" + jsonMessage);
 		JSONObject object = JSONObject.fromObject(jsonMessage);
-		// 此方法错误 noFoundClassEroor : javax/json/json 狗屎异常
-		// JsonObject jsonObject = Json.createReader(new
-		// StringReader(jsonMessage)).readObject();
 		SocketMessage message = new SocketMessage();
-		message.setType(object.getString("type"));
-		message.setRoomId(object.getString("roomId"));
-		message.setToUserName(object.getString("toUserName"));
-		message.setFromUserName(object.getString("fromUserName"));
-		message.setMsgStr(object.getString("msgStr"));
-		message.setUserStatus(object.getString("userStatus"));
-		message.setRoomState(object.getString("roomState"));
-		message.setRoomName(object.getString("roomName"));
-		System.out.println(message.toString());
+		if (object.get("type").equals("message")) {
+			message.setType(object.getString("type"));
+			message.setRoomId(object.getString("roomId"));
+			message.setToUserName(object.getString("toUserName"));
+			message.setFromUserName(object.getString("fromUserName"));
+			message.setMsgStr(object.getString("msgStr"));
+			message.setUserStatus(object.getString("userStatus"));
+			message.setRoomState(object.getString("roomState"));
+			return message;
+		} else if (object.get("type").equals("upDown")) {
+			message.setType(object.getString("type"));
+			message.setRoomId(object.getString("roomId"));
+			message.setUserStatus(object.getString("userStatus"));
+			message.setRoomState(object.getString("roomState"));
+			System.out.println(object.getString("userStatus"));
+			message.setPosition(object.getString("position"));
+			message.setHeadimgurl(object.getString("headimgurl"));
+			return message;
+		}
+
+		System.out.println("获取到信息:" + message);
 		return message;
 	}
 
