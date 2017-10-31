@@ -123,17 +123,17 @@
 			showMessage(b.msgStr, b.type);
 
 		}
-		var head1 = document.getElementById("headImg1");
+		var head1 = document.getElementById("headImg1")
 		//head1.src = img
 		var onlooker1 = document.getElementById("img1");
 		onlooker1.src = img
 		head1.onclick = function() {
 			var upDown = {};
-			upDown.type = "down"
+			upDown.type = "upDown"
 			upDown.roomId = roomId;
 			upDown.toUserName = "1"
 			upDown.fromUserName = "2"
-			upDown.msgStr = "null"
+			upDown.msgStr = ""
 			upDown.userStatus = userStatus
 			upDown.roomState = roomState
 			upDown.position = "1"
