@@ -78,9 +78,8 @@
 			div_2.scrollTop = div_2.scrollHeight;
 		}
 		function showImgURL(headimgurl) {
-			alert(headimgurl)
 			var headURL = document.getElementById("headImg1");
-			 
+
 			headURL.src = headimgurl
 		}
 		websocket.onOpen = function() {
@@ -100,13 +99,14 @@
 			if (txt) {
 				var mes = {};
 				mes.type = "message"
-				mes.roomId = 10025;
+				mes.roomId = roomId;
 				mes.toUserName = "1"
 				mes.fromUserName = "2"
 				mes.msgStr = txt
 				mes.userStatus = userStatus
 				mes.roomState = roomState
-
+				mes.position = "1"
+				mes.headimgurl = img
 				websocket.send(JSON.stringify(mes))
 			}
 			count++;
@@ -121,17 +121,19 @@
 
 			showImgURL(b.headimgurl)
 			showMessage(b.msgStr, b.type);
-			 
+
 		}
 		var head1 = document.getElementById("headImg1");
 		//head1.src = img
 		var onlooker1 = document.getElementById("img1");
 		onlooker1.src = img
 		head1.onclick = function() {
-			console.log("890890980980980")
 			var upDown = {};
-			upDown.type = "upDown"
-			upDown.roomId = roomId
+			upDown.type = "down"
+			upDown.roomId = roomId;
+			upDown.toUserName = "1"
+			upDown.fromUserName = "2"
+			upDown.msgStr = "null"
 			upDown.userStatus = userStatus
 			upDown.roomState = roomState
 			upDown.position = "1"
