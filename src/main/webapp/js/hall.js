@@ -2,6 +2,7 @@
  * Created by dell on 2017/10/12.
  */
 
+/*
 var iconBtn = document.getElementById("iconBtn");
 
 var item1 = document.getElementById("item1");
@@ -13,14 +14,16 @@ var player1 = document.getElementById("player1");
 var player2 = document.getElementById("player2");
 var player3 = document.getElementById("player3");
 var player4 = document.getElementById("player4");
+*/
 
 
 
-iconBtn.onclick = function(){ /*新建房间按钮*/
+/*
+iconBtn.onclick = function(){ /!*新建房间按钮*!/
     console.log("mmmmmmmmmmmmm")
 
 }
-item1.onclick = function () { /*音乐按钮*/
+item1.onclick = function () { /!*音乐按钮*!/
     console.log("mmmmmmmmmmmmm")
 }
 item2.onclick = function(){
@@ -29,7 +32,7 @@ item2.onclick = function(){
 item3.onclick = function () {
     console.log("mmmmmmmmmmmmm")
 }
-game_go.onclick = function () { /*开始游戏按钮*/
+game_go.onclick = function () { /!*开始游戏按钮*!/
     console.log("mmmmmmmmmmmmm")
     location.href = "index.html"
 }
@@ -50,4 +53,5 @@ player4.onclick = function () {
     document.getElementById("img4").src = '../img/sprite1.png';
 }
 
+*/
 

@@ -37,16 +37,18 @@ html,body{
     /* top: 1%;*/
     margin-top: 1%;
     text-align: center;
+    height: 38%;
 }
 .player_btn ul{
  /*   margin: 6% auto;*/
-    margin-top: 6%;
+    margin-top: 3%;
     margin-left: auto;
     margin-right: auto;
+    height: 47%;
 }
 .player_btn ul li{
     width: 25%;
-    height: auto;
+    /*height: 40%;*/
    /* text-align: center;*/
     display: inline-block;
     vertical-align: middle;/*垂直居中是在这里设置*/
@@ -54,6 +56,12 @@ html,body{
 }
 .player_btn ul li img{
     width: 100%;
+}
+
+#player2{
+    height: 75%;
+    background: url("../img/sprite5.png") no-repeat center center;
+    background-size: 100% 100%;
 }
 
 .room {
@@ -91,7 +99,7 @@ html,body{
 
 .icon-player{
     position: absolute;
-    bottom: 2%;
+    bottom: 1%;
     left: 4%;
 
     width: 100%;
@@ -111,7 +119,7 @@ html,body{
 .chatRoom{
    /* position: absolute;*/
     width: 84%;
-    height: 20%;
+    height: 17%;
     /*margin-top: 120%;
     margin-left: auto;
     margin-right: auto;*/
