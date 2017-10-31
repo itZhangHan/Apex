@@ -8,29 +8,19 @@ import javax.websocket.EncodeException;
 import com.els.socket.SocketManger;
 import com.els.socket.SocketMessage;
 
-/**
- * 房间状态 0未开始 1：游戏中 2:游戏结束
- * 
- * @author Administrator
- *
- */
-public class RoomType implements InterfaceType {
+public class ScoreType implements InterfaceType {
 
 	@Override
 	public String onMessage(SocketMessage message) {
-		System.out.println("进入分发游戏是否开始消息方法");
-		// 如果返回信息包含roomid
+		System.out.println("进入分发实时分数方法");
+		// TODO Auto-generated method stub
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
 		if (arrayset != null) {
 			for (WebSocketServer object : arrayset) {
 				try {
 					try {
-						System.out.println("sendmessage...roomStatus");
-						if (message.getRoomState().equals("0")) {
-							message.setRoomState("1");
-							message.setMsgStr("游戏开始了");
-							object.getSession().getBasicRemote().sendObject(message);
-						}
+						System.out.println("sendScoretype...");
+						object.getSession().getBasicRemote().sendObject(message);
 					} catch (EncodeException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

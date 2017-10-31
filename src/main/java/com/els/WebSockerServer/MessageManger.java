@@ -12,6 +12,8 @@ public class MessageManger {
 		messType.put("message", new MessageType());
 		messType.put("upDown", new UpDownType());
 		messType.put("roomStatus", new RoomType());
+		messType.put("score", new ScoreType());
+		messType.put("props",new PropsType());
 	}
 
 	public static InterfaceType getType(String key) {

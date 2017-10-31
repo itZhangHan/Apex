@@ -1,63 +1,69 @@
 package com.els.bean;
 
+import java.util.List;
+
 public class JhddUsers {
-    private Integer userid;
+	private Integer userid;
 
-    private String username;
+	private String username;
 
-    private String userportrait;
+	private String userportrait;
 
-    private Integer usersex;
+	private Integer usersex;
 
-    private String openid;
+	private String openid;
 
-    private String city;
+	private String city;
 
-    public Integer getUserid() {
-        return userid;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	public Integer getUserid() {
+		return userid;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 
-    public void setUsername(Object object) {
-        this.username = object == null ? null : ((String) object).trim();
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getUserportrait() {
-        return userportrait;
-    }
+	public void setUsername(Object object) {
+		this.username = object == null ? null : ((String) object).trim();
+	}
 
-    public void setUserportrait(String userportrait) {
-        this.userportrait = userportrait == null ? null : userportrait.trim();
-    }
+	public String getUserportrait() {
+		return userportrait;
+	}
 
-    public Integer getUsersex() {
-        return usersex;
-    }
+	public void setUserportrait(String userportrait) {
+		this.userportrait = userportrait == null ? null : userportrait.trim();
+	}
 
-    public void setUsersex(Integer object) {
-        this.usersex = (Integer) object;
-    }
+	public Integer getUsersex() {
+		return usersex;
+	}
 
-    public String getOpenid() {
-        return openid;
-    }
+	public void setUsersex(Integer object) {
+		this.usersex = (Integer) object;
+	}
 
-    public void setOpenid(String openid) {
-        this.openid = openid == null ? null : openid.trim();
-    }
+	public String getOpenid() {
+		return openid;
+	}
 
-    public String getCity() {
-        return city;
-    }
+	public void setOpenid(String openid) {
+		this.openid = openid == null ? null : openid.trim();
+	}
 
-    public void setCity(String city) {
-        this.city = city == null ? null : city.trim();
-    }
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city == null ? null : city.trim();
+	}
 }

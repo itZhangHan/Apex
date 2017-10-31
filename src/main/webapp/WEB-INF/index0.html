@@ -49,7 +49,8 @@
 
 		<div class="icon-player">
 			<ul>
-				<li id="icon1"><span id="orPrepare" style="color: gold">未入座</span><img id="img1" src="../img/icon5.png"></li>
+				<li id="icon1"><span id="orPrepare" style="color: gold">未入座</span><img
+					id="img1" src="../img/icon5.png"></li>
 				<li id="icon2"><img id="img2" src="../img/icon5.png"></li>
 				<li id="icon3"><img id="img3" src="../img/icon6.png"></li>
 				<li id="icon4"><img id="img4" src="../img/icon7.png"></li>
@@ -63,7 +64,7 @@
 		var div_2;
 		var count = 0;
 		var roomID = document.getElementById("roomID").innerHTML;
-	//	var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
+		var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
 		function showMessage(str, type) {
 			var div_3 = document.createElement("div");
 			div_3.style.fontSize = "20px";
@@ -140,53 +141,40 @@
 			upDown.headimgurl = img
 			websocket.send(JSON.stringify(upDown))
 		}
-        var headImg2 = document.getElementById("headImg2")
+		var headImg2 = document.getElementById("headImg2")
 
-        var head2 = document.getElementById("player2");
-        var orPrepare = document.getElementById("orPrepare");
+		var head2 = document.getElementById("player2");
+		var orPrepare = document.getElementById("orPrepare");
 
-        var f = false;
-        head2.onclick = function () {
-            console.log("headImg2.src============"+head2.src)
-            if(f == false){
-                headImg2.src = "../img/icon5.png"
-                orPrepare.innerHTML = "已准备"
-                orPrepare.style.color = "darkgreen";
-                f = true;
+		var f = false;
+		head2.onclick = function() {
+			console.log("headImg2.src============" + head2.src)
+			if (f == false) {
+				headImg2.src = img
+				orPrepare.innerHTML = "已准备"
+				orPrepare.style.color = "darkgreen";
+				f = true;
 
-                   var upDown = {};
-                 upDown.type = "upDown"
-                 upDown.roomId = roomId;
-                 upDown.toUserName = "1"
-                 upDown.fromUserName = "2"
-                 upDown.msgStr = ""
-                 upDown.userStatus = userStatus
-                 upDown.roomState = roomState
-                 upDown.position = "1"
-                 upDown.headimgurl = img
-                 websocket.send(JSON.stringify(upDown))
-            }else{
-                headImg2.src = ""
-                orPrepare.innerHTML = "已离开"
-                orPrepare.style.color = "orangered"
-                f = false
+			} else {
+				headImg2.src = ""
+				orPrepare.innerHTML = "已离开"
+				orPrepare.style.color = "orangered"
+				f = false
+			}
 
-                   var upDown = {};
-                 upDown.type = "upDown"
-                 upDown.roomId = roomId;
-                 upDown.toUserName = "1"
-                 upDown.fromUserName = "2"
-                 upDown.msgStr = ""
-                 upDown.userStatus = userStatus
-                 upDown.roomState = roomState
-                 upDown.position = "1"
-                 upDown.headimgurl = img
-                 websocket.send(JSON.stringify(upDown))
+			var upDown = {};
+			upDown.type = "upDown"
+			upDown.roomId = roomId;
+			upDown.toUserName = "1"
+			upDown.fromUserName = "2"
+			upDown.msgStr = ""
+			upDown.userStatus = userStatus
+			upDown.roomState = roomState
+			upDown.position = "1"
+			upDown.headimgurl = img
+			websocket.send(JSON.stringify(upDown))
 
-            }
-
-
-        }
+		}
 	</script>
 	<script src="../js/hall.js"></script>
 

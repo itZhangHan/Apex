@@ -60,6 +60,8 @@ public class WxCallbackController {
 			request.setAttribute("userInfo", userInfo);
 			// 当access_token过时时进行刷新
 			System.out.println("进入刷新呢token方法");
+			System.out.println(userInfo);
+			System.out.println(userInfo.toString());
 			// 获取token
 			String refresh_token = jsonObject.getString("refresh_token");
 
@@ -70,6 +72,7 @@ public class WxCallbackController {
 			System.out.println("刷新成功......");
 
 			String nickname = (String) userInfo.get("nickname");
+			System.out.println(nickname);
 			Integer sex = (Integer) userInfo.get("sex");
 			String headimgurl = userInfo.getString("headimgurl");
 			String city = userInfo.getString("city");
@@ -81,6 +84,7 @@ public class WxCallbackController {
 			user.setCity(city);
 			user.setUserportrait(headimgurl);
 			user.setUsersex(sex);
+			 
 			// 插入用户成功返回userID
 			userService.addUser(user);
 			int userid = userMapper.selectLastInsertUserId();
@@ -102,6 +106,12 @@ public class WxCallbackController {
 			JhddRooms roomsInfo = roomsMapper.selectByPrimaryKey(roomId);
 			return AuthUtil.getMsg(users, urlName, jhddSidelines2, roomsInfo);
 		}
-		return AuthUtil.getMsg(users, urlName, null, null);
+		JhddSidelines sidelines = jhddSidelinesMapper.selectLastSidelines();
+		// 新建房间的用户状态为 0 房主
+		sidelines.setSidelinestate((byte) 0);
+		// 查询房间信息
+		int roomId = jhddSidelinesMapper.selectRoomId(sidelines.getSidelinesid());
+		JhddRooms roomsInfo = roomsMapper.selectByPrimaryKey(roomId);
+		return AuthUtil.getMsg(users, urlName, sidelines, roomsInfo);
 	}
 }

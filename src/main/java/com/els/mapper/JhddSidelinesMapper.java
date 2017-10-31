@@ -31,4 +31,6 @@ public interface JhddSidelinesMapper {
 	JhddSidelines selectLastSidelines();
 
 	int selectRoomId(Integer sidelinesId);
+
+	List<JhddSidelines> selectJhddSidelinesByUserId(int userid);
 }
