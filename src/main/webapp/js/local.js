@@ -77,7 +77,7 @@ var Local = function () {
 
       },false);
       stage1.addEventListener('touchend', function () {
-          console.log("jjjjjjjjjj44444")
+     //     console.log("jjjjjjjjjj44444")
           this.style.width = "100%";
 
 
@@ -88,9 +88,8 @@ var Local = function () {
       }, false);
       stage2.addEventListener('touchstart', function () {
           this.style.width = "89%";
-          console.log("game.nb=================="+game.nb)
-          game.addBotLine(generateBotLine(2))
-          return;
+     //     console.log("game.nb=================="+game.nb)
+       //   game.addBotLine(generateBotLine(2))
           if(game.d_b){
 
               if(game.nb == 4){

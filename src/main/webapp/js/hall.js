@@ -37,7 +37,8 @@ game_go.onclick = function () { /!*开始游戏按钮*!/
     location.href = "index.html"
    /* var local = new Local();
     local.start();*/
-}
+//}
+/*
 player1.onclick = function () {
     console.log("mmmmmmmmmmmmm2222")
     document.getElementById("img1").src = '../img/sprite2.png';
@@ -54,6 +55,6 @@ player4.onclick = function () {
     console.log("mmmmmmmmmmmmm")
     document.getElementById("img4").src = '../img/sprite1.png';
 }
-
 */
+
 
