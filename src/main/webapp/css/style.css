@@ -221,12 +221,14 @@ html,body{
 }
 .none,
 /*.none99,*/
-.current,
+/*.current,*/
 .current1,
 .current2,
-.dj,
-.dj1,.dj2,.dj3,.dj4, .dj5,.dj6,.dj7,
-.done {
+.current3,
+.dj8,
+.dj9,
+.dj1,.dj2,.dj3,.dj4, .dj5,.dj6,.done,
+.dj7{
     position: absolute;
    /* width: 20px;
     height: 20px;*/
@@ -244,18 +246,22 @@ html,body{
 .current {
    /* background-color: #FF7569;
     border: 1px solid #1F1F1F;*/
-    background: url("../img/sprite3.png") no-repeat center center;
+    background: url("../img/sprite2.png") no-repeat center center;
     background-size: 100% 100%;
 }
 .current1 {
     /* background-color: #FF7569;
      border: 1px solid #1F1F1F;*/
-    background: url("../img/sprite2.png") no-repeat center center;
+    background: url("../img/sprite1.png") no-repeat center center;
     background-size: 100% 100%;
 }
-.current2 {
+.current3 {
     /* background-color: #FF7569;
      border: 1px solid #1F1F1F;*/
+    background: url("../img/sprite3.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+.current2{
     background: url("../img/sprite4.png") no-repeat center center;
     background-size: 100% 100%;
 }
@@ -263,11 +269,15 @@ html,body{
 .done {
   /*  background-color: #969696;
     border: 1px solid #1F1F1F;*/
-    background: url("../img/sprite1.png") no-repeat center center;
+    background: url("../img/a/sprite17.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+.dj9{
+    background: url("../img/a/dj9.png") no-repeat center center;
     background-size: 100% 100%;
 }
 
-.dj{
+.dj8{
     background: url("../img/a/dj8.png") no-repeat center center;
     background-size: 100% 100%;
 }
@@ -361,6 +371,9 @@ html,body{
     width: 100%;
     height: 50%;
     text-align: center;
+}
+.stage_btn li:first-child{
+    margin-bottom: 8px;
 }
 
 .stage_btn li img{

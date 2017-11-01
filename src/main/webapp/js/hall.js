@@ -35,6 +35,8 @@ item3.onclick = function () {
 game_go.onclick = function () { /!*开始游戏按钮*!/
     console.log("mmmmmmmmmmmmm")
     location.href = "index.html"
+   /* var local = new Local();
+    local.start();*/
 }
 player1.onclick = function () {
     console.log("mmmmmmmmmmmmm2222")

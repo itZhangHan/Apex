@@ -2,6 +2,7 @@ var Square1 = function () {
   Square.call(this);
   // 旋转数组
   this.dir = 0;
+  this.colorStyle = 1;
   this.rotates = [
     [
         [0, 2, 0, 0],
@@ -33,6 +34,7 @@ Square1.prototype = Square.prototype;
 
 var Square2 = function () {
   Square.call(this);
+  this.colorStyle = 2;
   this.rotates = [
     [
         [0, 2, 0, 0],
@@ -64,6 +66,7 @@ Square2.prototype = Square.prototype;
 
 var Square3 = function () {
   Square.call(this);
+  this.colorStyle = 3;
   this.rotates = [
     [
         [2, 2, 2, 0],
@@ -95,6 +98,7 @@ Square3.prototype = Square.prototype;
 
 var Square4 = function () {
   Square.call(this);
+  this.colorStyle = 4;
   this.rotates = [
     [
         [2, 2, 2, 0],
@@ -126,6 +130,7 @@ Square4.prototype = Square.prototype;
 
 var Square5 = function () {
   Square.call(this);
+  this.colorStyle = 5;
   this.rotates = [
     [
         [2, 2, 0, 0],
@@ -157,6 +162,7 @@ Square5.prototype = Square.prototype;
 
 var Square6 = function () {
   Square.call(this);
+    this.colorStyle = 6;
   this.rotates = [
     [
         [0, 2, 2, 0],
@@ -188,6 +194,7 @@ Square6.prototype = Square.prototype;
 
 var Square7 = function () {
   Square.call(this);
+    this.colorStyle = 7;
   this.rotates = [
     [
         [2, 2, 0, 0],
