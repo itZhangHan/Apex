@@ -26,7 +26,7 @@ public class RoomType implements InterfaceType {
 				try {
 					try {
 						System.out.println("sendmessage...roomStatus");
-						if (message.getRoomState().equals("0")) {
+						if ("0".equals(message.getRoomState())) {
 							message.setRoomState("1");
 							message.setMsgStr("游戏开始了");
 							object.getSession().getBasicRemote().sendObject(message);

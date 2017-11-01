@@ -31,12 +31,12 @@
 
 		<div class="player_btn">
 			<ul>
-				<li id="player1"><img id="headImg1" src="../img/sprite5.png"></li>
+				<li id="player1"><img id="headImg1"></li>
 				<li id="player2"><img id="headImg2"></li>
 			</ul>
 			<ul>
-				<li id="player3"><img src=""></li>
-				<li id="player4"><img src="../img/sprite5.png"></li>
+				<li id="player3"><img id="headImg3" src=""></li>
+				<li id="player4"><img id="headImg4"></li>
 			</ul>
 		</div>
 		<div class="chatRoom" id="chatRoom"></div>
@@ -50,10 +50,13 @@
 		<div class="icon-player">
 			<ul>
 				<li id="icon1"><span id="orPrepare" style="color: gold">未入座</span><img
-					id="img1" src="../img/icon5.png"></li>
-				<li id="icon2"><img id="img2" src="../img/icon5.png"></li>
-				<li id="icon3"><img id="img3" src="../img/icon6.png"></li>
-				<li id="icon4"><img id="img4" src="../img/icon7.png"></li>
+					id="img1"></li>
+				<li id="icon2"><span id="orPrepare2" style="color: gold">未入座</span><img
+					id="img2"></li>
+				<li id="icon3"><span id="orPrepare3" style="color: gold">未入座</span><img
+					id="img3"></li>
+				<li id="icon4"><span id="orPrepare4" style="color: gold">未入座</span><img
+					id="img4"></li>
 			</ul>
 
 		</div>
@@ -124,56 +127,122 @@
 			showMessage(b.msgStr, b.type);
 
 		}
-		var head1 = document.getElementById("headImg1")
-		//head1.src = img
-		var onlooker1 = document.getElementById("img1");
-		onlooker1.src = img
-		head1.onclick = function() {
-			var upDown = {};
-			upDown.type = "upDown"
-			upDown.roomId = roomId;
-			upDown.toUserName = "1"
-			upDown.fromUserName = "2"
-			upDown.msgStr = ""
-			upDown.userStatus = userStatus
-			upDown.roomState = roomState
-			upDown.position = "1"
-			upDown.headimgurl = img
-			websocket.send(JSON.stringify(upDown))
-		}
-		var headImg2 = document.getElementById("headImg2")
 
-		var head2 = document.getElementById("player2");
+		var headImg1 = document.getElementById("headImg1")
+		//        var head1 = document.getElementById("player1");
 		var orPrepare = document.getElementById("orPrepare");
+		headImg1.src = img;
+		document.getElementById("img1").src = img
+		headImg1.style.width = "60%"
+		headImg1.style.marginTop = "19%"
+		orPrepare.innerHTML = "已准备"
+		orPrepare.style.color = "darkgreen";
 
-		var f = false;
+		var headImg2 = document.getElementById("headImg2")
+		var head2 = document.getElementById("player2");
+		var orPrepare2 = document.getElementById("orPrepare2");
+		var f2 = false;
 		head2.onclick = function() {
 			console.log("headImg2.src============" + head2.src)
-			if (f == false) {
+			if (f2 == false) {
 				headImg2.src = img
-				orPrepare.innerHTML = "已准备"
-				orPrepare.style.color = "darkgreen";
-				f = true;
+				headImg2.style.width = "60%"
+				headImg2.style.marginTop = "19%"
+				orPrepare2.innerHTML = "已准备"
+				orPrepare2.style.color = "darkgreen";
+				f2 = true;
+				document.getElementById("img2").src = img
+				var upDown = {};
+				upDown.type = "upDown"
+				upDown.roomId = roomId;
+				upDown.toUserName = "1"
+				upDown.fromUserName = "2"
+				upDown.msgStr = ""
+				upDown.userStatus = userStatus
+				upDown.roomState = roomState
+				upDown.position = "2"
+				upDown.headimgurl = img
+				websocket.send(JSON.stringify(upDown));
 
 			} else {
 				headImg2.src = ""
-				orPrepare.innerHTML = "已离开"
-				orPrepare.style.color = "orangered"
-				f = false
+				orPrepare2.innerHTML = "已离开"
+				orPrepare2.style.color = "orangered"
+				f2 = false
+
 			}
+		}
 
-			var upDown = {};
-			upDown.type = "upDown"
-			upDown.roomId = roomId;
-			upDown.toUserName = "1"
-			upDown.fromUserName = "2"
-			upDown.msgStr = ""
-			upDown.userStatus = userStatus
-			upDown.roomState = roomState
-			upDown.position = "1"
-			upDown.headimgurl = img
-			websocket.send(JSON.stringify(upDown))
+		var headImg3 = document.getElementById("headImg3")
+		var head3 = document.getElementById("player3");
+		var orPrepare3 = document.getElementById("orPrepare3");
 
+		var f3 = false;
+		head3.onclick = function() {
+			console.log("headImg2.src============" + headImg3.src)
+			if (f3 == false) {
+				headImg3.src = img
+				headImg3.style.width = "60%"
+				headImg3.style.marginTop = "27%"
+				orPrepare3.innerHTML = "已准备"
+				orPrepare3.style.color = "darkgreen";
+				f3 = true;
+				document.getElementById("img3").src = img
+				var upDown = {};
+				upDown.type = "upDown"
+				upDown.roomId = roomId;
+				upDown.toUserName = "1"
+				upDown.fromUserName = "2"
+				upDown.msgStr = ""
+				upDown.userStatus = userStatus
+				upDown.roomState = roomState
+				upDown.position = "3"
+				upDown.headimgurl = img
+				websocket.send(JSON.stringify(upDown));
+
+			} else {
+				headImg3.src = ""
+				orPrepare3.innerHTML = "已离开"
+				orPrepare3.style.color = "orangered"
+				f3 = false
+
+			}
+		}
+
+		var headImg4 = document.getElementById("headImg4")
+		var head4 = document.getElementById("player4");
+		var orPrepare4 = document.getElementById("orPrepare4");
+
+		var f4 = false;
+		head4.onclick = function() {
+			console.log("headImg2.src============" + headImg4.src)
+			if (f4 == false) {
+				headImg4.src = img;
+				headImg4.style.width = "60%"
+				headImg4.style.marginTop = "27%"
+				orPrepare4.innerHTML = "已准备"
+				orPrepare4.style.color = "darkgreen";
+				f4 = true;
+				document.getElementById("img4").src = img
+				var upDown = {};
+				upDown.type = "upDown"
+				upDown.roomId = roomId;
+				upDown.toUserName = "1"
+				upDown.fromUserName = "2"
+				upDown.msgStr = ""
+				upDown.userStatus = userStatus
+				upDown.roomState = roomState
+				upDown.position = "4"
+				upDown.headimgurl = img
+				websocket.send(JSON.stringify(upDown));
+
+			} else {
+				headImg4.src = ""
+				orPrepare4.innerHTML = "已离开"
+				orPrepare4.style.color = "orangered"
+				f4 = false
+
+			}
 		}
 	</script>
 	<script src="../js/hall.js"></script>

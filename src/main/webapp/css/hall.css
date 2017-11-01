@@ -53,16 +53,20 @@ html,body{
     display: inline-block;
     vertical-align: middle;/*垂直居中是在这里设置*/
     margin: 0 7%;
+
+    height: 75%;
+    background: url("../img/sprite5.png") no-repeat center center;
+    background-size: 100% 100%;
 }
 .player_btn ul li img{
     width: 100%;
 }
 
-#player2{
+/*#player2{
     height: 75%;
     background: url("../img/sprite5.png") no-repeat center center;
     background-size: 100% 100%;
-}
+}*/
 
 .room {
     width: 30%;
