@@ -49,167 +49,128 @@
 
 		<div class="icon-player">
 			<ul>
-				<li id="icon1"><span id="orPrepare" style="color: gold">未入座</span><img id="img1" src="../img/icon5.png"></li>
-				<li id="icon2"><span id="orPrepare2" style="color: gold">未入座</span><img id="img2" src="../img/icon5.png"></li>
-				<li id="icon3"><span id="orPrepare3" style="color: gold">未入座</span><img id="img3" src="../img/icon6.png"></li>
-				<li id="icon4"><span id="orPrepare4" style="color: gold">未入座</span><img id="img4" src="../img/icon7.png"></li>
+				<li id="icon1"><span id="orPrepare" style="color: gold">未入座</span><img id="img1" ></li>
+				<li id="icon2"><span id="orPrepare2" style="color: gold">未入座</span><img id="img2" ></li>
+				<li id="icon3"><span id="orPrepare3" style="color: gold">未入座</span><img id="img3"></li>
+				<li id="icon4"><span id="orPrepare4" style="color: gold">未入座</span><img id="img4"></li>
 			</ul>
 
 		</div>
-
 	</div>
 	<script type="text/javascript">
-		// var div_2 = document.getElementById("chatRoom");
-		var div_2;
-		var count = 0;
-		var roomID = document.getElementById("roomID").innerHTML;
-		var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
-		function showMessage(str, type) {
-			var div_3 = document.createElement("div");
-			div_3.style.fontSize = "20px";
-			div_3.style.paddingRight = "20px";
-			div_3.style.wordBreak = "break-all"
-			div_3.style.marginTop = "10px";
-			var ss = 7;
-			div_3.innerHTML = "<img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"
-					+ "&nbsp;&nbsp;&nbsp;&nbsp;" + str + '<br />';
-			div_2.appendChild(div_3)
 
-			div_2.scrollTop = div_2.scrollHeight;
-		}
-		function showImgURL(headimgurl) {
-			var headURL = document.getElementById("headImg1");
 
-			headURL.src = headimgurl
-		}
+        var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
 		websocket.onOpen = function() {
-			console.log("websocket open")
-
-			if (roomID) {
-				websocket.send(roomID)
-			}
+			console.log("websocket open");
 
 		}
-		document.getElementById("sendBtn_0").onclick = function() {
-			var txt = document.getElementById("sendTxt_0").value;
-			div_2 = document.getElementById("chatRoom");
-			div_2.style.overflowY = "scroll";//auto    scroll
-			var num = Math.random() * 10;
-			document.getElementById("sendTxt_0").value = "";
-			if (txt) {
-				var mes = {};
-				mes.type = "message"
-				mes.roomId = roomId;
-				mes.toUserName = "1"
-				mes.fromUserName = "2"
-				mes.msgStr = txt
-				mes.userStatus = userStatus
-				mes.roomState = roomState
-				mes.position = "1"
-				mes.headimgurl = img
-				websocket.send(JSON.stringify(mes))
-			}
-			count++;
-		}
-		websocket.onClose = function() {
-			console.log("websocket close")
-		}
-		websocket.onmessage = function(e) {
-			var jsonObj = eval("(" + e.data + ")");
-			console.log(jsonObj)
-			var b = JSON.parse(jsonObj);
-
-			showImgURL(b.headimgurl)
-			showMessage(b.msgStr, b.type);
-
-		}
-	//	var head1 = document.getElementById("headImg1")
-		//head1.src = img
-	//	var onlooker1 = document.getElementById("img1");
-	//	onlooker1.src = img
-	/*	head1.onclick = function() {
-			var upDown = {};
-			upDown.type = "upDown"
-			upDown.roomId = roomId;
-			upDown.toUserName = "1"
-			upDown.fromUserName = "2"
-			upDown.msgStr = ""
-			upDown.userStatus = userStatus
-			upDown.roomState = roomState
-			upDown.position = "1"
-			upDown.headimgurl = img
-			websocket.send(JSON.stringify(upDown));
-		}*/
-		var f1 = false;
-
-        var headImg1 = document.getElementById("headImg1")
-        var head1 = document.getElementById("player1");
-        var orPrepare = document.getElementById("orPrepare");
-        head1.onclick = function () {
-            console.log("headImg1.src============"+head1.src)
-            if(f1 == false){
-                headImg1.src = "../img/icon5.png"
-                headImg1.style.width = "60%"
-                headImg1.style.marginTop = "19%"
-                orPrepare.innerHTML = "已准备"
-                orPrepare.style.color = "darkgreen";
-                f1 = true;
-
-            }else{
-                headImg1.disabled = true;
-                /*headImg2.src = ""
-                orPrepare.innerHTML = "已离开"
-                orPrepare.style.color = "orangered"
-                f = false*/
-
-            }
-
+        websocket.onClose = function() {
+            console.log("websocket close")
         }
+
+        var headImg1 = document.getElementById("headImg1");
+        var orPrepare = document.getElementById("orPrepare");
+        headImg1.src = img;
+        document.getElementById("img1").src = img;
+
+        headImg1.style.width = "60%"
+        headImg1.style.marginTop = "19%"
+        orPrepare.innerHTML = "已准备"
+        orPrepare.style.color = "darkgreen";
+
+        var upDown = {};
+        upDown.type = "upDown"
+        upDown.roomId = roomId;
+        upDown.toUserName = "1";
+        upDown.fromUserName = "2";
+        upDown.msgStr = ""
+        upDown.userStatus = userStatus
+        upDown.roomState = roomState
+        upDown.position = "2"
+        upDown.headimgurl = img
+        websocket.send(JSON.stringify(upDown));
+
 
         var headImg2 = document.getElementById("headImg2")
         var head2 = document.getElementById("player2");
         var orPrepare2 = document.getElementById("orPrepare2");
-
         var f2 = false;
         head2.onclick = function () {
             console.log("headImg2.src============"+head2.src)
             if(f2 == false){
-                headImg2.src = "../img/icon5.png"
+                /*headImg2.src = img
                 headImg2.style.width = "60%"
                 headImg2.style.marginTop = "19%"
                 orPrepare2.innerHTML = "已准备"
-                orPrepare2.style.color = "darkgreen";
+                orPrepare2.style.color = "darkgreen";*/
                 f2 = true;
 
+                document.getElementById("img2").src = img
+                var upDown = {};
+                upDown.type = "Down"
+                upDown.roomId = roomId;
+                upDown.toUserName = "2";
+                upDown.fromUserName = " ";
+                upDown.msgStr = ""
+                upDown.userStatus = userStatus
+                upDown.roomState = roomState
+                upDown.position = "2"
+                upDown.headimgurl = img
+                websocket.send(JSON.stringify(upDown));
             }else{
-                headImg2.src = ""
+             /*   headImg2.src = ""
                 orPrepare2.innerHTML = "已离开"
-                orPrepare2.style.color = "orangered"
+                orPrepare2.style.color = "orangered"*/
                 f2 = false
+
+                var upDown = {};
+                upDown.position = "2";
+                upDown.type = "up"
+
+                websocket.send(JSON.stringify(upDown));
 
             }
         }
 
-        var headImg3 = document.getElementById("headImg3")
+        var headImg3 = document.getElementById("headImg3");
         var head3 = document.getElementById("player3");
         var orPrepare3 = document.getElementById("orPrepare3");
-
         var f3 = false;
         head3.onclick = function () {
             console.log("headImg2.src============"+headImg3.src)
             if(f3 == false){
-                headImg3.src = "../img/icon5.png"
+                /*headImg3.src = img
                 headImg3.style.width = "60%"
                 headImg3.style.marginTop = "27%"
                 orPrepare3.innerHTML = "已准备"
-                orPrepare3.style.color = "darkgreen";
+                orPrepare3.style.color = "darkgreen";*/
                 f3 = true;
 
+         //       document.getElementById("img3").src = img
+                var upDown = {};
+                upDown.type = "Down"
+                upDown.roomId = roomId;
+                upDown.toUserName = "3"
+                upDown.fromUserName = " "
+                upDown.msgStr = ""
+                upDown.userStatus = userStatus
+                upDown.roomState = roomState
+                upDown.position = "3"
+                upDown.headimgurl = img
+                websocket.send(JSON.stringify(upDown));
+
             }else{
-                headImg3.src = ""
+             /*   headImg3.src = ""
                 orPrepare3.innerHTML = "已离开"
-                orPrepare3.style.color = "orangered"
+                orPrepare3.style.color = "orangered"*/
                 f3 = false
+
+                var upDown = {};
+                upDown.position = "3";
+                upDown.type = "up"
+
+                websocket.send(JSON.stringify(upDown));
 
             }
         }
@@ -222,23 +183,81 @@
         head4.onclick = function () {
             console.log("headImg2.src============"+headImg4.src)
             if(f4 == false){
-                headImg4.src = "../img/icon5.png"
-                headImg4.style.width = "60%"
+          //      headImg4.src = img;
+              /*  headImg4.style.width = "60%"
                 headImg4.style.marginTop = "27%"
                 orPrepare4.innerHTML = "已准备"
                 orPrepare4.style.color = "darkgreen";
                 f4 = true;
 
+                document.getElementById("img4").src = img*/
+
+                var upDown = {};
+                upDown.type = "Down"
+                upDown.roomId = roomId;
+                upDown.toUserName = "4"
+                upDown.fromUserName = " "
+                upDown.msgStr = ""
+                upDown.userStatus = userStatus
+                upDown.roomState = roomState
+                upDown.position = "4"
+                upDown.headimgurl = img
+                upDown.orLeave = false;
+                websocket.send(JSON.stringify(upDown));
+
             }else{
-                headImg4.src = ""
+               /* headImg4.src = ""
                 orPrepare4.innerHTML = "已离开"
-                orPrepare4.style.color = "orangered"
-                f4 = false
+                orPrepare4.style.color = "orangered"*/
+                f4 = false;
+                var upDown = {};
+                upDown.position = "4";
+                upDown.type = "up"
+
+                websocket.send(JSON.stringify(upDown));
 
             }
         }
 
 
+		websocket.onmessage = function(e) {
+			var jsonObj = eval("(" + e.data + ")");
+			console.log(jsonObj)
+			var b = JSON.parse(jsonObj);
+			console.log("bbbbbb"+b.position)
+
+			if(b.position == "2"){
+			    if(b.type == "Down"){
+                    headImg2.src = b.headimgurl;
+                    orPrepare2.innerHTML = "已准备"
+				}else{
+                    headImg2.src = ""
+                    orPrepare2.innerHTML = "已离开"
+                    orPrepare2.style.color = "orangered"
+				}
+
+
+			}else if(b.position == "3"){
+			    if(b.type == "Down"){
+                    headImg3.src = img
+                    orPrepare3.innerHTML = "已准备"
+				}else{
+                    headImg3.src = ""
+                    orPrepare3.innerHTML = "已离开"
+				}
+
+
+			}else if (b.position == "4"){
+			    if(b.type == "Down"){
+                    headImg4.src = b.headimgurl;
+                    orPrepare4.innerHTML = "已准备"
+				}else{
+                    headImg4.src = ""
+                    orPrepare4.innerHTML = "已离开"
+				}
+
+			}
+		}
 
 	</script>
 	<script src="../js/hall.js"></script>
