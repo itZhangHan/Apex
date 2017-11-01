@@ -28,7 +28,7 @@ public class AuthUtil {
 		topName.put("index0", "index0send");
 		topName.put("index", "indexsend");
 		topName.put("over", "oversend");
-		// topName.put("createRoom", "index0send");
+		topName.put("joinRoom", "joinsend");
 
 	}
 

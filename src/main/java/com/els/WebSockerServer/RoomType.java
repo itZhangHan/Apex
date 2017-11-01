@@ -18,6 +18,7 @@ public class RoomType implements InterfaceType {
 
 	@Override
 	public String onMessage(SocketMessage message) {
+		System.out.println("进入分发游戏是否开始消息方法");
 		// 如果返回信息包含roomid
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
 		if (arrayset != null) {
@@ -25,7 +26,7 @@ public class RoomType implements InterfaceType {
 				try {
 					try {
 						System.out.println("sendmessage...roomStatus");
-						if (message.getRoomState().equals("0")) {
+						if ("0".equals(message.getRoomState())) {
 							message.setRoomState("1");
 							message.setMsgStr("游戏开始了");
 							object.getSession().getBasicRemote().sendObject(message);

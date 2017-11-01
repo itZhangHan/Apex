@@ -18,6 +18,7 @@ public class MessageType extends BaseType {
 
 	@Override
 	public String onMessage(SocketMessage message) {
+		System.out.println("进入分发消息方法");
 		//如果返回信息包含roomid
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
 		if (arrayset != null) {

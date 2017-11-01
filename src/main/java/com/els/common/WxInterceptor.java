@@ -44,7 +44,7 @@ public class WxInterceptor implements HandlerInterceptor {
 		System.out.println("1");
 		// 回调微信接口
 		String authURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + AuthUtil.APPID
-				+ "&redirect_uri=" + URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_base"
+				+ "&redirect_uri=" + URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_userinfo"
 				+ "&state=STATE#wechat_redirect";
 		// 重定向用户请求到微信授权URL
 		resp.sendRedirect(authURL);

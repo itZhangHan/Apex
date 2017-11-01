@@ -1,13 +1,27 @@
 package com.els.bean;
 
+import java.util.List;
+
 public class JhddRooms {
     private Integer roomid;
 
     private String roomname;
 
     private Byte roomstate;
+    
+    private List<JhddUsers> users;
+    
+    
 
-    public Integer getRoomid() {
+    public List<JhddUsers> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<JhddUsers> users) {
+		this.users = users;
+	}
+
+	public Integer getRoomid() {
         return roomid;
     }
 

@@ -35,7 +35,13 @@ public class SkipController {
 		return "over";
 
 	}
+	
+	@RequestMapping("/joinsend")
+	public String joinsend(HttpServletRequest request) {
 
+		return "redirect:/room/joinRoom";
+
+	}
 	// 创建页面
 	@RequestMapping("/firstsend")
 	public String toFirst() {
