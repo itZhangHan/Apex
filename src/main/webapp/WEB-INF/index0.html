@@ -96,6 +96,8 @@
         var head2 = document.getElementById("player2");
         var orPrepare2 = document.getElementById("orPrepare2");
         var f2 = false;
+        document.getElementById("img2").src = img
+
         head2.onclick = function () {
             console.log("headImg2.src============"+head2.src)
             if(f2 == false){
@@ -106,7 +108,7 @@
                 orPrepare2.style.color = "darkgreen";*/
                 f2 = true;
 
-                document.getElementById("img2").src = img
+
                 var upDown = {};
                 upDown.type = "Down"
                 upDown.roomId = roomId;
@@ -136,6 +138,7 @@
         var head3 = document.getElementById("player3");
         var orPrepare3 = document.getElementById("orPrepare3");
         var f3 = false;
+        document.getElementById("img3").src = img
         head3.onclick = function () {
             console.log("headImg2.src============"+headImg3.src)
             if(f3 == false){
@@ -146,7 +149,7 @@
                 orPrepare3.style.color = "darkgreen";*/
                 f3 = true;
 
-         //       document.getElementById("img3").src = img
+         //
                 var upDown = {};
                 upDown.type = "Down"
                 upDown.roomId = roomId;
@@ -178,6 +181,8 @@
         var head4 = document.getElementById("player4");
         var orPrepare4 = document.getElementById("orPrepare4");
 
+        document.getElementById("img4").src = img
+
         var f4 = false;
         head4.onclick = function () {
             console.log("headImg2.src============"+headImg4.src)
@@ -189,7 +194,7 @@
                 orPrepare4.style.color = "darkgreen";
                 f4 = true;
 
-                document.getElementById("img4").src = img*/
+                */
 
                 var upDown = {};
                 upDown.type = "Down"
