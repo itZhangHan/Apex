@@ -10,7 +10,8 @@ public class MessageManger {
 	static {
 		System.out.println("aaa");
 		messType.put("message", new MessageType());
-		messType.put("upDown", new UpDownType());
+		messType.put("up", new UpDownType());
+		messType.put("down", new DownUpType());
 		messType.put("roomStatus", new RoomType());
 		messType.put("score", new ScoreType());
 		messType.put("props",new PropsType());

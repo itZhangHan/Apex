@@ -75,7 +75,6 @@ public class RoomServiceImpl implements RoomService {
 		// 查出用户信息备用
 		JhddUsers user = jhddUsersMapper.selectByPrimaryKey(userid);
 		// 1.判断房间人数是否已满，已满则跳转创建房间页面
-		// JhddRooms jhddRooms = jhddRoomsMapper.selectByPrimaryKey(roomid);
 		JhddSidelinesExample example = new JhddSidelinesExample();
 		example.createCriteria().andRoomidEqualTo(roomid);
 		// 查询房间人数
@@ -87,13 +86,15 @@ public class RoomServiceImpl implements RoomService {
 			// 查询房间状态
 			int roomStatus = jhddRoomsMapper.selectRoomStatus(roomid);
 			System.out.println(roomStatus);
+			if(roomStatus == 0 ){
+				JhddSidelines sidelines = new JhddSidelines();
+				sidelines.setRoomid(roomid);
+				sidelines.setUserid(userid);
+				// roomStatus:0=未开始 ,1=游戏中,2=游戏结束
+				sidelines.setSidelinestate((byte)0);
+				jhddSidelinesMapper.insert(sidelines);
+			}
 			// 2.房间未满则判断房间是否处于开始状态。
-			JhddSidelines sidelines = new JhddSidelines();
-			sidelines.setRoomid(roomid);
-			sidelines.setUserid(userid);
-			// roomStatus:0=未开始 ,1=游戏中,2=游戏结束
-			sidelines.setSidelinestate((byte) 1);
-			jhddSidelinesMapper.insert(sidelines);
 			// 加入成功展示所有数据
 			JhddSidelinesExample jhddSidelinesExample = new JhddSidelinesExample();
 			jhddSidelinesExample.createCriteria().andRoomidEqualTo(roomid);
