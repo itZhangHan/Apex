@@ -49,10 +49,10 @@
 
 		<div class="icon-player">
 			<ul>
-				<li id="icon1"><span id="orPrepare" style="color: gold">未入座</span><img id="img1" ></li>
-				<li id="icon2"><span id="orPrepare2" style="color: gold">未入座</span><img id="img2" ></li>
-				<li id="icon3"><span id="orPrepare3" style="color: gold">未入座</span><img id="img3"></li>
-				<li id="icon4"><span id="orPrepare4" style="color: gold">未入座</span><img id="img4"></li>
+				<li id="icon1"><span id="orPrepare" style="color: gold"></span><img id="img1" ></li>
+				<li id="icon2"><span id="orPrepare2" style="color: gold"></span><img id="img2" ></li>
+				<li id="icon3"><span id="orPrepare3" style="color: gold"></span><img id="img3"></li>
+				<li id="icon4"><span id="orPrepare4" style="color: gold"></span><img id="img4"></li>
 			</ul>
 
 		</div>
@@ -219,16 +219,22 @@
                 upDown.type = "up"
 
                 websocket.send(JSON.stringify(upDown));
-
             }
         }
-
 
 		websocket.onmessage = function(e) {
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
 			var b = JSON.parse(jsonObj);
 			console.log("bbbbbb"+b.position)
+
+
+			if(b.userStatus = 0){
+                head4.onclick = null;
+                head2.onclick = null;
+                head3.onclick = null;
+
+			}
 
 			if(b.position == "2"){
 			    if(b.type == "Down"){
@@ -259,12 +265,9 @@
                     headImg4.src = ""
                     orPrepare4.innerHTML = "已离开"
 				}
-
 			}
 		}
-
 	</script>
 	<script src="../js/hall.js"></script>
-
 </body>
 </html>
