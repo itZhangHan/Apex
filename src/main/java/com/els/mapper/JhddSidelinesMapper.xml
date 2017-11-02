@@ -8,6 +8,18 @@
 		<result column="sidelineState" property="sidelinestate"
 			jdbcType="TINYINT" />
 	</resultMap>
+	 
+	<resultMap type="com.els.bean.JhddSidelines" id="UsersList">
+		<id column="userId" property="userid" jdbcType="INTEGER" />
+		<result column="userName" property="username" jdbcType="VARCHAR" />
+		<result column="userPortrait" property="userportrait" jdbcType="VARCHAR" />
+		<collection property="jhddSidelines" ofType="com.els.bean.JhddUsers" >
+			<id column="userId" property="userid" jdbcType="INTEGER" />
+			<result column="userName" property="username" jdbcType="VARCHAR" />
+			<result column="userPortrait" property="userportrait" jdbcType="VARCHAR" />
+			
+		</collection>
+	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
 			<foreach collection="oredCriteria" item="criteria" separator="or">
@@ -76,6 +88,23 @@
 	<sql id="Base_Column_List">
 		sidelinesId, roomId, userId, sidelineState
 	</sql>
+	<!-- 查询房间用户所有信息 -->
+	<select id="selectUsersInfoByRoomId" parameterType="java.lang.Integer"
+		resultMap="UsersList">
+		SELECT
+		a.userId, a.userName,a.userPortrait
+		FROM
+		jhdd_users a
+		INNER JOIN jhdd_sidelines b ON a.userId = b.userId WHERE b.roomId=#{roomid}
+	</select>
+	<select id="selectUserIdsByRoomId" parameterType="java.lang.Integer" resultType="int">
+	SELECT userId FROM jhdd_sidelines WHERE roomId=#{roomid}
+	</select>
+	<select id="selectUserStatusByUserid" parameterType="java.lang.Integer"
+		resultType="int">
+		SELECT sidelineState FROM `jhdd_sidelines` WHERE
+		userId=#{userid};
+	</select>
 	<!-- 查询房间id -->
 	<select id="selectRoomId" parameterType="java.lang.Integer"
 		resultType="int">
@@ -97,7 +126,11 @@
 			order by ${orderByClause}
 		</if>
 	</select>
-
+	<!-- 根据用户查询是否有属于用户房间 -->
+	<select id="selectUserBelongRoom" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		SELECT * FROM `jhdd_sidelines` WHERE userId=#{userid};
+	</select>
 	<select id="selectLastSidelines" resultMap="BaseResultMap">
 		SELECT
 		*

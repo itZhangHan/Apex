@@ -31,49 +31,55 @@ public class RoomServiceImpl implements RoomService {
 
 	@Override
 	@SuppressWarnings("all")
-	public ElsResult createRoom(Integer userid) {
+	public JhddSidelines createRoom(Integer userid) {
 		// TODO Auto-generated method stub
 		String a = "";
 		System.out.println("进入新建房间方法");
 		// 查询用户信息
 		JhddUsers user = jhddUsersMapper.selectByPrimaryKey(userid);
 		// 当房间ID为空的时候跳转创建房�?
-		ElsResult result = new ElsResult();
 		// 设置房间属性。
 		JhddRooms room = new JhddRooms();
 		room.setRoomname(user.getUsername() + "的房间");
+		// 0未开始 1：游戏中 2:游戏结束
 		room.setRoomstate((byte) 0);
-		int insertid = jhddRoomsMapper.insert(room);
-		System.out.println(insertid);
+		// 插入成功返回roomid
+		int roomid = jhddRoomsMapper.insert(room);
+		System.out.println("新建房间成功 返回roomid=" + roomid);
 
 		// 添加第三组表属�?
-		if (room.getRoomid() != null) {
+		if (roomid != 0 && !"".equals(roomid)) {
 			JhddSidelines jhddSideline = new JhddSidelines();
-			jhddSideline.setRoomid(room.getRoomid());
+			jhddSideline.setRoomid(roomid);
 			jhddSideline.setUserid(userid);
 			// 0房主 1玩家 2旁观者
 			jhddSideline.setSidelinestate((byte) 0);
 			jhddSidelinesMapper.insert(jhddSideline);
 			JhddSidelinesExample example = new JhddSidelinesExample();
-			example.createCriteria().andRoomidEqualTo(insertid);
+			example.createCriteria().andRoomidEqualTo(roomid);
+			List<JhddSidelines> list = jhddSidelinesMapper.selectByExample(example);
+			for (JhddSidelines jhddSidelines : list) {
+				return jhddSideline;
+			}
 			// 新建房间成功时查询房间信息并返回�?
 			JhddSidelines jhddSidelines = jhddSidelinesMapper.selectLastSidelines();
 
-			return result.build(1, "SUCCESS", jhddSidelines, null);
+			return jhddSidelines;
 
 			// 1成功 0失败
 
 		} else {
-			return result.build(0, "出现未知错误！");
+			JhddSidelines jhddSidelines = jhddSidelinesMapper.selectLastSidelines();
+
+			return jhddSidelines;
 		}
 
 	}
 
-	@Override
-	public ElsResult joinRoom(Integer userid, Integer roomid) {
+	public ElsResult joinRoom(Integer roomid) {
 		System.out.println("进入加入房间函数");
 		// 查出用户信息备用
-		JhddUsers user = jhddUsersMapper.selectByPrimaryKey(userid);
+		// JhddUsers user = jhddUsersMapper.selectByPrimaryKey(userid);
 		// 1.判断房间人数是否已满，已满则跳转创建房间页面
 		JhddSidelinesExample example = new JhddSidelinesExample();
 		example.createCriteria().andRoomidEqualTo(roomid);
@@ -86,26 +92,31 @@ public class RoomServiceImpl implements RoomService {
 			// 查询房间状态
 			int roomStatus = jhddRoomsMapper.selectRoomStatus(roomid);
 			System.out.println(roomStatus);
-			if(roomStatus == 0 ){
-				JhddSidelines sidelines = new JhddSidelines();
-				sidelines.setRoomid(roomid);
-				sidelines.setUserid(userid);
-				// roomStatus:0=未开始 ,1=游戏中,2=游戏结束
-				sidelines.setSidelinestate((byte)0);
-				jhddSidelinesMapper.insert(sidelines);
-			}
 			// 2.房间未满则判断房间是否处于开始状态。
+			if (roomStatus == 0 && !"0".equals(roomStatus)) {
+
+				JhddSidelines sidelines = new JhddSidelines();
+
+				sidelines.setRoomid(roomid);
+
+				// 0:房主，1:玩家,2:旁观者
+				sidelines.setSidelinestate((byte) 2);
+				jhddSidelinesMapper.insert(sidelines);
+				return ElsResult.build(1, "SUCCESS", sidelines, roomStatus);
+			}
 			// 加入成功展示所有数据
 			JhddSidelinesExample jhddSidelinesExample = new JhddSidelinesExample();
 			jhddSidelinesExample.createCriteria().andRoomidEqualTo(roomid);
 			List<JhddSidelines> JhddSidelines = jhddSidelinesMapper.selectByExample(jhddSidelinesExample);
-
-			return ElsResult.build(1, "SUCCESS", JhddSidelines, roomStatus);
+			for (JhddSidelines jhddSidelines2 : JhddSidelines) {
+				return ElsResult.build(1, "SUCCESS", jhddSidelines2, roomStatus);
+			}
 		} else {
 			// 不可加入 跳转新建房间页面
 			System.out.println("进入不可加入函数");
-			return ElsResult.build(0, "房间已满", user, null);
+			return ElsResult.ok("redirect:/skip/first");
 		}
+		return null;
 
 	}
 

@@ -3,6 +3,7 @@ package com.els.common;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
@@ -14,6 +15,7 @@ import org.apache.http.util.EntityUtils;
 import com.els.bean.JhddRooms;
 import com.els.bean.JhddSidelines;
 import com.els.bean.JhddUsers;
+import com.els.bean.RoomInfo;
 
 import net.sf.json.JSONObject;;
 
@@ -28,7 +30,7 @@ public class AuthUtil {
 		topName.put("index0", "index0send");
 		topName.put("index", "indexsend");
 		topName.put("over", "oversend");
-		topName.put("joinRoom", "joinsend");
+		topName.put("joinRoom", "joinRoomSend");
 
 	}
 
@@ -57,7 +59,18 @@ public class AuthUtil {
 		return jsonObject;
 	}
 
-	public static String getMsg(JhddUsers jhddUser, String topName, JhddSidelines sidelines, JhddRooms roomsInfo) {
+	/*
+	 * 1.获取用户的信息 玩家id 姓名 城市 头像 性别 2.创建房间 房间id 房间名字 房间状态(0没开始 1开始 2结束) 玩家状态(房主状态)
+	 * 用户信息 3.发送加入房间链接:参数(roomid)
+	 * 
+	 * 
+	 * 1.(游戏未开始状态)返回参数(List<Users>,房间id 房间名字 房间状态(0没开始 1开始 2结束)) 2.(type =
+	 * 'Score')(游戏开始 中状态)返回参数(List<wanjias>),玩家实时分数,道具,旁观者
+	 * 
+	 * 
+	 */
+	// 用户信息 访问路径 房间信息
+	public static String getMsg(JhddUsers jhddUser, String topName, RoomInfo roomsInfo) {
 		System.out.println("getMsg");
 
 		// 给前端传递数据 玩家id 姓名 城市 头像 性别 openid 房间id 房间名字 房间状态 玩家状态
@@ -67,9 +80,11 @@ public class AuthUtil {
 		String headimgurl = "";
 		Integer sex = 0;
 		String openid = "";
-		Integer roomid = 0;
-		Byte userStatus = 0;
-		Byte roomState = 0;
+		Integer roomid = null;
+		Integer userStatus = 0;
+		byte roomState = 0;
+
+		List<JhddUsers> users = null;
 		try {
 			openid = new String(new String(jhddUser.getOpenid()).getBytes("UTF-8"), "ISO8859-1");
 			nickname = new String(new String(jhddUser.getUsername()).getBytes("UTF-8"), "ISO8859-1");
@@ -77,11 +92,14 @@ public class AuthUtil {
 			headimgurl = new String(new String(jhddUser.getUserportrait()).getBytes("UTF-8"), "ISO8859-1");
 			sex = jhddUser.getUsersex();
 			userid = jhddUser.getUserid();
-			roomid = sidelines.getRoomid();
+			roomid = roomsInfo.getRoomid();
 			// 0未开始 1：游戏中 2:游戏结束
-			roomState = roomsInfo.getRoomstate();
+			roomState = roomsInfo.getRoomStatus();
 			// 0房主 1：玩家 2:旁观者
-			userStatus = sidelines.getSidelinestate();
+			userStatus = roomsInfo.getUserStatus();
+
+			// 房间所有玩家信息
+			users = roomsInfo.getUserList();
 			System.out.println("roomId*******************:" + roomid);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -91,7 +109,7 @@ public class AuthUtil {
 		String topStr = getTopName(topName);
 		String urlName = "?nickname=" + nickname + "&sex=" + sex + "&headimgurl=" + headimgurl + "&city=" + city
 				+ "&openid=" + openid + "&userid=" + userid + "&roomId=" + roomid + "&userStatus=" + userStatus
-				+ "&roomState=" + roomState;
+				+ "&roomState=" + roomState + "&users=" + users;
 		if (topStr != null && !"".equals(topStr)) {
 			System.out.println(topStr + urlName);
 			return "redirect:/skip/" + topStr + urlName;

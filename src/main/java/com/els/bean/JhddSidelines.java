@@ -1,43 +1,55 @@
 package com.els.bean;
 
+import java.util.List;
+
 public class JhddSidelines {
-    private Integer sidelinesid;
+	private Integer sidelinesid;
 
-    private Integer roomid;
+	private Integer roomid;
 
-    private Integer userid;
+	private Integer userid;
 
-    private Byte sidelinestate;
+	private Byte sidelinestate;
 
-    public Integer getSidelinesid() {
-        return sidelinesid;
-    }
+	private List<JhddUsers> users;
 
-    public void setSidelinesid(Integer sidelinesid) {
-        this.sidelinesid = sidelinesid;
-    }
+	public List<JhddUsers> getUsers() {
+		return users;
+	}
 
-    public Integer getRoomid() {
-        return roomid;
-    }
+	public void setUsers(List<JhddUsers> users) {
+		this.users = users;
+	}
 
-    public void setRoomid(Integer roomid) {
-        this.roomid = roomid;
-    }
+	public Integer getSidelinesid() {
+		return sidelinesid;
+	}
 
-    public Integer getUserid() {
-        return userid;
-    }
+	public void setSidelinesid(Integer sidelinesid) {
+		this.sidelinesid = sidelinesid;
+	}
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	public Integer getRoomid() {
+		return roomid;
+	}
 
-    public Byte getSidelinestate() {
-        return sidelinestate;
-    }
+	public void setRoomid(Integer roomid) {
+		this.roomid = roomid;
+	}
 
-    public void setSidelinestate(Byte sidelinestate) {
-        this.sidelinestate = sidelinestate;
-    }
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
+
+	public Byte getSidelinestate() {
+		return sidelinestate;
+	}
+
+	public void setSidelinestate(Byte sidelinestate) {
+		this.sidelinestate = sidelinestate;
+	}
 }

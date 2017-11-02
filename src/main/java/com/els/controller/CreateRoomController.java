@@ -1,17 +1,18 @@
 package com.els.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.els.bean.JhddRooms;
 import com.els.bean.JhddSidelines;
 import com.els.bean.JhddUsers;
+import com.els.bean.RoomInfo;
 import com.els.common.AuthUtil;
-import com.els.common.ElsResult;
 import com.els.mapper.JhddRoomsMapper;
 import com.els.mapper.JhddSidelinesMapper;
 import com.els.serviceinterface.RoomService;
@@ -42,20 +43,27 @@ public class CreateRoomController {
 	private JhddSidelinesMapper jhddSidelinesMapper;
 
 	@RequestMapping(value = "createRoom")
-	public String CreateRome(HttpServletRequest request, Integer userid, Integer roomid, Model model) {
+	public String CreateRome(HttpServletRequest request, Integer userid) {
 		System.out.println(userid + "获取到userid，进入创建房间方法...");
 		// 新建房间
 		System.out.println("新建房间");
-		ElsResult result = roomService.createRoom(userid);
-		// JhddSidelines jhddSidelines = (JhddSidelines) result.getData();
-		JhddSidelines sidelines = (JhddSidelines) result.getData();
-		ElsResult userResult = userService.findUserById(userid);
-		JhddUsers users = (JhddUsers) userResult.getData();
-		Integer lastInsertRoomId = jhddRoomsMapper.selectLastInsertRoomId();
-		System.out.println("房间id：" + lastInsertRoomId);
-		int roomId = jhddSidelinesMapper.selectRoomId(sidelines.getSidelinesid());
-		JhddRooms roomsInfo = jhddRoomsMapper.selectByPrimaryKey(roomId);
-		return AuthUtil.getMsg(users, "index0", sidelines, roomsInfo);
+		JhddSidelines sidelines = roomService.createRoom(userid);
+
+		JhddUsers users = userService.findUserById(userid);
+
+		RoomInfo roomsInfo = new RoomInfo();
+		roomsInfo.setRoomid(sidelines.getRoomid());
+		// 查询房间状态
+		JhddRooms jhddRooms = jhddRoomsMapper.selectByPrimaryKey(sidelines.getRoomid());
+		Byte roomstate = jhddRooms.getRoomstate();
+		roomsInfo.setRoomStatus(roomstate);
+		// 查询玩家状态
+		Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(users.getUserid());
+		roomsInfo.setUserStatus(userStatus);
+
+		List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(sidelines.getRoomid());
+		roomsInfo.setUserList(userList);
+		return AuthUtil.getMsg(users, "index0", roomsInfo);
 
 	}
 }

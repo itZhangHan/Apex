@@ -7,10 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.junit.Test;
+
 public class ConnectionMysql {
+
 	public static Connection getConnection() {
 		String driver = "com.mysql.jdbc.Driver"; // 获取mysql数据库的驱动类
-		String url = "rm-2ze38ihnc8ll25dxmo.mysql.rds.aliyuncs.com:3306/jhdd_database"; // 连接数据库（kucun是数据库名）
+		String url = "jdbc:mysql://thdd.apexgame.cn/rm-2ze38ihnc8ll25dxmo.mysql.rds.aliyuncs.com:3306/jhdd_database"; // 连接数据库
 		String name = "root";// 连接mysql的用户名
 		String pwd = "Dhdd_1009";// 连接mysql的密码
 		try {
@@ -19,6 +22,7 @@ public class ConnectionMysql {
 			System.out.println("2");
 			Connection conn = DriverManager.getConnection(url, name, pwd);// 获取连接对象
 			System.out.println("3");
+
 			return conn;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -57,13 +61,13 @@ public class ConnectionMysql {
 		System.out.println("进入。");
 		Connection cc = ConnectionMysql.getConnection();
 		System.out.println("进入2");
-		if (!cc.isClosed()){
+		if (!cc.isClosed()) {
 			System.out.println("Succeeded connecting to the Database!");
-		}else{
+		} else {
 			System.out.println("连接关闭");
 		}
 		Statement statement = cc.createStatement();
-		String sql = "select * from jhdd_database";
+		String sql = "SELECT a.userId, a.userName,a.userPortrait FROM jhdd_users  a INNER JOIN jhdd_sidelines b ON a.userId = b.userId WHERE b.roomId=10055";
 		ResultSet rs = statement.executeQuery(sql);
 		while (rs.next()) {
 			System.out.println(rs.getString("id") + "大多数");

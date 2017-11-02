@@ -38,17 +38,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ElsResult findUserById(Integer userid) {
+	public JhddUsers findUserById(Integer userid) {
 		// TODO Auto-generated method stub
 		if (userid != null & userid != 0) {
 			JhddUsers users = userMapper.selectByPrimaryKey(userid);
 			if (users != null) {
-				return ElsResult.build(1, "查询成功", users, null);
+				return users;
 			} else {
-				return ElsResult.build(0, "查询失败");
+				return null;
 			}
 		} else {
-			return ElsResult.build(0, "出现未知错误");
+			return null;
 		}
 
 	}
@@ -59,7 +59,10 @@ public class UserServiceImpl implements UserService {
 		JhddUsersExample example = new JhddUsersExample();
 		List<JhddUsers> userList = userMapper.selectByExample(example);
 		if (userList.size() != 0 & userList != null) {
-			return ElsResult.build(1, "SUCCESS", userList, null);
+			for (JhddUsers jhddUsers : userList) {
+				return ElsResult.build(1, "SUCCESS", jhddUsers, null);
+			}
+			return null;
 		} else {
 			return ElsResult.build(0, "查询失败!");
 		}
