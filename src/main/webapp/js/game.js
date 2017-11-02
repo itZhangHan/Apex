@@ -14,6 +14,12 @@ var Game = function () {
 
     var orDown = false;
 
+    var d_a = false;
+    var d_b = false;
+
+    var na;
+    var nb;
+
     // 游戏矩阵
     var gameData = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -60,22 +66,22 @@ var Game = function () {
                 if (check(cur.origin, i, j)) {
                     if (gameData[cur.origin.x + i][cur.origin.y + j] == 2) {
                         b = Math.random()*10;
-                        if(b>9){
+                        if(b>9.2){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 10;
-                        }else if(b>8){
+                        }else if(b>8.7){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 9;
-                        }else if(b>7){
+                        }else if(b>8.2){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 8;
-                        }else if(b>6){
+                        }else if(b>7.7){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 7;
-                        }else if(b>5){
+                        }else if(b>7.1){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 6;
-                        }else if(b>4){
+                        }else if(b>6.7){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 5;
-                        }else if(b>3){
+                        }else if(b>6.3){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 4;
-                        }else if(b>2){
-                            gameData[cur.origin.x + i][cur.origin.y + j] = 3;
+                        }else if(b>5.8){
+                            gameData[cur.origin.x + i][cur.origin.y + j] = 11;
                         } else{
                             gameData[cur.origin.x + i][cur.origin.y + j] = 1;
                         }
@@ -84,7 +90,7 @@ var Game = function () {
                 }
             }
         }
-        refreshDiv(gameData, gameDivs);
+        refreshDiv(gameData, gameDivs,cur.colorStyle);
     }
 
     // 初始化div
@@ -122,7 +128,7 @@ var Game = function () {
                 newNode2.style.left = (j*(container.offsetWidth/4))+'px';
                 newNode2.style.width = (container.offsetWidth/4)+ 'px';
                 newNode2.style.height = (container.offsetHeight/4)+ 'px';
-                newNode2.style.background = ""
+         //       newNode2.style.backgroundImage =  'url("../img/sprite2.png")';
                 //    newNode.style.marginBottom = 5+"px";
                 //      newNode.style.left = (j*itemWidth/10)+'px';
                 //  newNode.style.color = 'blue';
@@ -135,18 +141,38 @@ var Game = function () {
     }
 
     // 刷新div
-    var refreshDiv = function (data, divs) {
+    var refreshDiv = function (data, divs, colorStyle) {
         for (var i=0; i<data.length; i++) {
             for (var j=0; j<data[0].length; j++) {
                 if (data[i][j] == 0) {
                     divs[i][j].className = 'none';
-                } else if (data[i][j] == 1) {
+                } else if(data[i][j] == 1){
                     divs[i][j].className = 'done';
-                } else if (data[i][j] == 2) {
-                    divs[i][j].className = 'current';
-                } else if(data[i][j] == 3){       /*道具*/
+
+                }else if (data[i][j] == 2) {                   /*这个*/
+     //               divs[i][j].className = 'current';
+                    if(colorStyle == 1){
+                        divs[i][j].className = 'current1'
+                    }else if(colorStyle == 2){
+                        divs[i][j].className = 'current2'
+
+                    }else if(colorStyle == 3){
+                        divs[i][j].className = 'current3'
+                    } else if(colorStyle == 4){
+                        divs[i][j].className = 'current1'
+
+                    }else if(colorStyle == 5){
+                        divs[i][j].className = 'current2'
+
+                    }else if(colorStyle ==6 ){
+                        divs[i][j].className = 'current2'
+
+                    }else if(colorStyle == 7){
+                        divs[i][j].className = 'current3'
+                    }
+                } else if(data[i][j] == 11){       /*道具*/
                     console.log("dao局局  哈吉斯不嗲BFS")
-                    divs[i][j].className = 'dj';
+                    divs[i][j].className = 'dj8';
                 }else if(data[i][j] == 4){
                     divs[i][j].className = 'dj1';
                 }else if(data[i][j] == 5){
@@ -161,6 +187,83 @@ var Game = function () {
                     divs[i][j].className = 'dj6';
                 }else if(data[i][j] == 10){
                     divs[i][j].className = 'dj7'
+                }else if(data[i][j] == -1){
+                    divs[i][j].className = 'dj9'      /*黑色的方块*/
+                }
+            }
+        }
+    }
+
+    // 刷新div
+    var refreshAdd = function (data, divs) {
+        for (var i=0; i<data.length; i++) {
+            for (var j=0; j<data[0].length; j++) {
+                if (data[i][j] == 0) {
+                    divs[i][j].className = 'none';
+                } else if(data[i][j] == 1){
+                    //             divs[i][j].className = 'done';
+                    console.log("8uuhjjuihjhjhkjkjknjk")
+
+                    if(data[i][j].colorStyle == 1){
+                        divs[i][j].className = 'current1'
+                    }else if(data[i][j].colorStyle == 2){
+                        divs[i][j].className = 'current2'
+
+                    }else if(data[i][j].colorStyle == 3){
+                        divs[i][j].className = 'current3'
+                    } else if(data[i][j].colorStyle == 4){
+                        divs[i][j].className = 'current1'
+
+                    }else if(data[i][j].colorStyle == 5){
+                        divs[i][j].className = 'current2'
+
+                    }else if(data[i][j].colorStyle ==6 ){
+                        divs[i][j].className = 'current2'
+
+                    }else if(data[i][j].colorStyle == 7){
+                        divs[i][j].className = 'current3'
+                    }
+
+                }/*else if (data[i][j] == 2) {                   /!*这个*!/
+                    //               divs[i][j].className = 'current';
+                    if(colorStyle == 1){
+                        divs[i][j].className = 'current1'
+                    }else if(colorStyle == 2){
+                        divs[i][j].className = 'current2'
+
+                    }else if(colorStyle == 3){
+                        divs[i][j].className = 'current3'
+                    } else if(colorStyle == 4){
+                        divs[i][j].className = 'current1'
+
+                    }else if(colorStyle == 5){
+                        divs[i][j].className = 'current2'
+
+                    }else if(colorStyle ==6 ){
+                        divs[i][j].className = 'current2'
+
+                    }else if(colorStyle == 7){
+                        divs[i][j].className = 'current3'
+                    }
+                }*/ else if(data[i][j] == 11){       /*道具*/
+                    console.log("dao局局  哈吉斯不嗲BFS")
+                    divs[i][j].className = 'dj8';
+                }else if(data[i][j] == 4){
+                    divs[i][j].className = 'dj1';
+                }else if(data[i][j] == 5){
+                    divs[i][j].className = 'dj2';
+                }else if(data[i][j] == 6){
+                    divs[i][j].className = 'dj3';
+                }else if(data[i][j] == 7){
+                    divs[i][j].className = 'dj4';
+                }else if(data[i][j] == 8){
+                    divs[i][j].className = 'dj5';
+                }else if(data[i][j] == 9){
+                    divs[i][j].className = 'dj6';
+                }else if(data[i][j] == 10){
+                    divs[i][j].className = 'dj7'
+                }else if(data[i][j] == -1){
+                    divs[i][j].className = 'dj9'      /*黑色的方块*/
                 }
             }
         }
@@ -206,10 +309,10 @@ var Game = function () {
                return false;
            } else if (pos.y + y >= gameData[0].length) {
                return false;
-           } else if (gameData[pos.x + x][pos.y + y] === 1 || gameData[pos.x + x][pos.y + y] === 3 ||
+           } else if (gameData[pos.x + x][pos.y + y] === 1 || gameData[pos.x + x][pos.y + y] === 11 ||
                gameData[pos.x + x][pos.y + y] === 4 || gameData[pos.x + x][pos.y + y] === 5|| gameData[pos.x + x][pos.y + y] === 6
            ||gameData[pos.x + x][pos.y + y] === 7||gameData[pos.x + x][pos.y + y] === 8||gameData[pos.x + x][pos.y + y] === 9||
-               gameData[pos.x + x][pos.y + y] === 10) {
+               gameData[pos.x + x][pos.y + y] === 10 || gameData[pos.x + x][pos.y + y] === -1) {
                return false;
            } else {
                return true;
@@ -271,9 +374,6 @@ var Game = function () {
                 }
             }
         }
-
-
-
     }
 
     // 旋转
@@ -284,7 +384,7 @@ var Game = function () {
             orDown = true;
             setData();
             orDown = false;
-            refreshDiv(gameData, gameDivs);
+            refreshDiv(gameData, gameDivs, cur.colorStyle);
         }
     }
 
@@ -297,7 +397,7 @@ var Game = function () {
             orDown = true;
             setData();
             orDown = false;
-            refreshDiv(gameData, gameDivs);
+            refreshDiv(gameData, gameDivs, cur.colorStyle);
             return true;
         } else {
             return false;
@@ -312,7 +412,7 @@ var Game = function () {
             orDown = true
             setData();
             orDown = false;
-            refreshDiv(gameData, gameDivs);
+            refreshDiv(gameData, gameDivs, cur.colorStyle);
         }
     }
 
@@ -324,7 +424,7 @@ var Game = function () {
             orDown = true;
             setData();
             orDown = false;
-            refreshDiv(gameData, gameDivs);
+            refreshDiv(gameData, gameDivs,cur.colorStyle);
         }
     }
 
@@ -335,8 +435,8 @@ var Game = function () {
         for (var i=gameData.length-1; i>=0; i--) { // 反过来遍历
             var clear = true;
             for (var j=0; j<gameData[0].length; j++) { // 判断一行是否可以清除
-                if (gameData[i][j] != 1 && gameData[i][j] != 3 && gameData[i][j] != 4&& gameData[i][j] != 5 && gameData[i][j] != 6
-                    && gameData[i][j] != 7 && gameData[i][j] != 8 && gameData[i][j] != 9 && gameData[i][j] != 10) {
+                if (gameData[i][j] != 1 && gameData[i][j] != 11 && gameData[i][j] != 4&& gameData[i][j] != 5 && gameData[i][j] != 6
+                    && gameData[i][j] != 7 && gameData[i][j] != 8 && gameData[i][j] != 9 && gameData[i][j] != 10 && gameData[i][j] != -1) {
                     clear = false;
                     break;
                 }
@@ -348,20 +448,45 @@ var Game = function () {
                     if(gameData[i][k] != 1){
                         c++;
                         stage_arr.push(gameData[i][k]);
-                        this.stage_arr = stage_arr;
-                        if(stage2_num==0){
-                            stage2_num++;
-                            stage2_num.innerHTML = stage2num;
-
-                        }
-                        console.log("ccccccccccccccccccccccc======"+c)
                     }
                 }
+                if(this.d_a == false){
+                    console.log("njisadhvisa b333333333")
+                    if(stage_arr[0]){
+                        var dj_a = document.getElementById("stage1")
+                        na = stage_arr[0]
+                        this.na = na;
+                        dj_a.src = "../img/a/dj"+(na-3)+".png";
+                        stage_arr.splice(0,1);
+                        console.log("var na = this.stage_arr[0]==="+stage_arr[0])
+                        d_a = true;
+                        this.d_a = d_a;
+                    }
+
+                }
+
+                if(this.d_b == false){
+                    console.log("尔特温柔提问人头")
+                    if(stage_arr[0]){
+                        var dj_b = document.getElementById("stage2");
+                        nb = stage_arr[0];
+                        this.nb = nb;
+                        dj_b.src= "../img/a/dj"+(nb-3)+".png";
+                        stage_arr.splice(0,1);
+                        console.log("var nb = this.stage_arr[0]"+stage_arr[0])
+                        d_b = true;
+                        this.d_b = d_b;
+                    }
+                }
+                this.stage_arr = stage_arr;
+                stage_arr = [];
+                this.stage_arr = [];
+                console.log("ccccccccccccccccccccccc======"+c)
+
+
                 c = 0;
                 for (var m=i; m>0; m--) {
                     for (var n=0; n<gameData[0].length; n++) {
-
-                        console.log("gameData[0][n]======"+gameData[m][n]);
                         gameData[m][n] = gameData[m-1][n];
                     }
                 }
@@ -391,8 +516,8 @@ var Game = function () {
         cur = next
         setData();
         next = SquareFactory.prototype.make(type, dir);
-        refreshDiv(gameData, gameDivs);
-        refreshDiv(next.data, nextDivs);
+        refreshDiv(gameData, gameDivs, cur.colorStyle);
+        refreshDiv(next.data, nextDivs, next.colorStyle);
     }
 
     // 设置时间
@@ -508,12 +633,14 @@ var Game = function () {
         }
         for (var i=0; i<lines.length; i++) {
             gameData[gameData.length - lines.length + i] = lines[i];
+            console.log("gameData[gameData.length - lines.length + i]"+gameData[gameData.length - lines.length + i])
         }
         cur.origin.x = cur.origin.x - lines.length;
         if (cur.origin.x < 0) {
             cur.origin.x = 0;
         }
         refreshDiv(gameData, gameDivs);
+      //  refreshAdd(gameData, gameDivs)
     }
 
     var cleanBoLine = function (num) {
@@ -581,7 +708,7 @@ var Game = function () {
         next = SquareFactory.prototype.make(type, dir);
         initDiv(gameDiv, gameData, gameDivs);
         initDiv0(nextDiv, next.data, nextDivs);
-        refreshDiv(next.data, nextDivs);
+        refreshDiv(next.data, nextDivs, next.colorStyle);
     }
 
     // 导出API
@@ -604,4 +731,9 @@ var Game = function () {
     this.scoreDiv = scoreDiv;
     this.score = score;
     this.stage_arr = stage_arr;
+    this.d_a = d_a;
+    this.d_b = d_b;
+    this.na = na;
+    this.nb = nb;
+    this.refreshAdd = refreshAdd;
 }

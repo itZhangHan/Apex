@@ -34,5 +34,4 @@ public class ScoreType implements InterfaceType {
 		}
 		return null;
 	}
-
 }

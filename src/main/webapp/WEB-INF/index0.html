@@ -49,25 +49,26 @@
 
 		<div class="icon-player">
 			<ul>
-				<li id="icon1"><span id="orPrepare" style="color: gold">未入座</span><img
-					id="img1"></li>
-				<li id="icon2"><span id="orPrepare2" style="color: gold">未入座</span><img
-					id="img2"></li>
-				<li id="icon3"><span id="orPrepare3" style="color: gold">未入座</span><img
-					id="img3"></li>
-				<li id="icon4"><span id="orPrepare4" style="color: gold">未入座</span><img
-					id="img4"></li>
+				<li id="icon1"><span id="orPrepare" style="color: gold"></span><img id="img1" ></li>
+				<li id="icon2"><span id="orPrepare2" style="color: gold"></span><img id="img2" ></li>
+				<li id="icon3"><span id="orPrepare3" style="color: gold"></span><img id="img3"></li>
+				<li id="icon4"><span id="orPrepare4" style="color: gold"></span><img id="img4"></li>
+
 			</ul>
 
 		</div>
 	</div>
 	<script type="text/javascript">
-		var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
+ 
+
+
+        var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
 		websocket.onOpen = function() {
 			console.log("websocket open");
 
 		}
-		websocket.onClose = function() {
+		websocket.
+		onClose = function() {
 			console.log("websocket close")
 		}
 
@@ -98,6 +99,7 @@
 		var orPrepare2 = document.getElementById("orPrepare2");
 		var f2 = false;
 		document.getElementById("img2").src = img
+
 		head2.onclick = function() {
 			console.log("headImg2.src============" + head2.src)
 			if (f2 == false) {
@@ -108,7 +110,6 @@
 				orPrepare2.style.color = "darkgreen";*/
 				f2 = true;
 
-				
 				var upDown = {};
 				upDown.type = "Down"
 				upDown.roomId = roomId;
@@ -131,7 +132,6 @@
 				upDown.type = "up"
 
 				websocket.send(JSON.stringify(upDown));
-
 			}
 		}
 
@@ -150,7 +150,7 @@
 				orPrepare3.style.color = "darkgreen";*/
 				f3 = true;
 
-				//       
+				//
 				var upDown = {};
 				upDown.type = "Down"
 				upDown.roomId = roomId;
@@ -181,6 +181,7 @@
 		var headImg4 = document.getElementById("headImg4")
 		var head4 = document.getElementById("player4");
 		var orPrepare4 = document.getElementById("orPrepare4");
+
 		document.getElementById("img4").src = img
 
 		var f4 = false;
@@ -194,7 +195,7 @@
 				  orPrepare4.style.color = "darkgreen";
 				  f4 = true;
 
-				  */
+				 */
 
 				var upDown = {};
 				upDown.type = "Down"
@@ -219,7 +220,6 @@
 				upDown.type = "up"
 
 				websocket.send(JSON.stringify(upDown));
-
 			}
 		}
 
@@ -261,6 +261,5 @@
 		}
 	</script>
 	<script src="../js/hall.js"></script>
-
 </body>
 </html>

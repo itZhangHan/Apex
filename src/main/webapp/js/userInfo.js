@@ -29,16 +29,12 @@ var request = {
 				+ (seted ? "" : (retval ? "&" : "") + val1 + "=" + val2);
 	}
 }
-// 玩家名字
 nicakname = decodeURI(request.QueryString("nickname"));
-// 玩家城市
 city = decodeURI(request.QueryString("city"));
-// 玩家头像
 img = decodeURI(request.QueryString("headimgurl"));
-// 玩家性别
 sex = decodeURI(request.QueryString("sex"));
-// 玩家ID
 userId = decodeURI(request.QueryString("userId"));
+
 // 房间ID
 roomId = decodeURI(request.QueryString("roomid"));
 // 玩家状态
