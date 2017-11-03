@@ -8,16 +8,18 @@
 		<result column="sidelineState" property="sidelinestate"
 			jdbcType="TINYINT" />
 	</resultMap>
-	 
+
 	<resultMap type="com.els.bean.JhddSidelines" id="UsersList">
-		<id column="userId" property="userid" jdbcType="INTEGER" />
-		<result column="userName" property="username" jdbcType="VARCHAR" />
-		<result column="userPortrait" property="userportrait" jdbcType="VARCHAR" />
-		<collection property="jhddSidelines" ofType="com.els.bean.JhddUsers" >
+		<id column="sidelinesId" property="sidelinesid" jdbcType="INTEGER" />
+		<result column="roomId" property="roomid" jdbcType="INTEGER" />
+		<result column="userId" property="userid" jdbcType="INTEGER" />
+		<result column="sidelineState" property="sidelinestate"
+			jdbcType="TINYINT" />
+		<collection property="users" ofType="com.els.bean.JhddUsers">
 			<id column="userId" property="userid" jdbcType="INTEGER" />
 			<result column="userName" property="username" jdbcType="VARCHAR" />
-			<result column="userPortrait" property="userportrait" jdbcType="VARCHAR" />
-			
+			<result column="userPortrait" property="userportrait"
+				jdbcType="VARCHAR" />
 		</collection>
 	</resultMap>
 	<sql id="Example_Where_Clause">
@@ -95,21 +97,29 @@
 		a.userId, a.userName,a.userPortrait
 		FROM
 		jhdd_users a
-		INNER JOIN jhdd_sidelines b ON a.userId = b.userId WHERE b.roomId=#{roomid}
+		INNER JOIN jhdd_sidelines b ON a.userId = b.userId WHERE
+		b.roomId=#{roomid}
 	</select>
-	<select id="selectUserIdsByRoomId" parameterType="java.lang.Integer" resultType="int">
-	SELECT userId FROM jhdd_sidelines WHERE roomId=#{roomid}
+	<select id="selectUserIdsByRoomId" parameterType="java.lang.Integer"
+		resultType="int">
+		SELECT userId FROM jhdd_sidelines WHERE roomId=#{roomid}
 	</select>
 	<select id="selectUserStatusByUserid" parameterType="java.lang.Integer"
 		resultType="int">
 		SELECT sidelineState FROM `jhdd_sidelines` WHERE
-		userId=#{userid};
+		userId=#{0} and roomId=#{1};
 	</select>
 	<!-- 查询房间id -->
 	<select id="selectRoomId" parameterType="java.lang.Integer"
 		resultType="int">
 		SELECT roomId FROM jhdd_sidelines WHERE sidelinesId =
 		#{sidelinesId}
+	</select>
+
+	<select id="selectStatusByRoomId" parameterType="java.lang.Integer"
+		resultType="int">
+		SELECT sidelineState FROM `jhdd_sidelines` WHERE
+		roomid=#{roomid};
 	</select>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.els.bean.JhddSidelinesExample">

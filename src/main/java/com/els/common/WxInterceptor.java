@@ -45,7 +45,7 @@ public class WxInterceptor implements HandlerInterceptor {
 	}
 
 	public void wxAuthorze(HttpServletResponse resp, String backUrl) throws IOException {
-		System.out.printf("进入认证方法");
+		System.out.println("进入认证");
 		// 回调微信接口
 		String authURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + AuthUtil.APPID
 				+ "&redirect_uri=" + URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_userinfo"

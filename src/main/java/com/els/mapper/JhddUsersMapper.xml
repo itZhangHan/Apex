@@ -9,7 +9,7 @@
 		<result column="openid" property="openid" jdbcType="VARCHAR" />
 		<result column="city" property="city" jdbcType="VARCHAR" />
 	</resultMap>
-<!--  类在这里-->
+ 
 	<sql id="Example_Where_Clause">
 		<where>
 			<foreach collection="oredCriteria" item="criteria" separator="or">

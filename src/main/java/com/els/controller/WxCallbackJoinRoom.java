@@ -90,7 +90,7 @@ public class WxCallbackJoinRoom {
 			Byte roomstate = jhddRooms.getRoomstate();
 			roomsInfo.setRoomStatus(roomstate);
 			// 查询玩家状态
-			Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(user.getUserid());
+			Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(user.getUserid(),roomid);
 			roomsInfo.setUserStatus(userStatus);
 		 
 			List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(roomid);

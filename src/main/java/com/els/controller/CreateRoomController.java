@@ -15,6 +15,7 @@ import com.els.bean.RoomInfo;
 import com.els.common.AuthUtil;
 import com.els.mapper.JhddRoomsMapper;
 import com.els.mapper.JhddSidelinesMapper;
+import com.els.mapper.JhddUsersMapper;
 import com.els.serviceinterface.RoomService;
 import com.els.serviceinterface.UserService;
 
@@ -34,7 +35,8 @@ public class CreateRoomController {
 
 	@Autowired
 	private RoomService roomService;
-
+	@Autowired
+	private JhddUsersMapper userMapper;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -49,7 +51,7 @@ public class CreateRoomController {
 		System.out.println("新建房间");
 		JhddSidelines sidelines = roomService.createRoom(userid);
 
-		JhddUsers users = userService.findUserById(userid);
+		JhddUsers users = userMapper.selectByPrimaryKey(userid);
 
 		RoomInfo roomsInfo = new RoomInfo();
 		roomsInfo.setRoomid(sidelines.getRoomid());
@@ -58,9 +60,9 @@ public class CreateRoomController {
 		Byte roomstate = jhddRooms.getRoomstate();
 		roomsInfo.setRoomStatus(roomstate);
 		// 查询玩家状态
-		Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(users.getUserid());
+		Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(users.getUserid(),sidelines.getRoomid());
 		roomsInfo.setUserStatus(userStatus);
-
+		
 		List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(sidelines.getRoomid());
 		roomsInfo.setUserList(userList);
 		return AuthUtil.getMsg(users, "index0", roomsInfo);

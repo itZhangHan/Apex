@@ -43,8 +43,10 @@ public class RoomServiceImpl implements RoomService {
 		room.setRoomname(user.getUsername() + "的房间");
 		// 0未开始 1：游戏中 2:游戏结束
 		room.setRoomstate((byte) 0);
+		jhddRoomsMapper.insert(room);
 		// 插入成功返回roomid
-		int roomid = jhddRoomsMapper.insert(room);
+		int roomid = jhddRoomsMapper.selectLastInsertRoomId();
+		// int roomid = jhddRoomsMapper.insert(room);
 		System.out.println("新建房间成功 返回roomid=" + roomid);
 
 		// 添加第三组表属�?

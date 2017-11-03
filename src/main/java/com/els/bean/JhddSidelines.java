@@ -11,7 +11,27 @@ public class JhddSidelines {
 
 	private Byte sidelinestate;
 
+	private JhddRooms rooms;
+	
 	private List<JhddUsers> users;
+	
+	private JhddUsers jhdduser;
+
+	public JhddRooms getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(JhddRooms rooms) {
+		this.rooms = rooms;
+	}
+
+	public JhddUsers getJhdduser() {
+		return jhdduser;
+	}
+
+	public void setJhdduser(JhddUsers jhdduser) {
+		this.jhdduser = jhdduser;
+	}
 
 	public List<JhddUsers> getUsers() {
 		return users;
