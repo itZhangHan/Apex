@@ -90,6 +90,9 @@
 	<sql id="Base_Column_List">
 		sidelinesId, roomId, userId, sidelineState
 	</sql>
+	<select id="selectAllUserStatus" parameterType="java.lang.Integer" resultType="int">
+		SELECT sidelineState FROM `jhdd_sidelines` WHERE roomId=#{roomid};
+	</select>
 	<!-- 查询房间用户所有信息 -->
 	<select id="selectUsersInfoByRoomId" parameterType="java.lang.Integer"
 		resultMap="UsersList">

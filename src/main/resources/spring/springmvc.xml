@@ -17,6 +17,7 @@
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/WxAuth/wxLogin" />
 			<mvc:exclude-mapping path="/callback/first" />
+			<mvc:exclude-mapping path="/callback/joinRoom" />
 			<mvc:exclude-mapping path="/skip/auth_first" />
 			<mvc:exclude-mapping path="/skip/firstsend" />
 			<mvc:exclude-mapping path="/skip/indexsend" />

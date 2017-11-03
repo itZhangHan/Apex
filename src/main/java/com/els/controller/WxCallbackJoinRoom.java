@@ -34,8 +34,11 @@ public class WxCallbackJoinRoom {
 
 	// 查询用户信息返回参数
 	@RequestMapping("/joinRoom")
-	public String toFirst(HttpServletRequest request, HttpSession session,Integer roomid) throws Exception {
+	public String toFirst(HttpServletRequest request, HttpSession session, Integer roomid) throws Exception {
 		System.out.println("进入callback页面");
+		System.out.println(roomid);
+		String roomId = request.getSession().getAttribute("roomid").toString();
+		Integer room_id = Integer.parseInt(roomId);
 		String code = request.getParameter("code");
 		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?" + "appid=" + AuthUtil.APPID + "&secret="
 				+ AuthUtil.APPSECRET + "&code=" + code + "&grant_type=authorization_code";
@@ -84,20 +87,38 @@ public class WxCallbackJoinRoom {
 			// 插入用户成功返回userID
 			userService.addUser(user);
 			RoomInfo roomsInfo = new RoomInfo();
-			roomsInfo.setRoomid(roomid);
+			roomsInfo.setRoomid(room_id);
 			// 查询房间状态
-			JhddRooms jhddRooms = roomsMapper.selectByPrimaryKey(roomid);
-			Byte roomstate = jhddRooms.getRoomstate();
+			JhddRooms jhddRooms = roomsMapper.selectByPrimaryKey(room_id);
+			Integer roomstate = jhddRooms.getRoomstate();
 			roomsInfo.setRoomStatus(roomstate);
 			// 查询玩家状态
-			Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(user.getUserid(),roomid);
+			Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(user.getUserid(), room_id);
 			roomsInfo.setUserStatus(userStatus);
-		 
-			List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(roomid);
+
+			List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(room_id);
 			roomsInfo.setUserList(userList);
 			return AuthUtil.getMsg(user, urlName, roomsInfo);
 		}
-		
-		return AuthUtil.getMsg(users, urlName, null);
+		RoomInfo roomsInfo = new RoomInfo();
+		roomsInfo.setRoomid(room_id);
+		// 查询房间状态
+		JhddRooms jhddRooms = roomsMapper.selectByPrimaryKey(room_id);
+		Integer roomstate = jhddRooms.getRoomstate();
+		roomsInfo.setRoomStatus(roomstate);
+		// 查询玩家状态
+		List<Integer> status = jhddSidelinesMapper.selectAllUserStatus(room_id);
+		// 如果房间内包含房主 那么设置新加入玩家属性为旁观
+		if (status.contains(0)) {
+			roomsInfo.setUserStatus(2);
+		} else {
+			// 否则
+			Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(users.getUserid(), room_id);
+			roomsInfo.setUserStatus(userStatus);
+		}
+
+		List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(room_id);
+		roomsInfo.setUserList(userList);
+		return AuthUtil.getMsg(users, urlName, roomsInfo);
 	}
 }

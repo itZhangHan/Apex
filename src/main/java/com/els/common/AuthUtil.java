@@ -82,7 +82,7 @@ public class AuthUtil {
 		String openid = "";
 		Integer roomid = null;
 		Integer userStatus = 0;
-		byte roomState = 0;
+		Integer roomState = 0;
 
 		List<JhddUsers> users = null;
 		try {

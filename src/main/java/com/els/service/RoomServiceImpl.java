@@ -42,7 +42,7 @@ public class RoomServiceImpl implements RoomService {
 		JhddRooms room = new JhddRooms();
 		room.setRoomname(user.getUsername() + "的房间");
 		// 0未开始 1：游戏中 2:游戏结束
-		room.setRoomstate((byte) 0);
+		room.setRoomstate(0);
 		jhddRoomsMapper.insert(room);
 		// 插入成功返回roomid
 		int roomid = jhddRoomsMapper.selectLastInsertRoomId();

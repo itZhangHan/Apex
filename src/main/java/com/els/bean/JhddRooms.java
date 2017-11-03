@@ -7,7 +7,7 @@ public class JhddRooms {
 
 	private String roomname;
 
-	private Byte roomstate;
+	private Integer roomstate;
 
 	private JhddUsers users;
 
@@ -35,11 +35,11 @@ public class JhddRooms {
 		this.roomname = roomname == null ? null : roomname.trim();
 	}
 
-	public Byte getRoomstate() {
+	public Integer getRoomstate() {
 		return roomstate;
 	}
 
-	public void setRoomstate(Byte roomstate) {
+	public void setRoomstate(Integer roomstate) {
 		this.roomstate = roomstate;
 	}
 }

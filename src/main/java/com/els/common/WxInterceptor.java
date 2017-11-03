@@ -21,10 +21,13 @@ public class WxInterceptor implements HandlerInterceptor {
 		// request.getSession().removeAttribute("openid");
 		System.out.println("进入拦截");
 		String requestURI = request.getRequestURI();
+		String roomid = request.getParameter("roomid");
+		request.getSession().setAttribute("roomid", roomid);
 		request.getSession().setAttribute("urlName", requestURI);
 		String backCallFirst = "http://thdd.apexgame.cn/tetris/callback/first";
 		String backCallJoinRoom = "http://thdd.apexgame.cn/tetris/callback/joinRoom";
 		if (requestURI.contains("joinRoom")) {
+			System.out.println(roomid);
 			this.wxAuthorze(response, backCallJoinRoom);
 		} else {
 			this.wxAuthorze(response, backCallFirst);

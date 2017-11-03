@@ -57,15 +57,15 @@ public class CreateRoomController {
 		roomsInfo.setRoomid(sidelines.getRoomid());
 		// 查询房间状态
 		JhddRooms jhddRooms = jhddRoomsMapper.selectByPrimaryKey(sidelines.getRoomid());
-		Byte roomstate = jhddRooms.getRoomstate();
+		Integer roomstate = jhddRooms.getRoomstate();
 		roomsInfo.setRoomStatus(roomstate);
 		// 查询玩家状态
-		Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(users.getUserid(),sidelines.getRoomid());
+		Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(users.getUserid(), sidelines.getRoomid());
 		roomsInfo.setUserStatus(userStatus);
-		
+
 		List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(sidelines.getRoomid());
 		roomsInfo.setUserList(userList);
-		return AuthUtil.getMsg(users, "index0", roomsInfo);
+		return AuthUtil.getMsg(users, "index0send", roomsInfo);
 
 	}
 }

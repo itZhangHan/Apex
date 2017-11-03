@@ -45,4 +45,6 @@ public interface JhddSidelinesMapper {
 	List<JhddUsers> selectUsersInfoByRoomId(Integer roomid);
 
 	Integer selectStatusByRoomId(Integer roomid);
+
+	List<Integer> selectAllUserStatus(Integer room_id);
 }
