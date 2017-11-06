@@ -28,15 +28,24 @@
 			<!-- 开始游戏 -->
 			<img id="game_go" src="../img/startBtn.png">
 		</div>
-
 		<div class="player_btn">
 			<ul>
 				<li id="player1"><img id="headImg1"></li>
 				<li id="player2"><img id="headImg2"></li>
 			</ul>
 			<ul>
-				<li id="player3"><img id="headImg3" src=""></li>
 				<li id="player4"><img id="headImg4"></li>
+				<li id="player3"><img id="headImg3" src=""></li>
+			</ul>
+		</div>
+
+		<div class="icon-player">
+			<ul>
+				<li id="icon1"><span id="orPrepare" style="color: gold"></span><img id="img1" src="../img/icon4.png"></li>
+				<li id="icon2"><span id="orPrepare2" style="color: gold"></span><img id="img2" src="../img/icon3.png"></li>
+				<li id="icon3"><span id="orPrepare3" style="color: gold"></span><img id="img3"></li>
+				<li id="icon4"><span id="orPrepare4" style="color: gold"></span><img id="img4"></li>
+
 			</ul>
 		</div>
 		<div class="chatRoom" id="chatRoom"></div>
@@ -47,18 +56,8 @@
 			</button>
 		</div>
 
-		<div class="icon-player">
-			<ul>
-				<li id="icon1"><span id="orPrepare" style="color: gold"></span><img id="img1" ></li>
-				<li id="icon2"><span id="orPrepare2" style="color: gold"></span><img id="img2" ></li>
-				<li id="icon3"><span id="orPrepare3" style="color: gold"></span><img id="img3"></li>
-				<li id="icon4"><span id="orPrepare4" style="color: gold"></span><img id="img4"></li>
-
-			</ul>
-		</div>
 	</div>
 	<script type="text/javascript">
-
 
         var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
 		websocket.onOpen = function() {
@@ -87,7 +86,7 @@
         var headImg1 = document.getElementById("headImg1");
         var orPrepare = document.getElementById("orPrepare");
         headImg1.src = img;
-        document.getElementById("img1").src = img;
+     //   document.getElementById("img1").src = img;
 
         headImg1.style.width = "60%"
         headImg1.style.marginTop = "19%"
@@ -107,7 +106,7 @@
         websocket.send(JSON.stringify(upDown));
 
 
-        var headImg2 = document.getElementById("headImg2")
+        var headImg2 = document.getElementById("headImg2");
         var head2 = document.getElementById("player2");
         var orPrepare2 = document.getElementById("orPrepare2");
         var f2 = false;
@@ -122,14 +121,13 @@
                 orPrepare2.style.color = "darkgreen";*/
                 f2 = true;
 
-
                 var upDown = {};
                 upDown.type = "Down"
                 upDown.roomId = roomId;
                 upDown.toUserName = "2";
                 upDown.fromUserName = " ";
                 upDown.msgStr = ""
-                upDown.userStatus = userStatus
+                upDown.userStatus = userStatus;
                 upDown.roomState = roomState
                 upDown.position = "2"
                 upDown.headimgurl = img
@@ -190,6 +188,11 @@
         var f4 = false;
         head4.onclick = function () {
             console.log("headImg2.src============"+headImg4.src)
+
+			/*if(){}else{
+
+			 }*/
+
             if(f4 == false){
           //      headImg4.src = img;
               /*  headImg4.style.width = "60%"
@@ -197,7 +200,6 @@
                 orPrepare4.innerHTML = "已准备"
                 orPrepare4.style.color = "darkgreen";
                 f4 = true;
-
                 */
                 var upDown = {};
                 upDown.type = "Down"
@@ -209,7 +211,7 @@
                 upDown.roomState = roomState
                 upDown.position = "4"
                 upDown.headimgurl = img
-                upDown.orLeave = false;
+            //    upDown.orLeave = false;
                 websocket.send(JSON.stringify(upDown));
 
             }else{
@@ -281,6 +283,15 @@
             var mes = {};
             mes.type = "message";
             mes.msgStr = txt;
+            mes.roomId = roomId;
+            mes.toUserName = ""
+			mes.fromUserName = "";
+            mes.userStatus = userStatus;
+            mes.roomState = roomState;
+            mes.roomName = roomName;
+            mes.position = ""
+			mes.headimgurl = img;
+            mes.socketUser = null;
 			websocket.send(JSON.stringify(mes));
         }
 
