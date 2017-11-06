@@ -137,17 +137,11 @@ public class WxCallbackJoinRoom {
 		JhddRooms jhddRooms = roomsMapper.selectByPrimaryKey(room_id);
 		Integer roomstate = jhddRooms.getRoomstate();
 		roomsInfo.setRoomStatus(roomstate);
-		// 查询玩家状态
-		// List<Integer> status =
-		// jhddSidelinesMapper.selectAllUserStatus(room_id);
 		// 如果房间内包含房主 那么设置新加入玩家属性为旁观
 		roomsInfo.setUserStatus(2);
 
 		List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(room_id);
-		for (JhddUsers jhddUsers : userList) {
-			System.out.println(jhddUsers);
-			System.out.println(jhddUsers.toString());
-		}
+
 		roomsInfo.setUserList(userList);
 
 		JhddSidelinesExample example = new JhddSidelinesExample();

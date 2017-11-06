@@ -49,26 +49,26 @@
 
 		<div class="icon-player">
 			<ul>
-				<li id="icon1"><span id="orPrepare" style="color: gold"></span><img id="img1" ></li>
-				<li id="icon2"><span id="orPrepare2" style="color: gold"></span><img id="img2" ></li>
-				<li id="icon3"><span id="orPrepare3" style="color: gold"></span><img id="img3"></li>
-				<li id="icon4"><span id="orPrepare4" style="color: gold"></span><img id="img4"></li>
+				<li id="icon1"><span id="orPrepare" style="color: gold"></span><img
+					id="img1"></li>
+				<li id="icon2"><span id="orPrepare2" style="color: gold"></span><img
+					id="img2"></li>
+				<li id="icon3"><span id="orPrepare3" style="color: gold"></span><img
+					id="img3"></li>
+				<li id="icon4"><span id="orPrepare4" style="color: gold"></span><img
+					id="img4"></li>
 
 			</ul>
 
 		</div>
 	</div>
 	<script type="text/javascript">
- 
-
-
-        var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
+		var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
 		websocket.onOpen = function() {
 			console.log("websocket open");
 
 		}
-		websocket.
-		onClose = function() {
+		websocket.onClose = function() {
 			console.log("websocket close")
 		}
 
@@ -231,6 +231,7 @@
 
 			if (b.position == "2") {
 				if (b.type == "Down") {
+					alert("aa");
 					headImg2.src = b.headimgurl;
 					orPrepare2.innerHTML = "已准备"
 				} else {
