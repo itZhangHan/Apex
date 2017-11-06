@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>游戏页面</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-
+    scale=1,maximum-scale=1,user-scalable=no">
+<script src="../js/userInfo.js"></script>
+<link rel="stylesheet" href="../css/hall.css">
+</head>
+<body>
+	<div class="centainer">
+		<div class="room">
+			<span id="roomID"></span> <img id="iconBtn" src="../img/iconBtn.png">
+		</div>
+
+		<div class="item_btn">
+			<ul>
+				<li><img id="item1" src="../img/music.png"></li>
+				<li><img id="item2" src="../img/sprite7.png"></li>
+				<li><img id="item3" src="../img/sprite10.png"></li>
+			</ul>
+		</div>
+
+		<div class="game_go">
+			<!-- 开始游戏 -->
+			<img id="game_go" src="../img/startBtn.png">
+		</div>
+
+		<div class="player_btn">
+			<ul>
+				<li id="player1"><img id="headImg1"></li>
+				<li id="player2"><img id="headImg2"></li>
+			</ul>
+			<ul>
+				<li id="player3"><img id="headImg3" src=""></li>
+				<li id="player4"><img id="headImg4"></li>
+			</ul>
+		</div>
+		<div class="chatRoom" id="chatRoom"></div>
+		<div class="ele">
+			<input id="sendTxt_0" type="text" />
+			<button id="sendBtn_0">
+				<img src="../img/sendBtn.png">
+			</button>
+		</div>
+
+		<div class="icon-player">
+			<ul>
+				<li id="icon1"><span id="orPrepare" style="color: gold"></span><img id="img1" ></li>
+				<li id="icon2"><span id="orPrepare2" style="color: gold"></span><img id="img2" ></li>
+				<li id="icon3"><span id="orPrepare3" style="color: gold"></span><img id="img3"></li>
+				<li id="icon4"><span id="orPrepare4" style="color: gold"></span><img id="img4"></li>
+
+			</ul>
+
+		</div>
+	</div>
+	<script type="text/javascript">
+
+
+        var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
+		websocket.onOpen = function() {
+			console.log("websocket open");
+
+		}
+        websocket.onClose = function() {
+            console.log("websocket close")
+        }
+
+        var headImg1 = document.getElementById("headImg1");
+        var orPrepare = document.getElementById("orPrepare");
+        headImg1.src = img;
+        document.getElementById("img1").src = img;
+
+        headImg1.style.width = "60%"
+        headImg1.style.marginTop = "19%"
+        orPrepare.innerHTML = "已准备"
+        orPrepare.style.color = "darkgreen";
+
+        var upDown = {};
+        upDown.type = "upDown"
+        upDown.roomId = roomId;
+        upDown.toUserName = "1";
+        upDown.fromUserName = "2";
+        upDown.msgStr = ""
+        upDown.userStatus = userStatus
+        upDown.roomState = roomState
+        upDown.position = "1"
+        upDown.headimgurl = img
+        websocket.send(JSON.stringify(upDown));
+
+
+        var headImg2 = document.getElementById("headImg2")
+        var head2 = document.getElementById("player2");
+        var orPrepare2 = document.getElementById("orPrepare2");
+        var f2 = false;
+    //    document.getElementById("img2").src = img
+
+        head2.onclick = function () {
+            console.log("headImg2.src============"+head2.src)
+            if(f2 == false){
+                /*headImg2.src = img
+                headImg2.style.width = "60%"
+                headImg2.style.marginTop = "19%"
+                orPrepare2.innerHTML = "已准备"
+                orPrepare2.style.color = "darkgreen";*/
+                f2 = true;
+
+
+                var upDown = {};
+                upDown.type = "Down"
+                upDown.roomId = roomId;
+                upDown.toUserName = "2";
+                upDown.fromUserName = " ";
+                upDown.msgStr = ""
+                upDown.userStatus = userStatus
+                upDown.roomState = roomState
+                upDown.position = "2"
+                upDown.headimgurl = img
+                websocket.send(JSON.stringify(upDown));
+            }else{
+             /*   headImg2.src = ""
+                orPrepare2.innerHTML = "已离开"
+                orPrepare2.style.color = "orangered"*/
+                f2 = false
+
+                var upDown = {};
+                upDown.position = "2";
+                upDown.type = "up"
+
+                websocket.send(JSON.stringify(upDown));
+            }
+        }
+
+        var headImg3 = document.getElementById("headImg3");
+        var head3 = document.getElementById("player3");
+        var orPrepare3 = document.getElementById("orPrepare3");
+        var f3 = false;
+ //       document.getElementById("img3").src = img
+        head3.onclick = function () {
+            console.log("headImg2.src============"+headImg3.src)
+            if(f3 == false){
+                /*headImg3.src = img
+                headImg3.style.width = "60%"
+                headImg3.style.marginTop = "27%"
+                orPrepare3.innerHTML = "已准备"
+                orPrepare3.style.color = "darkgreen";*/
+                f3 = true;
+         //
+                var upDown = {};
+                upDown.type = "Down"
+                upDown.roomId = roomId;
+                upDown.toUserName = "3"
+                upDown.fromUserName = " "
+                upDown.msgStr = ""
+                upDown.userStatus = userStatus
+                upDown.roomState = roomState
+                upDown.position = "3"
+                upDown.headimgurl = img
+                websocket.send(JSON.stringify(upDown));
+            }else{
+             /*   headImg3.src = ""
+                orPrepare3.innerHTML = "已离开"
+                orPrepare3.style.color = "orangered"*/
+                f3 = false
+
+                var upDown = {};
+                upDown.position = "3";
+                upDown.type = "up"
+
+                websocket.send(JSON.stringify(upDown));
+
+            }
+        }
+
+        var headImg4 = document.getElementById("headImg4")
+        var head4 = document.getElementById("player4");
+        var orPrepare4 = document.getElementById("orPrepare4");
+
+  //      document.getElementById("img4").src = img
+
+        var f4 = false;
+        head4.onclick = function () {
+            console.log("headImg2.src============"+headImg4.src)
+            if(f4 == false){
+          //      headImg4.src = img;
+              /*  headImg4.style.width = "60%"
+                headImg4.style.marginTop = "27%"
+                orPrepare4.innerHTML = "已准备"
+                orPrepare4.style.color = "darkgreen";
+                f4 = true;
+
+                */
+
+
+                var upDown = {};
+                upDown.type = "Down"
+                upDown.roomId = roomId;
+                upDown.toUserName = "4"
+                upDown.fromUserName = " "
+                upDown.msgStr = ""
+                upDown.userStatus = userStatus
+                upDown.roomState = roomState
+                upDown.position = "4"
+                upDown.headimgurl = img
+                upDown.orLeave = false;
+                websocket.send(JSON.stringify(upDown));
+
+            }else{
+               /* headImg4.src = ""
+                orPrepare4.innerHTML = "已离开"
+                orPrepare4.style.color = "orangered"*/
+                f4 = false;
+                var upDown = {};
+                upDown.position = "4";
+                upDown.type = "up"
+
+                websocket.send(JSON.stringify(upDown));
+            }
+        }
+
+		websocket.onmessage = function(e) {
+			var jsonObj = eval("(" + e.data + ")");
+			console.log(jsonObj)
+			var b = JSON.parse(jsonObj);
+			console.log("bbbbbb"+b.position)
+
+			if(b.userStatus = 0){
+                head4.onclick = null;
+                head2.onclick = null;
+                head3.onclick = null;
+			}
+
+			if(b.position == "2"){
+			    if(b.type == "Down"){
+                    headImg2.src = b.headimgurl;
+                    orPrepare2.innerHTML = "已准备"
+				}else{
+                    headImg2.src = ""
+                    orPrepare2.innerHTML = "已离开"
+                    orPrepare2.style.color = "orangered"
+				}
+
+
+			}else if(b.position == "3"){
+			    if(b.type == "Down"){
+                    headImg3.src = img
+                    orPrepare3.innerHTML = "已准备"
+				}else{
+                    headImg3.src = ""
+                    orPrepare3.innerHTML = "已离开"
+				}
+			}else if (b.position == "4"){
+			    if(b.type == "Down"){
+                    headImg4.src = b.headimgurl;
+                    orPrepare4.innerHTML = "已准备"
+				}else{
+                    headImg4.src = ""
+                    orPrepare4.innerHTML = "已离开"
+				}
+		}
+
+		}
+	</script>
+	<script src="../js/hall.js"></script>
+</body>
+</html>
