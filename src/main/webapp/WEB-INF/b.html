@@ -55,7 +55,6 @@
 				<li id="icon4"><span id="orPrepare4" style="color: gold"></span><img id="img4"></li>
 
 			</ul>
-
 		</div>
 	</div>
 	<script type="text/javascript">
@@ -68,6 +67,21 @@
 		}
         websocket.onClose = function() {
             console.log("websocket close")
+        }
+        var div_2;
+
+        function showMessage(str) {
+            var div_3=document.createElement("div");
+            div_3.style.fontSize = "20px";
+            div_3.style.paddingRight = "20px";
+            div_3.style.wordBreak = "break-all"
+            div_3.style.marginTop = "10px";
+            var ss = 7;
+            div_3.innerHTML = "< img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"+
+                "&nbsp;&nbsp;&nbsp;&nbsp;"+str + '<br />';
+            div_2.appendChild(div_3)
+
+            div_2.scrollTop = div_2.scrollHeight;
         }
 
         var headImg1 = document.getElementById("headImg1");
@@ -98,7 +112,6 @@
         var orPrepare2 = document.getElementById("orPrepare2");
         var f2 = false;
     //    document.getElementById("img2").src = img
-
         head2.onclick = function () {
             console.log("headImg2.src============"+head2.src)
             if(f2 == false){
@@ -143,11 +156,6 @@
         head3.onclick = function () {
             console.log("headImg2.src============"+headImg3.src)
             if(f3 == false){
-                /*headImg3.src = img
-                headImg3.style.width = "60%"
-                headImg3.style.marginTop = "27%"
-                orPrepare3.innerHTML = "已准备"
-                orPrepare3.style.color = "darkgreen";*/
                 f3 = true;
          //
                 var upDown = {};
@@ -162,9 +170,6 @@
                 upDown.headimgurl = img
                 websocket.send(JSON.stringify(upDown));
             }else{
-             /*   headImg3.src = ""
-                orPrepare3.innerHTML = "已离开"
-                orPrepare3.style.color = "orangered"*/
                 f3 = false
 
                 var upDown = {};
@@ -194,8 +199,6 @@
                 f4 = true;
 
                 */
-
-
                 var upDown = {};
                 upDown.type = "Down"
                 upDown.roomId = roomId;
@@ -228,7 +231,11 @@
 			var b = JSON.parse(jsonObj);
 			console.log("bbbbbb"+b.position)
 
-			if(b.userStatus = 0){
+			if(b.type == "message"){
+                showMessage(b.msgStr);
+			}
+
+			if(b.userStatus == 0){
                 head4.onclick = null;
                 head2.onclick = null;
                 head3.onclick = null;
@@ -238,16 +245,17 @@
 			    if(b.type == "Down"){
                     headImg2.src = b.headimgurl;
                     orPrepare2.innerHTML = "已准备"
+                    document.getElementById("img2").src = img;
 				}else{
                     headImg2.src = ""
                     orPrepare2.innerHTML = "已离开"
                     orPrepare2.style.color = "orangered"
 				}
 
-
 			}else if(b.position == "3"){
 			    if(b.type == "Down"){
-                    headImg3.src = img
+                    headImg3.src = b.headimgurl;
+                    document.getElementById("img3").src = img;
                     orPrepare3.innerHTML = "已准备"
 				}else{
                     headImg3.src = ""
@@ -256,14 +264,27 @@
 			}else if (b.position == "4"){
 			    if(b.type == "Down"){
                     headImg4.src = b.headimgurl;
+                    document.getElementById("img4").src = img;
                     orPrepare4.innerHTML = "已准备"
 				}else{
                     headImg4.src = ""
                     orPrepare4.innerHTML = "已离开"
 				}
+		    }
 		}
 
-		}
+        document.getElementById("sendBtn_0").onclick = function () {
+            var txt = document.getElementById("sendTxt_0").value;
+            div_2 = document.getElementById("chatRoom");
+            div_2.style.overflowY = "scroll";//auto    scroll
+            document.getElementById("sendTxt_0").value = "";
+            var mes = {};
+            mes.type = "message";
+            mes.msgStr = txt;
+			websocket.send(JSON.stringify(mes));
+        }
+
+
 	</script>
 	<script src="../js/hall.js"></script>
 </body>
