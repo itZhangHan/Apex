@@ -12,7 +12,6 @@ import com.els.bean.RoomInfo;
 import com.els.common.AuthUtil;
 import com.els.mapper.JhddUsersMapper;
 import com.els.serviceinterface.UserService;
-import com.fasterxml.jackson.databind.util.RootNameLookup;
 
 import net.sf.json.JSONObject;
 
@@ -37,6 +36,9 @@ public class WxCallbackFirst {
 		System.out.println("进入工具类方法");
 		JSONObject jsonObject = AuthUtil.doGetJson(url);
 		String openid = jsonObject.getString("openid");
+		if ("".equals(openid) && openid == null) {
+			return "first";
+		}
 		System.out.println("openid获取成功" + openid);
 		String token = jsonObject.getString("access_token");
 		// 通过openid查询是否存在信息

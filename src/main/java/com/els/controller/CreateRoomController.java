@@ -17,7 +17,6 @@ import com.els.mapper.JhddRoomsMapper;
 import com.els.mapper.JhddSidelinesMapper;
 import com.els.mapper.JhddUsersMapper;
 import com.els.serviceinterface.RoomService;
-import com.els.serviceinterface.UserService;
 
 /*
  * 路径：http://thdd.apexgame.cn/tetris/room/createRoom?userid=?
@@ -37,8 +36,7 @@ public class CreateRoomController {
 	private RoomService roomService;
 	@Autowired
 	private JhddUsersMapper userMapper;
-	@Autowired
-	private UserService userService;
+	
 	@Autowired
 	private JhddRoomsMapper jhddRoomsMapper;
 	@Autowired
@@ -65,6 +63,7 @@ public class CreateRoomController {
 
 		List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(sidelines.getRoomid());
 		roomsInfo.setUserList(userList);
+		System.out.println(userList);
 		return AuthUtil.getMsg(users, "index0send", roomsInfo);
 
 	}

@@ -3,14 +3,8 @@ package com.els.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.els.mapper.JhddRoomsMapper;
-import com.els.mapper.JhddSidelinesMapper;
-import com.els.mapper.JhddUsersMapper;
-import com.els.serviceinterface.RoomService;
 
 /*
  * 跳转页面Controller
@@ -19,16 +13,6 @@ import com.els.serviceinterface.RoomService;
 @RequestMapping("/skip")
 public class SkipController {
 
-	@Autowired
-	private RoomService roomService;
-
-	@Autowired
-	private JhddRoomsMapper jhddRoomsMapper;
-
-	@Autowired
-	private JhddUsersMapper jhddUsersMapper;
-	@Autowired
-	private JhddSidelinesMapper jhddSidelinesMapper;
 
 	// 游戏场景
 	@RequestMapping("/index")

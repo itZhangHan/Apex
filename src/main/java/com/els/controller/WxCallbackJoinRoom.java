@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.els.bean.JhddRooms;
+import com.els.bean.JhddSidelines;
+import com.els.bean.JhddSidelinesExample;
 import com.els.bean.JhddUsers;
 import com.els.bean.RoomInfo;
 import com.els.common.AuthUtil;
@@ -98,6 +100,35 @@ public class WxCallbackJoinRoom {
 
 			List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(room_id);
 			roomsInfo.setUserList(userList);
+			// 加入房间函数
+
+			// 1.判断房间人数是否已满，已满则跳转创建房间页面
+			JhddSidelinesExample example = new JhddSidelinesExample();
+			example.createCriteria().andRoomidEqualTo(room_id);
+			// 查询房间人数
+			int roomCount = jhddSidelinesMapper.countByExample(example);
+			System.out.println("当前房间人数:" + roomCount);
+			// 可加入状态
+			if (roomCount > 0 & roomCount <= 8) {
+				System.out.println("进入可加入状态");
+				// 查询房间状态
+				int roomStatus = roomsMapper.selectRoomStatus(room_id);
+				System.out.println(roomStatus);
+				// 2.房间未满则判断房间是否处于开始状态。
+				if (roomStatus == 0 && !"0".equals(roomStatus)) {
+
+					JhddSidelines sidelines = new JhddSidelines();
+
+					sidelines.setRoomid(room_id);
+
+					// 0:房主，1:玩家,2:旁观者
+					sidelines.setSidelinestate((byte) 2);
+					jhddSidelinesMapper.insert(sidelines);
+				}
+			} else {
+				return AuthUtil.getMsg(user, "first", roomsInfo);
+			}
+
 			return AuthUtil.getMsg(user, urlName, roomsInfo);
 		}
 		RoomInfo roomsInfo = new RoomInfo();
@@ -107,18 +138,45 @@ public class WxCallbackJoinRoom {
 		Integer roomstate = jhddRooms.getRoomstate();
 		roomsInfo.setRoomStatus(roomstate);
 		// 查询玩家状态
-		List<Integer> status = jhddSidelinesMapper.selectAllUserStatus(room_id);
+		// List<Integer> status =
+		// jhddSidelinesMapper.selectAllUserStatus(room_id);
 		// 如果房间内包含房主 那么设置新加入玩家属性为旁观
-		if (status.contains(0)) {
-			roomsInfo.setUserStatus(2);
-		} else {
-			// 否则
-			Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(users.getUserid(), room_id);
-			roomsInfo.setUserStatus(userStatus);
-		}
+		roomsInfo.setUserStatus(2);
 
 		List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(room_id);
+		for (JhddUsers jhddUsers : userList) {
+			System.out.println(jhddUsers);
+			System.out.println(jhddUsers.toString());
+		}
 		roomsInfo.setUserList(userList);
+
+		JhddSidelinesExample example = new JhddSidelinesExample();
+		example.createCriteria().andRoomidEqualTo(room_id);
+		// 查询房间人数
+		int roomCount = jhddSidelinesMapper.countByExample(example);
+		System.out.println("当前房间人数:" + roomCount);
+		// 可加入状态
+		if (roomCount > 0 & roomCount <= 8) {
+			System.out.println("进入可加入状态");
+			// 查询房间状态
+			int roomStatus = roomsMapper.selectRoomStatus(room_id);
+			System.out.println(roomStatus);
+			// 2.房间未满则判断房间是否处于开始状态。
+			if (roomStatus == 0 && !"0".equals(roomStatus)) {
+
+				JhddSidelines sidelines = new JhddSidelines();
+				sidelines.setUserid(users.getUserid());
+				sidelines.setRoomid(room_id);
+				// List<Integer> status =
+				// jhddSidelinesMapper.selectAllUserStatus(room_id);
+				// 0:房主，1:玩家,2:旁观者
+				sidelines.setSidelinestate((byte) 2);
+				jhddSidelinesMapper.insert(sidelines);
+			}
+		} else {
+			return AuthUtil.getMsg(users, "first", roomsInfo);
+		}
+
 		return AuthUtil.getMsg(users, urlName, roomsInfo);
 	}
 }

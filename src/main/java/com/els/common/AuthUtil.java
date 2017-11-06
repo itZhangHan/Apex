@@ -12,8 +12,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import com.els.bean.JhddRooms;
-import com.els.bean.JhddSidelines;
 import com.els.bean.JhddUsers;
 import com.els.bean.RoomInfo;
 
