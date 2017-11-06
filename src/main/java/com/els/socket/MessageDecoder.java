@@ -4,6 +4,8 @@ import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
+import com.els.common.SocketUsers;
+
 import net.sf.json.JSONObject;
 
 public class MessageDecoder implements Decoder.Text<SocketMessage> {
@@ -37,6 +39,8 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		message.setRoomState(object.getString("roomState"));
 		message.setPosition(object.getString("position"));
 		message.setHeadimgurl(object.getString("headimgurl"));
+		SocketUsers socket=(SocketUsers)object.get("socketUser");
+		message.setSocketUser(socket);
 		System.out.println("获取到信息:" + message);
 		return message;
 

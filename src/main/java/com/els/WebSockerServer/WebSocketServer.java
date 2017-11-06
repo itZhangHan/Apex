@@ -16,7 +16,9 @@ import javax.ws.rs.client.Client;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSON;
+import com.els.bean.JhddUsers;
 import com.els.common.JsonUtils;
+import com.els.common.SocketUsers;
 import com.els.socket.MessageDecoder;
 import com.els.socket.MessageEncoder;
 import com.els.socket.SocketManger;
@@ -33,6 +35,11 @@ public class WebSocketServer {
 	private Session session;
 
 	private String roomId;
+	
+	private JhddUsers user;
+	
+	private SocketUsers socketUser;
+	
 
 	/**
 	 * 连接建立成功调用的方法
@@ -67,6 +74,7 @@ public class WebSocketServer {
 	 */
 	@OnMessage
 	public void onMessage(SocketMessage message, Session session) {
+		this.socketUser=message.getSocketUser();
 		this.roomId = message.getRoomId();
 		
 		SocketManger.addRoom(roomId, this);
@@ -75,6 +83,7 @@ public class WebSocketServer {
 				MessageManger.getType(message.getType()).onMessage(message);
 			}
 		}
+		
 	}
 
 	/**
@@ -125,4 +134,12 @@ public class WebSocketServer {
 	public Session getSession() {
 		return session;
 	}
+	public SocketUsers getSocketUser() {
+		return socketUser;
+	}
+
+	public void setSocketUser(SocketUsers socketUser) {
+		this.socketUser = socketUser;
+	}
+
 }

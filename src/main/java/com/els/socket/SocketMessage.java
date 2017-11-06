@@ -1,6 +1,10 @@
 package com.els.socket;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.els.common.SocketUsers;
 /*
  * 数据属性bean
  */
@@ -17,7 +21,26 @@ public class SocketMessage implements Serializable{
 	private String roomName;
 	private String position;
 	private String headimgurl;
+    private SocketUsers socketUser;
+    private List<SocketUsers> listUsers=new ArrayList();
 	
+	
+	public List<SocketUsers> getListUsers() {
+		return listUsers;
+	}
+	public void setListUsers(List<SocketUsers> listUsers) {
+		this.listUsers = listUsers;
+	}
+	
+    public void addUser(SocketUsers socketUser){
+    	listUsers.add(socketUser);
+    }
+	public SocketUsers getSocketUser() {
+		return socketUser;
+	}
+	public void setSocketUser(SocketUsers socketUser) {
+		this.socketUser = socketUser;
+	}
 	public String getHeadimgurl() {
 		return headimgurl;
 	}
