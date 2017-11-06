@@ -62,6 +62,7 @@
 
         var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
 		websocket.onOpen = function() {
+			alert("aaa");
 			console.log("websocket open");
 
 		}
@@ -99,12 +100,12 @@
         upDown.roomId = roomId;
         upDown.toUserName = "1";
         upDown.fromUserName = "2";
-        upDown.msgStr = ""
+        upDown.msgStr = "";
         upDown.userStatus = userStatus
         upDown.roomState = roomState
         upDown.position = "1"
         upDown.headimgurl = img
-        websocket.send(JSON.stringify(upDown));
+        websocket.send(upDown);
 
 
         var headImg2 = document.getElementById("headImg2")
@@ -274,6 +275,7 @@
 		}
 
         document.getElementById("sendBtn_0").onclick = function () {
+            alert("aa");
             var txt = document.getElementById("sendTxt_0").value;
             div_2 = document.getElementById("chatRoom");
             div_2.style.overflowY = "scroll";//auto    scroll

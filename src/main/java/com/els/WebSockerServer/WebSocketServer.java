@@ -68,7 +68,7 @@ public class WebSocketServer {
 	@OnMessage
 	public void onMessage(SocketMessage message, Session session) {
 		this.roomId = message.getRoomId();
-		// message.setRoomId("10024");
+		
 		SocketManger.addRoom(roomId, this);
 		if (message != null) {
 			if (MessageManger.getType(message.getType()) != null) {
