@@ -37,11 +37,11 @@ public class UserController {
 	 */
 	@RequestMapping("/findUserById")
 	@ResponseBody
-	public ElsResult findUser(Integer userid) {
+	public JhddUsers findUser(Integer userid) {
 		// 查询数据
-		ElsResult result = userService.findUserById(userid);
+		JhddUsers users = userService.findUserById(userid);
 
-		return result;
+		return users;
 	}
 
 	/*

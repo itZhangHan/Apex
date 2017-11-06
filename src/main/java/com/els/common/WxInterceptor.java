@@ -21,8 +21,17 @@ public class WxInterceptor implements HandlerInterceptor {
 		// request.getSession().removeAttribute("openid");
 		System.out.println("进入拦截");
 		String requestURI = request.getRequestURI();
+		String roomid = request.getParameter("roomid");
+		request.getSession().setAttribute("roomid", roomid);
 		request.getSession().setAttribute("urlName", requestURI);
-		this.wxAuthorze(response);
+		String backCallFirst = "http://thdd.apexgame.cn/tetris/callback/first";
+		String backCallJoinRoom = "http://thdd.apexgame.cn/tetris/callback/joinRoom";
+		if (requestURI.contains("joinRoom")) {
+			System.out.println(roomid);
+			this.wxAuthorze(response, backCallJoinRoom);
+		} else {
+			this.wxAuthorze(response, backCallFirst);
+		}
 		return false;
 	}
 
@@ -38,10 +47,8 @@ public class WxInterceptor implements HandlerInterceptor {
 			throws Exception {
 	}
 
-	public void wxAuthorze(HttpServletResponse resp) throws IOException {
-		System.out.printf("进入认证方法");
-		String backUrl = "http://thdd.apexgame.cn/tetris/callback/first";
-		System.out.println("1");
+	public void wxAuthorze(HttpServletResponse resp, String backUrl) throws IOException {
+		System.out.println("进入认证");
 		// 回调微信接口
 		String authURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + AuthUtil.APPID
 				+ "&redirect_uri=" + URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_userinfo"

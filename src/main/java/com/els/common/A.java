@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 //package com.els.controller;
 //
 //import java.util.List;
@@ -117,7 +117,7 @@
 //		return AuthUtil.getMsg(users, urlName, null, null);
 //	}
 //}
-=======
+
 //package com.els.controller;
 //
 //import java.util.List;
@@ -236,4 +236,3 @@
 //		return AuthUtil.getMsg(users, urlName, null, null);
 //	}
 //}
->>>>>>> b004f6275d27796415f45835b49ce02b3a0f8f05

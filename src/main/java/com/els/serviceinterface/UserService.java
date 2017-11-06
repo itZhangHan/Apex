@@ -7,7 +7,7 @@ public interface UserService {
 
 	public ElsResult addUser(JhddUsers user);
 
-	public ElsResult findUserById(Integer userid);
+	public JhddUsers findUserById(Integer userid);
 
 	public ElsResult findUserList();
 }

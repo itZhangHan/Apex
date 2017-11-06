@@ -1,7 +1,5 @@
 package com.els.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,13 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.els.bean.JhddRooms;
-import com.els.bean.JhddSidelines;
-import com.els.bean.JhddSidelinesExample;
 import com.els.bean.JhddUsers;
+import com.els.bean.RoomInfo;
 import com.els.common.AuthUtil;
-import com.els.mapper.JhddRoomsMapper;
-import com.els.mapper.JhddSidelinesMapper;
 import com.els.mapper.JhddUsersMapper;
 import com.els.serviceinterface.UserService;
 
@@ -23,13 +17,11 @@ import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/callback")
-public class WxCallbackController {
-	@Autowired
-	private JhddSidelinesMapper jhddSidelinesMapper;
+public class WxCallbackFirst {
+
 	@Autowired
 	private JhddUsersMapper userMapper;
-	@Autowired
-	private JhddRoomsMapper roomsMapper;
+
 	@Autowired
 	private UserService userService;
 
@@ -44,10 +36,14 @@ public class WxCallbackController {
 		System.out.println("进入工具类方法");
 		JSONObject jsonObject = AuthUtil.doGetJson(url);
 		String openid = jsonObject.getString("openid");
+		if ("".equals(openid) && openid == null) {
+			return "first";
+		}
+		System.out.println("openid获取成功" + openid);
 		String token = jsonObject.getString("access_token");
 		// 通过openid查询是否存在信息
 		JhddUsers users = userMapper.selectByOpenid(openid);
-
+		RoomInfo roomInfo = new RoomInfo();
 		// 获取请求路径
 		String urlName = request.getSession().getAttribute("urlName").toString();
 		if (users == null) {
@@ -60,8 +56,6 @@ public class WxCallbackController {
 			request.setAttribute("userInfo", userInfo);
 			// 当access_token过时时进行刷新
 			System.out.println("进入刷新呢token方法");
-			System.out.println(userInfo);
-			System.out.println(userInfo.toString());
 			// 获取token
 			String refresh_token = jsonObject.getString("refresh_token");
 
@@ -72,7 +66,6 @@ public class WxCallbackController {
 			System.out.println("刷新成功......");
 
 			String nickname = (String) userInfo.get("nickname");
-			System.out.println(nickname);
 			Integer sex = (Integer) userInfo.get("sex");
 			String headimgurl = userInfo.getString("headimgurl");
 			String city = userInfo.getString("city");
@@ -84,34 +77,13 @@ public class WxCallbackController {
 			user.setCity(city);
 			user.setUserportrait(headimgurl);
 			user.setUsersex(sex);
-			 
 			// 插入用户成功返回userID
 			userService.addUser(user);
 			int userid = userMapper.selectLastInsertUserId();
 			JhddUsers insertUsers = userMapper.selectByPrimaryKey(userid);
-			JhddSidelines sidelines = jhddSidelinesMapper.selectLastSidelines();
-			// 新建房间的用户状态为 0 房主
-			sidelines.setSidelinestate((byte) 0);
-			// 查询房间信息
-			int roomId = jhddSidelinesMapper.selectRoomId(sidelines.getSidelinesid());
-			JhddRooms roomsInfo = roomsMapper.selectByPrimaryKey(roomId);
-			return AuthUtil.getMsg(insertUsers, urlName, sidelines, roomsInfo);
+			return AuthUtil.getMsg(insertUsers, urlName, roomInfo);
 		}
-		JhddSidelinesExample example = new JhddSidelinesExample();
-		example.createCriteria().andUseridEqualTo(users.getUserid());
-		List<JhddSidelines> list = jhddSidelinesMapper.selectByExample(example);
-		for (JhddSidelines jhddSidelines2 : list) {
-			jhddSidelines2.setSidelinestate((byte) 0);
-			int roomId = jhddSidelinesMapper.selectRoomId(jhddSidelines2.getSidelinesid());
-			JhddRooms roomsInfo = roomsMapper.selectByPrimaryKey(roomId);
-			return AuthUtil.getMsg(users, urlName, jhddSidelines2, roomsInfo);
-		}
-		JhddSidelines sidelines = jhddSidelinesMapper.selectLastSidelines();
-		// 新建房间的用户状态为 0 房主
-		sidelines.setSidelinestate((byte) 0);
-		// 查询房间信息
-		int roomId = jhddSidelinesMapper.selectRoomId(sidelines.getSidelinesid());
-		JhddRooms roomsInfo = roomsMapper.selectByPrimaryKey(roomId);
-		return AuthUtil.getMsg(users, urlName, sidelines, roomsInfo);
+
+		return AuthUtil.getMsg(users, urlName, roomInfo);
 	}
 }

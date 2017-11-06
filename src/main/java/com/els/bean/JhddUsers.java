@@ -1,6 +1,8 @@
 package com.els.bean;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class JhddUsers {
 	private Integer userid;
@@ -14,6 +16,16 @@ public class JhddUsers {
 	private String openid;
 
 	private String city;
+
+	private Set<JhddSidelines> jhddIsdelines = new HashSet();
+
+	public Set<JhddSidelines> getJhddIsdelines() {
+		return jhddIsdelines;
+	}
+
+	public void setJhddIsdelines(Set<JhddSidelines> jhddIsdelines) {
+		this.jhddIsdelines = jhddIsdelines;
+	}
 
 	public void setUsername(String username) {
 		this.username = username;

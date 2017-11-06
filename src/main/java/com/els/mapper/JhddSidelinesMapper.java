@@ -2,6 +2,8 @@ package com.els.mapper;
 
 import com.els.bean.JhddSidelines;
 import com.els.bean.JhddSidelinesExample;
+import com.els.bean.JhddUsers;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -33,4 +35,16 @@ public interface JhddSidelinesMapper {
 	int selectRoomId(Integer sidelinesId);
 
 	List<JhddSidelines> selectJhddSidelinesByUserId(int userid);
+
+	JhddSidelines selectUserBelongRoom(Integer userid);
+
+	Integer selectUserStatusByUserid(Integer userid, Integer roomid);
+
+	List<Integer> selectUserIdsByRoomId(Integer roomid);
+
+	List<JhddUsers> selectUsersInfoByRoomId(Integer roomid);
+
+	Integer selectStatusByRoomId(Integer roomid);
+
+	List<Integer> selectAllUserStatus(Integer room_id);
 }

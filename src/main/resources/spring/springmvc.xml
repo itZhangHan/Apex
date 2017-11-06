@@ -17,14 +17,15 @@
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/WxAuth/wxLogin" />
 			<mvc:exclude-mapping path="/callback/first" />
+			<mvc:exclude-mapping path="/callback/joinRoom" />
 			<mvc:exclude-mapping path="/skip/auth_first" />
 			<mvc:exclude-mapping path="/skip/firstsend" />
 			<mvc:exclude-mapping path="/skip/indexsend" />
 			<mvc:exclude-mapping path="/skip/index0send" />
 			<mvc:exclude-mapping path="/skip/oversend" />
-			<mvc:exclude-mapping path="/room/joinsend" />
+			<mvc:exclude-mapping path="/skip/joinRoomSend" />
 			<mvc:exclude-mapping path="/room/createRoom" />
-			
+
 			<mvc:exclude-mapping path="/user/findUserById" />
 			<mvc:exclude-mapping path="/*.html" />
 			<mvc:exclude-mapping path="/css/**" />

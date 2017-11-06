@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/skip")
 public class SkipController {
 
+
 	// 游戏场景
 	@RequestMapping("/index")
 	public String toIndex(HttpSession session) {
@@ -35,13 +36,13 @@ public class SkipController {
 		return "over";
 
 	}
-	
-	@RequestMapping("/joinsend")
-	public String joinsend(HttpServletRequest request) {
 
-		return "redirect:/room/joinRoom";
-
+	@RequestMapping(value = "/joinRoomSend")
+	public String joinRoomSend(HttpServletRequest request, Integer userid, Integer roomId, Integer sidelinesId) {
+		
+		return "index0";
 	}
+
 	// 创建页面
 	@RequestMapping("/firstsend")
 	public String toFirst() {
