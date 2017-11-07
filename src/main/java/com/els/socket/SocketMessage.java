@@ -12,6 +12,10 @@ import com.els.common.SocketUsers;
 public class SocketMessage implements Serializable {
 
 	private String type;
+	private String userId;
+	private String nickName;
+	private String city;
+	private String sex;
 	private String roomId;
 	private String toUserName;
 	private String fromUserName;
@@ -23,6 +27,39 @@ public class SocketMessage implements Serializable {
 	private String headimgurl;
 	private SocketUsers socketUser;
 	private List<SocketUsers> listUsers = new ArrayList();
+
+	
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 
 	public List<SocketUsers> getListUsers() {
 		return listUsers;

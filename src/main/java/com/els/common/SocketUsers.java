@@ -8,11 +8,11 @@ public class SocketUsers {
 	private String userportrait;
 
 	private Integer usersex;
-	
+
 	private String city;
-	
+
 	private Integer status;
-	
+
 	public Integer getStatus() {
 		return status;
 	}
@@ -56,7 +56,6 @@ public class SocketUsers {
 	public void setUsersex(Integer object) {
 		this.usersex = (Integer) object;
 	}
-
 
 	public String getCity() {
 		return city;

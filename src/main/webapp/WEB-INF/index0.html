@@ -65,7 +65,7 @@
 	</div>
 	<script type="text/javascript">
 		function userMessage() {
-			alert("aa");
+
 			var userMessage = {};
 			userMessage.type = "usmesage"
 			userMessage.roomId = roomId;
@@ -76,7 +76,11 @@
 			userMessage.roomState = roomState;
 			userMessage.position = "1";
 			userMessage.headimgurl = img;
-			userMessage.roomName = roomName;
+			userMessage.nicakname = nicakname;
+			userMessage.sex = sex;
+			userMessage.city = city;
+			userMessage.userId = userId;
+			alert(city);
 			websocket.send(JSON.stringify(userMessage));
 		}
 	</script>
