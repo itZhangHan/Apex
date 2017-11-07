@@ -7,8 +7,10 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,minimum-
     scale=1,maximum-scale=1,user-scalable=no">
+<script src="../js/webSocket.js"></script>
 <script src="../js/userInfo.js"></script>
 <link rel="stylesheet" href="../css/hall.css">
+<script src="../js/hall.js"></script>
 </head>
 <body>
 	<div class="centainer">
@@ -62,230 +64,18 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
-		websocket.onOpen = function() {
-			var userMessage = {};
-			userMessage.type = "usmesage"
-			userMessage.roomId = roomId;
-			userMessage.toUserName = "";
-			userMessage.fromUserName = "";
-			userMessage.msgStr = "";
-			userMessage.userStatus = userStatus
-			userMessage.roomState = roomState
-			userMessage.position = "1"
-			userMessage.headimgurl = img
-			userMessage.roomName = roomName
-			userMessage.socketUser = user;
-			websocket.send(JSON.stringify(userMessage));
-		}
-
-		websocket.onClose = function() {
-
-		}
-
-		//upDown.listUsers = listUsers//socketUsers 包含多个socketUser
-		//等待延迟发送方法。
-		/* this.send = function(userMessage, callback) {
-			this.waitForConnection(function() {
-				
-				if (typeof callback !== 'undefined') {
-					callback();
-				}
-			}, 1000);
-		};
-		//延迟发送
-		this.waitForConnection = function(callback, interval) {
-			if (websocket.readyState === 1) {
-				callback();
-			} else {
-				var that = this;
-				// optional: implement backoff for interval here  
-				setTimeout(function() {
-					that.waitForConnection(callback, interval);
-				}, interval);
-			}
-		}; */
-
-		var div_2;
-
-		function showMessage(str) {
-			var div_3 = document.createElement("div");
-			div_3.style.fontSize = "20px";
-			div_3.style.paddingRight = "20px";
-			div_3.style.wordBreak = "break-all"
-			div_3.style.marginTop = "10px";
-			var ss = 7;
-			div_3.innerHTML = "< img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"
-					+ "&nbsp;&nbsp;&nbsp;&nbsp;" + str + '<br />';
-			div_2.appendChild(div_3)
-
-			div_2.scrollTop = div_2.scrollHeight;
-		}
-
-		var headImg1 = document.getElementById("headImg1");
-		var orPrepare = document.getElementById("orPrepare");
-		headImg1.src = img;
-		document.getElementById("img1").src = img;
-
-		headImg1.style.width = "60%"
-		headImg1.style.marginTop = "19%"
-		orPrepare.innerHTML = "已准备"
-		orPrepare.style.color = "darkgreen";
-
-		var headImg2 = document.getElementById("headImg2")
-		var head2 = document.getElementById("player2");
-		var orPrepare2 = document.getElementById("orPrepare2");
-		var f2 = false;
-		head2.onclick = function() {
-			console.log("headImg2.src============" + head2.src)
-			if (f2 == false) {
-				f2 = true;
-				var upDown = {};
-				upDown.type = "Down"
-				upDown.roomId = roomId;
-				upDown.toUserName = "2";
-				upDown.fromUserName = " ";
-				upDown.msgStr = ""
-				upDown.userStatus = userStatus
-				upDown.roomState = roomState
-				upDown.position = "2"
-				upDown.headimgurl = img
-				websocket.send(JSON.stringify(upDown));
-			} else {
-				f2 = false
-
-				var upDown = {};
-				upDown.position = "2";
-				upDown.type = "up"
-
-				websocket.send(JSON.stringify(upDown));
-			}
-		}
-
-		var headImg3 = document.getElementById("headImg3");
-		var head3 = document.getElementById("player3");
-		var orPrepare3 = document.getElementById("orPrepare3");
-		var f3 = false;
-		//       document.getElementById("img3").src = img
-		head3.onclick = function() {
-			console.log("headImg2.src============" + headImg3.src)
-			if (f3 == false) {
-				f3 = true;
-				//
-				var upDown = {};
-				upDown.type = "Down"
-				upDown.roomId = roomId;
-				upDown.toUserName = "3"
-				upDown.fromUserName = " "
-				upDown.msgStr = ""
-				upDown.userStatus = userStatus
-				upDown.roomState = roomState
-				upDown.position = "3"
-				upDown.headimgurl = img
-				websocket.send(JSON.stringify(upDown));
-			} else {
-				f3 = false
-
-				var upDown = {};
-				upDown.position = "3";
-				upDown.type = "up"
-
-				websocket.send(JSON.stringify(upDown));
-
-			}
-		}
-
-		var headImg4 = document.getElementById("headImg4")
-		var head4 = document.getElementById("player4");
-		var orPrepare4 = document.getElementById("orPrepare4");
-
-		var f4 = false;
-		head4.onclick = function() {
-			console.log("headImg2.src============" + headImg4.src)
-			if (f4 == false) {
-				var upDown = {};
-				upDown.type = "Down"
-				upDown.roomId = roomId;
-				upDown.toUserName = "4"
-				upDown.fromUserName = " "
-				upDown.msgStr = ""
-				upDown.userStatus = userStatus
-				upDown.roomState = roomState
-				upDown.position = "4"
-				upDown.headimgurl = img
-				upDown.orLeave = false;
-				websocket.send(JSON.stringify(upDown));
-
-			} else {
-				f4 = false;
-				var upDown = {};
-				upDown.position = "4";
-				upDown.type = "up"
-
-				websocket.send(JSON.stringify(upDown));
-			}
-		}
-
-		websocket.onmessage = function(e) {
-			var jsonObj = eval("(" + e.data + ")");
-			console.log(jsonObj)
-			var b = JSON.parse(jsonObj);
-			console.log("bbbbbb" + b.position)
-
-			if (b.type == "message") {
-				showMessage(b.msgStr);
-			}
-
-			if (b.userStatus == 0) {
-				head4.onclick = null;
-				head2.onclick = null;
-				head3.onclick = null;
-			}
-
-			if (b.position == "2") {
-				if (b.type == "Down") {
-					headImg2.src = b.headimgurl;
-					orPrepare2.innerHTML = "已准备"
-					document.getElementById("img2").src = img;
-				} else {
-					headImg2.src = ""
-					orPrepare2.innerHTML = "已离开"
-					orPrepare2.style.color = "orangered"
-				}
-
-			} else if (b.position == "3") {
-				if (b.type == "Down") {
-					headImg3.src = b.headimgurl;
-					document.getElementById("img3").src = img;
-					orPrepare3.innerHTML = "已准备"
-				} else {
-					headImg3.src = ""
-					orPrepare3.innerHTML = "已离开"
-				}
-			} else if (b.position == "4") {
-				if (b.type == "Down") {
-					headImg4.src = b.headimgurl;
-					document.getElementById("img4").src = img;
-					orPrepare4.innerHTML = "已准备"
-				} else {
-					headImg4.src = ""
-					orPrepare4.innerHTML = "已离开"
-				}
-			}
-		}
-
-		document.getElementById("sendBtn_0").onclick = function() {
-			alert("aa");
-			var txt = document.getElementById("sendTxt_0").value;
-			div_2 = document.getElementById("chatRoom");
-			div_2.style.overflowY = "scroll";//auto    scroll
-			document.getElementById("sendTxt_0").value = "";
-			var mes = {};
-			mes.type = "message";
-			mes.msgStr = txt;
-			websocket.send(JSON.stringify(mes));
-		}
+		var userMessage = {};
+		userMessage.type = "usmesage"
+		userMessage.roomId = roomId;
+		userMessage.toUserName = "";
+		userMessage.fromUserName = "";
+		userMessage.msgStr = "";
+		userMessage.userStatus = userStatus;
+		userMessage.roomState = roomState;
+		userMessage.position = "1";
+		userMessage.headimgurl = img;
+		userMessage.roomName = roomName;
+		websocket.send(JSON.stringify(userMessage));
 	</script>
-	<script src="../js/hall.js"></script>
 </body>
 </html>

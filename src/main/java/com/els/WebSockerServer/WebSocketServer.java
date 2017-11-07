@@ -1,6 +1,11 @@
 package com.els.WebSockerServer;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.Socket;
 
 import javax.websocket.EncodeException;
 import javax.websocket.EndpointConfig;
@@ -11,7 +16,6 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import com.els.bean.JhddUsers;
 import com.els.common.SocketUsers;
 import com.els.socket.MessageDecoder;
 import com.els.socket.MessageEncoder;
@@ -27,7 +31,7 @@ public class WebSocketServer {
 	private Session session;
 
 	private String roomId;
-	
+
 	private SocketUsers socketUser;
 
 	/**
@@ -41,6 +45,7 @@ public class WebSocketServer {
 		this.session = session;
 		addOnlineCount(); // 在线数加1
 		System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
+
 	}
 
 	/**
@@ -63,7 +68,7 @@ public class WebSocketServer {
 	 */
 	@OnMessage
 	public void onMessage(SocketMessage message, Session session) {
-		//用户进来就有的数据
+		// 用户进来就有的数据
 		this.socketUser = message.getSocketUser();
 		this.roomId = message.getRoomId();
 

@@ -40,7 +40,7 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		message.setPosition(object.getString("position"));
 		message.setHeadimgurl(object.getString("headimgurl"));
 		SocketUsers socketUser = (SocketUsers) object.get("socketUser");
-		message.setSocketUser(socketUser);
+		message.setSocketUser(socketUser);				 
 		System.out.println("获取到信息:" + message);
 		return message;
 
