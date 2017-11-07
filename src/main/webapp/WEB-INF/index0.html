@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="../css/hall.css">
 <script src="../js/hall.js"></script>
 </head>
-<body>
+<body onload="userMessage()">
 	<div class="centainer">
 		<div class="room">
 			<span id="roomID"></span> <img id="iconBtn" src="../img/iconBtn.png">
@@ -64,18 +64,21 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		var userMessage = {};
-		userMessage.type = "usmesage"
-		userMessage.roomId = roomId;
-		userMessage.toUserName = "";
-		userMessage.fromUserName = "";
-		userMessage.msgStr = "";
-		userMessage.userStatus = userStatus;
-		userMessage.roomState = roomState;
-		userMessage.position = "1";
-		userMessage.headimgurl = img;
-		userMessage.roomName = roomName;
-		websocket.send(JSON.stringify(userMessage));
+		function userMessage() {
+			alert("aa");
+			var userMessage = {};
+			userMessage.type = "usmesage"
+			userMessage.roomId = roomId;
+			userMessage.toUserName = "";
+			userMessage.fromUserName = "";
+			userMessage.msgStr = "";
+			userMessage.userStatus = userStatus;
+			userMessage.roomState = roomState;
+			userMessage.position = "1";
+			userMessage.headimgurl = img;
+			userMessage.roomName = roomName;
+			websocket.send(JSON.stringify(userMessage));
+		}
 	</script>
 </body>
 </html>
