@@ -66,21 +66,21 @@ var Game = function () {
                 if (check(cur.origin, i, j)) {
                     if (gameData[cur.origin.x + i][cur.origin.y + j] == 2) {
                         b = Math.random()*10;
-                        if(b>9.2){
+                        if(b>9.6){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 10;
-                        }else if(b>8.7){
+                        }else if(b>9.2){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 9;
-                        }else if(b>8.2){
+                        }else if(b>8.9){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 8;
-                        }else if(b>7.7){
+                        }else if(b>8.6){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 7;
-                        }else if(b>7.1){
+                        }else if(b>8.3){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 6;
-                        }else if(b>6.7){
+                        }else if(b>7.9){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 5;
-                        }else if(b>6.3){
+                        }else if(b>7.6){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 4;
-                        }else if(b>5.8){
+                        }else if(b>7.2){
                             gameData[cur.origin.x + i][cur.origin.y + j] = 11;
                         } else{
                             gameData[cur.origin.x + i][cur.origin.y + j] = 1;
@@ -533,7 +533,7 @@ var Game = function () {
                 s = 10;
                 /*随机获取道具*/
                 console.log("随机获取道具-------");
-                console.log("Math.random()"+Math.random() * 10)
+                console.log("Math.random()"+Math.random() * 10);
                 if(Math.random() * 10>1.6){
                     if(Math.random() * 10>8.2){
                         stage2num+=2;
