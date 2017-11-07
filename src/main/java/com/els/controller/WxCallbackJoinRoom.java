@@ -98,8 +98,8 @@ public class WxCallbackJoinRoom {
 			Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(user.getUserid(), room_id);
 			roomsInfo.setUserStatus(userStatus);
 
-			List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(room_id);
-			roomsInfo.setUserList(userList);
+//			List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(room_id);
+//			roomsInfo.setUserList(userList);
 			// 加入房间函数
 
 			// 1.判断房间人数是否已满，已满则跳转创建房间页面
@@ -140,9 +140,9 @@ public class WxCallbackJoinRoom {
 		// 如果房间内包含房主 那么设置新加入玩家属性为旁观
 		roomsInfo.setUserStatus(2);
 
-		List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(room_id);
-
-		roomsInfo.setUserList(userList);
+//		List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(room_id);
+//
+//		roomsInfo.setUserList(userList);
 
 		JhddSidelinesExample example = new JhddSidelinesExample();
 		example.createCriteria().andRoomidEqualTo(room_id);

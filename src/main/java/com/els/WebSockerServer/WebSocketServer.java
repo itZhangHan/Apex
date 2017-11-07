@@ -1,8 +1,11 @@
 package com.els.WebSockerServer;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.util.concurrent.CopyOnWriteArraySet;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.Socket;
 
 import javax.websocket.EncodeException;
 import javax.websocket.EndpointConfig;
@@ -12,17 +15,12 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
-import javax.ws.rs.client.Client;
 
-import com.alibaba.druid.support.json.JSONUtils;
-import com.alibaba.fastjson.JSON;
-import com.els.common.JsonUtils;
+import com.els.common.SocketUsers;
 import com.els.socket.MessageDecoder;
 import com.els.socket.MessageEncoder;
 import com.els.socket.SocketManger;
 import com.els.socket.SocketMessage;
-
-import net.sf.json.JSONObject;
 
 @SuppressWarnings("all")
 // 该注解用来指定一个URI，客户端可以通过这个URI来连接到WebSocket。类似Servlet的注解mapping。无需在web.xml中配置。
@@ -33,6 +31,8 @@ public class WebSocketServer {
 	private Session session;
 
 	private String roomId;
+
+	private SocketUsers socketUser;
 
 	/**
 	 * 连接建立成功调用的方法
@@ -45,6 +45,7 @@ public class WebSocketServer {
 		this.session = session;
 		addOnlineCount(); // 在线数加1
 		System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
+
 	}
 
 	/**
@@ -67,14 +68,17 @@ public class WebSocketServer {
 	 */
 	@OnMessage
 	public void onMessage(SocketMessage message, Session session) {
+		// 用户进来就有的数据
+		this.socketUser = message.getSocketUser();
 		this.roomId = message.getRoomId();
-		// message.setRoomId("10024");
+
 		SocketManger.addRoom(roomId, this);
 		if (message != null) {
 			if (MessageManger.getType(message.getType()) != null) {
 				MessageManger.getType(message.getType()).onMessage(message);
 			}
 		}
+
 	}
 
 	/**
@@ -125,4 +129,13 @@ public class WebSocketServer {
 	public Session getSession() {
 		return session;
 	}
+
+	public SocketUsers getSocketUser() {
+		return socketUser;
+	}
+
+	public void setSocketUser(SocketUsers socketUser) {
+		this.socketUser = socketUser;
+	}
+
 }

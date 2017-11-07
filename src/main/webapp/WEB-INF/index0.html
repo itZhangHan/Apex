@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>游戏页面</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-
+    scale=1,maximum-scale=1,user-scalable=no">
+<script src="../js/webSocket.js"></script>
+<script src="../js/userInfo.js"></script>
+<link rel="stylesheet" href="../css/hall.css">
+<script src="../js/hall.js"></script>
+</head>
+<body onload="userMessage()">
+	<div class="centainer">
+		<div class="room">
+			<span id="roomID"></span> <img id="iconBtn" src="../img/iconBtn.png">
+		</div>
+
+		<div class="item_btn">
+			<ul>
+				<li><img id="item1" src="../img/music.png"></li>
+				<li><img id="item2" src="../img/sprite7.png"></li>
+				<li><img id="item3" src="../img/sprite10.png"></li>
+			</ul>
+		</div>
+
+		<div class="game_go">
+			<!-- 开始游戏 -->
+			<img id="game_go" src="../img/startBtn.png">
+		</div>
+
+		<div class="player_btn">
+			<ul>
+				<li id="player1"><img id="headImg1"></li>
+				<li id="player2"><img id="headImg2"></li>
+			</ul>
+			<ul>
+				<li id="player3"><img id="headImg3" src=""></li>
+				<li id="player4"><img id="headImg4"></li>
+			</ul>
+		</div>
+		<div class="chatRoom" id="chatRoom"></div>
+		<div class="ele">
+			<input id="sendTxt_0" type="text" />
+			<button id="sendBtn_0">
+				<img src="../img/sendBtn.png">
+			</button>
+		</div>
+
+		<div class="icon-player">
+			<ul>
+				<li id="icon1"><span id="orPrepare" style="color: gold"></span><img
+					id="img1"></li>
+				<li id="icon2"><span id="orPrepare2" style="color: gold"></span><img
+					id="img2"></li>
+				<li id="icon3"><span id="orPrepare3" style="color: gold"></span><img
+					id="img3"></li>
+				<li id="icon4"><span id="orPrepare4" style="color: gold"></span><img
+					id="img4"></li>
+
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function userMessage() {
+
+			var userMessage = {};
+			userMessage.type = "usmesage"
+			userMessage.roomId = roomId;
+			userMessage.toUserName = "";
+			userMessage.fromUserName = "";
+			userMessage.msgStr = "";
+			userMessage.userStatus = userStatus;
+			userMessage.roomState = roomState;
+			userMessage.position = "1";
+			userMessage.headimgurl = img;
+			userMessage.nicakname = nicakname;
+			userMessage.sex = sex;
+			userMessage.city = city;
+			userMessage.userId = userId;
+			alert(city);
+			websocket.send(JSON.stringify(userMessage));
+		}
+	</script>
+</body>
+</html>

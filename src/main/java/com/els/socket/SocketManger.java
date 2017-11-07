@@ -23,7 +23,6 @@ public class SocketManger {
 		CopyOnWriteArraySet arraySet;
 		if (!totalRoomMap.containsKey(roomId)) {
 			arraySet = new CopyOnWriteArraySet<WebSocketServer>();
-
 			totalRoomMap.put(roomId, arraySet);
 			addSocketRoom(arraySet, socketServer);
 		} else {
@@ -70,6 +69,7 @@ public class SocketManger {
 	}
 
 	/***
+	 * 
 	 * 获取一个房间里所有的session
 	 * 
 	 * @param roomId
