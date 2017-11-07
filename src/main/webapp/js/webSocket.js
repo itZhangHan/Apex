@@ -4,13 +4,11 @@
 
 var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
 websocket.onOpen = function() {
-	
 
 }
 
 websocket.onClose = function() {
 
 }
-
 
 this.websocket = websocket;
