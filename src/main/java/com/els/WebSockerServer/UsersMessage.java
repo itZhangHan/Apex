@@ -13,22 +13,23 @@ import com.els.socket.SocketManger;
 import com.els.socket.SocketMessage;
 
 public class UsersMessage extends BaseType {
-    
 
-	public String onMessage(SocketMessage message){
+	public String onMessage(SocketMessage message) {
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
-		 List<SocketUsers> list=new ArrayList<SocketUsers>();
-		 Session userWebSocket=null;
+		List<SocketUsers> list = new ArrayList<SocketUsers>();
+		Session userWebSocket = null;
 		for (WebSocketServer object : arrayset) {
 			try {
-			    if(message!=null){
-			    	if(message.getSocketUser()!=null){
-			    		if( message.getSocketUser().getUserid()==object.getSocketUser().getUserid()){			    			
-			    			userWebSocket=object.getSession();
-			    		}
-			    		list.add(message.getSocketUser());
-			    	}
-			    }
+				if (message != null) {
+					if (message.getSocketUser() != null) {
+
+						if (message.getSocketUser().getUserid() == object.getSocketUser().getUserid()) {
+
+							userWebSocket = object.getSession();
+						}
+						list.add(message.getSocketUser());
+					}
+				}
 				object.getSession().getBasicRemote().sendObject(message);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -36,13 +37,13 @@ public class UsersMessage extends BaseType {
 			} catch (EncodeException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}	
+			}
 		}
 		try {
-			if(message!=null)
-			message.setListUsers(list);
-			if(userWebSocket!=null)
-			userWebSocket.getBasicRemote().sendObject(message);
+			if (message != null)
+				message.setListUsers(list);
+			if (userWebSocket != null)
+				userWebSocket.getBasicRemote().sendObject(message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,6 +53,5 @@ public class UsersMessage extends BaseType {
 		}
 		return null;
 	}
-	
-	
+
 }

@@ -82,7 +82,7 @@ public class AuthUtil {
 		Integer userStatus = 0;
 		Integer roomState = 0;
 
-		List<JhddUsers> users = null;
+		JhddUsers user = null;
 		try {
 			openid = new String(new String(jhddUser.getOpenid()).getBytes("UTF-8"), "ISO8859-1");
 			nickname = new String(new String(jhddUser.getUsername()).getBytes("UTF-8"), "ISO8859-1");
@@ -95,10 +95,10 @@ public class AuthUtil {
 			roomState = roomsInfo.getRoomStatus();
 			// 0房主 1：玩家 2:旁观者
 			userStatus = roomsInfo.getUserStatus();
-
+			user = jhddUser;
 			// 房间所有玩家信息
-			users = roomsInfo.getUserList();
-			System.out.println("roomId*******************:" + roomid);
+			// users = roomsInfo.getUserList();
+			// System.out.println("roomId*******************:" + roomid);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -107,7 +107,7 @@ public class AuthUtil {
 		String topStr = getTopName(topName);
 		String urlName = "?nickname=" + nickname + "&sex=" + sex + "&headimgurl=" + headimgurl + "&city=" + city
 				+ "&openid=" + openid + "&userid=" + userid + "&roomId=" + roomid + "&userStatus=" + userStatus
-				+ "&roomState=" + roomState + "&users=" + users;
+				+ "&roomState=" + roomState + "&user=" + user;
 		if (topStr != null && !"".equals(topStr)) {
 			System.out.println(topStr + urlName);
 			return "redirect:/skip/" + topStr + urlName;

@@ -1,10 +1,5 @@
 package com.els.common;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import com.els.bean.JhddSidelines;
-
 public class SocketUsers {
 	private Integer userid;
 

@@ -39,8 +39,8 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		message.setRoomState(object.getString("roomState"));
 		message.setPosition(object.getString("position"));
 		message.setHeadimgurl(object.getString("headimgurl"));
-		SocketUsers socket=(SocketUsers)object.get("socketUser");
-		message.setSocketUser(socket);
+		SocketUsers socketUser = (SocketUsers) object.get("socketUser");
+		message.setSocketUser(socketUser);
 		System.out.println("获取到信息:" + message);
 		return message;
 
