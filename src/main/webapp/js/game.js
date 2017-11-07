@@ -696,6 +696,14 @@ var Game = function () {
          gameData[0][n] = 0;
          }*/
     }
+    var f = 0;
+    var speed = function () {
+        while(f<5){
+            down()
+            f++
+        }
+        f=0
+    }
 
     // 初始化函数
     var init = function (doms, type, dir) {
@@ -717,7 +725,9 @@ var Game = function () {
     this.left = left;
     this.right = right;
     this.rotate = rotate;
-    this.fall = function () {while(down());};
+ //   this.fall = function () {while(down());};
+
+    this.fall = speed;
     this.fixed = fixed;
     this.performNext = performNext;
     this.checkClear = checkClear;

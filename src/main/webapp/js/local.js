@@ -172,14 +172,14 @@ var Local = function () {
       down.addEventListener('touchstart',function(){
           this.style.width = "89%"
           game.fall();
-          $('#local_gameScene').removeClass("gameSceneCss");//添加样式
-          $('#local_gameScene').toggleClass('gameSceneCss');
+       /*   $('#local_gameScene').removeClass("gameSceneCss");//添加样式
+          $('#local_gameScene').toggleClass('gameSceneCss');*/
       },false);
       down.addEventListener('touchend', function () {
           this.style.width = "100%"
-
+/*
           $('#local_gameScene').addClass("gameSceneCss");//添加样式
-          $('#local_gameScene').toggleClass('gameSceneCss');
+          $('#local_gameScene').toggleClass('gameSceneCss');*/
 
       },false);
   }
