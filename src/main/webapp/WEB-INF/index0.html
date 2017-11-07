@@ -64,29 +64,30 @@
 	<script type="text/javascript">
 		var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
 		websocket.onOpen = function() {
-
+			var userMessage = {};
+			userMessage.type = "usmesage"
+			userMessage.roomId = roomId;
+			userMessage.toUserName = "";
+			userMessage.fromUserName = "";
+			userMessage.msgStr = "";
+			userMessage.userStatus = userStatus
+			userMessage.roomState = roomState
+			userMessage.position = "1"
+			userMessage.headimgurl = img
+			userMessage.roomName = roomName
+			userMessage.socketUser = user;
+			websocket.send(JSON.stringify(userMessage));
 		}
 
 		websocket.onClose = function() {
 
 		}
+
 		//upDown.listUsers = listUsers//socketUsers 包含多个socketUser
 		//等待延迟发送方法。
-		this.send = function(userMessage, callback) {
+		/* this.send = function(userMessage, callback) {
 			this.waitForConnection(function() {
-				var userMessage = {};
-				userMessage.type = "usmesage"
-				userMessage.roomId = roomId;
-				userMessage.toUserName = "";
-				userMessage.fromUserName = "";
-				userMessage.msgStr = "";
-				userMessage.userStatus = userStatus
-				userMessage.roomState = roomState
-				userMessage.position = "1"
-				userMessage.headimgurl = img
-				userMessage.roomName = roomName
-				userMessage.socketUser = user;
-				websocket.send(JSON.stringify(userMessage));
+				
 				if (typeof callback !== 'undefined') {
 					callback();
 				}
@@ -103,7 +104,7 @@
 					that.waitForConnection(callback, interval);
 				}, interval);
 			}
-		};
+		}; */
 
 		var div_2;
 
@@ -160,17 +161,6 @@
 				websocket.send(JSON.stringify(upDown));
 			}
 		}
-		var upDown = {};
-		upDown.type = "upDown"
-		upDown.roomId = roomId;
-		upDown.toUserName = "1";
-		upDown.fromUserName = "2";
-		upDown.msgStr = "";
-		upDown.userStatus = userStatus
-		upDown.roomState = roomState
-		upDown.position = "1"
-		upDown.headimgurl = img
-		websocket.send(JSON.stringify(upDown));
 
 		var headImg3 = document.getElementById("headImg3");
 		var head3 = document.getElementById("player3");
