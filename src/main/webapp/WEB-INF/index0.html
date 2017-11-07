@@ -27,7 +27,7 @@
 
 		<div class="game_go">
 			<!-- 开始游戏 -->
-			<img id="game_go" src="../img/startBtn.png">
+			<img id="game_go" onclick="window.location.href='index.html'" src="../img/startBtn.png">
 		</div>
 		<div class="player_btn">
 			<ul>
@@ -142,7 +142,6 @@
 
 			} else {
 				if (userId == user.userId) {
-
 					// user = decodeURI(request.QueryString("user"));
 					var upDown = {};
 					upDown.type = "up"
@@ -170,7 +169,6 @@
 					websocket.send(JSON.stringify(upDown));
 
 				}
-
 			}
 		}
 
@@ -231,7 +229,7 @@
 			}
 		}
 
-		var headImg4 = document.getElementById("headImg4")
+		var headImg4 = document.getElementById("headImg4");
 		var head4 = document.getElementById("player4");
 		var orPrepare4 = document.getElementById("orPrepare4");
 

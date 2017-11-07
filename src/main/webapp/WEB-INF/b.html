@@ -26,7 +26,7 @@
 
 		<div class="game_go">
 			<!-- 开始游戏 -->
-			<img id="game_go" src="../img/startBtn.png">
+			<img id="game_go" onclick="window.location.href='index.html'" src="../img/startBtn.png">
 		</div>
 		<div class="player_btn">
 			<ul>
@@ -38,7 +38,6 @@
 				<li id="player3"><img id="headImg3" src=""></li>
 			</ul>
 		</div>
-
 		<div class="icon-player">
 			<ul>
 				<li id="icon1"><span id="orPrepare" style="color: gold"></span><img id="img1" src="../img/icon4.png"></li>
@@ -61,6 +60,13 @@
 
 	</div>
 	<script type="text/javascript">
+
+        function go() {
+            document.getElementById("game_go").on
+
+        }
+
+
 
         var websocket = new WebSocket("ws://thdd.apexgame.cn/tetris/websocket1");
 		websocket.onOpen = function() {
