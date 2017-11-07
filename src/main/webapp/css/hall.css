@@ -13,7 +13,7 @@ html,body{
 
 .centainer {
     background: url(../img/bg3.png) no-repeat center center;
-    background-size: 100%;
+    background-size: 100% 100%;
     position: absolute;
     left: 0;
     right: 0;
@@ -21,8 +21,8 @@ html,body{
     height: 100%;
 }
 .game_go{
-    width: 60%;
-    margin-top: 24%;;
+    width: 28%;
+    margin-top: 44%;;
     margin-left: auto;
     margin-right: auto;
 }
@@ -35,11 +35,18 @@ html,body{
    /* position: absolute;*/                         /* 1 */
     width: 100%;
     /* top: 1%;*/
-    margin-top: 1%;
+   /* margin-top: 22%;*/
     text-align: center;
-    height: 38%;
+    height: 33%;
 }
-.player_btn ul{
+.player_btn ul:first-child{
+    /*   margin: 6% auto;*/
+    /*margin-top: 3%;*/
+    margin-left: auto;
+    margin-right: auto;
+    height: 47%;
+}
+.player_btn ul:last-child{
  /*   margin: 6% auto;*/
     margin-top: 3%;
     margin-left: auto;
@@ -54,7 +61,7 @@ html,body{
     vertical-align: middle;/*垂直居中是在这里设置*/
     margin: 0 7%;
 
-    height: 75%;
+    height: 85%;
     background: url("../img/sprite5.png") no-repeat center center;
     background-size: 100% 100%;
 }
@@ -103,8 +110,8 @@ html,body{
 
 .icon-player{
     position: absolute;
-    bottom: 1%;
-    left: 4%;
+   /* bottom: 1%;*/
+    left: 10%;
 
     width: 100%;
 
@@ -121,22 +128,24 @@ html,body{
     width: 100%;
 }
 .chatRoom{
-   /* position: absolute;*/
+    position: absolute;
     width: 84%;
-    height: 17%;
+    height: 15%;
     /*margin-top: 120%;
     margin-left: auto;
     margin-right: auto;*/
-    top: 57%;
+   /* top: 57%;*/
     left: 0;
     right: 0;
     margin: auto;
+   /* margin-top: 16%;*/
     background: url(../img/layer3/sprite11.png) no-repeat;
     background-size: 100%;
     z-index: 1;
     font-size: 20px;
     color:white;
     padding-bottom: 10px;
+    bottom: 6.1%;
 
     overflow:hidden;
 
@@ -148,9 +157,10 @@ html,body{
     height: 6%;
     left: 0;
     right: 0;
+    bottom: 0.2%;
     margin: auto;
     background: url(../img/layer3/sprite11.png) no-repeat;
-    background-size: 100%;
+    background-size: 100% 100%;
     z-index: 1;
 }
 
@@ -164,7 +174,7 @@ html,body{
     /*bottom: 5%;*/
     margin-right: 1%;
     background: url(../img/layer3/Shape15.png) repeat-y;
-    background-size: 100%;
+    background-size: 100% 100%;
     /*font-family: Arial;
     font-size: 66px;*/
     font-size: 20px;

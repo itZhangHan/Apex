@@ -43,4 +43,4 @@ userStatus = decodeURI(request.QueryString("userStatus"));
 roomState = decodeURI(request.QueryString("roomState"));
 // 房间名字(xxx的房间)
 roomName = decodeURI(request.QueryString("roomName"));
-users = decodeURI(request.QueryString("users"));
+user = decodeURI(request.QueryString("user"));
