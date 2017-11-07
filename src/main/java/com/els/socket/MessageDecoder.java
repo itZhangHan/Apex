@@ -43,10 +43,13 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		message.setCity(object.getString("city"));
 		message.setSex(object.getString("sex"));
 		message.setUserId(object.getString("userId"));
+		
+		
+		
 		SocketUsers socketUser = new SocketUsers();
 		socketUser.setCity(object.getString("city"));
 		socketUser.setStatus(Integer.parseInt(object.getString("userStatus")));
-		socketUser.setUserid(Integer.parseInt(object.getString("Userid")));
+		socketUser.setUserid(Integer.parseInt(object.getString("userId")));
 		socketUser.setUsername(object.getString("nicakname"));
 		socketUser.setUsersex(Integer.parseInt(object.getString("sex")));
 		socketUser.setUserportrait(object.getString("headimgurl"));

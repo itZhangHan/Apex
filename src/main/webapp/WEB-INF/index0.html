@@ -11,7 +11,7 @@
 <script src="../js/userInfo.js"></script>
 <link rel="stylesheet" href="../css/hall.css">
 </head>
-<body>
+<body onload="userMessage()">
 	<div class="centainer">
 		<div class="room">
 			<span id="roomID"></span> <img id="iconBtn" src="../img/iconBtn.png">
@@ -70,6 +70,25 @@
 
 	</div>
 	<script type="text/javascript">
+		function userMessage() {
+
+			var userMessage = {};
+			userMessage.type = "usmesage"
+			userMessage.roomId = roomId;
+			userMessage.toUserName = "";
+			userMessage.fromUserName = "";
+			userMessage.msgStr = "";
+			userMessage.userStatus = userStatus;
+			userMessage.roomState = roomState;
+			userMessage.position = "1";
+			userMessage.headimgurl = img;
+			userMessage.nicakname = nicakname;
+			userMessage.sex = sex;
+			userMessage.city = city;
+			userMessage.userId = userId;
+			alert(city);
+			websocket.send(JSON.stringify(userMessage));
+		}
 		var div_2;
 
 		function showMessage(str) {
@@ -90,24 +109,12 @@
 		var orPrepare = document.getElementById("orPrepare");
 		headImg1.src = img;
 
-		//   document.getElementById("img1").src = img;
+		document.getElementById("img1").src = img;
 
 		headImg1.style.width = "60%"
 		headImg1.style.marginTop = "19%"
 		orPrepare.innerHTML = "已准备"
 		orPrepare.style.color = "darkgreen";
-
-		var upDown = {};
-		upDown.type = "upDown"
-		upDown.roomId = roomId;
-		upDown.toUserName = "1";
-		upDown.fromUserName = "2";
-		upDown.msgStr = ""
-		upDown.userStatus = userStatus
-		upDown.roomState = roomState
-		upDown.position = "1"
-		upDown.headimgurl = img
-		websocket.send(JSON.stringify(upDown));
 
 		var headImg2 = document.getElementById("headImg2");
 		var head2 = document.getElementById("player2");
