@@ -1,9 +1,9 @@
 package com.els.WebSockerServer;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
-import com.els.socket.UsersMessage;
 
 public class MessageManger {
 

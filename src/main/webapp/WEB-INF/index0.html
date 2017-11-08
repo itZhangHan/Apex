@@ -11,7 +11,7 @@
 <script src="../js/userInfo.js"></script>
 <link rel="stylesheet" href="../css/hall.css">
 </head>
-<body onload="userMessage()">
+<body onload="usmessage()">
 	<div class="centainer">
 		<div class="room">
 			<span id="roomID"></span> <img id="iconBtn" src="../img/iconBtn.png">
@@ -27,7 +27,9 @@
 
 		<div class="game_go">
 			<!-- 开始游戏 -->
-			<img id="game_go" onclick="window.location.href='index.html'" src="../img/startBtn.png">
+			<img id="game_go"
+				onclick="location.href='http://thdd.apexgame.cn/tetris/skip/indexsend'"
+				src="../img/startBtn.png">
 		</div>
 		<div class="player_btn">
 			<ul>
@@ -70,64 +72,99 @@
 
 	</div>
 	<script type="text/javascript">
-		function userMessage() {
+	function usmessage() {
+		var userMessage = {};
+		userMessage.type = "usmesage"
+		userMessage.roomId = roomId;
+		userMessage.toUserName = "";
+		userMessage.fromUserName = "";
+		userMessage.msgStr = "";
+		userMessage.userStatus = userStatus;
+		userMessage.roomState = roomState;
+		userMessage.position = "1";
+		userMessage.headimgurl = img;
+		userMessage.nicakname = nicakname;
+		userMessage.sex = sex;
+		userMessage.city = city;
+		userMessage.userId = userId;
+		alert(city);
+		websocket.send(JSON.stringify(userMessage));
+	}
+	 
+	var div_2;
 
-			var userMessage = {};
-			userMessage.type = "usmesage"
-			userMessage.roomId = roomId;
-			userMessage.toUserName = "";
-			userMessage.fromUserName = "";
-			userMessage.msgStr = "";
-			userMessage.userStatus = userStatus;
-			userMessage.roomState = roomState;
-			userMessage.position = "1";
-			userMessage.headimgurl = img;
-			userMessage.nicakname = nicakname;
-			userMessage.sex = sex;
-			userMessage.city = city;
-			userMessage.userId = userId;
-			alert(city);
-			websocket.send(JSON.stringify(userMessage));
-		}
-		var div_2;
+	function showMessage(str) {
+		var div_3 = document.createElement("div");
+		div_3.style.fontSize = "20px";
+		div_3.style.paddingRight = "20px";
+		div_3.style.wordBreak = "break-all"
+		div_3.style.marginTop = "10px";
+		var ss = 7;
+		div_3.innerHTML = "< img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"
+				+ "&nbsp;&nbsp;&nbsp;&nbsp;" + str + '<br />';
+		div_2.appendChild(div_3)
 
-		function showMessage(str) {
-			var div_3 = document.createElement("div");
-			div_3.style.fontSize = "20px";
-			div_3.style.paddingRight = "20px";
-			div_3.style.wordBreak = "break-all"
-			div_3.style.marginTop = "10px";
-			var ss = 7;
-			div_3.innerHTML = "< img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"
-					+ "&nbsp;&nbsp;&nbsp;&nbsp;" + str + '<br />';
-			div_2.appendChild(div_3)
+		div_2.scrollTop = div_2.scrollHeight;
+	}
 
-			div_2.scrollTop = div_2.scrollHeight;
-		}
+	var headImg1 = document.getElementById("headImg1");
+	var orPrepare = document.getElementById("orPrepare");
+	headImg1.src = img;
 
-		var headImg1 = document.getElementById("headImg1");
-		var orPrepare = document.getElementById("orPrepare");
-		headImg1.src = img;
+	document.getElementById("img1").src = img;
 
-		document.getElementById("img1").src = img;
+	headImg1.style.width = "60%"
+	headImg1.style.marginTop = "19%"
+	orPrepare.innerHTML = "已准备"
+	orPrepare.style.color = "darkgreen";
 
-		headImg1.style.width = "60%"
-		headImg1.style.marginTop = "19%"
-		orPrepare.innerHTML = "已准备"
-		orPrepare.style.color = "darkgreen";
+	var headImg2 = document.getElementById("headImg2");
+	var head2 = document.getElementById("player2");
+	//headImg2.src = img;
+	var orPrepare2 = document.getElementById("orPrepare2");
+	var f2 = false;
+	//    document.getElementById("img2").src = img
+	head2.onclick = function() {
+		console.log("headImg2.src============" + head2.src)
 
-		var headImg2 = document.getElementById("headImg2");
-		var head2 = document.getElementById("player2");
-		//headImg2.src = img;
-		var orPrepare2 = document.getElementById("orPrepare2");
-		var f2 = false;
-		//    document.getElementById("img2").src = img
-		head2.onclick = function() {
-			console.log("headImg2.src============" + head2.src)
+		if (userId == null) {
+			f2 = true;
+			var upDown = {};
+			upDown.type = "Down"
+			upDown.roomId = roomId;
+			upDown.toUserName = "2";
+			upDown.fromUserName = " ";
+			upDown.msgStr = ""
+			upDown.userStatus = userStatus;
+			upDown.roomState = roomState
+			upDown.position = "2"
+			upDown.headimgurl = img
+			upDown.nicakname = nicakname;
+			upDown.sex = sex;
+			upDown.city = city;
+			upDown.userId = userId;
+			websocket.send(JSON.stringify(upDown));
 
-			if (userId == null) {
-				f2 = true;
+		} else {
+			if (userId == user.userId) {
 
+				// user = decodeURI(request.QueryString("user"));
+				upDown.type = "up"
+				upDown.roomId = roomId;
+				upDown.toUserName = "2";
+				upDown.fromUserName = " ";
+				upDown.msgStr = ""
+				upDown.userStatus = userStatus;
+				upDown.roomState = roomState
+				upDown.position = "2"
+				upDown.headimgurl = img
+				upDown.nicakname = nicakname;
+				upDown.sex = sex;
+				upDown.city = city;
+				upDown.userId = userId;
+				websocket.send(JSON.stringify(upDown));
+
+			} else {
 				var upDown = {};
 				upDown.type = "Down"
 				upDown.roomId = roomId;
@@ -138,51 +175,131 @@
 				upDown.roomState = roomState
 				upDown.position = "2"
 				upDown.headimgurl = img
+				upDown.nicakname = nicakname;
+				upDown.sex = sex;
+				upDown.city = city;
+				upDown.userId = userId;
+				websocket.send(JSON.stringify(upDown));
+
+			}
+
+		}
+	}
+
+	var headImg3 = document.getElementById("headImg3");
+	var head3 = document.getElementById("player3");
+	var orPrepare3 = document.getElementById("orPrepare3");
+	var f3 = false;
+	//       document.getElementById("img3").src = img
+	head3.onclick = function() {
+		console.log("headImg2.src============" + headImg3.src)
+
+		if (userId == null) {
+			f2 = true;
+
+			var upDown = {};
+			upDown.type = "Down"
+			upDown.roomId = roomId;
+			upDown.toUserName = "2";
+			upDown.fromUserName = " ";
+			upDown.msgStr = ""
+			upDown.userStatus = userStatus;
+			upDown.roomState = roomState
+			upDown.position = "2"
+			upDown.headimgurl = img
+			upDown.nicakname = nicakname;
+			upDown.sex = sex;
+			upDown.city = city;
+			upDown.userId = userId;
+			websocket.send(JSON.stringify(upDown));
+
+		} else {
+			if (userId == user.userId) {
+
+				// user = decodeURI(request.QueryString("user"));
+				upDown.type = "up"
+				upDown.roomId = roomId;
+				upDown.toUserName = "2";
+				upDown.fromUserName = " ";
+				upDown.msgStr = ""
+				upDown.userStatus = userStatus;
+				upDown.roomState = roomState
+				upDown.position = "2"
+				upDown.headimgurl = img
+				upDown.nicakname = nicakname;
+				upDown.sex = sex;
+				upDown.city = city;
+				upDown.userId = userId;
 				websocket.send(JSON.stringify(upDown));
 
 			} else {
-				if (userId == user.userId) {
-					// user = decodeURI(request.QueryString("user"));
-					var upDown = {};
-					upDown.type = "up"
-					upDown.roomId = roomId;
-					upDown.toUserName = "2";
-					upDown.fromUserName = " ";
-					upDown.msgStr = ""
-					upDown.userStatus = userStatus;
-					upDown.roomState = roomState
-					upDown.position = "2"
-					upDown.headimgurl = img
-					websocket.send(JSON.stringify(upDown));
+				var upDown = {};
+				upDown.type = "up"
+				upDown.roomId = roomId;
+				upDown.toUserName = "2";
+				upDown.fromUserName = " ";
+				upDown.msgStr = ""
+				upDown.userStatus = userStatus;
+				upDown.roomState = roomState
+				upDown.position = "2"
+				upDown.headimgurl = img
+				upDown.nicakname = nicakname;
+				upDown.sex = sex;
+				upDown.city = city;
+				upDown.userId = userId;
+				websocket.send(JSON.stringify(upDown));
 
-				} else {
-					var upDown = {};
-					upDown.type = "Down"
-					upDown.roomId = roomId;
-					upDown.toUserName = "2";
-					upDown.fromUserName = " ";
-					upDown.msgStr = ""
-					upDown.userStatus = userStatus;
-					upDown.roomState = roomState
-					upDown.position = "2"
-					upDown.headimgurl = img
-					websocket.send(JSON.stringify(upDown));
-
-				}
 			}
+
 		}
+	}
 
-		var headImg3 = document.getElementById("headImg3");
-		var head3 = document.getElementById("player3");
-		var orPrepare3 = document.getElementById("orPrepare3");
-		var f3 = false;
-		//       document.getElementById("img3").src = img
-		head3.onclick = function() {
-			console.log("headImg2.src============" + headImg3.src)
+	var headImg4 = document.getElementById("headImg4")
+	var head4 = document.getElementById("player4");
+	var orPrepare4 = document.getElementById("orPrepare4");
 
-			if (userId == null) {
-				f2 = true;
+	//      document.getElementById("img4").src = img
 
+	var f4 = false;
+	head4.onclick = function() {
+		console.log("headImg2.src============" + headImg4.src)
+
+		if (userId == null) {
+			f2 = true;
+
+			var upDown = {};
+			upDown.type = "Down"
+			upDown.roomId = roomId;
+			upDown.toUserName = "2";
+			upDown.fromUserName = " ";
+			upDown.msgStr = ""
+			upDown.userStatus = userStatus;
+			upDown.roomState = roomState
+			upDown.position = "4"
+			upDown.headimgurl = img
+			websocket.send(JSON.stringify(upDown));
+
+		} else {
+			if (userId == user.userId) {
+
+				// user = decodeURI(request.QueryString("user"));
+				var upDown = {};
+				upDown.type = "up"
+				upDown.roomId = roomId;
+				upDown.toUserName = "2";
+				upDown.fromUserName = " ";
+				upDown.msgStr = ""
+				upDown.userStatus = userStatus;
+				upDown.roomState = roomState
+				upDown.position = "2"
+				upDown.headimgurl = img
+				upDown.nicakname = nicakname;
+				upDown.sex = sex;
+				upDown.city = city;
+				upDown.userId = userId;
+				websocket.send(JSON.stringify(upDown));
+
+			} else {
 				var upDown = {};
 				upDown.type = "Down"
 				upDown.roomId = roomId;
@@ -191,177 +308,96 @@
 				upDown.msgStr = ""
 				upDown.userStatus = userStatus;
 				upDown.roomState = roomState
-				upDown.position = "3"
+				upDown.position = "2"
 				upDown.headimgurl = img
+				upDown.nicakname = nicakname;
+				upDown.sex = sex;
+				upDown.city = city;
+				upDown.userId = userId;
 				websocket.send(JSON.stringify(upDown));
 
-			} else {
-				if (userId == user.userId) {
-
-					// user = decodeURI(request.QueryString("user"));
-					var upDown = {};
-					upDown.type = "up"
-					upDown.roomId = roomId;
-					upDown.toUserName = "2";
-					upDown.fromUserName = " ";
-					upDown.msgStr = ""
-					upDown.userStatus = userStatus;
-					upDown.roomState = roomState
-					upDown.position = "3"
-					upDown.headimgurl = img
-					websocket.send(JSON.stringify(upDown));
-
-				} else {
-					var upDown = {};
-					upDown.type = "Down"
-					upDown.roomId = roomId;
-					upDown.toUserName = "2";
-					upDown.fromUserName = " ";
-					upDown.msgStr = ""
-					upDown.userStatus = userStatus;
-					upDown.roomState = roomState
-					upDown.position = "3"
-					upDown.headimgurl = img
-					websocket.send(JSON.stringify(upDown));
-
-				}
-
 			}
-		}
-
-		var headImg4 = document.getElementById("headImg4");
-		var head4 = document.getElementById("player4");
-		var orPrepare4 = document.getElementById("orPrepare4");
-
-		//      document.getElementById("img4").src = img
-
-		var f4 = false;
-		head4.onclick = function() {
-			console.log("headImg2.src============" + headImg4.src)
-
-			if (userId == null) {
-				f2 = true;
-
-				var upDown = {};
-				upDown.type = "Down"
-				upDown.roomId = roomId;
-				upDown.toUserName = "2";
-				upDown.fromUserName = " ";
-				upDown.msgStr = ""
-				upDown.userStatus = userStatus;
-				upDown.roomState = roomState
-				upDown.position = "4"
-				upDown.headimgurl = img
-				websocket.send(JSON.stringify(upDown));
-
-			} else {
-				if (userId == user.userId) {
-
-					// user = decodeURI(request.QueryString("user"));
-					var upDown = {};
-					upDown.type = "up"
-					upDown.roomId = roomId;
-					upDown.toUserName = "2";
-					upDown.fromUserName = " ";
-					upDown.msgStr = ""
-					upDown.userStatus = userStatus;
-					upDown.roomState = roomState
-					upDown.position = "4"
-					upDown.headimgurl = img
-					websocket.send(JSON.stringify(upDown));
-
-				} else {
-					var upDown = {};
-					upDown.type = "Down"
-					upDown.roomId = roomId;
-					upDown.toUserName = "2";
-					upDown.fromUserName = " ";
-					upDown.msgStr = ""
-					upDown.userStatus = userStatus;
-					upDown.roomState = roomState
-					upDown.position = "4"
-					upDown.headimgurl = img
-					websocket.send(JSON.stringify(upDown));
-
-				}
-
-			}
-		}
-
-		websocket.onmessage = function(e) {
-			var jsonObj = eval("(" + e.data + ")");
-			console.log(jsonObj)
-			var b = JSON.parse(jsonObj);
-			console.log("bbbbbb" + b.position)
-
-			if (b.type == 'message') {
-				showMessage(b.msgStr, b.type);
-			}
-			if (b.type == 'usmesage') {
-				showUserList(b.listUsers);
-			}
-			if (b.type == 'up') {
-				user.src = ""
-
-			}
-			if (b.type == 'down') {
-				user.src = b.headimgurl;
-
-			}
-			if (b.type == 'roomStatus') {
-
-			}
-			if (b.type == 'score') {
-				showScore(b.listUsers);
-
-			}
-		}
-
-		var headUrl0 = document.getElementById("img1");
-		var headUrl1 = document.getElementById("img2");
-		var headUrl2 = document.getElementById("img3");
-		var headUrl3 = document.getElementById("img4");
-		var headUrl4 = document.getElementById("img5");
-		var headUrl5 = document.getElementById("img6");
-		var headUrl6 = document.getElementById("img7");
-		var headUrl7 = document.getElementById("img8");
-
-		//显示旁观者信息
-		function showScore(listUsers) {
-			console.log("listUsers=========" + listUsers[0].headimgurl);
-			console.log("listUsers=========" + listUsers[0].roomName);
 
 		}
+	}
 
-		//显示旁观者信息
-		function showUserList(listUsers) {
-			console.log("listUsers=========" + listUsers[0].headimgurl);
+	websocket.onmessage = function(e) {
+		var jsonObj = eval("(" + e.data + ")");
+		console.log(jsonObj)
+		var b = JSON.parse(jsonObj);
+		console.log("bbbbbb" + b.position)
 
-			document.getElementById("img4").src = listUsers[0].headimgurl;
-			for (var i = 0; i < listUsers.length; i++) {
-				(headUrl + i).src = listUsers[i].headimgurl;
-			}
+		if (b.type == 'message') {
+			showMessage(b.msgStr, b.type);
 		}
-
-		document.getElementById("sendBtn_0").onclick = function() {
-			var txt = document.getElementById("sendTxt_0").value;
-			div_2 = document.getElementById("chatRoom");
-			div_2.style.overflowY = "scroll";//auto    scroll
-			document.getElementById("sendTxt_0").value = "";
-			var mes = {};
-			mes.type = "message";
-			mes.msgStr = txt;
-			mes.roomId = roomId;
-			mes.toUserName = ""
-			mes.fromUserName = "";
-			mes.userStatus = userStatus;
-			mes.roomState = roomState;
-			mes.roomName = roomName;
-			mes.position = ""
-			mes.headimgurl = img;
-			mes.socketUser = null;
-			websocket.send(JSON.stringify(mes));
+		if (b.type == 'usmesage') {
+			alert(b.listUsers);
+			showUserList(b.listUsers);
 		}
+		if (b.type == 'up') {
+			user.src = ""
+
+		}
+		if (b.type == 'down') {
+			user.src = b.headimgurl;
+
+		}
+		if (b.type == 'roomStatus') {
+
+		}
+		if (b.type == 'score') {
+			showScore(b.listUsers);
+
+		}
+	}
+
+	var headUrl0 = document.getElementById("img1");
+	var headUrl1 = document.getElementById("img2");
+	var headUrl2 = document.getElementById("img3");
+	var headUrl3 = document.getElementById("img4");
+	var headUrl4 = document.getElementById("img5");
+	var headUrl5 = document.getElementById("img6");
+	var headUrl6 = document.getElementById("img7");
+	var headUrl7 = document.getElementById("img8");
+
+	//显示旁观者信息
+	function showScore(listUsers) {
+		console.log("listUsers=========" + listUsers[0].headimgurl);
+		console.log("listUsers=========" + listUsers[0].roomName);
+
+	}
+
+	//显示旁观者信息
+	function showUserList(listUsers) {
+		alert("进入遍历");
+		document.getElementById("img2").src = listUsers[0].userportrait;
+		for (var i = 0; i < listUsers.length; i++) {
+			(headUrl + i).src = listUsers[i].userportrait;
+		}
+	}
+
+	document.getElementById("sendBtn_0").onclick = function() {
+		var txt = document.getElementById("sendTxt_0").value;
+		div_2 = document.getElementById("chatRoom");
+		div_2.style.overflowY = "scroll";//auto    scroll
+		document.getElementById("sendTxt_0").value = "";
+		var mes = {};
+		mes.type = "message";
+		mes.msgStr = txt;
+		mes.roomId = roomId;
+		mes.toUserName = ""
+		mes.fromUserName = "";
+		mes.userStatus = userStatus;
+		mes.roomState = roomState;
+		mes.roomName = roomName;
+		mes.position = ""
+		mes.headimgurl = img;
+		mes.nicakname = nicakname;
+		mes.city = city;
+		mes.sex = sex;
+		mes.userId = userId;
+		websocket.send(JSON.stringify(mes));
+	}
 	</script>
 	<script src="../js/hall.js"></script>
 </body>

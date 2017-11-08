@@ -12,3 +12,4 @@ websocket.onClose = function() {
 }
 
 this.websocket = websocket;
+

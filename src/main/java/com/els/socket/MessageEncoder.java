@@ -1,18 +1,11 @@
 package com.els.socket;
 
-import javax.jms.Message;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
 import javax.websocket.EncodeException;
+
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
 import com.alibaba.fastjson.JSON;
-import com.els.common.JsonUtils;
-
-import net.sf.json.JSONObject;
-import net.sf.json.util.JSONUtils;
 
 public class MessageEncoder implements Encoder.Text<SocketMessage> {
 

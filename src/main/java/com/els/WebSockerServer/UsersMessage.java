@@ -27,7 +27,7 @@ public class UsersMessage extends BaseType {
 
 							userWebSocket = object.getSession();
 						}
-						list.add(message.getSocketUser());
+						list.add(object.getSocketUser());
 					}
 				}
 				object.getSession().getBasicRemote().sendObject(message);
@@ -41,6 +41,7 @@ public class UsersMessage extends BaseType {
 		}
 		try {
 			if (message != null)
+				
 				message.setListUsers(list);
 			if (userWebSocket != null)
 				userWebSocket.getBasicRemote().sendObject(message);
