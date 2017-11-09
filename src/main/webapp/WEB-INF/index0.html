@@ -9,6 +9,7 @@
     scale=1,maximum-scale=1,user-scalable=no">
 <script src="../js/webSocket.js"></script>
 <script src="../js/userInfo.js"></script>
+<script src="../js/vue.js"></script>
 <link rel="stylesheet" href="../css/hall.css">
 </head>
 <body onload="usmessage()">
@@ -72,6 +73,7 @@
 
 	</div>
 	<script type="text/javascript">
+		
 		function usmessage() {
 			var userMessage = {};
 			userMessage.type = "usmesage"
@@ -123,9 +125,11 @@
 		//headImg2.src = img;
 		var orPrepare2 = document.getElementById("orPrepare2");
 		var f2 = false;
-		//    document.getElementById("img2").src = img
+		if(head2.src){
+			
+		}
 		head2.onclick = function() {
-			console.log("headImg2.src============" + head2.src)
+			console.log("headImg2.src============" + userId)
 
 			if (userId == null) {
 				f2 = true;
