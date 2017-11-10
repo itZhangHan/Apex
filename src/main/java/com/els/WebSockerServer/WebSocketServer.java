@@ -71,7 +71,6 @@ public class WebSocketServer {
 		// 用户进来就有的数据
 		this.socketUser = message.getSocketUser();
 		this.roomId = message.getRoomId();
-
 		SocketManger.addRoom(roomId, this);
 		if (message != null) {
 			if (MessageManger.getType(message.getType()) != null) {

@@ -12,6 +12,16 @@ public class SocketUsers {
 	private String city;
 
 	private Integer status;
+	
+	public Integer getHeadPostion() {
+		return headPostion;
+	}
+
+	public void setHeadPostion(Integer headPostion) {
+		this.headPostion = headPostion;
+	}
+
+	private Integer headPostion;
 
 	public Integer getStatus() {
 		return status;

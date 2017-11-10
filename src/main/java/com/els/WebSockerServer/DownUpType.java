@@ -14,22 +14,21 @@ public class DownUpType implements InterfaceType {
 	public String onMessage(SocketMessage message) {
 		// TODO Auto-generated method stub
 		System.out.println("进入分发起立坐下消息方法");
+		Integer userId= Integer.parseInt( message.getUserId());
 		// 上座下座
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
 		if (arrayset != null) {
 			for (WebSocketServer object : arrayset) {
 				try {
 					try {
-						// 0:房主，1:玩家,2:旁观者
-						if ("2".equals(message.getUserStatus())) {
-							System.out.println("将当前状态2(旁观者)改为1(玩家)");
-							message.setUserStatus("1");
-							object.getSession().getBasicRemote().sendObject(message);
-						} else if ("0".equals(message.getUserStatus())) {
-							System.out.println("进入玩家状态等于房主");
-							object.getSession().getBasicRemote().sendObject(message);
+						
+						if(object.getSocketUser().getUserid()==userId)
+						{
+							object.getSocketUser().setHeadPostion(Integer.parseInt(message.getPosition()));
 						}
-
+						message.setUserStatus("2");
+						
+						object.getSession().getBasicRemote().sendObject(message);
 					} catch (EncodeException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

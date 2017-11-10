@@ -26,16 +26,8 @@ public class UpDownType extends BaseType {
 			for (WebSocketServer object : arrayset) {
 				try {
 					try {
-						// 0:房主，1:玩家,2:旁观者
-						if ("1".equals(message.getUserStatus())) {
-							System.out.println("将当前状态1(玩家)改为2(旁观者)");
-							message.setUserStatus("1");
-							object.getSession().getBasicRemote().sendObject(message);
-						} else if ("0".equals(message.getUserStatus())) {
-							System.out.println("进入玩家状态等于房主");
-							object.getSession().getBasicRemote().sendObject(message);
-						}
-
+						message.setUserStatus("2");
+						object.getSession().getBasicRemote().sendObject(message);
 					} catch (EncodeException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

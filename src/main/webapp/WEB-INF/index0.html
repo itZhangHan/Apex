@@ -84,11 +84,13 @@
 		var headUrl5 = document.getElementById("img6");
 		var headUrl6 = document.getElementById("img7");
 		var headUrl7 = document.getElementById("img8");
-
+		
 		//玩家
-		var head2 = document.getElementById("player2");
-		var head3 = document.getElementById("player3");
-		var head4 = document.getElementById("player4");
+		var head1 = document.getElementById("headImg1");
+		var head2 = document.getElementById("headImg2");
+		var head3 = document.getElementById("headImg3");
+		var head4 = document.getElementById("headImg4");
+
 
 		function usmessage() {
 			var userMessage = {};
@@ -172,7 +174,7 @@
 			for (var i = 0; i < listUsers.length; i++) {
 				//旁观者
 				(headUrl + i).src = listUsers[i].userportrait;
-				(head + i).value = listUsers[i].userid;			}
+				}
 		}
 		//接收房间所有信息，展示用户信息
 		function showMessage(str) {
@@ -222,22 +224,7 @@
 		//点击头像信息触发事件
 		//设置房主头像默认准备 以及不给于除点击取余权限
 		var div_2;
-		var headImg1 = document.getElementById("headImg1");
-		var orPrepare = document.getElementById("orPrepare");
-		headImg1.src = img;
-
-		document.getElementById("img1").src = img;
-
-		headImg1.style.width = "60%"
-		headImg1.style.marginTop = "19%"
-		orPrepare.innerHTML = "已准备"
-		orPrepare.style.color = "darkgreen";
-
-		var headImg2 = document.getElementById("headImg2");
-		var head2 = document.getElementById("player2");
-		var orPrepare2 = document.getElementById("orPrepare2");
 		var f2 = false;
-<
 		//点击头像二时候触发事件
 		head2.onclick = function() {
 			if (userId == null) {
@@ -256,7 +243,6 @@
 				}
 			}
 		}
-
 		var headImg3 = document.getElementById("headImg3");
 		var head3 = document.getElementById("player3");
 		var orPrepare3 = document.getElementById("orPrepare3");
@@ -264,7 +250,6 @@
 		//       document.getElementById("img3").src = img
 		head3.onclick = function() {
 			console.log("headImg2.src============" + headImg3.src)
-
 			if (userId == null) {
 				f2 = true;
 				showUpHeader(down,3);
@@ -323,50 +308,38 @@
 			}
 			if (b.type == 'up') {
 				user.src = ""
-
 			}
 			if (b.type == 'down') {
 				user.src = b.headimgurl;
-
 			}
 			if (b.type == 'roomStatus') {
 
 			}
 			if (b.type == 'score') {
 				showScore(b.listUsers);
-
 			}
 		}
 		
 		function showHeadImg(listUsers){
-			
 			for (var i = 0; i < listUsers.length; i++) {
 				if(listUsers[i].status==0){
-			var headImg1 = document.getElementById("headImg1");
-			var orPrepare = document.getElementById("orPrepare");
-			headImg1.src = img;
-			document.getElementById("img1").src = img;
-			headImg1.style.width = "60%"
-			headImg1.style.marginTop = "19%"
-			orPrepare.innerHTML = "已准备"
-			orPrepare.style.color = "darkgreen";
+			    headImg1.src = img;
 				}
 				if(listUsers[i].status==1){
-					
+					if(listUsers[i].headPostion==1)
+						headImg1.src=img;
+					if(listUsers[i].headPostion==2)
+						headImg2.src=img;
+					if(listUsers[i].headPostion==3)
+						headImg3.src=img;
 					
 				}
-			}
-			
-		}
+					
+				}
+					
+				}
+		
 
-		var headUrl0 = document.getElementById("img1");
-		var headUrl1 = document.getElementById("img2");
-		var headUrl2 = document.getElementById("img3");
-		var headUrl3 = document.getElementById("img4");
-		var headUrl4 = document.getElementById("img5");
-		var headUrl5 = document.getElementById("img6");
-		var headUrl6 = document.getElementById("img7");
-		var headUrl7 = document.getElementById("img8");
 
 		//显示旁观者信息
 		function showScore(listUsers) {
@@ -387,7 +360,7 @@
 			upDown.type =ud;
 			upDown.roomId = roomId;
 			upDown.toUserName = "2";
-			upDown.fromUserName = " ";
+			upDown.fromUserName = "";
 			upDown.msgStr = "";
 			upDown.userStatus = userStatus;
 			upDown.roomState = roomState;
