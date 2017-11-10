@@ -17,14 +17,10 @@ public class UsersMessage extends BaseType {
 	public String onMessage(SocketMessage message) {
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
 		List<SocketUsers> list = new ArrayList<SocketUsers>();
-		Session userWebSocket = null;
 		for (WebSocketServer object : arrayset) {
 			try {
 				if (message != null) {
 					if (message.getSocketUser() != null) {
-						if (message.getSocketUser().getUserid() == object.getSocketUser().getUserid()) {
-							userWebSocket = object.getSession();
-						}
 						list.add(object.getSocketUser());
 					}
 				}
@@ -36,8 +32,9 @@ public class UsersMessage extends BaseType {
 		try {
 			if (message != null)
 				message.setListUsers(list);
-			if (userWebSocket != null)
-				userWebSocket.getBasicRemote().sendObject(message);
+			for (WebSocketServer object : arrayset) {
+				object.getSession().getBasicRemote().sendObject(message);
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
