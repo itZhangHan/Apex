@@ -319,10 +319,10 @@
 
 			}
 		}
-		
+
 		//接收起立type 展示数据
-		function showUpmessage(b){
-			
+		function showUpmessage(b) {
+
 		}
 		//接收坐下type 展示数据
 		function showDownmessage(b) {
@@ -331,6 +331,18 @@
 		//接收游戏类型 设置游戏开始
 		function actionGame(b) {
 
+		}
+		//显示分数信息
+		function showScore(b) {
+
+		}
+
+		//显示旁观者信息
+		function showUserList(listUsers) {
+			document.getElementById("img2").src = listUsers[0].userportrait;
+			for (var i = 0; i < listUsers.length; i++) {
+				(headUrl + i).src = listUsers[i].userportrait;
+			}
 		}
 		//接收房间所有信息，展示用户信息
 		function showMessage(str) {
@@ -350,7 +362,6 @@
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
 			var b = JSON.parse(jsonObj);
-			console.log("bbbbbb" + b.position)
 
 			if (b.type == 'message') {
 				showMessage(b.msgStr, b.type);
@@ -383,21 +394,6 @@
 		var headUrl5 = document.getElementById("img6");
 		var headUrl6 = document.getElementById("img7");
 		var headUrl7 = document.getElementById("img8");
-
-		//显示旁观者信息
-		function showScore(listUsers) {
-			console.log("listUsers=========" + listUsers[0].headimgurl);
-			console.log("listUsers=========" + listUsers[0].roomName);
-
-		}
-
-		//显示旁观者信息
-		function showUserList(listUsers) {
-			document.getElementById("img2").src = listUsers[0].userportrait;
-			for (var i = 0; i < listUsers.length; i++) {
-				(headUrl + i).src = listUsers[i].userportrait;
-			}
-		}
 
 		document.getElementById("sendBtn_0").onclick = function() {
 			var txt = document.getElementById("sendTxt_0").value;
