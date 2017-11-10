@@ -37,12 +37,12 @@
 		</div>
 		<div class="player_btn">
 			<ul>
-				<li id="player1"><img id="headImg1" src=""></li>
-				<li id="player2"><img id="headImg2" src=""></li>
+				<li id="player1" value=""><img id="headImg1" src=""></li>
+				<li id="player2" value=""><img id="headImg2" src=""></li>
 			</ul>
 			<ul>
-				<li id="player3"><img id="headImg3" src=""></li>
-				<li id="player4"><img id="headImg4" src=""></li>
+				<li id="player3" value=""><img id="headImg3" src=""></li>
+				<li id="player4" value=""><img id="headImg4" src=""></li>
 			</ul>
 		</div>
 
@@ -76,14 +76,20 @@
 
 	</div>
 	<script type="text/javascript">
-	var headUrl0 = document.getElementById("img1");
-	var headUrl1 = document.getElementById("img2");
-	var headUrl2 = document.getElementById("img3");
-	var headUrl3 = document.getElementById("img4");
-	var headUrl4 = document.getElementById("img5");
-	var headUrl5 = document.getElementById("img6");
-	var headUrl6 = document.getElementById("img7");
-	var headUrl7 = document.getElementById("img8");
+		//旁观者
+		var headUrl0 = document.getElementById("img1");
+		var headUrl1 = document.getElementById("img2");
+		var headUrl2 = document.getElementById("img3");
+		var headUrl3 = document.getElementById("img4");
+		var headUrl4 = document.getElementById("img5");
+		var headUrl5 = document.getElementById("img6");
+		var headUrl6 = document.getElementById("img7");
+		var headUrl7 = document.getElementById("img8");
+
+		//玩家
+		var head2 = document.getElementById("player2");
+		var head3 = document.getElementById("player3");
+		var head4 = document.getElementById("player4");
 
 		function usmessage() {
 			var userMessage = {};
@@ -128,11 +134,29 @@
 		}
 		//接收起立type 展示数据
 		function showUpmessage(b) {
-
+			if(b.position=='2'){
+				head2.src = '';
+				orPrepare2.innerHTML = ""
+			}else if(b.position=='3'){
+				head3.src = '';
+				orPrepare3.innerHTML = ""
+			}else if(b.position=='4'){
+				head4.src = '';
+				orPrepare4.innerHTML = ""
+			}
 		}
 		//接收坐下type 展示数据
 		function showDownmessage(b) {
-
+			if(b.position=='2'){
+				head2.src = b.headimgurl;
+				orPrepare2.innerHTML = "已准备"
+			}else if(b.position=='3'){
+				head3.src = b.headimgurl;
+				orPrepare3.innerHTML = "已准备"
+			}else if(b.position=='4'){
+				head4.src = b.headimgurl;
+				orPrepare4.innerHTML = "已准备"
+			}
 		}
 		//接收游戏类型 设置游戏开始
 		function actionGame(b) {
@@ -145,38 +169,12 @@
 
 		//显示旁观者信息
 		function showUserList(listUsers) {
-			alert(listUsers);
-			
-			if(headUrl1.src==''){
-				headUrl1.src = listUsers[0].userportrait;
-			}else{
-				if(headUrl2.src==''){
-					headUrl2.src = listUsers[0].userportrait;
-				}else{
-					if(headUrl3.src==''){
-						headUrl3.src = listUsers[0].userportrait;
-					}else{
-						if(headUrl4.src==''){
-							headUrl4.src = listUsers[0].userportrait;
-						}else{
-							if(headUrl5.src==''){
-								headUrl5.src = listUsers[0].userportrait;
-							}else{
-								if(headUrl6.src==''){
-									headUrl6.src = listUsers[0].userportrait;
-								}else{
-									if(headUrl7.src==''){
-										headUrl7.src = listUsers[0].userportrait;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+			alert("返回玩家 列表:"+listUsers);
 			for (var i = 0; i < listUsers.length; i++) {
+				//旁观者
 				(headUrl + i).src = listUsers[i].userportrait;
+				(head + i).value = listUsers[i].userid;
+				//(head + i).src = listUsers[i].userportrait;
 			}
 		}
 		//接收房间所有信息，展示用户信息
@@ -197,7 +195,7 @@
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
 			var b = JSON.parse(jsonObj);
-			alert("接收到服务端返回数据:"+b);
+			alert("接收到服务端返回数据:" + b);
 			if (b.type == 'message') {
 				//展示发送消息数据
 				showMessage(b.msgStr, b.type);
@@ -212,7 +210,6 @@
 				showUpmessage(b);
 			}
 			if (b.type == 'down') {
-				user.src = b.headimgurl;
 				//展示坐下信息
 				showDownmessage(b);
 			}
@@ -223,14 +220,11 @@
 			if (b.type == 'score') {
 				//展示分数信息
 				showScore(b);
-
 			}
 		}
 
-		
-		
 		//点击头像信息触发事件
-				//设置房主头像默认准备 以及不给于除点击取余权限
+		//设置房主头像默认准备 以及不给于除点击取余权限
 		var div_2;
 		var headImg1 = document.getElementById("headImg1");
 		var orPrepare = document.getElementById("orPrepare");
@@ -250,8 +244,9 @@
 		//点击头像二时候触发事件
 		head2.onclick = function() {
 			console.log("headImg2.src============" + userId)
-
-			if (userId == null) {
+			var userId = head2.value;
+			if (userId == '') {
+				alert("可以坐下，发送请求坐下消息");
 				f2 = true;
 				var upDown = {};
 				upDown.type = "Down"
@@ -270,6 +265,7 @@
 				websocket.send(JSON.stringify(upDown));
 
 			} else {
+				//位置有人
 				if (userId == user.userId) {
 					var upDown = {};
 					upDown.type = "up"
@@ -315,8 +311,10 @@
 		var f3 = false;
 		//       document.getElementById("img3").src = img
 		head3.onclick = function() {
+			var userId = head3.value;
 			console.log("headImg3.src============" + headImg3.src)
-			if (userId == null) {
+			if (userId == '') {
+				alert("可以坐下");
 				f3 = true;
 				var upDown = {};
 				upDown.type = "Down"
@@ -364,8 +362,10 @@
 		var orPrepare4 = document.getElementById("orPrepare4");
 		var f4 = false;
 		head4.onclick = function() {
+			var userId = head4.value;
 			console.log("headImg4.src============" + headImg4.src)
-			if (userId == null) {
+			if (userId == '') {
+				alert("可以坐下");
 				f2 = true;
 				var upDown = {};
 				upDown.type = "Down"
@@ -402,8 +402,6 @@
 
 			}
 		}
-
-	
 	</script>
 	<script src="../js/hall.js"></script>
 </body>
