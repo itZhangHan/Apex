@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,minimum-
-    scale=1,maximum-scale=1,user-scalable=no">
+	    scale=1,maximum-scale=1,user-scalable=no">
 <script src="../js/webSocket.js"></script>
 <script src="../js/userInfo.js"></script>
 <script src="../js/vue.js"></script>
@@ -74,6 +75,7 @@
 		</div>
 
 	</div>
+
 	<script type="text/javascript">
 		//旁观者
 		var headUrl0 = document.getElementById("img1");
@@ -84,13 +86,12 @@
 		var headUrl5 = document.getElementById("img6");
 		var headUrl6 = document.getElementById("img7");
 		var headUrl7 = document.getElementById("img8");
-		
+
 		//玩家
 		var head1 = document.getElementById("headImg1");
 		var head2 = document.getElementById("headImg2");
 		var head3 = document.getElementById("headImg3");
 		var head4 = document.getElementById("headImg4");
-
 
 		function usmessage() {
 			var userMessage = {};
@@ -107,7 +108,7 @@
 			userMessage.sex = sex;
 			userMessage.city = city;
 			userMessage.userId = userId;
-			alert("我是:" + nicakname);
+			alert("发送数据"+userMessage);
 			websocket.send(JSON.stringify(userMessage));
 		}
 		//聊天通信模块
@@ -135,28 +136,31 @@
 		}
 		//接收起立type 展示数据
 		function showUpmessage(b) {
-			if(b.position=='2'){
+			if (b.position == '2') {
 				head2.src = '';
 				orPrepare2.innerHTML = ""
-			}else if(b.position=='3'){
+			} else if (b.position == '3') {
 				head3.src = '';
 				orPrepare3.innerHTML = ""
-			}else if(b.position=='4'){
+			} else if (b.position == '4') {
 				head4.src = '';
 				orPrepare4.innerHTML = ""
 			}
 		}
 		//接收坐下type 展示数据
 		function showDownmessage(b) {
-			if(b.position=='2'){
+			if (b.position == '2') {
 				head2.src = b.headimgurl;
 				orPrepare2.innerHTML = "已准备"
-			}else if(b.position=='3'){
+				head2.value = b.userId;
+			} else if (b.position == '3') {
 				head3.src = b.headimgurl;
 				orPrepare3.innerHTML = "已准备"
-			}else if(b.position=='4'){
+				head3.value = b.userId;
+			} else if (b.position == '4') {
 				head4.src = b.headimgurl;
 				orPrepare4.innerHTML = "已准备"
+				head4.value = b.userId;
 			}
 		}
 		//接收游戏类型 设置游戏开始
@@ -168,14 +172,6 @@
 
 		}
 
-		//显示旁观者信息
-		function showUserList(listUsers) {
-			alert("返回玩家 列表:"+listUsers);
-			for (var i = 0; i < listUsers.length; i++) {
-				//旁观者
-				(headUrl + i).src = listUsers[i].userportrait;
-				}
-		}
 		//接收房间所有信息，展示用户信息
 		function showMessage(str) {
 			var div_3 = document.createElement("div");
@@ -193,14 +189,16 @@
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
 			var b = JSON.parse(jsonObj);
-			alert("接收到服务端返回数据:" + b);
+			alert("接收数据"+b);
 			if (b.type == 'message') {
 				//展示发送消息数据
 				showMessage(b.msgStr, b.type);
 			}
 			//优先级 *****
 			if (b.type == 'usmesage') {
+				alert("返回数据usmesage" + b);
 				//显示旁观者信息
+				showHeadImg(b.listUsers);
 				showUserList(b.listUsers);
 			}
 			if (b.type == 'up') {
@@ -220,51 +218,64 @@
 				showScore(b);
 			}
 		}
-
-		//点击头像信息触发事件
-		//设置房主头像默认准备 以及不给于除点击取余权限
-		var div_2;
-		var f2 = false;
-		//点击头像二时候触发事件
-		head2.onclick = function() {
-			if (userId == null) {
-			console.log("headImg2.src============" + userId)
-			var userId = head2.value;
-			if (userId == '') {
-				alert("可以坐下，发送请求坐下消息");
-				f2 = true;
-				showUpHeader(down,2);
-			} else {
-				//位置有人
-				if (userId == user.userId) {
-					showUpHeader(up,2);
-				} else {
-					showUpHeader(down,2);
+		//显示旁观者信息
+		function showUserList(listUsers) {
+			
+			
+			for (var i = 0; i < listUsers.length; i++) {
+				alert("接收listUsers2222"+listUsers);
+				if(listUsers[i].status==0){
+					headUrl0.src=listUsers[i].userportrait;
+				}
+				if(i==1){
+					headUrl1.src=listUsers[i].userportrait;
+				}
+				if(i==2){
+					headUrl2.src=listUsers[i].userportrait;
+				}
+				if(i==3){
+					headUrl3.src=listUsers[i].userportrait;
+				}
+				if(i==4){
+					headUrl4.src=listUsers[i].userportrait;
 				}
 			}
 		}
-		var headImg3 = document.getElementById("headImg3");
-		var head3 = document.getElementById("player3");
-		var orPrepare3 = document.getElementById("orPrepare3");
-		var f3 = false;
-		//       document.getElementById("img3").src = img
-		head3.onclick = function() {
-			console.log("headImg2.src============" + headImg3.src)
-			if (userId == null) {
+		
+		
+		head2.onclick = function() {
+			var userId = head2.value;
+			if (userId == '') {
+
 				f2 = true;
-				showUpHeader(down,3);
+				showUpHeader(down, 2);
+			} else {
+				//位置有人
+				if (userId == user.userId) {
+					showUpHeader(up, 2);
+				} else {
+					showUpHeader(down, 2);
+				}
+			}
+		}
+
+		head3.onclick = function() {
+			var headImg3 = document.getElementById("headImg3");
+			var head3 = document.getElementById("player3");
+			var orPrepare3 = document.getElementById("orPrepare3");
+			var f3 = false;
+			console.log("headImg2.src============" + headImg3.src)
+
 			var userId = head3.value;
 			console.log("headImg3.src============" + headImg3.src)
 			if (userId == '') {
-				alert("可以坐下");
+
 				f3 = true;
-				showUpHeader(down,3);
+				showUpHeader(down, 3);
 			} else {
 				if (userId == user.userId) {
 					// user = decodeURI(request.QueryString("user"));
-					showUpHeader(up,3);
-				} else {
-					showUpHeader(up,3);
+					showUpHeader(up, 3);
 				} else {
 					alert("此位置已经有人了!");
 				}
@@ -272,95 +283,51 @@
 			}
 		}
 
-		var headImg4 = document.getElementById("headImg4")
-		var head4 = document.getElementById("player4");
-		var orPrepare4 = document.getElementById("orPrepare4");
-		var f4 = false;
 		head4.onclick = function() {
+			var headImg4 = document.getElementById("headImg4")
+			var head4 = document.getElementById("player4");
+			var orPrepare4 = document.getElementById("orPrepare4");
+			var f4 = false;
 			var userId = head4.value;
 			console.log("headImg4.src============" + headImg4.src)
 			if (userId == '') {
 				alert("可以坐下");
 				f2 = true;
-				showUpHeader(down,4);
-			
+				showUpHeader(down, 4);
+
 			} else {
 				if (userId == user.userId) {
-					showUpHeader(up,3);
+					showUpHeader(up, 4);
 				} else {
-					showUpHeader(down,3);
 					alert("此位置已经有人了！");
 				}
 			}
 		}
-		websocket.onmessage = function(e) {
-			var jsonObj = eval("(" + e.data + ")");
-			console.log(jsonObj)
-			var b = JSON.parse(jsonObj);
-			console.log("bbbbbb" + b.position)
 
-			if (b.type == 'message') {
-				showMessage(b.msgStr, b.type);
-			}
-			if (b.type == 'usmesage') {
-				showHeadImg(b.listUsers);
-				showUserList(b.listUsers);
-			}
-			if (b.type == 'up') {
-				user.src = ""
-			}
-			if (b.type == 'down') {
-				user.src = b.headimgurl;
-			}
-			if (b.type == 'roomStatus') {
-
-			}
-			if (b.type == 'score') {
-				showScore(b.listUsers);
-			}
-		}
-		
-		function showHeadImg(listUsers){
+		function showHeadImg(listUsers) {
+			alert("接收listUsers"+listUsers.length);
 			for (var i = 0; i < listUsers.length; i++) {
-				if(listUsers[i].status==0){
-			    headImg1.src = img;
+				alert("接收listUsers status"+listUsers[i].status);
+				if (listUsers[i].status == 0) {
+					headImg1.src = listUsers[i].userportrait;
 				}
-				if(listUsers[i].status==1){
-					if(listUsers[i].headPostion==1)
-						headImg1.src=img;
-					if(listUsers[i].headPostion==2)
-						headImg2.src=img;
-					if(listUsers[i].headPostion==3)
-						headImg3.src=img;
-					
+				if (listUsers[i].status == 1) {
+					if (listUsers[i].headPostion == 1)
+						headImg1.src = listUsers[i].userportrait;
+					if (listUsers[i].headPostion == 2)
+						headImg2.src = listUsers[i].userportrait;
+					if (listUsers[i].headPostion == 3)
+						headImg3.src = listUsers[i].userportrait;
 				}
-					
-				}
-					
-				}
-		
-
-
-		//显示旁观者信息
-		function showScore(listUsers) {
-			console.log("listUsers=========" + listUsers[0].headimgurl);
-			console.log("listUsers=========" + listUsers[0].roomName);
-
-		}
-
-		//显示旁观者信息
-		function showUserList(listUsers) {
-			document.getElementById("img2").src = listUsers[0].userportrait;
-			for (var i = 0; i < listUsers.length; i++) {
-				(headUrl + i).src = listUsers[i].userportrait;
 			}
 		}
-	    function showUpHeader(var ud,var position){
-	    	var upDown = {};
-			upDown.type =ud;
+
+		function showUpHeader(ud, position) {
+			var upDown = {};
+			upDown.type = ud;
 			upDown.roomId = roomId;
 			upDown.toUserName = "2";
-			upDown.fromUserName = "";
+			upDown.fromUserName = " ";
 			upDown.msgStr = "";
 			upDown.userStatus = userStatus;
 			upDown.roomState = roomState;
@@ -371,7 +338,7 @@
 			upDown.city = city;
 			upDown.userId = userId;
 			websocket.send(JSON.stringify(upDown));
-	    }
+		}
 
 		document.getElementById("sendBtn_0").onclick = function() {
 			var txt = document.getElementById("sendTxt_0").value;

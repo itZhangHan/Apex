@@ -28,14 +28,10 @@ public class UsersMessage extends BaseType {
 						list.add(object.getSocketUser());
 					}
 				}
-				object.getSession().getBasicRemote().sendObject(message);
-			} catch (IOException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (EncodeException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 		}
 		try {
 			if (message != null)
