@@ -17,7 +17,6 @@
 		<div class="room">
 			<span id="roomID"></span> <img id="iconBtn" src="../img/iconBtn.png">
 		</div>
-
 		<div class="item_btn">
 			<ul>
 				<li><img id="item1" src="../img/music.png"></li>
@@ -105,88 +104,20 @@
 			div_3.innerHTML = "< img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"
 					+ "&nbsp;&nbsp;&nbsp;&nbsp;" + str + '<br />';
 			div_2.appendChild(div_3)
-
 			div_2.scrollTop = div_2.scrollHeight;
 		}
-
-		var headImg1 = document.getElementById("headImg1");
-		var orPrepare = document.getElementById("orPrepare");
-		headImg1.src = img;
-
-		document.getElementById("img1").src = img;
-
-		headImg1.style.width = "60%"
-		headImg1.style.marginTop = "19%"
-		orPrepare.innerHTML = "已准备"
-		orPrepare.style.color = "darkgreen";
-
-		var headImg2 = document.getElementById("headImg2");
-		var head2 = document.getElementById("player2");
-		//headImg2.src = img;
-		var orPrepare2 = document.getElementById("orPrepare2");
 		var f2 = false;
-		if(head2.src){
-			
-		}
 		head2.onclick = function() {
-			console.log("headImg2.src============" + userId)
-
 			if (userId == null) {
 				f2 = true;
-				var upDown = {};
-				upDown.type = "Down"
-				upDown.roomId = roomId;
-				upDown.toUserName = "2";
-				upDown.fromUserName = " ";
-				upDown.msgStr = ""
-				upDown.userStatus = userStatus;
-				upDown.roomState = roomState
-				upDown.position = "2"
-				upDown.headimgurl = img
-				upDown.nicakname = nicakname;
-				upDown.sex = sex;
-				upDown.city = city;
-				upDown.userId = userId;
-				websocket.send(JSON.stringify(upDown));
-
+				showUpHeader(down,2);
 			} else {
 				if (userId == user.userId) {
-
-					// user = decodeURI(request.QueryString("user"));
-					upDown.type = "up"
-					upDown.roomId = roomId;
-					upDown.toUserName = "2";
-					upDown.fromUserName = " ";
-					upDown.msgStr = ""
-					upDown.userStatus = userStatus;
-					upDown.roomState = roomState
-					upDown.position = "2"
-					upDown.headimgurl = img
-					upDown.nicakname = nicakname;
-					upDown.sex = sex;
-					upDown.city = city;
-					upDown.userId = userId;
-					websocket.send(JSON.stringify(upDown));
+					showUpHeader(up,2);
 
 				} else {
-					var upDown = {};
-					upDown.type = "Down"
-					upDown.roomId = roomId;
-					upDown.toUserName = "2";
-					upDown.fromUserName = " ";
-					upDown.msgStr = ""
-					upDown.userStatus = userStatus;
-					upDown.roomState = roomState
-					upDown.position = "2"
-					upDown.headimgurl = img
-					upDown.nicakname = nicakname;
-					upDown.sex = sex;
-					upDown.city = city;
-					upDown.userId = userId;
-					websocket.send(JSON.stringify(upDown));
-
+					showUpHeader(down,2);
 				}
-
 			}
 		}
 
@@ -200,59 +131,17 @@
 
 			if (userId == null) {
 				f2 = true;
-
-				var upDown = {};
-				upDown.type = "Down"
-				upDown.roomId = roomId;
-				upDown.toUserName = "2";
-				upDown.fromUserName = " ";
-				upDown.msgStr = ""
-				upDown.userStatus = userStatus;
-				upDown.roomState = roomState
-				upDown.position = "2"
-				upDown.headimgurl = img
-				upDown.nicakname = nicakname;
-				upDown.sex = sex;
-				upDown.city = city;
-				upDown.userId = userId;
-				websocket.send(JSON.stringify(upDown));
+				showUpHeader(down,3);
 
 			} else {
 				if (userId == user.userId) {
 
 					// user = decodeURI(request.QueryString("user"));
-					upDown.type = "up"
-					upDown.roomId = roomId;
-					upDown.toUserName = "2";
-					upDown.fromUserName = " ";
-					upDown.msgStr = ""
-					upDown.userStatus = userStatus;
-					upDown.roomState = roomState
-					upDown.position = "2"
-					upDown.headimgurl = img
-					upDown.nicakname = nicakname;
-					upDown.sex = sex;
-					upDown.city = city;
-					upDown.userId = userId;
-					websocket.send(JSON.stringify(upDown));
+					showUpHeader(up,3);
+
 
 				} else {
-					var upDown = {};
-					upDown.type = "up"
-					upDown.roomId = roomId;
-					upDown.toUserName = "2";
-					upDown.fromUserName = " ";
-					upDown.msgStr = ""
-					upDown.userStatus = userStatus;
-					upDown.roomState = roomState
-					upDown.position = "2"
-					upDown.headimgurl = img
-					upDown.nicakname = nicakname;
-					upDown.sex = sex;
-					upDown.city = city;
-					upDown.userId = userId;
-					websocket.send(JSON.stringify(upDown));
-
+					showUpHeader(up,3);
 				}
 
 			}
@@ -270,56 +159,15 @@
 
 			if (userId == null) {
 				f2 = true;
-
-				var upDown = {};
-				upDown.type = "Down"
-				upDown.roomId = roomId;
-				upDown.toUserName = "2";
-				upDown.fromUserName = " ";
-				upDown.msgStr = ""
-				upDown.userStatus = userStatus;
-				upDown.roomState = roomState
-				upDown.position = "4"
-				upDown.headimgurl = img
-				websocket.send(JSON.stringify(upDown));
-
+				showUpHeader(down,4);
 			} else {
 				if (userId == user.userId) {
 
 					// user = decodeURI(request.QueryString("user"));
-					var upDown = {};
-					upDown.type = "up"
-					upDown.roomId = roomId;
-					upDown.toUserName = "2";
-					upDown.fromUserName = " ";
-					upDown.msgStr = ""
-					upDown.userStatus = userStatus;
-					upDown.roomState = roomState
-					upDown.position = "2"
-					upDown.headimgurl = img
-					upDown.nicakname = nicakname;
-					upDown.sex = sex;
-					upDown.city = city;
-					upDown.userId = userId;
-					websocket.send(JSON.stringify(upDown));
+					showUpHeader(up,3);
 
 				} else {
-					var upDown = {};
-					upDown.type = "Down"
-					upDown.roomId = roomId;
-					upDown.toUserName = "2";
-					upDown.fromUserName = " ";
-					upDown.msgStr = ""
-					upDown.userStatus = userStatus;
-					upDown.roomState = roomState
-					upDown.position = "2"
-					upDown.headimgurl = img
-					upDown.nicakname = nicakname;
-					upDown.sex = sex;
-					upDown.city = city;
-					upDown.userId = userId;
-					websocket.send(JSON.stringify(upDown));
-
+					showUpHeader(down,3);
 				}
 
 			}
@@ -335,6 +183,7 @@
 				showMessage(b.msgStr, b.type);
 			}
 			if (b.type == 'usmesage') {
+				showHeadImg(b.listUsers);
 				showUserList(b.listUsers);
 			}
 			if (b.type == 'up') {
@@ -352,6 +201,27 @@
 				showScore(b.listUsers);
 
 			}
+		}
+		
+		function showHeadImg(listUsers){
+			
+			for (var i = 0; i < listUsers.length; i++) {
+				if(listUsers[i].status==0){
+			var headImg1 = document.getElementById("headImg1");
+			var orPrepare = document.getElementById("orPrepare");
+			headImg1.src = img;
+			document.getElementById("img1").src = img;
+			headImg1.style.width = "60%"
+			headImg1.style.marginTop = "19%"
+			orPrepare.innerHTML = "已准备"
+			orPrepare.style.color = "darkgreen";
+				}
+				if(listUsers[i].status==1){
+					
+					
+				}
+			}
+			
 		}
 
 		var headUrl0 = document.getElementById("img1");
@@ -377,6 +247,23 @@
 				(headUrl + i).src = listUsers[i].userportrait;
 			}
 		}
+	    function showUpHeader(var ud,var position){
+	    	var upDown = {};
+			upDown.type =ud;
+			upDown.roomId = roomId;
+			upDown.toUserName = "2";
+			upDown.fromUserName = " ";
+			upDown.msgStr = "";
+			upDown.userStatus = userStatus;
+			upDown.roomState = roomState;
+			upDown.position = position
+			upDown.headimgurl = img;
+			upDown.nicakname = nicakname;
+			upDown.sex = sex;
+			upDown.city = city;
+			upDown.userId = userId;
+			websocket.send(JSON.stringify(upDown));
+	    }
 
 		document.getElementById("sendBtn_0").onclick = function() {
 			var txt = document.getElementById("sendTxt_0").value;

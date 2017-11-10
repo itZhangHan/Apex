@@ -10,7 +10,6 @@ public class MessageManger {
 	private static Map<String, InterfaceType> messType = new HashMap();
 
 	static {
-		System.out.println("aaa");
 		messType.put("message", new MessageType());
 		messType.put("up", new UpDownType());
 		messType.put("down", new DownUpType());
