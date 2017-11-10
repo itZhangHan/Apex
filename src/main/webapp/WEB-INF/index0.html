@@ -10,9 +10,12 @@
 <script src="../js/webSocket.js"></script>
 <script src="../js/userInfo.js"></script>
 <script src="../js/vue.js"></script>
+<script src="../js/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
 <link rel="stylesheet" href="../css/hall.css">
 </head>
 <body onload="usmessage()">
+
 	<div class="centainer">
 		<div class="room">
 			<span id="roomID"></span> <img id="iconBtn" src="../img/iconBtn.png">
@@ -33,12 +36,12 @@
 		</div>
 		<div class="player_btn">
 			<ul>
-				<li id="player1"><img id="headImg1"></li>
-				<li id="player2"><img id="headImg2"></li>
+				<li id="player1" value=""><img id="headImg1" src=""></li>
+				<li id="player2" value=""><img id="headImg2" src=""></li>
 			</ul>
 			<ul>
-				<li id="player4"><img id="headImg4"></li>
-				<li id="player3"><img id="headImg3" src=""></li>
+				<li id="player3" value=""><img id="headImg3" src=""></li>
+				<li id="player4" value=""><img id="headImg4" src=""></li>
 			</ul>
 		</div>
 
@@ -72,7 +75,21 @@
 
 	</div>
 	<script type="text/javascript">
-		
+		//旁观者
+		var headUrl0 = document.getElementById("img1");
+		var headUrl1 = document.getElementById("img2");
+		var headUrl2 = document.getElementById("img3");
+		var headUrl3 = document.getElementById("img4");
+		var headUrl4 = document.getElementById("img5");
+		var headUrl5 = document.getElementById("img6");
+		var headUrl6 = document.getElementById("img7");
+		var headUrl7 = document.getElementById("img8");
+
+		//玩家
+		var head2 = document.getElementById("player2");
+		var head3 = document.getElementById("player3");
+		var head4 = document.getElementById("player4");
+
 		function usmessage() {
 			var userMessage = {};
 			userMessage.type = "usmesage"
@@ -91,9 +108,73 @@
 			alert("我是:" + nicakname);
 			websocket.send(JSON.stringify(userMessage));
 		}
+		//聊天通信模块
+		document.getElementById("sendBtn_0").onclick = function() {
+			var txt = document.getElementById("sendTxt_0").value;
+			div_2 = document.getElementById("chatRoom");
+			div_2.style.overflowY = "scroll";//auto    scroll
+			document.getElementById("sendTxt_0").value = "";
+			var mes = {};
+			mes.type = "message";
+			mes.msgStr = txt;
+			mes.roomId = roomId;
+			mes.toUserName = ""
+			mes.fromUserName = "";
+			mes.userStatus = userStatus;
+			mes.roomState = roomState;
+			mes.roomName = roomName;
+			mes.position = ""
+			mes.headimgurl = img;
+			mes.nicakname = nicakname;
+			mes.city = city;
+			mes.sex = sex;
+			mes.userId = userId;
+			websocket.send(JSON.stringify(mes));
+		}
+		//接收起立type 展示数据
+		function showUpmessage(b) {
+			if(b.position=='2'){
+				head2.src = '';
+				orPrepare2.innerHTML = ""
+			}else if(b.position=='3'){
+				head3.src = '';
+				orPrepare3.innerHTML = ""
+			}else if(b.position=='4'){
+				head4.src = '';
+				orPrepare4.innerHTML = ""
+			}
+		}
+		//接收坐下type 展示数据
+		function showDownmessage(b) {
+			if(b.position=='2'){
+				head2.src = b.headimgurl;
+				orPrepare2.innerHTML = "已准备"
+			}else if(b.position=='3'){
+				head3.src = b.headimgurl;
+				orPrepare3.innerHTML = "已准备"
+			}else if(b.position=='4'){
+				head4.src = b.headimgurl;
+				orPrepare4.innerHTML = "已准备"
+			}
+		}
+		//接收游戏类型 设置游戏开始
+		function actionGame(b) {
 
-		var div_2;
+		}
+		//显示分数信息
+		function showScore(b) {
 
+		}
+
+		//显示旁观者信息
+		function showUserList(listUsers) {
+			alert("返回玩家 列表:"+listUsers);
+			for (var i = 0; i < listUsers.length; i++) {
+				//旁观者
+				(headUrl + i).src = listUsers[i].userportrait;
+				(head + i).value = listUsers[i].userid;			}
+		}
+		//接收房间所有信息，展示用户信息
 		function showMessage(str) {
 			var div_3 = document.createElement("div");
 			div_3.style.fontSize = "20px";
@@ -101,20 +182,75 @@
 			div_3.style.wordBreak = "break-all"
 			div_3.style.marginTop = "10px";
 			var ss = 7;
-			div_3.innerHTML = "< img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"
+			div_3.innerHTML = "<img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"
 					+ "&nbsp;&nbsp;&nbsp;&nbsp;" + str + '<br />';
 			div_2.appendChild(div_3)
 			div_2.scrollTop = div_2.scrollHeight;
 		}
+		websocket.onmessage = function(e) {
+			var jsonObj = eval("(" + e.data + ")");
+			console.log(jsonObj)
+			var b = JSON.parse(jsonObj);
+			alert("接收到服务端返回数据:" + b);
+			if (b.type == 'message') {
+				//展示发送消息数据
+				showMessage(b.msgStr, b.type);
+			}
+			//优先级 *****
+			if (b.type == 'usmesage') {
+				//显示旁观者信息
+				showUserList(b.listUsers);
+			}
+			if (b.type == 'up') {
+				//展示起立信息
+				showUpmessage(b);
+			}
+			if (b.type == 'down') {
+				//展示坐下信息
+				showDownmessage(b);
+			}
+			if (b.type == 'roomStatus') {
+				//展示游戏开始数据
+				actionGame(b);
+			}
+			if (b.type == 'score') {
+				//展示分数信息
+				showScore(b);
+			}
+		}
+
+		//点击头像信息触发事件
+		//设置房主头像默认准备 以及不给于除点击取余权限
+		var div_2;
+		var headImg1 = document.getElementById("headImg1");
+		var orPrepare = document.getElementById("orPrepare");
+		headImg1.src = img;
+
+		document.getElementById("img1").src = img;
+
+		headImg1.style.width = "60%"
+		headImg1.style.marginTop = "19%"
+		orPrepare.innerHTML = "已准备"
+		orPrepare.style.color = "darkgreen";
+
+		var headImg2 = document.getElementById("headImg2");
+		var head2 = document.getElementById("player2");
+		var orPrepare2 = document.getElementById("orPrepare2");
 		var f2 = false;
+<
+		//点击头像二时候触发事件
 		head2.onclick = function() {
 			if (userId == null) {
+			console.log("headImg2.src============" + userId)
+			var userId = head2.value;
+			if (userId == '') {
+				alert("可以坐下，发送请求坐下消息");
 				f2 = true;
 				showUpHeader(down,2);
 			} else {
+				//位置有人
 				if (userId == user.userId) {
 					showUpHeader(up,2);
-
 				} else {
 					showUpHeader(down,2);
 				}
@@ -132,16 +268,20 @@
 			if (userId == null) {
 				f2 = true;
 				showUpHeader(down,3);
-
+			var userId = head3.value;
+			console.log("headImg3.src============" + headImg3.src)
+			if (userId == '') {
+				alert("可以坐下");
+				f3 = true;
+				showUpHeader(down,3);
 			} else {
 				if (userId == user.userId) {
-
 					// user = decodeURI(request.QueryString("user"));
 					showUpHeader(up,3);
-
-
 				} else {
 					showUpHeader(up,3);
+				} else {
+					alert("此位置已经有人了!");
 				}
 
 			}
@@ -150,29 +290,24 @@
 		var headImg4 = document.getElementById("headImg4")
 		var head4 = document.getElementById("player4");
 		var orPrepare4 = document.getElementById("orPrepare4");
-
-		//      document.getElementById("img4").src = img
-
 		var f4 = false;
 		head4.onclick = function() {
-			console.log("headImg2.src============" + headImg4.src)
-
-			if (userId == null) {
+			var userId = head4.value;
+			console.log("headImg4.src============" + headImg4.src)
+			if (userId == '') {
+				alert("可以坐下");
 				f2 = true;
 				showUpHeader(down,4);
+			
 			} else {
 				if (userId == user.userId) {
-
-					// user = decodeURI(request.QueryString("user"));
 					showUpHeader(up,3);
-
 				} else {
 					showUpHeader(down,3);
+					alert("此位置已经有人了！");
 				}
-
 			}
 		}
-
 		websocket.onmessage = function(e) {
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
