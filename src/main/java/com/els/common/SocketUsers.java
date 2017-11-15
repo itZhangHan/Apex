@@ -13,6 +13,8 @@ public class SocketUsers {
 
 	private Integer status;
 	
+	private Integer headPostion;
+	
 	public Integer getHeadPostion() {
 		return headPostion;
 	}
@@ -20,8 +22,6 @@ public class SocketUsers {
 	public void setHeadPostion(Integer headPostion) {
 		this.headPostion = headPostion;
 	}
-
-	private Integer headPostion;
 
 	public Integer getStatus() {
 		return status;

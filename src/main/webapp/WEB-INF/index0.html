@@ -31,9 +31,10 @@
 
 		<div class="game_go">
 			<!-- 开始游戏 -->
-			<img id="game_go"
+			<!-- <img id="game_go"
 				onclick="location.href='http://thdd.apexgame.cn/tetris/skip/indexsend'"
-				src="../img/startBtn.png">
+				src="../img/startBtn.png"> -->
+			<img id="game_go" onclick="startGame()" src="../img/startBtn.png">
 		</div>
 		<div class="player_btn">
 			<ul>
@@ -77,6 +78,9 @@
 	</div>
 
 	<script type="text/javascript">
+		function startGame() {
+			 window.location = "http://thdd.apexgame.cn/tetris/skip/indexsend"; 
+		}
 		//旁观者
 		var headUrl0 = document.getElementById("img1");
 		var headUrl1 = document.getElementById("img2");
@@ -93,7 +97,56 @@
 		var head3 = document.getElementById("headImg3");
 		var head4 = document.getElementById("headImg4");
 
+		var wanjia2 = document.getElementById("player2");
+		wanjia2.onclick = function() {
+			var userId1 = wanjia2.value;
+			if (userId1 == '') {
+				//	f2 = true;
+				showUpHeader("down", 2);
+			} else {
+				//位置有人
+				if (userId1 == userId) {
+					showUpHeader("up", 2);
+				} else {
+					alert("向服务的发送无法操作消息");
+					showUpHeader("down", 2);
+				}
+			}
+		}
+		var wanjia3 = document.getElementById("player3");
+		wanjia3.onclick = function() {
+			var userId3 = wanjia3.value;
+			if (userId3 == '') {
+				//	f2 = true;
+				showUpHeader("down", 3);
+			} else {
+				//位置有人
+				if (userId3 == userId) {
+					showUpHeader("up", 3);
+				} else {
+					alert("向服务的发送无法操作消息");
+					showUpHeader("down", 3);
+				}
+			}
+		}
+		var wanjia4 = document.getElementById("player4");
+		wanjia4.onclick = function() {
+			var userId4 = wanjia4.value;
+			if (userId4 == '') {
+				//	f2 = true;
+				showUpHeader("down", 4);
+			} else {
+				//位置有人
+				if (userId4 == userId) {
+					showUpHeader("up", 4);
+				} else {
+					alert("向服务的发送无法操作消息");
+					showUpHeader("down", 4);
+				}
+			}
+		}
 		function usmessage() {
+
 			var userMessage = {};
 			userMessage.type = "usmesage"
 			userMessage.roomId = roomId;
@@ -108,10 +161,10 @@
 			userMessage.sex = sex;
 			userMessage.city = city;
 			userMessage.userId = userId;
-			alert("发送数据"+userMessage);
 			websocket.send(JSON.stringify(userMessage));
 		}
 		//聊天通信模块
+
 		document.getElementById("sendBtn_0").onclick = function() {
 			var txt = document.getElementById("sendTxt_0").value;
 			div_2 = document.getElementById("chatRoom");
@@ -138,13 +191,16 @@
 		function showUpmessage(b) {
 			if (b.position == '2') {
 				head2.src = '';
-				orPrepare2.innerHTML = ""
+				orPrepare2.innerHTML = "";
+				wanjia2.value = '';
 			} else if (b.position == '3') {
 				head3.src = '';
 				orPrepare3.innerHTML = ""
+				wanjia3.value = '';
 			} else if (b.position == '4') {
 				head4.src = '';
 				orPrepare4.innerHTML = ""
+				wanjia4.value = '';
 			}
 		}
 		//接收坐下type 展示数据
@@ -152,15 +208,15 @@
 			if (b.position == '2') {
 				head2.src = b.headimgurl;
 				orPrepare2.innerHTML = "已准备"
-				head2.value = b.userId;
+				wanjia2.value = b.userId;
 			} else if (b.position == '3') {
 				head3.src = b.headimgurl;
 				orPrepare3.innerHTML = "已准备"
-				head3.value = b.userId;
+				wanjia3.value = b.userId;
 			} else if (b.position == '4') {
 				head4.src = b.headimgurl;
 				orPrepare4.innerHTML = "已准备"
-				head4.value = b.userId;
+				wanjia4.value = b.userId;
 			}
 		}
 		//接收游戏类型 设置游戏开始
@@ -189,14 +245,12 @@
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
 			var b = JSON.parse(jsonObj);
-			alert("接收数据"+b);
 			if (b.type == 'message') {
 				//展示发送消息数据
 				showMessage(b.msgStr, b.type);
 			}
 			//优先级 *****
 			if (b.type == 'usmesage') {
-				alert("返回数据usmesage" + b);
 				//显示旁观者信息
 				showHeadImg(b.listUsers);
 				showUserList(b.listUsers);
@@ -220,38 +274,33 @@
 		}
 		//显示旁观者信息
 		function showUserList(listUsers) {
-			
-			
 			for (var i = 0; i < listUsers.length; i++) {
-				alert("接收listUsers2222"+listUsers);
-				if(listUsers[i].status==0){
-					headUrl0.src=listUsers[i].userportrait;
+				if (listUsers[i].status == 0) {
+					headUrl0.src = listUsers[i].userportrait;
 				}
-				if(i==1){
-					headUrl1.src=listUsers[i].userportrait;
+				if (i == 1) {
+					headUrl1.src = listUsers[i].userportrait;
 				}
-				if(i==2){
-					headUrl2.src=listUsers[i].userportrait;
+				if (i == 2) {
+					headUrl2.src = listUsers[i].userportrait;
 				}
-				if(i==3){
-					headUrl3.src=listUsers[i].userportrait;
+				if (i == 3) {
+					headUrl3.src = listUsers[i].userportrait;
 				}
-				if(i==4){
-					headUrl4.src=listUsers[i].userportrait;
+				if (i == 4) {
+					headUrl4.src = listUsers[i].userportrait;
 				}
 			}
 		}
-		
-		
+
 		head2.onclick = function() {
 			var userId = head2.value;
 			if (userId == '') {
-
 				f2 = true;
 				showUpHeader(down, 2);
 			} else {
 				//位置有人
-				if (userId == user.userId) {
+				if (userId == user.userId && userId == '0') {
 					showUpHeader(up, 2);
 				} else {
 					showUpHeader(down, 2);
@@ -265,11 +314,9 @@
 			var orPrepare3 = document.getElementById("orPrepare3");
 			var f3 = false;
 			console.log("headImg2.src============" + headImg3.src)
-
 			var userId = head3.value;
 			console.log("headImg3.src============" + headImg3.src)
 			if (userId == '') {
-
 				f3 = true;
 				showUpHeader(down, 3);
 			} else {
@@ -291,10 +338,8 @@
 			var userId = head4.value;
 			console.log("headImg4.src============" + headImg4.src)
 			if (userId == '') {
-				alert("可以坐下");
 				f2 = true;
 				showUpHeader(down, 4);
-
 			} else {
 				if (userId == user.userId) {
 					showUpHeader(up, 4);
@@ -305,11 +350,12 @@
 		}
 
 		function showHeadImg(listUsers) {
-			alert("接收listUsers"+listUsers.length);
 			for (var i = 0; i < listUsers.length; i++) {
-				alert("接收listUsers status"+listUsers[i].status);
 				if (listUsers[i].status == 0) {
 					headImg1.src = listUsers[i].userportrait;
+					headImg1.onclick = function() {
+						alert("要安心待在自己的位置上哦！");
+					}
 				}
 				if (listUsers[i].status == 1) {
 					if (listUsers[i].headPostion == 1)
@@ -318,6 +364,8 @@
 						headImg2.src = listUsers[i].userportrait;
 					if (listUsers[i].headPostion == 3)
 						headImg3.src = listUsers[i].userportrait;
+					if (listUsers[i].headPostion == 4)
+						headImg4.src = listUsers[i].userportrait;
 				}
 			}
 		}

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.websocket.EncodeException;
-import javax.websocket.Session;
 
 import com.els.common.SocketUsers;
 import com.els.socket.SocketManger;
@@ -27,7 +26,7 @@ public class UsersMessage extends BaseType {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} 
+			}
 		}
 		try {
 			if (message != null)
