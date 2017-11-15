@@ -31,9 +31,6 @@
 
 		<div class="game_go">
 			<!-- 开始游戏 -->
-			<!-- <img id="game_go"
-				onclick="location.href='http://thdd.apexgame.cn/tetris/skip/indexsend'"
-				src="../img/startBtn.png"> -->
 			<img id="game_go" onclick="startGame()" src="../img/startBtn.png">
 		</div>
 		<div class="player_btn">
@@ -78,8 +75,54 @@
 	</div>
 
 	<script type="text/javascript">
+		//页面加载前发送给服务端的数据
+		function usmessage() {
+			//判断当前用户是否属于房主
+			//如果不是房主 不给于开始游戏的 权限
+			if (userStatus != 0) {
+				alert("我不是房主");
+				var gameDom = document.getElementById("game_go");
+				gameDom.appendChild("hidden='hidden'");
+			}
+			var userMessage = {};
+			userMessage.type = "usmesage"
+			userMessage.roomId = roomId;
+			userMessage.toUserName = "";
+			userMessage.fromUserName = "";
+			userMessage.msgStr = "";
+			userMessage.userStatus = userStatus;
+			userMessage.roomState = roomState;
+			userMessage.position = "1";
+			userMessage.headimgurl = img;
+			userMessage.nicakname = nicakname;
+			userMessage.sex = sex;
+			userMessage.city = city;
+			userMessage.userId = userId;
+			websocket.send(JSON.stringify(userMessage));
+		}
+
 		function startGame() {
-			 window.location = "http://thdd.apexgame.cn/tetris/skip/indexsend"; 
+			if (userStatus == 0) {
+				alert("准备发送开始游戏请求。我是房主我有权限开始游戏!");
+				var gameMessage = {};
+				gameMessage.type = "roomStatus"
+				gameMessage.roomId = roomId;
+				gameMessage.toUserName = "";
+				gameMessage.fromUserName = "";
+				gameMessage.msgStr = "";
+				gameMessage.userStatus = userStatus;
+				gameMessage.roomState = roomState;
+				gameMessage.position = "1";
+				gameMessage.headimgurl = img;
+				gameMessage.nicakname = nicakname;
+				gameMessage.sex = sex;
+				gameMessage.city = city;
+				gameMessage.userId = userId;
+				websocket.send(JSON.stringify(gameMessage));
+			} else {
+				alert("别乱动哦，小心打你屁股！");
+			}
+
 		}
 		//旁观者
 		var headUrl0 = document.getElementById("img1");
@@ -145,24 +188,7 @@
 				}
 			}
 		}
-		function usmessage() {
 
-			var userMessage = {};
-			userMessage.type = "usmesage"
-			userMessage.roomId = roomId;
-			userMessage.toUserName = "";
-			userMessage.fromUserName = "";
-			userMessage.msgStr = "";
-			userMessage.userStatus = userStatus;
-			userMessage.roomState = roomState;
-			userMessage.position = "1";
-			userMessage.headimgurl = img;
-			userMessage.nicakname = nicakname;
-			userMessage.sex = sex;
-			userMessage.city = city;
-			userMessage.userId = userId;
-			websocket.send(JSON.stringify(userMessage));
-		}
 		//聊天通信模块
 
 		document.getElementById("sendBtn_0").onclick = function() {
@@ -221,7 +247,12 @@
 		}
 		//接收游戏类型 设置游戏开始
 		function actionGame(b) {
-
+			alert("接收到数据根据状态判断处理逻辑=" + b.roomState);
+			if (b.roomState == 1) {
+				document.location = "http://thdd.apexgame.cn/tetris/skip/indexsend";
+			} else {
+				document.location = "http://thdd.apexgame.cn/tetris/skip/index0send";
+			}
 		}
 		//显示分数信息
 		function showScore(b) {
@@ -326,7 +357,6 @@
 				} else {
 					alert("此位置已经有人了!");
 				}
-
 			}
 		}
 
