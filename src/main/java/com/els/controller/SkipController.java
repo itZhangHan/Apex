@@ -1,5 +1,7 @@
 package com.els.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.els.bean.JhddUsers;
 import com.els.bean.RoomInfo;
 import com.els.common.AuthUtil;
+import com.els.common.SocketUsers;
 import com.els.socket.SocketMessage;
 
 import net.sf.json.JSONObject;
@@ -81,7 +84,7 @@ public class SkipController {
 		JSONObject obj = JSONObject.fromObject(message);
 
 		System.out.println("userStatus=" + obj.get("userStatus"));
-		JhddUsers jhddUser = (JhddUsers) message.getListUsers();
+		List<SocketUsers> list = message.getListUsers();
 		String roomid = obj.getString("roomid");
 		String roomstate = obj.getString("roomstate");
 		String userStatus = obj.getString("userStatus");
@@ -89,7 +92,7 @@ public class SkipController {
 		roomsInfo.setRoomid(Integer.parseInt(roomid));
 		roomsInfo.setRoomStatus(Integer.parseInt(roomstate));	
 		roomsInfo.setUserStatus(Integer.parseInt(userStatus));
-		return AuthUtil.getMsg(jhddUser, "index", roomsInfo);
+		return AuthUtil.getMsg(null, "index", roomsInfo,list);
 	}
 
 	// 授权首页

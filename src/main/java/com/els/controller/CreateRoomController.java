@@ -64,7 +64,7 @@ public class CreateRoomController {
 //		List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(sidelines.getRoomid());
 //		roomsInfo.setUserList(userList);
 		//System.out.println(userList);
-		return AuthUtil.getMsg(users, "index0send", roomsInfo);
+		return AuthUtil.getMsg(users, "index0send", roomsInfo,null);
 
 	}
 }

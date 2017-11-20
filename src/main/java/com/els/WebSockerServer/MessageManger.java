@@ -17,6 +17,7 @@ public class MessageManger {
 		messType.put("score", new ScoreType());
 		messType.put("props", new PropsType());
 		messType.put("usmesage", new UsersMessage());
+		messType.put("gameUsmesage", new GamesMessage());
 	}
 
 	public static InterfaceType getType(String key) {

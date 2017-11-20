@@ -124,10 +124,10 @@ public class WxCallbackJoinRoom {
 					jhddSidelinesMapper.insert(sidelines);
 				}
 			} else {
-				return AuthUtil.getMsg(user, "first", roomsInfo);
+				return AuthUtil.getMsg(user, "first", roomsInfo,null);
 			}
 
-			return AuthUtil.getMsg(user, urlName, roomsInfo);
+			return AuthUtil.getMsg(user, urlName, roomsInfo,null);
 		}
 		RoomInfo roomsInfo = new RoomInfo();
 		roomsInfo.setRoomid(room_id);
@@ -166,9 +166,9 @@ public class WxCallbackJoinRoom {
 				jhddSidelinesMapper.insert(sidelines);
 			}
 		} else {
-			return AuthUtil.getMsg(users, "first", roomsInfo);
+			return AuthUtil.getMsg(users, "first", roomsInfo,null);
 		}
 
-		return AuthUtil.getMsg(users, urlName, roomsInfo);
+		return AuthUtil.getMsg(users, urlName, roomsInfo,null);
 	}
 }

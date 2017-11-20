@@ -68,7 +68,7 @@ public class AuthUtil {
 	 * 
 	 */
 	// 用户信息 访问路径 房间信息
-	public static String getMsg(JhddUsers jhddUser, String topName, RoomInfo roomsInfo) {
+	public static String getMsg(JhddUsers jhddUser, String topName, RoomInfo roomsInfo, List<SocketUsers> list) {
 		System.out.println("getMsg");
 
 		// 给前端传递数据 玩家id 姓名 城市 头像 性别 openid 房间id 房间名字 房间状态 玩家状态
@@ -81,7 +81,7 @@ public class AuthUtil {
 		Integer roomid = null;
 		Integer userStatus = 0;
 		Integer roomState = 0;
-
+		List<SocketUsers> socketUsers = list;
 		JhddUsers user = null;
 		try {
 			openid = new String(new String(jhddUser.getOpenid()).getBytes("UTF-8"), "ISO8859-1");
@@ -107,7 +107,7 @@ public class AuthUtil {
 		String topStr = getTopName(topName);
 		String urlName = "?nickname=" + nickname + "&sex=" + sex + "&headimgurl=" + headimgurl + "&city=" + city
 				+ "&openid=" + openid + "&userid=" + userid + "&roomId=" + roomid + "&userStatus=" + userStatus
-				+ "&roomState=" + roomState + "&user=" + user;
+				+ "&roomState=" + roomState + "&user=" + user+"&list="+socketUsers;
 		if (topStr != null && !"".equals(topStr)) {
 			System.out.println(topStr + urlName);
 			return "redirect:/skip/" + topStr + urlName;
