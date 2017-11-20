@@ -25,9 +25,6 @@ public class LoginController {
 		// String backUrl = "http://atwjsw.s1.natapp.cc/WxAuth/callBack";
 		String backUrl = "http://thdd.apexgame.cn/tetris/callback/first";
 		System.out.println("1");
-//		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?" + "appid=" + AuthUtil.APPID
-//				+ "&redirect_uri=" + URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_userinfo"
-//				+ "&state=STATE" + "#wechat_redirect";
 		String url1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+AuthUtil.APPID
 				+ "&redirect_uri="+URLEncoder.encode(backUrl)
 				+ "&response_type=code"
@@ -35,6 +32,5 @@ public class LoginController {
 				+ "&state=STATE#wechat_redirect";
 		// 重定向用户请求到微信授权URL
 		resp.sendRedirect(url1);
-		// super.doGet(req, resp);
 	}
 }

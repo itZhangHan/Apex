@@ -95,11 +95,7 @@ public class WxCallbackJoinRoom {
 			// 查询玩家状态
 			Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(user.getUserid(), room_id);
 			roomsInfo.setUserStatus(userStatus);
-
-//			List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(room_id);
-//			roomsInfo.setUserList(userList);
 			// 加入房间函数
-
 			// 1.判断房间人数是否已满，已满则跳转创建房间页面
 			JhddSidelinesExample example = new JhddSidelinesExample();
 			example.createCriteria().andRoomidEqualTo(room_id);
@@ -114,20 +110,16 @@ public class WxCallbackJoinRoom {
 				System.out.println(roomStatus);
 				// 2.房间未满则判断房间是否处于开始状态。
 				if (roomStatus == 0 && !"0".equals(roomStatus)) {
-
 					JhddSidelines sidelines = new JhddSidelines();
-
 					sidelines.setRoomid(room_id);
-
 					// 0:房主，1:玩家,2:旁观者
 					sidelines.setSidelinestate((byte) 2);
 					jhddSidelinesMapper.insert(sidelines);
 				}
 			} else {
-				return AuthUtil.getMsg(user, "first", roomsInfo,null);
+				return AuthUtil.getMsg(user, "first", roomsInfo, null);
 			}
-
-			return AuthUtil.getMsg(user, urlName, roomsInfo,null);
+			return AuthUtil.getMsg(user, urlName, roomsInfo, null);
 		}
 		RoomInfo roomsInfo = new RoomInfo();
 		roomsInfo.setRoomid(room_id);
@@ -137,11 +129,6 @@ public class WxCallbackJoinRoom {
 		roomsInfo.setRoomStatus(roomstate);
 		// 如果房间内包含房主 那么设置新加入玩家属性为旁观
 		roomsInfo.setUserStatus(2);
-
-//		List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(room_id);
-//
-//		roomsInfo.setUserList(userList);
-
 		JhddSidelinesExample example = new JhddSidelinesExample();
 		example.createCriteria().andRoomidEqualTo(room_id);
 		// 查询房间人数
@@ -159,16 +146,14 @@ public class WxCallbackJoinRoom {
 				JhddSidelines sidelines = new JhddSidelines();
 				sidelines.setUserid(users.getUserid());
 				sidelines.setRoomid(room_id);
-				// List<Integer> status =
-				// jhddSidelinesMapper.selectAllUserStatus(room_id);
 				// 0:房主，1:玩家,2:旁观者
 				sidelines.setSidelinestate((byte) 2);
 				jhddSidelinesMapper.insert(sidelines);
 			}
 		} else {
-			return AuthUtil.getMsg(users, "first", roomsInfo,null);
+			return AuthUtil.getMsg(users, "first", roomsInfo, null);
 		}
 
-		return AuthUtil.getMsg(users, urlName, roomsInfo,null);
+		return AuthUtil.getMsg(users, urlName, roomsInfo, null);
 	}
 }

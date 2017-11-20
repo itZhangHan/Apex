@@ -81,9 +81,9 @@ public class WxCallbackFirst {
 			userService.addUser(user);
 			int userid = userMapper.selectLastInsertUserId();
 			JhddUsers insertUsers = userMapper.selectByPrimaryKey(userid);
-			return AuthUtil.getMsg(insertUsers, urlName, roomInfo,null);
+			return AuthUtil.getMsg(insertUsers, urlName, roomInfo, null);
 		}
 
-		return AuthUtil.getMsg(users, urlName, roomInfo,null);
+		return AuthUtil.getMsg(users, urlName, roomInfo, null);
 	}
 }

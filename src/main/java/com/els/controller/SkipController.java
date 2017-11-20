@@ -6,8 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.els.bean.JhddUsers;
 import com.els.bean.RoomInfo;
@@ -79,20 +82,21 @@ public class SkipController {
 
 	// 游戏页面
 	@RequestMapping(value = "/indexsend", method = RequestMethod.GET)
-	public String toIndex(SocketMessage message) {
-		System.out.println(message.toString() + "message");
-		JSONObject obj = JSONObject.fromObject(message);
-
-		System.out.println("userStatus=" + obj.get("userStatus"));
-		List<SocketUsers> list = message.getListUsers();
-		String roomid = obj.getString("roomid");
-		String roomstate = obj.getString("roomstate");
-		String userStatus = obj.getString("userStatus");
-		RoomInfo roomsInfo = new RoomInfo();
-		roomsInfo.setRoomid(Integer.parseInt(roomid));
-		roomsInfo.setRoomStatus(Integer.parseInt(roomstate));	
-		roomsInfo.setUserStatus(Integer.parseInt(userStatus));
-		return AuthUtil.getMsg(null, "index", roomsInfo,list);
+	//@RequestBody SetGoodsSpecDTO
+	public String toIndex(@RequestParam Integer userStatus) {
+		//System.out.println(message.toString() + "message");
+		System.out.println("用户的状态"+userStatus);
+//		JSONObject obj = JSONObject.fromObject(message);
+//		System.out.println("userStatus=" + obj.get("userStatus"));
+//		List<SocketUsers> list = ((SocketMessage) message).getListUsers();
+//		String roomid = obj.getString("roomid");
+//		String roomstate = obj.getString("roomstate");
+//	//	String userStatus = obj.getString("userStatus");
+//		RoomInfo roomsInfo = new RoomInfo();
+//		roomsInfo.setRoomid(Integer.parseInt(roomid));
+//		roomsInfo.setRoomStatus(Integer.parseInt(roomstate));	
+//		roomsInfo.setUserStatus(userStatus);
+		return AuthUtil.getMsg(null, "index", null,null);
 	}
 
 	// 授权首页
