@@ -12,7 +12,7 @@ html,body{
 }
 
 .centainer {
-    background: url(../img/bg3.png) no-repeat center center;
+    background: url(../img/play/playbg.png) no-repeat center center;
     background-size: 100% 100%;
     position: absolute;
     left: 0;
@@ -21,53 +21,97 @@ html,body{
     height: 100%;
 }
 .game_go{
-    width: 28%;
-    margin-top: 44%;;
+    width: 34%;
+    margin-top: 77%;;
     margin-left: auto;
     margin-right: auto;
 }
 .game_go img{
     width: 100%;
 }
-
-/*按钮*/
 .player_btn{
-   /* position: absolute;*/                         /* 1 */
+	width: 90%;
+	height: 50%;
+	position: absolute;
+	top: 40%;
+	left: 5%;
+}
+.sit2,.sit3{
+	width: 59px;
+	height: 75px;
+	background: url("../img/play/none.png") no-repeat center center;
+	background-size: 100% 100%;
+	display: inline-block;
+}
+.sit1,.sit4{
+	width: 69px;
+	height: 85px;
+	background: url("../img/play/host.png") no-repeat center center;
+	background-size: 100% 100%;
+	display: inline-block;
+}
+.sit1{
+	position: relative;
+	top: 20%;
+	left: 2%;
+}
+.sit2{
+	position: relative;
+	top: -4%;
+	left: 0%;
+}
+.sit3{
+	position: relative;
+	top: -4%;
+	left: 14%;
+}
+.sit4{
+	position: relative;
+	top: 20%;
+	right: -10%;
+}
+.sit img{
+	width: 100%;
+}
+/* 
+old按钮
+.player_btn{
+   position: absolute;                         1
     width: 100%;
-    /* top: 1%;*/
-   /* margin-top: 22%;*/
+    top: 1%;
+   margin-top: 22%;
     text-align: center;
     height: 33%;
 }
 .player_btn ul:first-child{
-    /*   margin: 6% auto;*/
-    /*margin-top: 3%;*/
+      margin: 6% auto;
+    margin-top: -42%;
     margin-left: auto;
     margin-right: auto;
     height: 47%;
 }
 .player_btn ul:last-child{
- /*   margin: 6% auto;*/
+   margin: 6% auto;
     margin-top: 3%;
     margin-left: auto;
     margin-right: auto;
     height: 47%;
 }
-.player_btn ul li{
-    width: 25%;
-    /*height: 40%;*/
-   /* text-align: center;*/
+.player_btn ul li:first-child{
+    width: 20%;
+    height: 40%;
+   text-align: center;
     display: inline-block;
-    vertical-align: middle;/*垂直居中是在这里设置*/
+    vertical-align: middle;垂直居中是在这里设置
     margin: 0 7%;
 
-    height: 85%;
-    background: url("../img/sprite5.png") no-repeat center center;
+    height: 88%;
+    background: url("../img/play/host.png") no-repeat center center;
     background-size: 100% 100%;
 }
 .player_btn ul li img{
     width: 100%;
-}
+} */
 
 /*#player2{
     height: 75%;
@@ -79,18 +123,19 @@ html,body{
     width: 30%;
     height: 5%;
     position: absolute;;
-    top: 3%;
-    left: 6%;
-    background: url(../img/sprite8.png) no-repeat center center;
+    top: 10%;
+    right: 4%;
+    background: url(../img/play/pname.png) no-repeat center center;
     background-size: 100%;
     vertical-align: middle;
 }
 .room img{
-    width: 30%;
-   /* margin-top: 3%;*/
-    margin-left: 80%;
+    width: 22%;
+    margin-top: 4%;
+    margin-left: 77%;
 
 }
+/* old音乐 
 .item_btn{
     position: absolute;
     width: 48%;
@@ -107,7 +152,7 @@ html,body{
 .item_btn ul li img{
     width: 70%;
 }
-
+ */
 .icon-player{
     position: absolute;
    /* bottom: 1%;*/
