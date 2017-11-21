@@ -72,10 +72,22 @@ html,body{
 	width: 25%;
 	height: 36%;
 }
-
 .sit img{
 	width: 100%;
 } 
+#headImg1,#headImg4{
+	width: 90%;
+	height: 76%; 
+	padding-left: 7%;
+	padding-top: 24%;
+	border-radius: 5%;
+}
+#headImg2,#headImg3{
+	width: 88%;
+	height: 76%;
+	padding-left: 10%;
+	padding-top: 24%;
+}
 .room {
     width: 30%;
     height: 5%;
@@ -143,7 +155,7 @@ html,body{
 .ele{
     position: absolute;
     width: 84%;
-    height: 6%;
+    height: 8%;
     left: 0;
     right: 0;
     bottom: 0.2%;
@@ -164,10 +176,13 @@ html,body{
     margin-right: 1%;
     background: url(../img/layer3/Shape15.png) repeat-y;
     background-size: 100% 100%;
-    /*font-family: Arial;
-    font-size: 66px;*/
-    font-size: 20px;
+    font-family: Arial;
+    /*font-size: 66px;*/
+    font-size: 17px;
     color:white;
+    padding-left: 6%;
+    padding-right: 6%;
+    box-sizing: border-box;
    /* maxlength:"10";*/
     /* font-family: Microsoft Yahei; -webkit-tap-highlight-color: rgba(100, 20, 60, 130);*/
 
@@ -175,8 +190,8 @@ html,body{
 .ele button{
     position: absolute;
     /* display: inline-block;*/
-    width: 10%;
-    height: 50%;
+    width: 17%;
+    height: 73%;
     top:0;
     bottom: 0;
     margin: auto;
