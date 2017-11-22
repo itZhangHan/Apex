@@ -21,7 +21,7 @@
 		</div>
 		<!-- 背景音乐 -->
 		<div class="item_btn">
-			<span><img id="item1" src="../img/music.png"></span>
+			<li><img id="item1" src="../img/music.png"></li>
 		</div> 
 		<!-- 座位 -->
 		<div class="player_btn">	
@@ -59,7 +59,7 @@
 		</div>
 		<div class="chatRoom" id="chatRoom"></div>
 		<div class="ele">
-			<input id="sendTxt_0" type="text" placeholder="请输入文字..."/>
+			<input id="sendTxt_0" type="text" />
 			<button id="sendBtn_0">
 				<img src="../img/sendBtn.png">
 			</button>
@@ -133,12 +133,7 @@
 		var head3 = document.getElementById("headImg3");
 		var head4 = document.getElementById("headImg4");
 		
-		var wanjia1 = document.getElementById("player1");
-		wanjia1.onclick = function() {
-			var userId0 = wanjia1.value;
-			
-		}
-
+		
 
 		var wanjia2 = document.getElementById("player2");
 		wanjia2.onclick = function() {
@@ -258,8 +253,8 @@
 				//b.userStatus == '0' && b.userStatus == '1'
 				if (1 == 1) {
 					alert("准备发送跳转链接2222");
-					document.location = "http://thdd.apexgame.cn/tetris/skip/indexsend?userStauts="
-							+ b.userStatus;
+					document.location = "http://thdd.apexgame.cn/tetris/skip/indexsend?message="
+							+ b;
 				}
 			} else {
 				document.location = "http://thdd.apexgame.cn/tetris/skip/index0send";
@@ -272,15 +267,14 @@
 
 		//接收房间所有信息，展示用户信息
 		function showMessage(str) {
-			var wanjia1 = document.getElementById("player1");
 			var div_3 = document.createElement("div");
 			div_3.style.fontSize = "20px";
 			div_3.style.paddingRight = "20px";
 			div_3.style.wordBreak = "break-all"
 			div_3.style.marginTop = "10px";
 			var ss = 7;
-			div_3.innerHTML = "<img id="img1" src="headImg1" style='width: 30px;height:30px;border-radius=50%;display: block;margin-bottom: 5px'>"
-					+ "&nbsp;&nbsp;&nbsp;&nbsp;" + str + '<br/>';
+			div_3.innerHTML = "<img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"
+					+ "&nbsp;&nbsp;&nbsp;&nbsp;" + str + '<br />';
 			div_2.appendChild(div_3)
 			div_2.scrollTop = div_2.scrollHeight;
 		}
