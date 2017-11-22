@@ -10,6 +10,7 @@
 	    scale=1,maximum-scale=1,user-scalable=no">
 <script src="../js/webSocket.js"></script>
 <script src="../js/userInfo.js"></script>
+<script src="../js/jquery-2.1.1.min.js"></script>
 <link rel="stylesheet" href="../css/hall.css">
 </head>
 <body onload="usmessage()">
@@ -28,7 +29,7 @@
 			<div class="game_go">				
 				<img id="game_go" onclick="startGame()" src="../img/play/begin.png">
 			</div>
-			<ul>
+			<ul class="sit">
 				<li class="sit1" id="player1" value=""><img id="headImg1" src=""></li>
 				<li class="sit2" id="player2" value=""><img id="headImg2" src=""></li>
 				<li class="sit3" id="player3" value=""><img id="headImg3" src=""></li>
@@ -131,6 +132,14 @@
 		var head2 = document.getElementById("headImg2");
 		var head3 = document.getElementById("headImg3");
 		var head4 = document.getElementById("headImg4");
+		
+		$(function(){
+			var sit1 = $('.sit1'),
+				
+				sit1.click(function(){
+					alert('1')
+				})
+		})()
 
 		var wanjia2 = document.getElementById("player2");
 		wanjia2.onclick = function() {
@@ -426,7 +435,11 @@
 		document.getElementById("sendBtn_0").onclick = function() {
 			var txt = document.getElementById("sendTxt_0").value;
 			div_2 = document.getElementById("chatRoom");
-			div_2.style.overflowY = "scroll";//auto    scroll
+			div_2.style.overflowY = "scroll";//auto    scroll						
+			var newNode = document.createElement("div"); 
+				newNode.innerHTML = txt; 
+				div_2.appendChild(newNode); 
+				//div_2.insertBefore(newNode,null); // 这两种方法均可实现 
 			document.getElementById("sendTxt_0").value = "";
 			var mes = {};
 			mes.type = "message";
