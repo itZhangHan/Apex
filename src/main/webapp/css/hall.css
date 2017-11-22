@@ -81,17 +81,17 @@ html,body{
 	padding-left: 7%;
 	padding-top: 24%;
 	border-radius: 5%; */
-	width: 84%;
-	height: 71%;
+	width: 70%;
+	height: 52%;
 	dispaly: block;
-	margin-top: 30%;
+	margin-top: 26%;
 	margin-left: 15%;
 }
 #headImg2,#headImg3{
-	width: 88%;
-	height: 76%;
+	width: 67%;
+	height: 53%;
 	padding-left: 16%;
-	padding-top: 30%;
+	padding-top: 25%;
 	box-sizing: borer-box;
 }
 .room {
