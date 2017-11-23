@@ -251,12 +251,18 @@
 				//当房间状态为1时候判断玩家状态
 				//将玩家状态为1(准备玩家)的玩家跳转到游戏页面
 				//其余旁观者不予改变
-				alert(b.socketUser.status+"=当前的玩家状态");
-				if (b.socketUser.status == 0 && b.socketUser.status == 1) {
+				alert(b.socketUser.status + "=当前的玩家状态");
+				if (b.socketUser.status == 0) {
 					alert("判断当前玩家为准备状态和房主状态，准备传输数据");
-					
-		/* 	window.location = "http://thdd.apexgame.cn/tetris/skip/indexsend?user1"
-							+ user1+"?user2="+user2; */
+
+					document.location = "http://thdd.apexgame.cn/tetris/skip/indexsend?userName="
+							+ b.nickName
+							+ "&roomStatus="
+							+ b.roomState
+							+ "&roomId="
+							+ b.roomId
+							+ "&userStatus="
+							+ b.userStatus + "&headImg=" + b.headimgurl;
 
 				}
 			} else {

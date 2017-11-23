@@ -80,12 +80,28 @@ public class SkipController {
 
 	}
 
-	// 游戏页面
+	// 接口：thdd.apexgame.cn/tetris/skip/indexsend
+	// 传参：所需参数 玩家姓名：userName 房间状态：roomStatus 房间id:roomId 玩家状态：userStatus
+	// 玩家头像：headImg
 	@RequestMapping(value = "/indexsend", method = RequestMethod.GET)
+	public String toIndex1(@RequestParam("userName") String userName, @RequestParam("roomStatus") String roomStatus,
+			@RequestParam("userStatus") String userStatus, @RequestParam("headImg") String headImg,
+			@RequestParam("roomId") String roomId) {
+
+		System.out.println("玩家姓名=" + userName + ";房间状态=" + roomStatus + ";玩家状态=" + userStatus + ";玩家头像=" + headImg
+				+ ";房间id=" + roomId);
+
+		return "index";
+	}
+
+	// 游戏页面
+	// 接口 thdd.apexgame.cn/tetris/skip/indexsend
+	// 需要参数
+	//@RequestMapping(value = "/indexsend", method = RequestMethod.GET)
 	// @RequestBody SetGoodsSpecDTO
-	public String toIndex(@PathVariable List<SocketUsers> users) {
+	//public String toIndex(@PathVariable SocketMessage message) {
 		// System.out.println(message.toString() + "message");
-		System.out.println("城市名称=" + users.get(0).getCity());
+	//	System.out.println("城市名称=" + message.getCity());
 		// JSONObject obj = JSONObject.fromObject(message);
 		// System.out.println("userStatus=" + obj.get("userStatus"));
 		// List<SocketUsers> list = ((SocketMessage) message).getListUsers();
@@ -96,8 +112,8 @@ public class SkipController {
 		// roomsInfo.setRoomid(Integer.parseInt(roomid));
 		// roomsInfo.setRoomStatus(Integer.parseInt(roomstate));
 		// roomsInfo.setUserStatus(userStatus);
-		return "index";
-	}
+		//return "index";
+	//}
 
 	// 授权首页
 	@RequestMapping(value = "/first")
