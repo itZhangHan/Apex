@@ -21,21 +21,27 @@
 		</div>
 		<!-- 背景音乐 -->
 		<div class="item_btn">
-			<li><img id="item1" src="../img/music.png"></li>
-		</div> 
+			<ul>
+				<li><img id="item1" src="../img/music.png"></li>
+			</ul>
+		</div>
 		<!-- 座位 -->
-		<div class="player_btn">	
-			<!-- 开始游戏 -->	
-			<div class="game_go">				
+		<div class="player_btn">
+			<!-- 开始游戏 -->
+			<div class="game_go">
 				<img id="game_go" onclick="startGame()" src="../img/play/begin.png">
 			</div>
 			<ul class="sit">
-				<li class="sit1" id="player1" value=""><img id="headImg1" src=""></li>
-				<li class="sit2" id="player2" value=""><img id="headImg2" src=""></li>
-				<li class="sit3" id="player3" value=""><img id="headImg3" src=""></li>
-				<li class="sit4" id="player4" value=""><img id="headImg4" src=""></li>
+				<li class="sit1" id="player1" value=""><img id="headImg1"
+					src=""></li>
+				<li class="sit2" id="player2" value=""><img id="headImg2"
+					src=""></li>
+				<li class="sit3" id="player3" value=""><img id="headImg3"
+					src=""></li>
+				<li class="sit4" id="player4" value=""><img id="headImg4"
+					src=""></li>
 			</ul>
- 		</div>
+		</div>
 
 		<div class="icon-player">
 			<ul>
@@ -132,8 +138,6 @@
 		var head2 = document.getElementById("headImg2");
 		var head3 = document.getElementById("headImg3");
 		var head4 = document.getElementById("headImg4");
-		
-		
 
 		var wanjia2 = document.getElementById("player2");
 		wanjia2.onclick = function() {
@@ -242,19 +246,18 @@
 		}
 		//接收游戏类型 设置游戏开始
 		function actionGame(b) {
-			alert("接收到数据根据状态判断处理逻辑=" + b.roomState);
 			//当接收到返回房间状态为1时候跳转到开始游戏界面
 			if (b.roomState == 1) {
 				//当房间状态为1时候判断玩家状态
 				//将玩家状态为1(准备玩家)的玩家跳转到游戏页面
 				//其余旁观者不予改变
-				alert("准备发送跳转链接11");
-				alert("玩家状态=" + b.userStatus);
-				//b.userStatus == '0' && b.userStatus == '1'
-				if (1 == 1) {
-					alert("准备发送跳转链接2222");
-					document.location = "http://thdd.apexgame.cn/tetris/skip/indexsend?message="
-							+ b;
+				alert(b.socketUser.status+"=当前的玩家状态");
+				if (b.socketUser.status == 0 && b.socketUser.status == 1) {
+					alert("判断当前玩家为准备状态和房主状态，准备传输数据");
+					
+		/* 	window.location = "http://thdd.apexgame.cn/tetris/skip/indexsend?user1"
+							+ user1+"?user2="+user2; */
+
 				}
 			} else {
 				document.location = "http://thdd.apexgame.cn/tetris/skip/index0send";
@@ -429,10 +432,10 @@
 			var txt = document.getElementById("sendTxt_0").value;
 			div_2 = document.getElementById("chatRoom");
 			div_2.style.overflowY = "scroll";//auto    scroll						
-			var newNode = document.createElement("div"); 
-				newNode.innerHTML = txt; 
-				div_2.appendChild(newNode); 
-				//div_2.insertBefore(newNode,null); // 这两种方法均可实现 
+			var newNode = document.createElement("div");
+			newNode.innerHTML = txt;
+			div_2.appendChild(newNode);
+			//div_2.insertBefore(newNode,null); // 这两种方法均可实现 
 			document.getElementById("sendTxt_0").value = "";
 			var mes = {};
 			mes.type = "message";

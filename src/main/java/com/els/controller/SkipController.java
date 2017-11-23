@@ -82,21 +82,21 @@ public class SkipController {
 
 	// 游戏页面
 	@RequestMapping(value = "/indexsend", method = RequestMethod.GET)
-	//@RequestBody SetGoodsSpecDTO
-	public String toIndex(@RequestParam Integer userStatus) {
-		//System.out.println(message.toString() + "message");
-		System.out.println("用户的状态"+userStatus);
-//		JSONObject obj = JSONObject.fromObject(message);
-//		System.out.println("userStatus=" + obj.get("userStatus"));
-//		List<SocketUsers> list = ((SocketMessage) message).getListUsers();
-//		String roomid = obj.getString("roomid");
-//		String roomstate = obj.getString("roomstate");
-//	//	String userStatus = obj.getString("userStatus");
-//		RoomInfo roomsInfo = new RoomInfo();
-//		roomsInfo.setRoomid(Integer.parseInt(roomid));
-//		roomsInfo.setRoomStatus(Integer.parseInt(roomstate));	
-//		roomsInfo.setUserStatus(userStatus);
-		return AuthUtil.getMsg(null, "index", null,null);
+	// @RequestBody SetGoodsSpecDTO
+	public String toIndex(@PathVariable List<SocketUsers> users) {
+		// System.out.println(message.toString() + "message");
+		System.out.println("城市名称=" + users.get(0).getCity());
+		// JSONObject obj = JSONObject.fromObject(message);
+		// System.out.println("userStatus=" + obj.get("userStatus"));
+		// List<SocketUsers> list = ((SocketMessage) message).getListUsers();
+		// String roomid = obj.getString("roomid");
+		// String roomstate = obj.getString("roomstate");
+		// // String userStatus = obj.getString("userStatus");
+		// RoomInfo roomsInfo = new RoomInfo();
+		// roomsInfo.setRoomid(Integer.parseInt(roomid));
+		// roomsInfo.setRoomStatus(Integer.parseInt(roomstate));
+		// roomsInfo.setUserStatus(userStatus);
+		return "index";
 	}
 
 	// 授权首页

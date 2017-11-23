@@ -8,6 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 <title>游戏页面</title>
+<script src="../js/webSocket.js"></script>
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body onload="sendUsers()">
@@ -67,7 +68,9 @@
 		<canvas id="canvas1"></canvas>
 	</div>
 	<script type="text/javascript">
+		alert("进入游戏场景");
 		function sendUsers() {
+			alert("进入游戏场景1111");
 			var readingUsers = {};
 			readingUsers.type = "gameUsmesage"
 			readingUsers.roomId = roomId;
@@ -87,6 +90,7 @@
 		}
 
 		websocket.onmessage = function(e) {
+			alert("hello");
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
 			var allInfo = JSON.parse(jsonObj);
