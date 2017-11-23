@@ -223,6 +223,46 @@ html,body{
     text-align: center;
     vertical-align: middle;
 }
-.chartRoom div{
-	folot: right;
+.chatRoom dl{
+	width: 60%;
+	clear: both;
+}
+.chatRoom dl dd{
+	float: left;
+} 
+.chatRoom dl dd h2{
+	margin-top: 5%;
+	color: yellow;
+}
+.chatRoom dl dt img{
+	width: 30px;
+	height:30px;
+	float:left;
+	display: block;
+	margin: 0 5px 5px 0;  
+	box-sizing: border-box;
+	border-radius: 6px;
+}
+.sockithost{
+	float: right;
+}
+.sockitimg{
+	position: absolute;
+	right: 0;
+}
+.shostname{
+	position: absolute;
+	right: 42px;
+	top: 24px;
+}
+.msg{
+	position: absolute;
+	right: 42px;
+	top: 48px;
+}
+.slh{
+	width: 8%;
+	position: absolute;
+	top: 65px;
+	left: 0;
 }

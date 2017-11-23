@@ -63,7 +63,23 @@
 					id="img8"></li>
 			</ul>
 		</div>
-		<div class="chatRoom" id="chatRoom"></div>
+		<div class="chatRoom" id="chatRoom">
+			<!-- <dl>
+				<dt><img src='../img/play/pic1.png'></dt>
+				<dd>
+					<h2 class="sockitname">名字</h2>
+		    		<p>谁们辅导老师免费</p>
+				</dd>
+			</dl>	
+			<dl class="sockithost">
+				<dd>
+					<h2 class="sockitname shostname">名字</h2>
+		    		<p class="msg">谁们辅导老师免费</p>
+				</dd>
+				<dt><img class="sockitimg" src='../img/icon4.png'></dt>
+			</dl>	
+			<img class="slh" src="../img/play/slh.png"> -->
+		</div>
 		<div class="ele">
 			<input id="sendTxt_0" type="text" />
 			<button id="sendBtn_0">
@@ -81,7 +97,11 @@
 			if (userStatus != 0) {
 				alert("我不是房主");
 				var gameDom = document.getElementById("game_go");
-				gameDom.appendChild("hidden='hidden'");
+				gameDom.style.display="none";
+			}else{
+				gameDom.style.display="true";
+				var roomID = document.getElementById("roomID");
+				roomID.html=roomName;
 			}
 			var userMessage = {};
 			userMessage.type = "usmesage"
@@ -282,8 +302,22 @@
 			div_3.style.wordBreak = "break-all"
 			div_3.style.marginTop = "10px";
 			var ss = 7;
-			div_3.innerHTML = "<img src='../img/icon4.png' style='width: 30px;height:30px;display: block;margin-bottom: 5px'>"
-					+ "&nbsp;&nbsp;&nbsp;&nbsp;" + str + '<br />';
+			div_3.innerHTML = "<dl>"+
+							  	"<dt><img src='../img/play/pic1.png'></dt>"+
+									"<dd>"+
+										"<h2 class='sockitname'>"+nicakname+"</h2>"+
+							    		"<p>"+str+"</p>"+
+									"</dd>"+
+								"</dl>"	+
+								"<dl class='sockithost'>"+
+									"<dd>"+
+										"<h2 class='sockitname shostname'>名字</h2>"+
+										"<p class='msg'>谁们辅导老师免费</p>"+
+									"</dd>"+
+									"<dt><img class='sockitimg' src='../img/icon4.png'></dt>"+
+								 "</dl>"+	
+								"<img class='slh' src='../img/play/slh.png'>"
+			}
 			div_2.appendChild(div_3)
 			div_2.scrollTop = div_2.scrollHeight;
 		}
