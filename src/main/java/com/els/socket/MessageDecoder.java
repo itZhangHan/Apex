@@ -42,10 +42,8 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		message.setNickName(object.getString("nicakname"));
 		message.setCity(object.getString("city"));
 		message.setSex(object.getString("sex"));
+		message.setProps(object.getString("props"));
 		message.setUserId(object.getString("userId"));
-		
-		
-		
 		SocketUsers socketUser = new SocketUsers();
 		socketUser.setCity(object.getString("city"));
 		socketUser.setStatus(Integer.parseInt(object.getString("userStatus")));

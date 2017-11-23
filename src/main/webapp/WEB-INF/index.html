@@ -10,8 +10,35 @@
 <title>游戏页面</title>
 <script src="../js/webSocket.js"></script>
 <link rel="stylesheet" href="../css/style.css">
+<script type="text/javascript">
+	function sendUsers() {
+
+		var readingUsers = {};
+		alert("进入游戏场景222");
+		readingUsers.type = "gameUsmessage"
+		readingUsers.roomId = "1001";
+		readingUsers.toUserName = "";
+		readingUsers.fromUserName = "";
+		readingUsers.msgStr = "";
+		readingUsers.userStatus = "0";
+		readingUsers.roomState = "1";
+		readingUsers.position = "";
+		readingUsers.headimgurl = "";
+		readingUsers.nicakname = "zhangsan";
+		readingUsers.sex = "1";
+		readingUsers.city = "beijing";
+		readingUsers.userId = "50";
+		readingUsers.props = "道具";
+		alert("city");
+		websocket.send(JSON.stringify(readingUsers));
+
+	}
+</script>
 </head>
-<body onload="sendUsers()">
+<body>
+	<script type="text/javascript">
+		sendUsers();
+	</script>
 	<div class="wrap" id="wrap">
 		<div class="local">
 			<div class="time">
@@ -68,26 +95,7 @@
 		<canvas id="canvas1"></canvas>
 	</div>
 	<script type="text/javascript">
-		alert("进入游戏场景");
-		function sendUsers() {
-			alert("进入游戏场景1111");
-			var readingUsers = {};
-			readingUsers.type = "gameUsmesage"
-			readingUsers.roomId = roomId;
-			readingUsers.toUserName = "";
-			readingUsers.fromUserName = "";
-			readingUsers.msgStr = "";
-			readingUsers.userStatus = userStatus;
-			readingUsers.roomState = roomState;
-			readingUsers.position = "";
-			readingUsers.headimgurl = img;
-			readingUsers.nicakname = nicakname;
-			readingUsers.sex = sex;
-			readingUsers.city = city;
-			readingUsers.userId = userId;
-			readingUsers.listUsers = list;
-			websocket.send(JSON.stringify(userMessage));
-		}
+		
 
 		websocket.onmessage = function(e) {
 			alert("hello");
@@ -101,7 +109,7 @@
 		}
 		function showReadingUsers(allInfo) {
 			//遍历数据 放在该放的地方
-			var usersInfo = allInfo.list;
+			alert("进入");
 		}
 	</script>
 	<script src="../js/square.js"></script>

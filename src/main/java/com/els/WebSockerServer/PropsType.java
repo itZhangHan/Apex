@@ -20,6 +20,7 @@ public class PropsType implements InterfaceType {
 				try {
 					try {
 						System.out.println("sendPropstype...");
+						message.setMsgStr(message.getFromUserName()+"向"+message.getToUserName()+"使用了"+message.getProps());
 						object.getSession().getBasicRemote().sendObject(message);
 					} catch (EncodeException e) {
 						// TODO Auto-generated catch block

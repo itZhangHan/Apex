@@ -25,10 +25,19 @@ public class SocketMessage implements Serializable {
 	private String roomName;
 	private String position;
 	private String headimgurl;
+	private String props;
 	private SocketUsers socketUser;
 	private List<SocketUsers> listUsers = new ArrayList();
 
 	
+	public String getProps() {
+		return props;
+	}
+
+	public void setProps(String props) {
+		this.props = props;
+	}
+
 	public String getSex() {
 		return sex;
 	}

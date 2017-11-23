@@ -20,7 +20,7 @@ public class GamesMessage implements InterfaceType {
 				try {
 					try {
 						System.out.println("sendmessage...gamesUsers");
-						message.setMsgStr("游戏开始了");
+						message.setMsgStr("游戏开始了!!!!!!!!!!!!!!");
 						object.getSession().getBasicRemote().sendObject(message);
 					} catch (EncodeException e) {
 						// TODO Auto-generated catch block
