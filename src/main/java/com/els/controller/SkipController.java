@@ -83,7 +83,7 @@ public class SkipController {
 	// 接口：thdd.apexgame.cn/tetris/skip/indexsend
 	// 传参：所需参数 玩家姓名：userName 房间状态：roomStatus 房间id:roomId 玩家状态：userStatus
 	// 玩家头像：headImg
-	@RequestMapping(value = "/indexsend", method = RequestMethod.GET)
+	@RequestMapping(value = "/indexsend", method = RequestMethod.GET)			 
 	public String toIndex1(@RequestParam("userName") String userName, @RequestParam("roomStatus") String roomStatus,
 			@RequestParam("userStatus") String userStatus, @RequestParam("headImg") String headImg,
 			@RequestParam("roomId") String roomId) {
