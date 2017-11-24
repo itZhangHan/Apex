@@ -305,22 +305,20 @@
 			var str = b.msgStr;
 			var imgSock = b.headimgurl;
 			var nicakname = b.nickName;
-			alert(str);
 			var div_3 = document.createElement("div");
 			div_3.style.fontSize = "20px";
 			div_3.style.paddingRight = "20px";
 			div_3.style.wordBreak = "break-all"
 			div_3.style.marginTop = "10px";
 			var ss = 7;
-			div_3.innerHTML = "<dl class='sockithost'>"
-				+ "<dt><img src='"+imgSock+"'></dt>"+ "<dd>"
-				+ "<h2 class='sockitname  shostname'>" + nicakname + "</h2>"
-				+ "<p class='msg'>"+ str + "</p>" + "</dd>" 
-				+ "<img class='slh' src='../img/play/slh.png'>"
+			div_3.innerHTML = "<dl class='sockithost'>" + "<dd>"
+					+ "<h2 class='sockitname shostname'>" + nicakname + "</h2>"
+					+ "<p class='msg'>" + str + "</p>" + "</dd>"
+					+ "<dt><img class='sockitimg' src='"+imgSock+"'></dt>"
+					+ "<img class='slh' src='../img/play/slh.png'>"
 			div_2.appendChild(div_3)
 			div_2.scrollTop = div_2.scrollHeight;
 		}
-		//删除 渲染。需要增加
 
 		websocket.onmessage = function(e) {
 			var jsonObj = eval("(" + e.data + ")");
@@ -328,7 +326,7 @@
 			var b = JSON.parse(jsonObj);
 			if (b.type == 'message') {
 				//展示发送消息数据
-				alert("11");
+
 				showMessage(b);
 			}
 			//优先级 *****
@@ -361,7 +359,6 @@
 				if (listUsers[i].status == 0) {
 					headUrl0.src = listUsers[i].userportrait;
 				}
-				alert(listUsers);
 				if (i == 1) {
 					headUrl1.src = listUsers[i].userportrait;
 				}
