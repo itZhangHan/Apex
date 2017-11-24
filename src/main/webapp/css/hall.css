@@ -123,7 +123,7 @@ html,body{
 
 .icon-player{
     position: absolute;
-	top: 70%;
+	top: 68%;
     left: 2%;
     width: 100%;
 
@@ -132,11 +132,17 @@ html,body{
     display: inline-block;
     width: 10%;
     margin-right: 1.2%;
+    position: relative;
 }
 .icon-player ul li img{
     width: 100%;
     display: block;
     border-radius: 50%;
+}
+.icon-player ul li span{
+	position: absolute;
+    top: 31px;
+    left: 5px;
 }
 .chatRoom{
     position: absolute;
@@ -279,3 +285,5 @@ html,body{
 	top: 65px;
 	left: 0;
 }
+
+
