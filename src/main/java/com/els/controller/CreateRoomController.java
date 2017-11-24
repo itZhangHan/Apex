@@ -36,7 +36,7 @@ public class CreateRoomController {
 	private RoomService roomService;
 	@Autowired
 	private JhddUsersMapper userMapper;
-	
+
 	@Autowired
 	private JhddRoomsMapper jhddRoomsMapper;
 	@Autowired
@@ -48,6 +48,7 @@ public class CreateRoomController {
 		// 新建房间
 		System.out.println("新建房间");
 		JhddSidelines sidelines = roomService.createRoom(userid);
+		request.getSession().setAttribute("roomid", sidelines.getRoomid());
 
 		JhddUsers users = userMapper.selectByPrimaryKey(userid);
 
@@ -61,10 +62,7 @@ public class CreateRoomController {
 		Integer userStatus = jhddSidelinesMapper.selectUserStatusByUserid(users.getUserid(), sidelines.getRoomid());
 		roomsInfo.setUserStatus(userStatus);
 
-//		List<JhddUsers> userList = jhddSidelinesMapper.selectUsersInfoByRoomId(sidelines.getRoomid());
-//		roomsInfo.setUserList(userList);
-		//System.out.println(userList);
-		return AuthUtil.getMsg(users, "index0send", roomsInfo,null);
+		return AuthUtil.getMsg(users, "index0send", roomsInfo, null);
 
 	}
 }

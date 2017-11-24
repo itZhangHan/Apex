@@ -251,11 +251,11 @@ html,body{
 .chatRoom dl dd p{
 	font-size: 12px;
 }
-.sockitimg{
+/* .sockitimg{
 	position: absolute;
 	right: 0;
 	top: 36px;
-}
+} */
 .chatRoom dl dt img{
 	width: 30px;
 	height:30px;
@@ -265,20 +265,22 @@ html,body{
 	box-sizing: border-box; 
 	border-radius: 6px;
 }
-.sockithost{
+ .sockithost{
 	float: right;
+	clear:both;
+	margin-right: -98px;
 }
-
+/*
 .shostname{
 	position: absolute;
 	right: 42px;
 	top: 26px;
-}
-.msg{
+} */
+/* .msg{
 	position: absolute;
 	right: 42px;
 	top: 48px;
-}
+} */
 .slh{
 	width: 8%;
 	position: absolute;

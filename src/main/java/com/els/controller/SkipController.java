@@ -97,7 +97,7 @@ public class SkipController {
 
 	@RequestMapping(value = "/indexsend", method = RequestMethod.GET)
 	public String toIndex() {
-
+		
 		return "index";
 	}
 
