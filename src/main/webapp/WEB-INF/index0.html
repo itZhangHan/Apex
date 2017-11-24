@@ -94,16 +94,11 @@
 		function usmessage() {
 			//判断当前用户是否属于房主
 			//如果不是房主 不给于开始游戏的 权限
-			if (userStatus != 0) {
-				alert("我不是房主");
-				var gameDom = document.getElementById("game_go");
-				gameDom.style.display="none";
-			}else{
-				gameDom.style.display="true";
-				var roomID = document.getElementById("roomID");
-				roomID.html=roomName;
-			}
+
+			//删除房间逻辑判断 此处需要 增加
+
 			var userMessage = {};
+			alert("进入发送方法 ")
 			userMessage.type = "usmesage"
 			userMessage.roomId = roomId;
 			userMessage.toUserName = "";
@@ -117,6 +112,7 @@
 			userMessage.sex = sex;
 			userMessage.city = city;
 			userMessage.userId = userId;
+			userMessage.props = "";
 			websocket.send(JSON.stringify(userMessage));
 		}
 
@@ -137,6 +133,7 @@
 				gameMessage.sex = sex;
 				gameMessage.city = city;
 				gameMessage.userId = userId;
+				gameMessage.props = "";
 				websocket.send(JSON.stringify(gameMessage));
 			} else {
 				alert("别乱动哦，小心打你屁股！");
@@ -213,7 +210,7 @@
 		document.getElementById("sendBtn_0").onclick = function() {
 			var txt = document.getElementById("sendTxt_0").value;
 			div_2 = document.getElementById("chatRoom");
-			div_2.style.overflowY = "scroll";//auto    scroll
+			div_2.style.overflowY = "scroll";
 			document.getElementById("sendTxt_0").value = "";
 			var mes = {};
 			mes.type = "message";
@@ -230,6 +227,7 @@
 			mes.city = city;
 			mes.sex = sex;
 			mes.userId = userId;
+			mes.props = "";
 			websocket.send(JSON.stringify(mes));
 		}
 		//接收起立type 展示数据
@@ -295,36 +293,32 @@
 		}
 
 		//接收房间所有信息，展示用户信息
-		function showMessage(str) {
+		function showMessage(b) {
+			var str = b.msg
+			var nicaname = b.username
 			var div_3 = document.createElement("div");
 			div_3.style.fontSize = "20px";
 			div_3.style.paddingRight = "20px";
 			div_3.style.wordBreak = "break-all"
 			div_3.style.marginTop = "10px";
 			var ss = 7;
-			div_3.innerHTML = "<dl>"+
-							  	"<dt><img src='../img/play/pic1.png'></dt>"+
-									"<dd>"+
-										"<h2 class='sockitname'>"+nicakname+"</h2>"+
-							    		"<p>"+str+"</p>"+
-									"</dd>"+
-								"</dl>"	+
-								"<dl class='sockithost'>"+
-									"<dd>"+
-										"<h2 class='sockitname shostname'>名字</h2>"+
-										"<p class='msg'>谁们辅导老师免费</p>"+
-									"</dd>"+
-									"<dt><img class='sockitimg' src='../img/icon4.png'></dt>"+
-								 "</dl>"+	
-								"<img class='slh' src='../img/play/slh.png'>"
-			}
-			div_2.appendChild(div_3)
-			div_2.scrollTop = div_2.scrollHeight;
+			div_3.innerHTML = "<dl>"
+					+ "<dt><img src='../img/play/pic1.png'></dt>" + "<dd>"
+					+ "<h2 class='sockitname'>" + nicakname + "</h2>" + "<p>"
+					+ str + "</p>" + "</dd>" + "</dl>"
+					+ "<dl class='sockithost'>" + "<dd>"
+					+ "<h2 class='sockitname shostname'>名字</h2>"
+					+ "<p class='msg'>谁们辅导老师免费</p>" + "</dd>"
+					+ "<dt><img class='sockitimg' src='../img/icon4.png'></dt>"
+					+ "</dl>" + "<img class='slh' src='../img/play/slh.png'>"
 		}
+		//删除 渲染。需要增加
+
 		websocket.onmessage = function(e) {
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
 			var b = JSON.parse(jsonObj);
+			alert(b.city)
 			if (b.type == 'message') {
 				//展示发送消息数据
 				showMessage(b.msgStr, b.type);
@@ -465,6 +459,7 @@
 			upDown.sex = sex;
 			upDown.city = city;
 			upDown.userId = userId;
+			upDown.props = "";
 			websocket.send(JSON.stringify(upDown));
 		}
 
@@ -492,6 +487,7 @@
 			mes.city = city;
 			mes.sex = sex;
 			mes.userId = userId;
+			mes.props = "";
 			websocket.send(JSON.stringify(mes));
 		}
 	</script>
