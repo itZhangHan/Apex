@@ -214,14 +214,20 @@ html,body{
 
 #roomID{
     position: absolute;
-    font-size: 20px;
-    left: 0;
+    font-size: 12px;
+    left: -8px;
     right: 0;
     top: 4px;
     bottom: 0;
     margin: auto;
     text-align: center;
     vertical-align: middle;
+    color:yellow;
+    display:block;
+    width:70px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .chatRoom dl{
 	width: 60%;

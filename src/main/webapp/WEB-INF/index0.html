@@ -42,14 +42,14 @@
 					src=""></li>
 			</ul>
 		</div>
-		<!-- 玩家头像 -->
+
 		<div class="icon-player">
 			<ul>
-				<li id="icon1"><span id="orPrepare" style="color: gold"></span><img
-					id="img1" src=""></li>
-				<li id="icon2"><span id="orPrepare2" style="color: gold"></span><img
-					id="img2" src=""></li>
-				<li id="icon3"><span id="orPrepare3" style="color: gold"></span><img
+				<li id="icon1"><span id="orPrepare" style="color: gold">已准备</span><img
+					id="img1" src="../img/play/pic1.png"></li>
+				<li id="icon2"><span id="orPrepare2" style="color: gold">已准备</span>
+					<img id="img2" src="../img/play/pic1.png"></li>
+				<li id="icon3"><span id="orPrepare3" style="color: gold">已准备</span><img
 					id="img3"></li>
 				<li id="icon4"><span id="orPrepare4" style="color: gold"></span><img
 					id="img4"></li>
@@ -91,22 +91,21 @@
 
 	<script type="text/javascript">
 		//页面加载前发送给服务端的数据
-		function usmessage(roomName) {
+		function usmessage() {
 			//判断当前用户是否属于房主
 			//如果不是房主 不给于开始游戏的 权限
+
+			//删除房间逻辑判断 此处需要 增加
 			if (userStatus != 0) {
 				alert("我不是房主");
 				var gameDom = document.getElementById("game_go");
-				gameDom.style.display="none";
-			}else{
-				gameDom.style.display="true";
-				var roomID = document.getElementById("roomID");
-				roomID.html = roomName; 
+				gameDom.style.display = "none";
+			} else {
+				var qqqq = document.getElementById("roomID");
+				qqqq.innerText = nicakname + "的房间";
 			}
-			//删除房间逻辑判断 此处需要 增加
-
 			var userMessage = {};
-			alert("进入发送方法 ")
+
 			userMessage.type = "usmesage"
 			userMessage.roomId = roomId;
 			userMessage.toUserName = "";
@@ -302,16 +301,19 @@
 
 		//接收房间所有信息，展示用户信息
 		function showMessage(b) {
-			var str = b.msg;
-			var nicakname = b.username;
+
+			var str = b.msgStr;
+			var imgSock = b.headimgurl;
+			var nicakname = b.nickName;
+			alert(str);
 			var div_3 = document.createElement("div");
-			div_3.style.fontSize = "40px";
+			div_3.style.fontSize = "20px";
 			div_3.style.paddingRight = "20px";
 			div_3.style.wordBreak = "break-all"
 			div_3.style.marginTop = "10px";
 			var ss = 7;
 			div_3.innerHTML = "<dl>"
-					+ "<dt><img src='../img/play/pic1.png'></dt>" + "<dd>"
+					+ "<dt><img src='"+imgSock+"'></dt>" + "<dd>"
 					+ "<h2 class='sockitname'>" + nicakname + "</h2>" + "<p>"
 					+ str + "</p>" + "</dd>" + "</dl>"
 					+ "<dl class='sockithost'>" + "<dd>"
@@ -322,15 +324,16 @@
 			div_2.appendChild(div_3)
 			div_2.scrollTop = div_2.scrollHeight;
 		}
+		//删除 渲染。需要增加
 
 		websocket.onmessage = function(e) {
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
 			var b = JSON.parse(jsonObj);
-			alert(b.city)
 			if (b.type == 'message') {
 				//展示发送消息数据
-				showMessage(b.msgStr, b.type);
+				alert("11");
+				showMessage(b);
 			}
 			//优先级 *****
 			if (b.type == 'usmesage') {
@@ -361,7 +364,8 @@
 			for (var i = 0; i < listUsers.length; i++) {
 				if (listUsers[i].status == 0) {
 					headUrl0.src = listUsers[i].userportrait;
-				}	
+				}
+				alert(listUsers);
 				if (i == 1) {
 					headUrl1.src = listUsers[i].userportrait;
 				}
@@ -373,7 +377,7 @@
 				}
 				if (i == 4) {
 					headUrl4.src = listUsers[i].userportrait;
-				} 
+				}
 			}
 		}
 
@@ -438,6 +442,7 @@
 					headImg1.src = listUsers[i].userportrait;
 					headImg1.onclick = function() {
 						alert("要安心待在自己的位置上哦！");
+
 					}
 				}
 				if (listUsers[i].status == 1) {
@@ -476,10 +481,10 @@
 			var txt = document.getElementById("sendTxt_0").value;
 			div_2 = document.getElementById("chatRoom");
 			div_2.style.overflowY = "scroll";//auto    scroll						
-			var newNode = document.createElement("div");
+			/* var newNode = document.createElement("div");
 			newNode.innerHTML = txt;
 			div_2.appendChild(newNode);
-			//div_2.insertBefore(newNode,null); // 这两种方法均可实现 
+			//div_2.insertBefore(newNode,null); // 这两种方法均可实现  */
 			document.getElementById("sendTxt_0").value = "";
 			var mes = {};
 			mes.type = "message";
