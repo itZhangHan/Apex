@@ -311,11 +311,19 @@
 			div_3.style.wordBreak = "break-all"
 			div_3.style.marginTop = "10px";
 			var ss = 7;
-			div_3.innerHTML = "<dl class='sockithost'>" + "<dd>"
-					+ "<h2 class='sockitname shostname'>" + nicakname + "</h2>"
-					+ "<p class='msg'>" + str + "</p>" + "</dd>"
-					+ "<dt><img class='sockitimg' src='"+imgSock+"'></dt>"
-					+ "<img class='slh' src='../img/play/slh.png'>"
+			if(b.socketUser.status == 0){
+				div_3.innerHTML = "<dl class='sockithost'>" + "<dd>"
+				+ "<h2 class='sockitname shostname'>" + nicakname + "</h2>"
+				+ "<p class='msg'>" + str +'<br/>'+"</p>" + "</dd>"
+				+ "<dt><img class='sockitimg' src='"+imgSock+"'></dt>"
+				+ "<img class='slh' src='../img/play/slh.png'>"
+			}else{
+				div_3.innerHTML = "<dl>" + "<dd>"
+				+ "<h2 class='sockitname'>" + nicakname + "</h2>"
+				+ "<p>" + str +'<br/>'+"</p>" + "</dd>"
+				+ "<dt><img src='"+imgSock+"'></dt>"
+				
+			}
 			div_2.appendChild(div_3)
 			div_2.scrollTop = div_2.scrollHeight;
 		}
