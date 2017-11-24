@@ -92,8 +92,12 @@
 	<script type="text/javascript">
 		//页面加载前发送给服务端的数据
 		function usmessage() {
-			//判断当前用户是否属于房主
-			//如果不是房主 不给于开始游戏的 权限
+			//邀请好友
+			var iconBtn = document.getElementById("iconBtn");
+			iconBtn.onclick=function(){
+				document.location = "http://thdd.apexgame.cn/tetris/skip/first";
+			}
+			//判断当前用户是否属于房主  如果不是房主 不给于开始游戏的 权限
 
 			//删除房间逻辑判断 此处需要 增加
 			if (userStatus != 0) {
@@ -312,15 +316,15 @@
 			div_3.style.marginTop = "10px";
 			var ss = 7;
 			if(b.socketUser.status == 0){
-				div_3.innerHTML = "<dl class='sockithost'>" + "<dd>"
+				div_3.innerHTML += "<dl class='sockithost'>" + "<dd>"
 				+ "<h2 class='sockitname shostname'>" + nicakname + "</h2>"
 				+ "<p class='msg'>" + str +'<br/>'+"</p>" + "</dd>"
-				+ "<dt><img class='sockitimg' src='"+imgSock+"'></dt>"
+				+ "<dt><img class='sockitimg' src='"+imgSock+"'></dt></dl>"
 				+ "<img class='slh' src='../img/play/slh.png'>"
 			}else{
 				div_3.innerHTML = "<dl>" + "<dd>"
 				+ "<h2 class='sockitname'>" + nicakname + "</h2>"
-				+ "<p>" + str +'<br/>'+"</p>" + "</dd>"
+				+ "<p>" + str +'<br/>'+"</p>" + "</dd></dl>"
 				+ "<dt><img src='"+imgSock+"'></dt>"
 				
 			}
@@ -379,6 +383,18 @@
 				if (i == 4) {
 					headUrl4.src = listUsers[i].userportrait;
 				}
+				if (i == 4) {
+					headUrl4.src = listUsers[i].userportrait;
+				}
+				if (i == 5) {
+					headUrl5.src = listUsers[i].userportrait;
+				}
+				if (i == 6) {
+					headUrl6.src = listUsers[i].userportrait;
+				}
+				if (i == 7) {
+					headUrl7.src = listUsers[i].userportrait;
+				}	
 			}
 		}
 
