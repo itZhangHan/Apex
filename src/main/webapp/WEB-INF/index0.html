@@ -124,6 +124,7 @@
 			userMessage.city = city;
 			userMessage.userId = userId;
 			userMessage.props = "";
+			userMessage.isSelf = "";
 			websocket.send(JSON.stringify(userMessage));
 		}
 
@@ -145,6 +146,7 @@
 				gameMessage.city = city;
 				gameMessage.userId = userId;
 				gameMessage.props = "";
+				gameMessage.isSelf = "";
 				websocket.send(JSON.stringify(gameMessage));
 			} else {
 				alert("别乱动哦，小心打你屁股！");
@@ -239,6 +241,7 @@
 			mes.sex = sex;
 			mes.userId = userId;
 			mes.props = "";
+			mes.isSelf = "";
 			websocket.send(JSON.stringify(mes));
 		}
 		//接收起立type 展示数据
@@ -305,7 +308,11 @@
 
 		//接收房间所有信息，展示用户信息
 		function showMessage(b) {
-
+			if(b.isSelf=="1"){
+				//本人
+			}else{
+				//别人 2
+			}
 			var str = b.msgStr;
 			var imgSock = b.headimgurl;
 			var nicakname = b.nickName;
@@ -322,14 +329,15 @@
 					+ "<h2 class='sockitname shostname'>" + nicakname + "</h2>"
 					+ "<p class='msg'>" + str +'<br/>'+"</p>" + "</dd>"
 					+ "<dt><img class='sockitimg' src='"+imgSock+"'></dt></dl>"
+					div_2.appendChild(div_3)
+					div_2.scrollTop = div_2.scrollHeight;
 				}else{
-					div_3.innerHTML += "<dl>" + "<dd>"
+					div_3.innerHTML += "<dl>" 
+					+ "<dt><img src='"+imgSock+"'></dt><dd>"
 					+ "<h2 class='sockitname'>" + nicakname + "</h2>"
-					+ "<p>" + str +'<br/>'+"</p>" + "</dd>"
-					+ "<dt><img src='"+imgSock+"'></dt></dl>"
+					+ "<p>" + str +'<br/>'+"</p>" + "</dd></dl>"
 				}
-				div_2.appendChild(div_3)
-				div_2.scrollTop = div_2.scrollHeight;
+				
 				
 			}
 			
@@ -495,6 +503,7 @@
 			upDown.city = city;
 			upDown.userId = userId;
 			upDown.props = "";
+			upDown.isSelf = "";
 			websocket.send(JSON.stringify(upDown));
 		}
 
@@ -523,6 +532,7 @@
 			mes.sex = sex;
 			mes.userId = userId;
 			mes.props = "";
+			mes.isSelf = "";
 			websocket.send(JSON.stringify(mes));
 		}
 	</script>

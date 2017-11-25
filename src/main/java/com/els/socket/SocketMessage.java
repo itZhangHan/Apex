@@ -26,10 +26,19 @@ public class SocketMessage implements Serializable {
 	private String position;
 	private String headimgurl;
 	private String props;
+	private String isSelf;//
 	private SocketUsers socketUser;
 	private List<SocketUsers> listUsers = new ArrayList();
 
-	
+
+	public String getIsSelf() {
+		return isSelf;
+	}
+
+	public void setIsSelf(String isSelf) {
+		this.isSelf = isSelf;
+	}
+
 	public String getProps() {
 		return props;
 	}

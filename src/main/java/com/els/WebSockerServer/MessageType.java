@@ -26,7 +26,13 @@ public class MessageType extends BaseType {
 				try {
 					try {
 						System.out.println("sendmessage...");
-						object.getSession().getBasicRemote().sendObject(message);
+						if(object.getSocketUser().getUserid()==Integer.parseInt(message.getUserId())){
+							message.setIsSelf("1");//1是本人 b.isSelf == 1
+							object.getSession().getBasicRemote().sendObject(message);
+						}else{
+							message.setIsSelf("2");//2为其他人
+							object.getSession().getBasicRemote().sendObject(message);
+						}
 					} catch (EncodeException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
