@@ -105,8 +105,8 @@
 				var gameDom = document.getElementById("game_go");
 				gameDom.style.display = "none";
 			} else {
-				var qqqq = document.getElementById("roomID");
-				qqqq.innerText = nicakname + "的房间";
+				var openRoom = document.getElementById("roomID");
+				openRoom.innerText = nicakname + "的房间";
 			}
 			var userMessage = {};
 
@@ -332,7 +332,7 @@
 			}else{
 				//别人 2
 				div_3.innerHTML += "<dl>" 
-					+ "<dt><img src='"+imgSock+"'></dt><dd>"
+					+ "<dt><img class='other' src='"+imgSock+"'></dt><dd>"
 					+ "<h2 class='sockitname'>" + nicakname + "</h2>"
 					+ "<p>" + str +'<br/>'+"</p>" + "</dd></dl>"
 			}
