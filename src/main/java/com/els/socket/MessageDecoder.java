@@ -1,5 +1,7 @@
 package com.els.socket;
 
+import java.util.List;
+
 import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
@@ -45,6 +47,7 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		message.setProps(object.getString("props"));
 		message.setUserId(object.getString("userId"));
 		message.setIsSelf(object.getString("isSelf"));
+		//message.setPlayerImg((List<String>) object.get("readyToDownUp"));
 		SocketUsers socketUser = new SocketUsers();
 		socketUser.setCity(object.getString("city"));
 		socketUser.setStatus(Integer.parseInt(object.getString("userStatus")));

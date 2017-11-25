@@ -9,7 +9,7 @@ public class ReadUsersInfo {
 	
 	private String isReady;//0未准备  1已准备
 	
-	private List<Integer> readersID;
+	private List<Integer> readersIDs;
 
 
 
@@ -30,11 +30,11 @@ public class ReadUsersInfo {
 	}
 
 	public List<Integer> getReadersID() {
-		return readersID;
+		return readersIDs;
 	}
 
 	public void setReadersID(List<Integer> readersID) {
-		this.readersID = readersID;
+		this.readersIDs = readersID;
 	}
 	
 	

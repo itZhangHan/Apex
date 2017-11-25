@@ -28,16 +28,15 @@ public class SocketMessage implements Serializable {
 	private String props;
 	private String isSelf;//
 	private SocketUsers socketUser;
-	private ReadUsersInfo readers;
+	private List<String> playerImg;
 	private List<SocketUsers> listUsers = new ArrayList();
 
-
-	public ReadUsersInfo getReaders() {
-		return readers;
+	public List<String> getPlayerImg() {
+		return playerImg;
 	}
 
-	public void setReaders(ReadUsersInfo readers) {
-		this.readers = readers;
+	public void setPlayerImg(List<String> playerImg) {
+		this.playerImg = playerImg;
 	}
 
 	public String getIsSelf() {
