@@ -28,8 +28,17 @@ public class SocketMessage implements Serializable {
 	private String props;
 	private String isSelf;//
 	private SocketUsers socketUser;
+	private ReadUsersInfo readers;
 	private List<SocketUsers> listUsers = new ArrayList();
 
+
+	public ReadUsersInfo getReaders() {
+		return readers;
+	}
+
+	public void setReaders(ReadUsersInfo readers) {
+		this.readers = readers;
+	}
 
 	public String getIsSelf() {
 		return isSelf;

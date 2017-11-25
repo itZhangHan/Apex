@@ -262,10 +262,16 @@
 		}
 		//接收坐下type 展示数据
 		function showDownmessage(b) {
+			//如果允许坐下 
 			if (b.position == '2') {
+				//给位置填充图片
 				head2.src = b.headimgurl;
+				//修改旁观者信息为 已准备
 				orPrepare2.innerHTML = "已准备"
+				//设置头像value为userid
 				wanjia2.value = b.userId;
+				//设置之前头像清除。
+				
 			} else if (b.position == '3') {
 				head3.src = b.headimgurl;
 				orPrepare3.innerHTML = "已准备"
@@ -308,39 +314,32 @@
 
 		//接收房间所有信息，展示用户信息
 		function showMessage(b) {
-			if(b.isSelf=="1"){
-				//本人
-			}else{
-				//别人 2
-			}
+			
 			var str = b.msgStr;
 			var imgSock = b.headimgurl;
 			var nicakname = b.nickName;
 			var div_3 = document.createElement("div");
-			div_3.style.fontSize = "20px";
-			div_3.style.paddingRight = "20px";
+			div_3.style.fontSize = "18px";
 			div_3.style.wordBreak = "break-all"
-			div_3.style.marginTop = "10px";
+			div_3.style.marginTop = "1px";
 			var ss = 7;	
-			
-			document.getElementById("sendBtn_0").onclick=function(){
-				if(userId==b.userId){
-					div_3.innerHTML += "<dl class='sockithost'>" + "<dd>"
-					+ "<h2 class='sockitname shostname'>" + nicakname + "</h2>"
-					+ "<p class='msg'>" + str +'<br/>'+"</p>" + "</dd>"
-					+ "<dt><img class='sockitimg' src='"+imgSock+"'></dt></dl>"
-					div_2.appendChild(div_3)
-					div_2.scrollTop = div_2.scrollHeight;
-				}else{
-					div_3.innerHTML += "<dl>" 
+			if(b.isSelf=="1"){
+				//本人
+				div_3.innerHTML += "<dl class='sockithost'>" + "<dd>"
+				+ "<h2 class='sockitname shostname'>" + nicakname + "</h2>"
+				+ "<p class='msg'>" + str +'<br/>'+"</p>" + "</dd>"
+				+ "<dt><img class='sockitimg' src='"+imgSock+"'></dt></dl>"
+			}else{
+				//别人 2
+				div_3.innerHTML += "<dl>" 
 					+ "<dt><img src='"+imgSock+"'></dt><dd>"
 					+ "<h2 class='sockitname'>" + nicakname + "</h2>"
 					+ "<p>" + str +'<br/>'+"</p>" + "</dd></dl>"
-				}
-				
-				
 			}
-			
+		
+					div_2.appendChild(div_3)
+					div_2.scrollTop = div_2.scrollHeight;
+				
 				
 		}
 
@@ -348,7 +347,7 @@
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
 			var b = JSON.parse(jsonObj);
-			alert(b.isSelf+"==aaaaa")
+			 
 			if (b.type == 'message') {
 				//展示发送消息数据
 
@@ -410,61 +409,7 @@
 				}	
 			}
 		}
-
-		head2.onclick = function() {
-			var userId = head2.value;
-			if (userId == '') {
-				f2 = true;
-				showUpHeader(down, 2);
-			} else {
-				//位置有人
-				if (userId == user.userId && userId == '0') {
-					showUpHeader(up, 2);
-				} else {
-					showUpHeader(down, 2);
-				}
-			}
-		}
-
-		head3.onclick = function() {
-			var headImg3 = document.getElementById("headImg3");
-			var head3 = document.getElementById("player3");
-			var orPrepare3 = document.getElementById("orPrepare3");
-			var f3 = false;
-			console.log("headImg2.src============" + headImg3.src)
-			var userId = head3.value;
-			console.log("headImg3.src============" + headImg3.src)
-			if (userId == '') {
-				f3 = true;
-				showUpHeader(down, 3);
-			} else {
-				if (userId == user.userId) {
-					// user = decodeURI(request.QueryString("user"));
-					showUpHeader(up, 3);
-				} else {
-					alert("此位置已经有人了!");
-				}
-			}
-		}
-
-		head4.onclick = function() {
-			var headImg4 = document.getElementById("headImg4")
-			var head4 = document.getElementById("player4");
-			var orPrepare4 = document.getElementById("orPrepare4");
-			var f4 = false;
-			var userId = head4.value;
-			console.log("headImg4.src============" + headImg4.src)
-			if (userId == '') {
-				f2 = true;
-				showUpHeader(down, 4);
-			} else {
-				if (userId == user.userId) {
-					showUpHeader(up, 4);
-				} else {
-					alert("此位置已经有人了！");
-				}
-			}
-		}
+ 
 
 		function showHeadImg(listUsers) {
 			for (var i = 0; i < listUsers.length; i++) {
