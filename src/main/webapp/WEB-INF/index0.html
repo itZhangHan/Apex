@@ -168,54 +168,45 @@
 		var head2 = document.getElementById("headImg2");
 		var head3 = document.getElementById("headImg3");
 		var head4 = document.getElementById("headImg4");
-
+		
+		var wanjia1 = document.getElementById("player2");
+		wanjia1.onclick = function(b) {
+			var headimgurl = b.headimgurl;
+			var msgSit = {}
+			msgSit.type = "eadyToDownUp"
+			msgSit.headimgurl = headimgurl;
+			msgSit.position = "2";
+			websocket.send(JSON.stringify(msgSit));
+		}
+		
 		var wanjia2 = document.getElementById("player2");
-		wanjia2.onclick = function() {
-			var userId1 = wanjia2.value;
-			if (userId1 == '') {
-				//	f2 = true;
-				showUpHeader("down", 2);
-			} else {
-				//位置有人
-				if (userId1 == userId) {
-					showUpHeader("up", 2);
-				} else {
-					alert("向服务的发送无法操作消息");
-					showUpHeader("down", 2);
-				}
-			}
+		wanjia2.onclick = function(b) {
+			var headimgurl = b.headimgurl;
+			var msgSit = {}
+				msgSit.type = "eadyToDownUp"
+				msgSit.headimgurl = headimgurl;
+				msgSit.position = "2";
+				websocket.send(JSON.stringify(msgSit));
+			
 		}
 		var wanjia3 = document.getElementById("player3");
-		wanjia3.onclick = function() {
-			var userId3 = wanjia3.value;
-			if (userId3 == '') {
-				//	f2 = true;
-				showUpHeader("down", 3);
-			} else {
-				//位置有人
-				if (userId3 == userId) {
-					showUpHeader("up", 3);
-				} else {
-					alert("向服务的发送无法操作消息");
-					showUpHeader("down", 3);
-				}
-			}
+		wanjia3.onclick = function(b) {
+			var headimgurl = b.headimgurl;
+			var msgSit = {}
+			msgSit.type = "eadyToDownUp"
+			msgSit.headimgurl = headimgurl;
+			msgSit.position = "3";
+			websocket.send(JSON.stringify(msgSit));
 		}
 		var wanjia4 = document.getElementById("player4");
-		wanjia4.onclick = function() {
+		wanjia4.onclick = function(b) {
+			var headimgurl = b.headimgurl;
 			var userId4 = wanjia4.value;
-			if (userId4 == '') {
-				//	f2 = true;
-				showUpHeader("down", 4);
-			} else {
-				//位置有人
-				if (userId4 == userId) {
-					showUpHeader("up", 4);
-				} else {
-					alert("向服务的发送无法操作消息");
-					showUpHeader("down", 4);
-				}
-			}
+			var msgSit = {}
+			msgSit.type = "eadyToDownUp"
+			msgSit.headimgurl = headimgurl;
+			msgSit.position = "4";
+			websocket.send(JSON.stringify(msgSit));
 		}
 
 		//聊天通信模块
