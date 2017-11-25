@@ -242,19 +242,19 @@ html,body{
 .chatRoom dl dd{
 	float: left;
 	font-size: 16px;
+	clear: both;
 } 
 .chatRoom dl dd h2{
-	margin-top: 3%;
+	margin-top: 1%;
 	color: yellow;
 	font-size: 12px;
 }
 .chatRoom dl dd p{
 	font-size: 12px;
+	line-height: 6px;
 }
 /* .sockitimg{
-	position: absolute;
-	right: 0;
-	top: 36px;
+	
 } */
 .chatRoom dl dt img{
 	width: 30px;
@@ -268,19 +268,9 @@ html,body{
  .sockithost{
 	float: right;
 	clear:both;
-	margin-right: -98px;
+	margin-right: -90px;
 }
-/*
-.shostname{
-	position: absolute;
-	right: 42px;
-	top: 26px;
-} */
-/* .msg{
-	position: absolute;
-	right: 42px;
-	top: 48px;
-} */
+
 .slh{
 	width: 8%;
 	position: absolute;
