@@ -5,6 +5,7 @@
     border: none;
     font-size: 1.5625vw;
     font-family: Microsoft Yahei; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	list-style: none;
 }
 html,body{
     height: 100%;
@@ -235,43 +236,44 @@ html,body{
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.chatRoom dl{
-	width: 60%;
-	clear: both;
-}
-.chatRoom dl dd{
-	float: left;
-	font-size: 16px;
-} 
-.chatRoom dl dd h2{
-	margin-top: 1%;
-	color: yellow;
-	font-size: 12px;
-}
-.chatRoom dl dd p{
-	font-size: 12px;
-	line-height: 6px;
-} 
-.sockitimg{
-	margin-left: 5px;
-	margin-bottom: 5px;
-}
-.chatRoom dl dt img{
+.imgleft{
 	width: 30px;
 	height:30px;
-	float:left;
-	display: block;	 
-	box-sizing: border-box; 
 	border-radius: 6px;
+	float: left;
+	margin-right: 5px;
+	margin-top: 4px;
 }
- .sockithost{
+.imgright{
+	width: 30px;
+	height:30px;
+	border-radius: 6px;
+	float:right;
+	margin-left: 5px;
+	margin-top: 4px;
+}
+.sockitnamel{
+	float:left;
+	
+}
+.sockitnamer{
+	float:right;	
+}
+.sockitRoom li{
+	clear: both;
+}
+.hostName{
+	color: yellow;
+	margin-top: 7px;
+}
+.nameRight{
 	float: right;
-	clear:both;
-	margin-right: -32%;
 }
-.other{
-	margin: 0 5px 5px 0;  
+.nameB{
+	clear: both;
 }
+
+
 .slh{
 	width: 8%;
 	position: absolute;
