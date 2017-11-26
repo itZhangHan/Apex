@@ -64,7 +64,7 @@
 			</ul>
 		</div>
 		<div class="chatRoom" id="chatRoom">
-			
+
 			<!-- <img class="slh" src="../img/play/slh.png"> -->
 		</div>
 		<div class="ele">
@@ -156,92 +156,50 @@
 		var head3 = document.getElementById("headImg3");
 		var head4 = document.getElementById("headImg4");
 
-		var wanjia1 = document.getElementById("player1");
-		wanjia1.onclick = function() {
-
-			var msgSit = {}
-			msgSit.type = "readyToDownUp";
-			msgSit.roomId = roomId;
-			msgSit.toUserName = "";
-			msgSit.fromUserName = "";
-			msgSit.msgStr = "";
-			msgSit.userStatus = userStatus;
-			msgSit.roomState = roomState;
-			msgSit.nicakname = nicakname;
-			msgSit.userId = userId;
-			msgSit.sex = sex;
-			msgSit.city = city;
-			msgSit.headimgurl = img;
-			msgSit.position = "0";
-			msgSit.props = "";
-			msgSit.isSelf = "";
-			websocket.send(JSON.stringify(msgSit));
-
-		}
-
 		var wanjia2 = document.getElementById("player2");
 		wanjia2.onclick = function() {
-
-			var msgSit = {}
-			msgSit.type = "readyToDownUp";
-			msgSit.roomId = roomId;
-			msgSit.toUserName = "";
-			msgSit.fromUserName = "";
-			msgSit.msgStr = "";
-			msgSit.userStatus = userStatus;
-			msgSit.roomState = roomState;
-			msgSit.nicakname = nicakname;
-			msgSit.userId = userId;
-			msgSit.sex = sex;
-			msgSit.city = city;
-			msgSit.headimgurl = img;
-			msgSit.position = "1";
-			msgSit.props = "";
-			msgSit.isSelf = "";
-			websocket.send(JSON.stringify(msgSit));
-
+			var userId1 = wanjia2.value;
+			if (userId1 == '') {
+				//	f2 = true;
+				showUpHeader("down", 2);
+			} else {
+				//位置有人
+				if (userId1 == userId) {
+					showUpHeader("up", 2);
+				} else {
+					alert("不允许操作！");
+				}
+			}
 		}
 		var wanjia3 = document.getElementById("player3");
 		wanjia3.onclick = function() {
-
-			var msgSit = {}
-			msgSit.type = "readyToDownUp";
-			msgSit.roomId = roomId;
-			msgSit.toUserName = "";
-			msgSit.fromUserName = "";
-			msgSit.msgStr = "";
-			msgSit.userStatus = userStatus;
-			msgSit.roomState = roomState;
-			msgSit.nicakname = nicakname;
-			msgSit.userId = userId;
-			msgSit.sex = sex;
-			msgSit.city = city;
-			msgSit.headimgurl = img;
-			msgSit.position = "2";
-			msgSit.props = "";
-			msgSit.isSelf = "";
-			websocket.send(JSON.stringify(msgSit));
+			var userId3 = wanjia3.value;
+			if (userId3 == '') {
+				//	f2 = true;
+				showUpHeader("down", 3);
+			} else {
+				//位置有人
+				if (userId3 == userId) {
+					showUpHeader("up", 3);
+				} else {
+					alert("不允许操作！");
+				}
+			}
 		}
 		var wanjia4 = document.getElementById("player4");
 		wanjia4.onclick = function() {
-
-			var msgSit = {}
-			msgSit.type = "readyToDownUp";
-			msgSit.roomId = roomId;
-			msgSit.toUserName = "";
-			msgSit.fromUserName = "";
-			msgSit.msgStr = "";
-			msgSit.userStatus = userStatus;
-			msgSit.roomState = roomState;
-			msgSit.nicakname = nicakname;
-			msgSit.userId = userId;
-			msgSit.sex = sex;
-			msgSit.city = city;
-			msgSit.headimgurl = img;
-			msgSit.position = "3";
-			msgSit.props = "";
-			msgSit.isSelf = "";
-			websocket.send(JSON.stringify(msgSit));
+			var userId4 = wanjia4.value;
+			if (userId4 == '') {
+				//	f2 = true;
+				showUpHeader("down", 4);
+			} else {
+				//位置有人
+				if (userId4 == userId) {
+					showUpHeader("up", 4);
+				} else {
+					alert("不允许操作！");
+				}
+			}
 		}
 
 		//聊天通信模块
@@ -288,6 +246,20 @@
 		}
 		//接收坐下type 展示数据
 		function showDownmessage(b) {
+			alert("bbbbb" + b.headimgurl);
+			//清除之前位置头像
+			var sitUl = document.getElementsByClassName("sit");
+			//var sitLi = sitUl.document.getElementsByTagName("li");
+			var hd1src = head1.src;
+			var hd2src = head2.src;
+			var hd3src = head3.src;
+			var hd4src = head4.src;
+			var list = [ hd1src, hd2src, hd3src, hd4src ];
+			/* 	if (list[0] == b.headimgurl) {
+					list[0] = "";
+					alert(list[0]);
+				} */
+
 			//如果允许坐下 
 			if (b.position == '2') {
 				//给位置填充图片
@@ -296,16 +268,35 @@
 				orPrepare2.innerHTML = "已准备"
 				//设置头像value为userid
 				wanjia2.value = b.userId;
-				//设置之前头像清除。
-
+				//遍历头像 设置之前头像消失
+				for (var i = 0; i < list.length; i++) {
+					if (list[i] == b.headimgurl) {
+						list[i] = "";
+						alert(list[i]);
+					}
+				}
 			} else if (b.position == '3') {
 				head3.src = b.headimgurl;
 				orPrepare3.innerHTML = "已准备"
 				wanjia3.value = b.userId;
+				//遍历头像 设置之前头像消失
+				for (var i = 0; i < list.length; i++) {
+					if (list[i] == b.headimgurl) {
+						list[i] = "";
+						alert(list[i]);
+					}
+				}
 			} else if (b.position == '4') {
 				head4.src = b.headimgurl;
 				orPrepare4.innerHTML = "已准备"
 				wanjia4.value = b.userId;
+				//遍历头像 设置之前头像消失
+				for (var i = 0; i < list.length; i++) {
+					if (list[i] == b.headimgurl) {
+						list[i] = "";
+						alert(list[i]);
+					}
+				}
 			}
 		}
 		//接收游戏类型 设置游戏开始
@@ -353,22 +344,20 @@
 			if (b.isSelf == "1") {
 				//本人
 				div_3.innerHTML += "<li style='clear:both;font-size:20px'>"
-					+"<div><img class='imgright' src='"+imgSock+"'></div>"
-					+"<div  class='sockitnamer'>"
-					+"<h2  style='font-size:8px'class='hostName nameRight'>"+nicakname+"</h2>"
-					+"<p  style='font-size:8px'class='nameB' >"+str+"</p>"
-					+"</div>"
-					+"</li>"
+						+ "<div><img class='imgright' src='"+imgSock+"'></div>"
+						+ "<div  class='sockitnamer'>"
+						+ "<h2  style='font-size:8px'class='hostName nameRight'>"
+						+ nicakname + "</h2>"
+						+ "<p style='font-size:8px;width:40%;clear:both;display:inline-block;float:right' class='nameB' >" + str
+						+ "</p>" + "</div>" + "</li>"
 			} else {
 				//别人 2s
-				div_3.innerHTML +=  "<li style='clear:both;font-size:20px'>"
-					+"<img class='imgleft' src='"+imgSock+"'>"					
-					+"</div>"
-					+"<div class='sockitnamel'>"
-					+"<h2  style='font-size:8px'class='hostName'>"+nicakname+"</h2>"
-					+"<p style='font-size:8px'>"+str+"</p>"
-					+"</div>"
-					+"</li>"					
+				div_3.innerHTML += "<li style='clear:both;font-size:20px'>"
+						+ "<img class='imgleft' src='"+imgSock+"'>" + "</div>"
+						+ "<div class='sockitnamel'>"
+						+ "<h2  style='font-size:8px'class='hostName'>"
+						+ nicakname + "</h2>" + "<p style='font-size:8px;width:80%'>"
+						+ str + "</p>" + "</div>" + "</li>"
 			}
 
 			div_2.appendChild(div_3)

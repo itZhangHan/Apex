@@ -6,6 +6,7 @@
 </head>  
   
 <body>  
+
     Welcome  
     <br />  
     <input id="text" type="text" />  
@@ -65,5 +66,94 @@
         var message = document.getElementById('text').value;  
         websocket.send(message);  
     }  
+	
+/* 	var wanjia1 = document.getElementById("player1");
+	wanjia1.onclick = function() {
+
+		var msgSit = {}
+		msgSit.type = "readyToDownUp";
+		msgSit.roomId = roomId;
+		msgSit.toUserName = "";
+		msgSit.fromUserName = "";
+		msgSit.msgStr = "";
+		msgSit.userStatus = userStatus;
+		msgSit.roomState = roomState;
+		msgSit.nicakname = nicakname;
+		msgSit.userId = userId;
+		msgSit.sex = sex;
+		msgSit.city = city;
+		msgSit.headimgurl = img;
+		msgSit.position = "0";
+		msgSit.props = "";
+		msgSit.isSelf = "";
+		websocket.send(JSON.stringify(msgSit));
+
+	}
+
+	var wanjia2 = document.getElementById("player2");
+	wanjia2.onclick = function() {
+
+		var msgSit = {}
+		msgSit.type = "readyToDownUp";
+		msgSit.roomId = roomId;
+		msgSit.toUserName = "";
+		msgSit.fromUserName = "";
+		msgSit.msgStr = "";
+		msgSit.userStatus = userStatus;
+		msgSit.roomState = roomState;
+		msgSit.nicakname = nicakname;
+		msgSit.userId = userId;
+		msgSit.sex = sex;
+		msgSit.city = city;
+		msgSit.headimgurl = img;
+		msgSit.position = "1";
+		msgSit.props = "";
+		msgSit.isSelf = "";
+		websocket.send(JSON.stringify(msgSit));
+
+	}
+	var wanjia3 = document.getElementById("player3");
+	wanjia3.onclick = function() {
+
+		var msgSit = {}
+		msgSit.type = "readyToDownUp";
+		msgSit.roomId = roomId;
+		msgSit.toUserName = "";
+		msgSit.fromUserName = "";
+		msgSit.msgStr = "";
+		msgSit.userStatus = userStatus;
+		msgSit.roomState = roomState;
+		msgSit.nicakname = nicakname;
+		msgSit.userId = userId;
+		msgSit.sex = sex;
+		msgSit.city = city;
+		msgSit.headimgurl = img;
+		msgSit.position = "2";
+		msgSit.props = "";
+		msgSit.isSelf = "";
+		websocket.send(JSON.stringify(msgSit));
+	}
+	var wanjia4 = document.getElementById("player4");
+	wanjia4.onclick = function() {
+
+		var msgSit = {}
+		msgSit.type = "readyToDownUp";
+		msgSit.roomId = roomId;
+		msgSit.toUserName = "";
+		msgSit.fromUserName = "";
+		msgSit.msgStr = "";
+		msgSit.userStatus = userStatus;
+		msgSit.roomState = roomState;
+		msgSit.nicakname = nicakname;
+		msgSit.userId = userId;
+		msgSit.sex = sex;
+		msgSit.city = city;
+		msgSit.headimgurl = img;
+		msgSit.position = "3";
+		msgSit.props = "";
+		msgSit.isSelf = "";
+		websocket.send(JSON.stringify(msgSit));
+	}--> */
+
 </script>  
 </html>  
