@@ -94,7 +94,7 @@
 		function usmessage() {
 			//邀请好友
 			var iconBtn = document.getElementById("iconBtn");
-			iconBtn.onclick=function(){
+			iconBtn.onclick = function() {
 				document.location = "http://thdd.apexgame.cn/tetris/skip/first";
 			}
 			//判断当前用户是否属于房主  如果不是房主 不给于开始游戏的 权限
@@ -168,44 +168,92 @@
 		var head2 = document.getElementById("headImg2");
 		var head3 = document.getElementById("headImg3");
 		var head4 = document.getElementById("headImg4");
-		
-		var wanjia1 = document.getElementById("player2");
-		wanjia1.onclick = function(b) {
-			var headimgurl = b.headimgurl;
+
+		var wanjia1 = document.getElementById("player1");
+		wanjia1.onclick = function() {
+
 			var msgSit = {}
-			msgSit.type = "eadyToDownUp"
-			msgSit.headimgurl = headimgurl;
-			msgSit.position = "2";
+			msgSit.type = "readyToDownUp";
+			msgSit.roomId = roomId;
+			msgSit.toUserName = "";
+			msgSit.fromUserName = "";
+			msgSit.msgStr = "";
+			msgSit.userStatus = userStatus;
+			msgSit.roomState = roomState;
+			msgSit.nicakname = nicakname;
+			msgSit.userId = userId;
+			msgSit.sex = sex;
+			msgSit.city = city;
+			msgSit.headimgurl = img;
+			msgSit.position = "0";
+			msgSit.props = "";
+			msgSit.isSelf = "";
 			websocket.send(JSON.stringify(msgSit));
+
 		}
-		
+
 		var wanjia2 = document.getElementById("player2");
-		wanjia2.onclick = function(b) {
-			var headimgurl = b.headimgurl;
+		wanjia2.onclick = function() {
+
 			var msgSit = {}
-				msgSit.type = "eadyToDownUp"
-				msgSit.headimgurl = headimgurl;
-				msgSit.position = "2";
-				websocket.send(JSON.stringify(msgSit));
-			
+			msgSit.type = "readyToDownUp";
+			msgSit.roomId = roomId;
+			msgSit.toUserName = "";
+			msgSit.fromUserName = "";
+			msgSit.msgStr = "";
+			msgSit.userStatus = userStatus;
+			msgSit.roomState = roomState;
+			msgSit.nicakname = nicakname;
+			msgSit.userId = userId;
+			msgSit.sex = sex;
+			msgSit.city = city;
+			msgSit.headimgurl = img;
+			msgSit.position = "1";
+			msgSit.props = "";
+			msgSit.isSelf = "";
+			websocket.send(JSON.stringify(msgSit));
+
 		}
 		var wanjia3 = document.getElementById("player3");
-		wanjia3.onclick = function(b) {
-			var headimgurl = b.headimgurl;
+		wanjia3.onclick = function() {
+
 			var msgSit = {}
-			msgSit.type = "eadyToDownUp"
-			msgSit.headimgurl = headimgurl;
-			msgSit.position = "3";
+			msgSit.type = "readyToDownUp";
+			msgSit.roomId = roomId;
+			msgSit.toUserName = "";
+			msgSit.fromUserName = "";
+			msgSit.msgStr = "";
+			msgSit.userStatus = userStatus;
+			msgSit.roomState = roomState;
+			msgSit.nicakname = nicakname;
+			msgSit.userId = userId;
+			msgSit.sex = sex;
+			msgSit.city = city;
+			msgSit.headimgurl = img;
+			msgSit.position = "2";
+			msgSit.props = "";
+			msgSit.isSelf = "";
 			websocket.send(JSON.stringify(msgSit));
 		}
 		var wanjia4 = document.getElementById("player4");
-		wanjia4.onclick = function(b) {
-			var headimgurl = b.headimgurl;
-			var userId4 = wanjia4.value;
+		wanjia4.onclick = function() {
+
 			var msgSit = {}
-			msgSit.type = "eadyToDownUp"
-			msgSit.headimgurl = headimgurl;
-			msgSit.position = "4";
+			msgSit.type = "readyToDownUp";
+			msgSit.roomId = roomId;
+			msgSit.toUserName = "";
+			msgSit.fromUserName = "";
+			msgSit.msgStr = "";
+			msgSit.userStatus = userStatus;
+			msgSit.roomState = roomState;
+			msgSit.nicakname = nicakname;
+			msgSit.userId = userId;
+			msgSit.sex = sex;
+			msgSit.city = city;
+			msgSit.headimgurl = img;
+			msgSit.position = "3";
+			msgSit.props = "";
+			msgSit.isSelf = "";
 			websocket.send(JSON.stringify(msgSit));
 		}
 
@@ -262,7 +310,7 @@
 				//设置头像value为userid
 				wanjia2.value = b.userId;
 				//设置之前头像清除。
-				
+
 			} else if (b.position == '3') {
 				head3.src = b.headimgurl;
 				orPrepare3.innerHTML = "已准备"
@@ -305,7 +353,7 @@
 
 		//接收房间所有信息，展示用户信息
 		function showMessage(b) {
-			
+
 			var str = b.msgStr;
 			var imgSock = b.headimgurl;
 			var nicakname = b.nickName;
@@ -313,32 +361,38 @@
 			div_3.style.fontSize = "18px";
 			div_3.style.wordBreak = "break-all"
 			div_3.style.marginTop = "1px";
-			var ss = 7;	
-			if(b.isSelf=="1"){
+			var ss = 7;
+			if (b.isSelf == "1") {
 				//本人
-				div_3.innerHTML += "<dl class='sockithost'>" + "<dd>"
-				+ "<h2 class='sockitname shostname'>" + nicakname + "</h2>"
-				+ "<p class='msg'>" + str +'<br/>'+"</p>" + "</dd>"
-				+ "<dt><img class='sockitimg' src='"+imgSock+"'></dt></dl>"
-			}else{
+				div_3.innerHTML += "<dl class='sockithost'>"
+						+ "<dd>"
+						+ "<h2 class='sockitname shostname'>"
+						+ nicakname
+						+ "</h2>"
+						+ "<p class='msg'>"
+						+ str
+						+ '<br/>'
+						+ "</p>"
+						+ "</dd>"
+						+ "<dt><img class='sockitimg' src='"+imgSock+"'></dt></dl>"
+			} else {
 				//别人 2
-				div_3.innerHTML += "<dl>" 
-					+ "<dt><img class='other' src='"+imgSock+"'></dt><dd>"
-					+ "<h2 class='sockitname'>" + nicakname + "</h2>"
-					+ "<p>" + str +'<br/>'+"</p>" + "</dd></dl>"
+				div_3.innerHTML += "<dl>"
+						+ "<dt><img class='other' src='"+imgSock+"'></dt><dd>"
+						+ "<h2 class='sockitname'>" + nicakname + "</h2>"
+						+ "<p>" + str + '<br/>' + "</p>" + "</dd></dl>"
 			}
-		
-					div_2.appendChild(div_3)
-					div_2.scrollTop = div_2.scrollHeight;
-				
-				
+
+			div_2.appendChild(div_3)
+			div_2.scrollTop = div_2.scrollHeight;
+
 		}
 
 		websocket.onmessage = function(e) {
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
 			var b = JSON.parse(jsonObj);
-			 
+
 			if (b.type == 'message') {
 				//展示发送消息数据
 
@@ -397,10 +451,9 @@
 				}
 				if (i == 7) {
 					headUrl7.src = listUsers[i].userportrait;
-				}	
+				}
 			}
 		}
- 
 
 		function showHeadImg(listUsers) {
 			for (var i = 0; i < listUsers.length; i++) {

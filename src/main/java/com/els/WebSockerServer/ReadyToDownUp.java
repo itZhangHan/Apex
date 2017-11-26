@@ -1,6 +1,7 @@
 package com.els.WebSockerServer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,11 @@ public class ReadyToDownUp implements InterfaceType {
 	public String onMessage(SocketMessage message) {
 		// TODO Auto-generated method stub
 		System.out.println("进入分发起立");
-
+		List<String> playerImg = new ArrayList<>();
+		playerImg.add(0, "");
+		playerImg.add(1, "");
+		playerImg.add(2, "");
+		playerImg.add(3, "");
 		Integer userId = Integer.parseInt(message.getUserId());
 		// 上座下座
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
@@ -27,41 +32,55 @@ public class ReadyToDownUp implements InterfaceType {
 			for (WebSocketServer object : arrayset) {
 				try {
 					try {
+						System.out.println(message.getHeadimgurl()+"头像传输");
+						System.out.println(message.getPosition()+"位置传输");
 						// 座位头像
-						List<String> playerImg = message.getPlayerImg();
-						if(playerImg.get(0) == null){
+						for(int i = 0 ; i < playerImg.size() ; i++) {
+							  
+						}
+						String string = playerImg.get(0);
+						System.out.println(string+"====aaaaaaaaaaaaaaaaaaa");
+						if(playerImg.get(0) == null && "".equals(playerImg.get(0))){
 							//如果房主位置为空的情况下让位置二的人头像成为房主
 							playerImg.set(0, playerImg.get(1));
 							message.setType("down");
+							message.setPlayerImg(playerImg);
 						}
 						if (playerImg.get(1) == null) {
 							playerImg.set(1, message.getHeadimgurl());
 							message.setType("down");
+							message.setPlayerImg(playerImg);
 						} else if (playerImg.get(2) == null) {
 							playerImg.set(2, message.getHeadimgurl());
 							message.setType("down");
+							message.setPlayerImg(playerImg);
 						} else if (playerImg.get(3) == null) {
 							playerImg.set(3, message.getHeadimgurl());
 							message.setType("down");
+							message.setPlayerImg(playerImg);
 						} else {
 							//如果当前用户等于当前用户
 							if (object.getSocketUser().getUserid() == userId) {
 								//如果当前位置是几
 								if(Integer.parseInt(message.getPosition())==0){
-									playerImg.set(0, message.getHeadimgurl());
+									playerImg.set(0,String.valueOf(message.getHeadimgurl()));
 									message.setType("up");
+									message.setPlayerImg(playerImg);
 								}
 								if(Integer.parseInt(message.getPosition())==1){
-									playerImg.set(1, "");
+									playerImg.set(1,String.valueOf(message.getHeadimgurl()));
 									message.setType("up");
+									message.setPlayerImg(playerImg);
 								}
 								if(Integer.parseInt(message.getPosition())==2){
-									playerImg.set(2, "");
+									playerImg.set(2,String.valueOf(message.getHeadimgurl()));
 									message.setType("up");
+									message.setPlayerImg(playerImg);
 								}
 								if(Integer.parseInt(message.getPosition())==3){
-									playerImg.set(3, "");
+									playerImg.set(3,String.valueOf(message.getHeadimgurl()));
 									message.setType("up");
+									message.setPlayerImg(playerImg);
 								}
 							}
 						}
