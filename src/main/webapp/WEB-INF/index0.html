@@ -345,30 +345,30 @@
 			var imgSock = b.headimgurl;
 			var nicakname = b.nickName;
 			var div_3 = document.createElement("div");
-			div_3.style.fontSize = "18px";
+			div_3.style.fontSize = "20px";
 			div_3.style.wordBreak = "break-all"
 			div_3.style.marginTop = "1px";
 			div_3.style.dispaly = "block";
 			var ss = 7;
 			if (b.isSelf == "1") {
 				//本人
-				div_3.innerHTML += "<li>"
-					+"<img class='imgleft' src='"+imgSock+"'>"					
-					+"</div>"
-					+"<div class='sockitnamel'>"
-					+"<h2 class='hostName'>"+nicakname+"</h2>"
-					+"<p>"+str+"</p>"
+				div_3.innerHTML += "<li style='clear:both;font-size:20px'>"
+					+"<div><img class='imgright' src='"+imgSock+"'></div>"
+					+"<div  class='sockitnamer'>"
+					+"<h2  style='font-size:8px'class='hostName nameRight'>"+nicakname+"</h2>"
+					+"<p  style='font-size:8px'class='nameB' >"+str+"</p>"
 					+"</div>"
 					+"</li>"
 			} else {
-				//别人 2
-				div_3.innerHTML += "<li>"
-					+"<div><img class='imgright' src='"+imgSock+"'></div>"
-					+"<div  class='sockitnamer'>"
-					+"<h2 class='hostName nameRight'>"+nicakname+"</h2>"
-					+"<p class='nameB' >"+str+"</p>"
+				//别人 2s
+				div_3.innerHTML +=  "<li style='clear:both;font-size:20px'>"
+					+"<img class='imgleft' src='"+imgSock+"'>"					
 					+"</div>"
-					+"</li>"
+					+"<div class='sockitnamel'>"
+					+"<h2  style='font-size:8px'class='hostName'>"+nicakname+"</h2>"
+					+"<p style='font-size:8px'>"+str+"</p>"
+					+"</div>"
+					+"</li>"					
 			}
 
 			div_2.appendChild(div_3)

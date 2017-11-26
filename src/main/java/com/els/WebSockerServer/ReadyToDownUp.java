@@ -2,15 +2,11 @@ package com.els.WebSockerServer;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.websocket.EncodeException;
 
-import com.els.socket.ReadUsersInfo;
-import com.els.socket.Readers;
 import com.els.socket.SocketManger;
 import com.els.socket.SocketMessage;
 
