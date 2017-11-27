@@ -27,6 +27,11 @@ import net.sf.json.JSONObject;
 @RequestMapping("/skip")
 public class SkipController {
 
+	
+	@RequestMapping("aa")
+	public String toA(){
+		return "a";
+	}
 	// 游戏场景
 	@RequestMapping("/index")
 	public String toIndex(HttpSession session) {

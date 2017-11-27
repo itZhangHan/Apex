@@ -68,7 +68,7 @@
 			<!-- <img class="slh" src="../img/play/slh.png"> -->
 		</div>
 		<div class="ele">
-			<input id="sendTxt_0" type="text" maxlength="32"/>
+			<input id="sendTxt_0" type="text" maxlength="25"/>
 			<button id="sendBtn_0">
 				<img src="../img/sendBtn.png">
 			</button>
@@ -343,17 +343,15 @@
 			var ss = 7;
 			//b.isSelf == "1"
 			if (b.userId == userId) {
-				alert("进入是本人发送消息");
 				//本人
 				div_3.innerHTML += "<li style='clear:both;font-size:20px'>"
 						+ "<div><img class='imgright' src='"+imgSock+"'></div>"
 						+ "<div  class='sockitnamer'>"
-						+ "<h2  style='font-size:8px'class='hostName nameRight'>"
+						+ "<h2  style='font-size:11px'class='hostName nameRight'>"
 						+ nicakname + "</h2>"
-						+ "<p style='font-size:8px;' class='nameB' >" + str
+						+ "<p style='font-size:11px;' class='nameB' >" + str
 						+ "</p>" + "</div>" + "</li>"
 			} else {
-				alert("进入不是本人发送消息");
 				//别人 2s
 				div_3.innerHTML += "<li style='clear:both;font-size:20px'>"
 						+ "<img class='imgleft' src='"+imgSock+"'>" + "</div>"

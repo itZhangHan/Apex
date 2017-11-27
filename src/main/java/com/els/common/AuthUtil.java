@@ -2,12 +2,17 @@ package com.els.common;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -55,6 +60,98 @@ public class AuthUtil {
 		}
 		System.out.println("4");
 		return jsonObject;
+	}
+
+	// 获取token
+	public static JSONObject getAccess_token() {
+		String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + AuthUtil.APPID
+				+ "&secret=" + AuthUtil.APPSECRET;
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = AuthUtil.doGetJson(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String access_token = jsonObject.getString("access_token");
+		jsonObject = JSONObject.fromObject(access_token);
+		return jsonObject;
+	}
+
+	// 获取jsapi_ticket
+	public static JSONObject getJsapi_ticket() throws ParseException, IOException {
+		String jsapi_url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="
+				+ AuthUtil.getAccess_token() + "&type=jsapi";
+		JSONObject jsonObject = null;
+		DefaultHttpClient client = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet(jsapi_url);
+		HttpResponse response = client.execute(httpGet);
+		HttpEntity entity = response.getEntity();
+		String result = "";
+		if (entity != null) {
+			result = EntityUtils.toString(entity, "UTF-8");
+			System.out.println(result+"————————————————————————————接收jsapi");
+			jsonObject = JSONObject.fromObject(result);
+		}
+		return jsonObject;
+	}
+	public Map<String, String> makeWXTicket(String jsApiTicket, String url) {
+	    Map<String, String> ret = new HashMap<String, String>();
+	    String nonceStr = createNonceStr();
+	    String timestamp = createTimestamp();
+	    String string1;
+	    String signature = "";
+
+	    //注意这里参数名必须全部小写，且必须有序
+	    string1 = "jsapi_ticket=" + jsApiTicket +
+	            "&noncestr=" + nonceStr +
+	            "&timestamp=" + timestamp +
+	            "&url=" + url;
+	     
+	    try
+	    {
+	        MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+	        crypt.reset();
+	        crypt.update(string1.getBytes("UTF-8"));
+	        signature = byteToHex(crypt.digest());
+	        
+	    }
+	    catch (NoSuchAlgorithmException e)
+	    {
+	         
+	    }
+	    catch (UnsupportedEncodingException e)
+	    {
+	        
+	    }
+
+	    ret.put("url", url);
+	    ret.put("jsapi_ticket", jsApiTicket);
+	    ret.put("nonceStr", nonceStr);
+	    ret.put("timestamp", timestamp);
+	    ret.put("signature", signature);
+	    ret.put("appid", AuthUtil.APPID);
+
+	    return ret;
+	}
+	//字节数组转换为十六进制字符串
+	private static String byteToHex(final byte[] hash) {
+	    Formatter formatter = new Formatter();
+	    for (byte b : hash)
+	    {
+	        formatter.format("%02x", b);
+	    }
+	    String result = formatter.toString();
+	    formatter.close();
+	    return result;
+	}
+	//生成随机字符串
+	private static String createNonceStr() {
+	    return UUID.randomUUID().toString();
+	}
+	//生成时间戳
+	private static String createTimestamp() {
+	    return Long.toString(System.currentTimeMillis() / 1000);
 	}
 
 	/*
@@ -107,7 +204,7 @@ public class AuthUtil {
 		String topStr = getTopName(topName);
 		String urlName = "?nickname=" + nickname + "&sex=" + sex + "&headimgurl=" + headimgurl + "&city=" + city
 				+ "&openid=" + openid + "&userid=" + userid + "&roomId=" + roomid + "&userStatus=" + userStatus
-				+ "&roomState=" + roomState + "&user=" + user+"&list="+socketUsers;
+				+ "&roomState=" + roomState + "&user=" + user + "&list=" + socketUsers;
 		if (topStr != null && !"".equals(topStr)) {
 			System.out.println(topStr + urlName);
 			return "redirect:/skip/" + topStr + urlName;

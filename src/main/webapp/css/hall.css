@@ -229,7 +229,8 @@ html,body{
     margin: auto;
     text-align: center;
     vertical-align: middle;
-    color:yellow;
+    color:#fff;
+    font-weight: 600;
     display:block;
     width:70px;
     overflow: hidden;
@@ -264,7 +265,7 @@ html,body{
 }
 .hostName{
 	color: yellow;
-	margin-top: 7px;
+	margin-top: 2px;
 }
 .nameRight{
 	float: right;
