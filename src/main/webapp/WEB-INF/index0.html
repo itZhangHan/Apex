@@ -341,7 +341,9 @@
 			div_3.style.marginTop = "1px";
 			div_3.style.dispaly = "block";
 			var ss = 7;
-			if (b.isSelf == "1") {
+			//b.isSelf == "1"
+			if (b.userId == userId) {
+				alert("进入是本人发送消息");
 				//本人
 				div_3.innerHTML += "<li style='clear:both;font-size:20px'>"
 						+ "<div><img class='imgright' src='"+imgSock+"'></div>"
@@ -351,6 +353,7 @@
 						+ "<p style='font-size:8px;' class='nameB' >" + str
 						+ "</p>" + "</div>" + "</li>"
 			} else {
+				alert("进入不是本人发送消息");
 				//别人 2s
 				div_3.innerHTML += "<li style='clear:both;font-size:20px'>"
 						+ "<img class='imgleft' src='"+imgSock+"'>" + "</div>"
