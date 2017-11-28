@@ -225,7 +225,24 @@
 		var span2 = document.getElementById("orPrepare2");
 		var span3 = document.getElementById("orPrepare3");
 		var span4 = document.getElementById("orPrepare4");
-		
+		var wanjia1 = document.getElementById("player1");
+		wanjia1.onclick = function() {
+			if (userStatus == 0) {
+				return false;
+			}
+			var userId1 = wanjia1.value;
+			if (userId1 == '') {
+				//	f2 = true;
+				showUpHeader("down", 1);
+			} else {
+				//位置有人
+				if (userId1 == userId) {
+					showUpHeader("up", 1);
+				} else {
+					alert("请安心坐在自己位置上！");
+				}
+			}
+		}
 		var wanjia2 = document.getElementById("player2");
 		wanjia2.onclick = function() {
 			if (userStatus == 0) {
@@ -321,6 +338,10 @@
 				head4.src = '';
 				orPrepare4.innerHTML = ""
 				wanjia4.value = '';
+			}else if (b.position == '1') {
+				head1.src = '';
+				orPrepare1.innerHTML = ""
+				wanjia1.value = '';
 			}
 		}
 		function showChangeSeat(b) {
@@ -336,20 +357,21 @@
 					span2.innerHTML = "已准备";
 					//设置头像value为userid
 					wanjia2.value = b.userId;
-					//遍历头像 设置之前头像消失
-
 				} else if (b.position == '3') {
 					head3.src = b.headimgurl;
 					span3.style.marginTop = "5px";
 					span3.innerHTML = "已准备";					
 					wanjia3.value = b.userId;
-					//遍历头像 设置之前头像消失
 				} else if (b.position == '4') {
 					head4.src = b.headimgurl;
 					span4.style.marginTop = "5px";
 					span4.innerHTML = "已准备"
 					wanjia4.value = b.userId;
-					//遍历头像 设置之前头像消失
+				}else if (b.position == '1') {
+					head1.src = b.headimgurl;
+					span1.style.marginTop = "5px";
+					span1.innerHTML = "已准备"
+					wanjia4.value = b.userId;
 				}
 			}
 		}
@@ -377,15 +399,6 @@
 				head4.src = '';
 				wanjia4.value = '';
 			}
-			/* var list = [ hd1src, hd2src, hd3src, hd4src ];
-			for (var i = 0; i < list.length; i++) {
-				if (list[i] == b.headimgurl) {
-					list[i] = '';
-					head2.src = '';
-					alert("清空=" + list[i]);
-					showUpHeader("changeSeat", 5);
-				}
-			} */
 			if (b.position == '2') {
 				//给位置填充图片
 				head2.src = b.headimgurl;
@@ -483,7 +496,7 @@
 				showHeadImg(b.listUsers);
 				showUserList(b.listUsers);
 			}
-			//允许换做 给将要坐的位置填充图片
+			//允许换坐 给将要坐的位置填充图片
 			if (b.type == 'changeSeat') {
 				showChangeSeat(b);
 			}
@@ -546,9 +559,6 @@
 			for (var i = 0; i < listUsers.length; i++) {
 				if (listUsers[i].status == 0) {
 					headImg1.src = listUsers[i].userportrait;
-					headImg1.onclick = function() {
-						alert("你是房主！");
-					}
 				}
 				if (listUsers[i].status == 1) {
 					if (listUsers[i].headPostion == 1)
