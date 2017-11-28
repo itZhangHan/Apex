@@ -1,24 +1,14 @@
 package com.els.controller;
 
-import java.util.List;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.els.bean.JhddUsers;
-import com.els.bean.RoomInfo;
-import com.els.common.AuthUtil;
-import com.els.common.SocketUsers;
-import com.els.socket.SocketMessage;
-
-import net.sf.json.JSONObject;
 
 /*
  * 跳转页面Controller
@@ -28,8 +18,10 @@ import net.sf.json.JSONObject;
 public class SkipController {
 
 	
-	@RequestMapping("a")
+	
+	@RequestMapping(value="/toA")
 	public String toA(){
+		
 		return "a";
 	}
 	// 游戏场景
@@ -41,9 +33,16 @@ public class SkipController {
 
 	// 大厅
 	@RequestMapping("/index0")
-	public String toIndex0(HttpSession session) {
-
-		// return "index0"+"?"+getMsg(session);
+	public String toIndex0(HttpSession session,HttpServletRequest request,HttpServletResponse response) throws IOException {
+		//截取跳转路径
+//		String backUrl = request.getRequestURI();
+//		String backCallJoinRoom = "http://thdd.apexgame.cn/tetris/callback/joinRoom";
+//		String authURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + AuthUtil.APPID
+//				+ "&redirect_uri=" + URLEncoder.encode(backCallJoinRoom) + "&response_type=code" + "&scope=snsapi_userinfo"
+//				+ "&state=STATE#wechat_redirect";
+//		 重定向用户请求到微信授权URL
+//		response.sendRedirect(authURL);
+//		 return "index0"+"?"+getMsg(session);
 		return "index0";
 	}
 

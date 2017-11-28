@@ -24,13 +24,13 @@ public class WeiXinUtils {
 		 
 	    private final Logger log = LoggerFactory.getLogger(this.getClass());
 	    //获取相关的参数,在application.properties文件中
-	    @Value("${wechat.appId}")
+	//    @Value("${wechat.appId}")
 	    private String appId;
-	    @Value("${wechat.appSecret}")
+	 //   @Value("${wechat.appSecret}")
 	    private String appSecret;
-	    @Value("${wechat.url.accessToken}")
+	  //  @Value("${wechat.url.accessToken}")
 	    private String accessTokenUrl;
-	    @Value("${wechat.url.apiTicket}")
+	  //  @Value("${wechat.url.apiTicket}")
 	    private String apiTicketUrl;
 
 	    //微信参数

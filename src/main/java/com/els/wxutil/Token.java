@@ -2,7 +2,7 @@ package com.els.wxutil;
 
 public class Token {
 
-	// 获取到的凭证  
+		// 获取到的凭证  
 	    private String token;  
 	    // 获取到ticket  
 	    private String ticket;  

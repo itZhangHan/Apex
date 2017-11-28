@@ -15,6 +15,9 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/test/toA" />
+			<mvc:exclude-mapping path="/skip/toA" />
+			<mvc:exclude-mapping path="/weixin/getSign" />
 			<mvc:exclude-mapping path="/WxAuth/wxLogin" />
 			<mvc:exclude-mapping path="/callback/first" />
 			<mvc:exclude-mapping path="/callback/joinRoom" />
@@ -76,7 +79,7 @@
 		<property name="suffix" value=".html" />
 	</bean>
 	<!-- 配置包扫描器，扫描@Controller注解的类 -->
-	<context:component-scan base-package="com.els.controller" />
+	<context:component-scan base-package="com.els.*" />
 	<mvc:resources location="/css/" mapping="/css/**" />
 	<mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/img/" mapping="/img/**" />
