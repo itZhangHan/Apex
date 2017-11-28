@@ -28,7 +28,7 @@ import net.sf.json.JSONObject;
 public class SkipController {
 
 	
-	@RequestMapping("aa")
+	@RequestMapping("a")
 	public String toA(){
 		return "a";
 	}

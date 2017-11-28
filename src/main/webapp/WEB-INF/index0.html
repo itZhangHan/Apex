@@ -69,12 +69,13 @@
 			<!-- <img class="slh" src="../img/play/slh.png"> -->
 		</div>
 		<div class="ele">
-			<input id="sendTxt_0" type="text" maxlength="25"/>
+			<input id="sendTxt_0" type="text" maxlength="25" />
 			<button id="sendBtn_0">
 				<img src="../img/sendBtn.png">
 			</button>
 		</div>
-			<div class="play_go" id="play_go" onload="sendUsers()">
+
+		<!-- 			<div class="play_go" id="play_go" onload="sendUsers()">
 		
 			<div class="wrap" id="wrap">
 			<div class="local">
@@ -132,7 +133,7 @@
 		<canvas id="canvas1"></canvas>
 	</div>
 		
-		</div>
+		</div> -->
 	</div>
 
 	<script type="text/javascript">
@@ -147,7 +148,6 @@
 
 			//删除房间逻辑判断 此处需要 增加
 			if (userStatus != 0) {
-				alert("我不是房主");
 				var gameDom = document.getElementById("game_go");
 				gameDom.style.display = "none";
 			} else {
@@ -176,7 +176,6 @@
 
 		function startGame() {
 			if (userStatus == 0) {
-				alert("准备发送开始游戏请求。我是房主我有权限开始游戏!");
 				var gameMessage = {};
 				gameMessage.type = "roomStatus"
 				gameMessage.roomId = roomId;
@@ -194,14 +193,14 @@
 				gameMessage.props = "";
 				gameMessage.isSelf = "";
 				websocket.send(JSON.stringify(gameMessage));
-				
-				var gameGo = document.getElementById("game_go");
+
+				/* var gameGo = document.getElementById("game_go");
 				var gameGo = document.getElementById("game_go");
 				var play_go = document.getElementById("play_go");
 					gameGo.onclick = function(){
-					play_go.style.display = "block";
+					play_go.style.display = "block"; */
 			} else {
-				alert("别乱动哦，小心打你屁股！");
+				alert("别动")
 			}
 
 		}
@@ -220,9 +219,18 @@
 		var head2 = document.getElementById("headImg2");
 		var head3 = document.getElementById("headImg3");
 		var head4 = document.getElementById("headImg4");
-
+		
+		//已准备定义 
+		var span1 = document.getElementById("orPrepare");
+		var span2 = document.getElementById("orPrepare2");
+		var span3 = document.getElementById("orPrepare3");
+		var span4 = document.getElementById("orPrepare4");
+		
 		var wanjia2 = document.getElementById("player2");
 		wanjia2.onclick = function() {
+			if (userStatus == 0) {
+				return false;
+			}
 			var userId1 = wanjia2.value;
 			if (userId1 == '') {
 				//	f2 = true;
@@ -232,12 +240,15 @@
 				if (userId1 == userId) {
 					showUpHeader("up", 2);
 				} else {
-					alert("不允许操作！");
+					alert("请安心坐在自己位置上！");
 				}
 			}
 		}
 		var wanjia3 = document.getElementById("player3");
 		wanjia3.onclick = function() {
+			if (userStatus == 0) {
+				return false;
+			}
 			var userId3 = wanjia3.value;
 			if (userId3 == '') {
 				//	f2 = true;
@@ -247,12 +258,15 @@
 				if (userId3 == userId) {
 					showUpHeader("up", 3);
 				} else {
-					alert("不允许操作！");
+					alert("请安心坐在自己位置上！");
 				}
 			}
 		}
 		var wanjia4 = document.getElementById("player4");
 		wanjia4.onclick = function() {
+			if (userStatus == 0) {
+				return false;
+			}
 			var userId4 = wanjia4.value;
 			if (userId4 == '') {
 				//	f2 = true;
@@ -262,7 +276,7 @@
 				if (userId4 == userId) {
 					showUpHeader("up", 4);
 				} else {
-					alert("不允许操作！");
+					alert("别动！");
 				}
 			}
 		}
@@ -309,23 +323,69 @@
 				wanjia4.value = '';
 			}
 		}
+		function showChangeSeat(b) {
+			
+			//清除之前位置头像
+			if (b.msgStr == "server同意交换") {
+				//如果允许坐下 
+				if (b.position == '2') {
+					//给位置填充图片
+					head2.src = b.headimgurl;
+					//修改旁观者信息为 已准备					
+					span2.style.marginTop = "5px";
+					span2.innerHTML = "已准备";
+					//设置头像value为userid
+					wanjia2.value = b.userId;
+					//遍历头像 设置之前头像消失
+
+				} else if (b.position == '3') {
+					head3.src = b.headimgurl;
+					span3.style.marginTop = "5px";
+					span3.innerHTML = "已准备";					
+					wanjia3.value = b.userId;
+					//遍历头像 设置之前头像消失
+				} else if (b.position == '4') {
+					head4.src = b.headimgurl;
+					span4.style.marginTop = "5px";
+					span4.innerHTML = "已准备"
+					wanjia4.value = b.userId;
+					//遍历头像 设置之前头像消失
+				}
+			}
+		}
 		//接收坐下type 展示数据
 		function showDownmessage(b) {
-			alert("bbbbb" + b.headimgurl);
-			//清除之前位置头像
 			var sitUl = document.getElementsByClassName("sit");
 			//var sitLi = sitUl.document.getElementsByTagName("li");
 			var hd1src = head1.src;
 			var hd2src = head2.src;
 			var hd3src = head3.src;
 			var hd4src = head4.src;
-			var list = [ hd1src, hd2src, hd3src, hd4src ];
-			/* 	if (list[0] == b.headimgurl) {
-					list[0] = "";
-					alert(list[0]);
-				} */
-
-			//如果允许坐下 
+			if (head1.src == b.headimgurl) {
+				head1.src = '';
+				wanjia1.value = '';
+			}
+			if (head2.src == b.headimgurl) {
+				head2.src = '';
+				wanjia2.value = '';
+			}
+			if (head3.src == b.headimgurl) {
+				head3.src = '';
+				wanjia3.value = '';
+			}
+			if (head4.src == b.headimgurl) {
+				head4.src = '';
+				wanjia4.value = '';
+			}
+			/* var list = [ hd1src, hd2src, hd3src, hd4src ];
+			for (var i = 0; i < list.length; i++) {
+				if (list[i] == b.headimgurl) {
+					list[i] = '';
+					head2.src = '';
+					alert("清空=" + list[i]);
+					showUpHeader("changeSeat", 5);
+				}
+			} */
 			if (b.position == '2') {
 				//给位置填充图片
 				head2.src = b.headimgurl;
@@ -334,35 +394,19 @@
 				//设置头像value为userid
 				wanjia2.value = b.userId;
 				//遍历头像 设置之前头像消失
-				for (var i = 0; i < list.length; i++) {
-					if (list[i] == b.headimgurl) {
-						list[i] = "";
-						alert(list[i]);
-					}
-				}
+
 			} else if (b.position == '3') {
 				head3.src = b.headimgurl;
 				orPrepare3.innerHTML = "已准备"
 				wanjia3.value = b.userId;
 				//遍历头像 设置之前头像消失
-				for (var i = 0; i < list.length; i++) {
-					if (list[i] == b.headimgurl) {
-						list[i] = "";
-						alert(list[i]);
-					}
-				}
 			} else if (b.position == '4') {
 				head4.src = b.headimgurl;
 				orPrepare4.innerHTML = "已准备"
 				wanjia4.value = b.userId;
 				//遍历头像 设置之前头像消失
-				for (var i = 0; i < list.length; i++) {
-					if (list[i] == b.headimgurl) {
-						list[i] = "";
-						alert(list[i]);
-					}
-				}
 			}
+
 		}
 		//接收游戏类型 设置游戏开始
 		function actionGame(b) {
@@ -371,9 +415,7 @@
 				//当房间状态为1时候判断玩家状态
 				//将玩家状态为1(准备玩家)的玩家跳转到游戏页面
 				//其余旁观者不予改变
-				alert(b.socketUser.status + "=当前的玩家状态");
 				if (b.socketUser.status == 0) {
-					alert("判断当前玩家为准备状态和房主状态，准备传输数据");
 
 					document.location = "http://thdd.apexgame.cn/tetris/skip/indexsend?userName="
 							+ b.nickName
@@ -435,17 +477,19 @@
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
 			var b = JSON.parse(jsonObj);
-
-			if (b.type == 'message') {
-				//展示发送消息数据
-
-				showMessage(b);
-			}
 			//优先级 *****
 			if (b.type == 'usmesage') {
 				//显示旁观者信息
 				showHeadImg(b.listUsers);
 				showUserList(b.listUsers);
+			}
+			//允许换做 给将要坐的位置填充图片
+			if (b.type == 'changeSeat') {
+				showChangeSeat(b);
+			}
+			if (b.type == 'message') {
+				//展示发送消息数据
+				showMessage(b);
 			}
 			if (b.type == 'up') {
 				//展示起立信息
@@ -503,8 +547,7 @@
 				if (listUsers[i].status == 0) {
 					headImg1.src = listUsers[i].userportrait;
 					headImg1.onclick = function() {
-						alert("要安心待在自己的位置上哦！");
-
+						alert("你是房主！");
 					}
 				}
 				if (listUsers[i].status == 1) {
@@ -567,7 +610,6 @@
 		function sendUsers() {
 
 			var readingUsers = {};
-			alert("进入游戏场景222");
 			readingUsers.type = "gameUsmessage"
 			readingUsers.roomId = "1001";
 			readingUsers.toUserName = "";
@@ -586,7 +628,7 @@
 			websocket.send(JSON.stringify(readingUsers));
 
 		}
-		websocket.onmessage = function(e) {
+		/* websocket.onmessage = function(e) {
 			alert("hello");
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
@@ -599,14 +641,14 @@
 		function showReadingUsers(allInfo) {
 			//遍历数据 放在该放的地方
 			alert("进入");
-		} 
+		}  */
 	</script>
-	
-	<script src="../js/square.js"></script>
+
+	<!-- 	<script src="../js/square.js"></script>
 	<script src="../js/squareFactory.js"></script>
 	<script src="../js/game.js"></script>
 	<script src="../js/local.js"></script>
 	<script src="../js/script.js"></script>
-	<script src="../js/hall.js"></script>
+	<script src="../js/hall.js"></script> -->
 </body>
 </html>
