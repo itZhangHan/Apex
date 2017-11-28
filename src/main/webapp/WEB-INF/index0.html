@@ -221,10 +221,10 @@
 		var head4 = document.getElementById("headImg4");
 		
 		//已准备定义 
-		var span1 = document.getElementById("orPrepare");
-		var span2 = document.getElementById("orPrepare2");
-		var span3 = document.getElementById("orPrepare3");
-		var span4 = document.getElementById("orPrepare4");
+		var orPrepare1 = document.getElementById("orPrepare");
+		var orPrepare2 = document.getElementById("orPrepare2");
+		var orPrepare3 = document.getElementById("orPrepare3");
+		var orPrepare4 = document.getElementById("orPrepare4");
 		var wanjia1 = document.getElementById("player1");
 		wanjia1.onclick = function() {
 			if (userStatus == 0) {
@@ -353,24 +353,20 @@
 					//给位置填充图片
 					head2.src = b.headimgurl;
 					//修改旁观者信息为 已准备					
-					span2.style.marginTop = "5px";
-					span2.innerHTML = "已准备";
+					orPrepare2.style.display = "block";					
 					//设置头像value为userid
 					wanjia2.value = b.userId;
 				} else if (b.position == '3') {
 					head3.src = b.headimgurl;
-					span3.style.marginTop = "5px";
-					span3.innerHTML = "已准备";					
+					orPrepare3.style.display = "block";					
 					wanjia3.value = b.userId;
 				} else if (b.position == '4') {
 					head4.src = b.headimgurl;
-					span4.style.marginTop = "5px";
-					span4.innerHTML = "已准备"
+					orPrepare3.style.display = "block";	
 					wanjia4.value = b.userId;
 				}else if (b.position == '1') {
 					head1.src = b.headimgurl;
-					span1.style.marginTop = "5px";
-					span1.innerHTML = "已准备"
+					orPrepare1.style.display = "block";
 					wanjia4.value = b.userId;
 				}
 			}
@@ -403,19 +399,19 @@
 				//给位置填充图片
 				head2.src = b.headimgurl;
 				//修改旁观者信息为 已准备
-				orPrepare2.innerHTML = "已准备"
+				orPrepare2.style.display = "block";	
 				//设置头像value为userid
 				wanjia2.value = b.userId;
 				//遍历头像 设置之前头像消失
 
 			} else if (b.position == '3') {
 				head3.src = b.headimgurl;
-				orPrepare3.innerHTML = "已准备"
+				orPrepare3.style.display = "block";	
 				wanjia3.value = b.userId;
 				//遍历头像 设置之前头像消失
 			} else if (b.position == '4') {
 				head4.src = b.headimgurl;
-				orPrepare4.innerHTML = "已准备"
+				orPrepare4.style.display = "block";	
 				wanjia4.value = b.userId;
 				//遍历头像 设置之前头像消失
 			}
@@ -476,8 +472,8 @@
 				div_3.innerHTML += "<li style='clear:both;font-size:20px'>"
 						+ "<img class='imgleft' src='"+imgSock+"'>" + "</div>"
 						+ "<div class='sockitnamel'>"
-						+ "<h2  style='font-size:8px'class='hostName'>"
-						+ nicakname + "</h2>" + "<p style='font-size:8px;'>"
+						+ "<h2  style='font-size:11px'class='hostName'>"
+						+ nicakname + "</h2>" + "<p style='font-size:11px;'>"
 						+ str + "</p>" + "</div>" + "</li>"
 			}
 

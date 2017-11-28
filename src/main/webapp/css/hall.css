@@ -142,8 +142,9 @@ html,body{
 }
 .icon-player ul li span{
 	position: absolute;
-    top: 31px;
-    left: 5px;
+    top: 113%;
+    left: 22%;
+    display: none;
 }
 .chatRoom{
     position: absolute;
@@ -264,7 +265,7 @@ html,body{
 }
 .hostName{
 	color: yellow;
-	margin-top: 7px;
+	margin-top: 3px;
 }
 .nameRight{
 	float: right;
