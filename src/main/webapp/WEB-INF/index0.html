@@ -145,12 +145,18 @@
 				document.location = "http://thdd.apexgame.cn/tetris/skip/first";
 			}
 			//判断当前用户是否属于房主  如果不是房主 不给于开始游戏的 权限 并显示房主名字
-			var openRoom = document.getElementById("roomID");
-			openRoom.innerText = nicakname + "的房间";
 			//删除房间逻辑判断 此处需要 增加
 			if (userStatus != 0) {
 				var gameDom = document.getElementById("game_go");
 				gameDom.style.display = "none";
+				
+				if(userStatus == 0){
+					var openRoom = document.getElementById("roomID");
+					openRoom.innerText = nicakname + "的房间";
+				}
+			}else if(userStatus == 0){
+				var openRoom = document.getElementById("roomID");
+				openRoom.innerText = nicakname + "的房间";
 			}
 			var userMessage = {};
 
@@ -169,7 +175,6 @@
 			userMessage.userId = userId;
 			userMessage.props = "";
 			userMessage.isSelf = "";
-			userMessage.getOnclient = "";
 			websocket.send(JSON.stringify(userMessage));
 		}
 
@@ -191,7 +196,6 @@
 				gameMessage.userId = userId;
 				gameMessage.props = "";
 				gameMessage.isSelf = "";
-				gameMessage.getOnclient = "";
 				websocket.send(JSON.stringify(gameMessage));
 
 				/* var gameGo = document.getElementById("game_go");
@@ -230,17 +234,27 @@
 		var span7 = document.getElementById("orPrepare7");
 		var span8 = document.getElementById("orPrepare8");
 
+		
+		function timer(){
+			
+	
+		   	if(userStatus == 0){
+		   		alert("房主退出")
+		   	}
+			
+	    	setTimeout("timer( )", 1000)
+		}
+		//座位二触发事件
 		var wanjia2 = document.getElementById("player2");
 		wanjia2.onclick = function() {
-		
-		//userStatus 当前用户  0房主  1玩家  2旁观者
 			if (userStatus == 0) {
-				 alert("房主不能换座");
-				return false; 
+				/* return false; */
 			}
-			//
-			/* var piclisti=head1.src+","+head2.src+","+head3.src+","+head4.src;
 			
+				
+			//四人座位src
+			var piclisti=head1.src+","+head2.src+","+head3.src+","+head4.src;
+			//八人src进行比较添加文本
 			for(var z=1;z<=8;z++ ){
 				 var teas111=document.getElementById("img"+z);
 				  var spanI=document.getElementById("span"+z);
@@ -251,23 +265,16 @@
 				 		spanI.innerHTML="";
 				 	}
 			}
-			 */
-			
-			
-			//第二个位置 信息
+				
 			var userId1 = wanjia2.value;
-			 
-			
 			if (userId1 == '') {
 				//	f2 = true;
 				showUpHeader("down", 2);
 
 			} else {
-				//位置有人  起立 
+				//位置有人
 				if (userId1 == userId) {
-				
 					showUpHeader("up", 2);
-					alert(userId1+";"+userId)
 				} else {
 					alert("请安心坐在自己位置上！");
 				}
@@ -276,9 +283,7 @@
 		var wanjia3 = document.getElementById("player3");
 		wanjia3.onclick = function() {
 			if (userStatus == 0) {
-				
-				 alert("房主不能换座");
-				return false; 
+				/* return false; */
 			}
 			var userId3 = wanjia3.value;
 			if (userId3 == '') {
@@ -296,8 +301,7 @@
 		var wanjia4 = document.getElementById("player4");
 		wanjia4.onclick = function() {
 			if (userStatus == 0) {
-				 alert("房主不能换座");
-					return false; 
+				/* return false; */
 			}
 			var userId4 = wanjia4.value;
 			if (userId4 == '') {
@@ -337,27 +341,20 @@
 			mes.userId = userId;
 			mes.props = "";
 			mes.isSelf = "";
-			mes.getOnclient = "";
 			websocket.send(JSON.stringify(mes));
 		}
 		//接收起立type 展示数据
 		function showUpmessage(b) {
 			if (b.position == '2') {
-				
-				//var head2 = document.getElementById("headImg2");
-				//透明图片
-				head2.src = 'logo.png';
+				head2.src = '';
 				orPrepare2.innerHTML = "";
 				wanjia2.value = '';
-				
-			
-				
 			} else if (b.position == '3') {
-				head3.src = 'logo.png';
+				head3.src = '';
 				orPrepare3.innerHTML = ""
 				wanjia3.value = '';
 			} else if (b.position == '4') {
-				head4.src = 'logo.png';
+				head4.src = '';
 				orPrepare4.innerHTML = ""
 				wanjia4.value = '';
 			}
@@ -392,14 +389,11 @@
 		//接收坐下type 展示数据
 		function showDownmessage(b) {
 			var sitUl = document.getElementsByClassName("sit");
-			//var sitLi = sitUl.document.getElementsByTagName("li");
+			
 			var hd1src = head1.src;
 			var hd2src = head2.src;
 			var hd3src = head3.src;
 			var hd4src = head4.src;
-			
-			
-		/* 	
 			if (head1.src == b.headimgurl) {
 				head1.src = '';
 				wanjia1.value = '';
@@ -419,7 +413,7 @@
 				head4.src = '';
 				wanjia4.value = '';
 				showUpHeader("changeSeat", 5);
-			} */
+			}
 			/* var list = [ hd1src, hd2src, hd3src, hd4src ];
 			for (var i = 0; i < list.length; i++) {
 				if (list[i] == b.headimgurl) {
@@ -429,10 +423,7 @@
 					showUpHeader("changeSeat", 5);
 				}
 			} */
-			
-			
-			  
-			 if (b.position == '2') {
+			if (b.position == '2') {
 				//给位置填充图片
 				head2.src = b.headimgurl;
 				//修改旁观者信息为 已准备
@@ -451,24 +442,6 @@
 				orPrepare4.innerHTML = "已准备";
 				wanjia4.value = b.userId;
 				//遍历头像 设置之前头像消失
-			} 
-			
-			var zuowei=b.position;
-			
-			for(var i=1;i<=4;i++)  {
-				var headImage = document.getElementById("headImg"+i);
-				var player= document.getElementById("player"+i);
-				if(i!=zuowei ){
-					//alert(headImage.src+"+")
-				
-					if(headImage.src == b.headimgurl){
-						headImage.src = 'logo.png';
-						player.value='';
-					}
-					
-					//alert("22222"+headImage.src);
-				}
-				
 			}
 
 		}
@@ -562,8 +535,6 @@
 			if (b.type == 'down') {
 				//展示坐下信息
 				showDownmessage(b);
-				
-				
 			}
 			if (b.type == 'roomStatus') {
 				//展示游戏开始数据
@@ -646,7 +617,6 @@
 			upDown.userId = userId;
 			upDown.props = "";
 			upDown.isSelf = "";
-			upDown.getOnclient = "";
 			websocket.send(JSON.stringify(upDown));
 		}
 
@@ -672,7 +642,6 @@
 			mes.userId = userId;
 			mes.props = "";
 			mes.isSelf = "";
-			mes.getOnclient = "";
 			websocket.send(JSON.stringify(mes));
 		}
 		function sendUsers() {
@@ -693,7 +662,6 @@
 			readingUsers.userId = "50";
 			readingUsers.props = "道具";
 			readingUsers.isSelf = "";
-			readingUsers.getOnclient = "";
 			websocket.send(JSON.stringify(readingUsers));
 
 		}
