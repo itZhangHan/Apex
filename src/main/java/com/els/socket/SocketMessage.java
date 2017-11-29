@@ -27,9 +27,20 @@ public class SocketMessage implements Serializable {
 	private String headimgurl;
 	private String props;
 	private String isSelf;//
+	private String getOnclient;
 	private SocketUsers socketUser;
 	private List<String> playerImg;
 	private List<SocketUsers> listUsers = new ArrayList();
+
+	
+	
+	public String getGetOnclient() {
+		return getOnclient;
+	}
+
+	public void setGetOnclient(String getOnclient) {
+		this.getOnclient = getOnclient;
+	}
 
 	public List<String> getPlayerImg() {
 		return playerImg;
@@ -185,6 +196,11 @@ public class SocketMessage implements Serializable {
 
 	public void setMsgStr(String msgStr) {
 		this.msgStr = msgStr;
+	}
+
+	public void setGetOnclient(int onlineCount) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

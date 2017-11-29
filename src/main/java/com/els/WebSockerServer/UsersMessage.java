@@ -30,6 +30,11 @@ public class UsersMessage extends BaseType {
 		}
 		try {
 			if (message != null)
+				// 返回当前在线人数
+				System.out.println("*********");
+				System.out.println("获取到当前的在线人数=" + WebSocketServer.getOnlineCount());
+				System.out.println("*********");
+				message.setGetOnclient(WebSocketServer.getOnlineCount());
 				message.setListUsers(list);
 			for (WebSocketServer object : arrayset) {
 				object.getSession().getBasicRemote().sendObject(message);

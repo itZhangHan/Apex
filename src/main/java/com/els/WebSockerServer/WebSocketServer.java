@@ -44,6 +44,7 @@ public class WebSocketServer {
 	public void onOpen(EndpointConfig config, Session session) {
 		this.session = session;
 		addOnlineCount(); // 在线数加1
+		
 		System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
 
 	}
@@ -77,6 +78,7 @@ public class WebSocketServer {
 				MessageManger.getType(message.getType()).onMessage(message);
 			}
 		}
+		
 
 	}
 

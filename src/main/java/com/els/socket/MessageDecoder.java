@@ -47,6 +47,7 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		message.setProps(object.getString("props"));
 		message.setUserId(object.getString("userId"));
 		message.setIsSelf(object.getString("isSelf"));
+		message.setIsSelf(object.getString("getOnclient"));
 		//message.setPlayerImg((List<String>) object.get("readyToDownUp"));
 		SocketUsers socketUser = new SocketUsers();
 		socketUser.setCity(object.getString("city"));
