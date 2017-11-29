@@ -6,6 +6,7 @@ import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
+import com.els.WebSockerServer.PositionMessage;
 import com.els.common.SocketUsers;
 
 import net.sf.json.JSONObject;
@@ -57,6 +58,11 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		socketUser.setUsersex(Integer.parseInt(object.getString("sex")));
 		socketUser.setUserportrait(object.getString("headimgurl"));
 		message.setSocketUser(socketUser);
+		//设置图片以及位置
+		PositionMessage positionMessage = new PositionMessage();
+		positionMessage.setPosition(object.getString("position"));
+		positionMessage.setNowImg(object.getString("headimgurl"));
+		message.setPositionMessage(positionMessage);
 		System.out.println("获取到信息:" + message);
 		return message;
 

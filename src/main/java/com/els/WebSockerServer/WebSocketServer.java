@@ -33,6 +33,8 @@ public class WebSocketServer {
 	private String roomId;
 
 	private SocketUsers socketUser;
+	
+	private PositionMessage positionMessage;
 
 	/**
 	 * 连接建立成功调用的方法
@@ -71,17 +73,15 @@ public class WebSocketServer {
 	public void onMessage(SocketMessage message, Session session) {
 		// 用户进来就有的数据
 		this.socketUser = message.getSocketUser();
+		this.positionMessage = message.getPositionMessage();
 		this.roomId = message.getRoomId();
 		SocketManger.addRoom(roomId, this);
 		if (message != null) {
 			MessageManger.getType(message.getType()).onMessage(message);
 			if (MessageManger.getType(message.getType()) != null) {
-				message.setGetOnclient(WebSocketServer.getOnlineCount());
 				MessageManger.getType(message.getType()).onMessage(message);
 			}
 		}
-		
-
 	}
 
 	/**
@@ -139,6 +139,14 @@ public class WebSocketServer {
 
 	public void setSocketUser(SocketUsers socketUser) {
 		this.socketUser = socketUser;
+	}
+
+	public PositionMessage getPositionMessage() {
+		return positionMessage;
+	}
+
+	public void setPositionMessage(PositionMessage positionMessage) {
+		this.positionMessage = positionMessage;
 	}
 
 }

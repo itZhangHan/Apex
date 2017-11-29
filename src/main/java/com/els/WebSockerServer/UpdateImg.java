@@ -11,21 +11,20 @@ import com.els.common.SocketUsers;
 import com.els.socket.SocketManger;
 import com.els.socket.SocketMessage;
 
-public class UsersMessage extends BaseType {
+public class UpdateImg implements InterfaceType {
 
+	@Override
 	public String onMessage(SocketMessage message) {
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
-		List<SocketUsers> list = new ArrayList<SocketUsers>();
 		List<PositionMessage> positionMessage = new ArrayList<PositionMessage>();
 		for (WebSocketServer object : arrayset) {
 			try {
-				positionMessage.add(object.getPositionMessage());
 				if (message != null) {
-					if (message.getSocketUser() != null) {
-						list.add(object.getSocketUser());
-						System.out.println(object.getPositionMessage()+"getPositionMessagegetPositionMessage");
+					if (message.getPositionMessage()!=null) {
+						System.out.println(message.getPositionMessage()+"sssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+						System.out.println(message.getPositionMessage().getNowImg()+"=img;position="+message.getPositionMessage().getPosition());
+						positionMessage.add(object.getPositionMessage());
 					}
-					
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -35,25 +34,8 @@ public class UsersMessage extends BaseType {
 		try {
 			if (message != null)
 				// 返回当前在线人数
-				System.out.println("*********");
-				System.out.println("获取到当前的在线人数=" + WebSocketServer.getOnlineCount());
-				System.out.println("*********");
-				int onlint = WebSocketServer.getOnlineCount();
-				message.setSetOnclient(onlint);
-				message.setListUsers(list);
 				message.setListImgs(positionMessage);
 			for (WebSocketServer object : arrayset) {
-				
-				System.out.println(message.getListUsers());
-				List<SocketUsers> lists = message.getListUsers();
-				for (SocketUsers socketUsers : lists) {
-					if(socketUsers.getStatus() != 0){
-						message.setMsgStr("房主已退出");
-						System.out.println("房主已退出！！！！！！！！！！");
-					}else{
-						message.setMsgStr("房主还在");
-					}
-				}
 				object.getSession().getBasicRemote().sendObject(message);
 			}
 		} catch (IOException e) {

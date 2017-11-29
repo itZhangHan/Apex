@@ -20,7 +20,9 @@ public class MessageManger {
 		messType.put("gameUsmessage", new GamesMessage());
 		messType.put("readyToDownUp", new ReadyToDownUp());
 		messType.put("changeSeat", new ChangeSeat());
+		messType.put("clearReady", new ClearReady());
 		messType.put("getOnclient", new GetOnclient());
+		messType.put("updateImg", new UpdateImg());
 	}
 
 	public static InterfaceType getType(String key) {

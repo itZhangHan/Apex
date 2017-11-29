@@ -2,35 +2,21 @@ package com.els.WebSockerServer;
 
 public class PositionMessage {
 	//位置
-	private Integer position;
+	private String position;
 	//用户状态
-	private Integer peopleStatus;
-	//是否允许坐下
-	private Integer upDown;
+	private String nowImg;
 
-	public Integer getPosition() {
+	public String getPosition() {
 		return position;
 	}
-
-	public void setPosition(Integer position) {
+	public void setPosition(String position) {
 		this.position = position;
 	}
-
-	public Integer getPeopleStatus() {
-		return peopleStatus;
+	public String getNowImg() {
+		return nowImg;
 	}
-
-	public void setPeopleStatus(Integer peopleStatus) {
-		this.peopleStatus = peopleStatus;
+	public void setNowImg(String nowImg) {
+		this.nowImg = nowImg;
 	}
-
-	public Integer getUpDown() {
-		return upDown;
-	}
-
-	public void setUpDown(Integer upDown) {
-		this.upDown = upDown;
-	}
-	
 	
 }

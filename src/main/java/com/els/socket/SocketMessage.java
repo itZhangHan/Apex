@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.els.WebSockerServer.PositionMessage;
 import com.els.common.SocketUsers;
 
 /*
@@ -29,11 +30,28 @@ public class SocketMessage implements Serializable {
 	private String isSelf;//
 	private String getOnclient;
 	private SocketUsers socketUser;
+	private PositionMessage positionMessage;
 	private List<String> playerImg;
 	private List<SocketUsers> listUsers = new ArrayList();
+	private List<PositionMessage> listImgs = new ArrayList();
+	
+	
+	public PositionMessage getPositionMessage() {
+		return positionMessage;
+	}
 
-	
-	
+	public void setPositionMessage(PositionMessage positionMessage) {
+		this.positionMessage = positionMessage;
+	}
+
+	public List<PositionMessage> getListImgs() {
+		return listImgs;
+	}
+
+	public void setListImgs(List<PositionMessage> listImgs) {
+		this.listImgs = listImgs;
+	}
+
 	public String getGetOnclient() {
 		return getOnclient;
 	}

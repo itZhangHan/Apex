@@ -46,7 +46,7 @@
 
 		<div class="icon-player">
 			<ul>
-				<li id="icon1"><span id="orPrepare" style="color: gold">
+				<li id="icon1"><span id="orPrepare1" style="color: gold">
 				</span><img id="img1" src=" "></li>
 				<li id="icon2"><span id="orPrepare2" style="color: gold">
 				</span> <img id="img2" src=" "></li>
@@ -138,6 +138,8 @@
 
 	<script type="text/javascript">
 		//页面加载前发送给服务端的数据
+
+		var imagelist = "";
 		function usmessage() {
 			//邀请好友
 			var iconBtn = document.getElementById("iconBtn");
@@ -149,12 +151,11 @@
 			if (userStatus != 0) {
 				var gameDom = document.getElementById("game_go");
 				gameDom.style.display = "none";
-				
-				if(userStatus == 0){
-					var openRoom = document.getElementById("roomID");
-					openRoom.innerText = nicakname + "的房间";
-				}
-			}else if(userStatus == 0){
+
+				var openRoom = document.getElementById("roomID");
+				openRoom.innerText = nicakname + "的房间";
+
+			} else if (userStatus == 0) {
 				var openRoom = document.getElementById("roomID");
 				openRoom.innerText = nicakname + "的房间";
 			}
@@ -227,7 +228,7 @@
 		var head4 = document.getElementById("headImg4");
 
 		//已准备定义 
-		var span1 = document.getElementById("orPrepare");
+		var span1 = document.getElementById("orPrepare1");
 		var span2 = document.getElementById("orPrepare2");
 		var span3 = document.getElementById("orPrepare3");
 		var span4 = document.getElementById("orPrepare4");
@@ -235,47 +236,29 @@
 		var span6 = document.getElementById("orPrepare6");
 		var span7 = document.getElementById("orPrepare7");
 		var span8 = document.getElementById("orPrepare8");
-		
-		
+
 		//延迟调用 判断房间总人数
-		function timer(){
-			
-	
-		   	if(userStatus == 0){
-		   		alert("房主退出")
-		   	}
-			
-	    	setTimeout("timer( )", 1000)
+		function timer() {
+
+			if (userStatus == 0) {
+				alert("房主退出")
+			}
+
+			setTimeout("timer( )", 1000)
 		}
 
 		var wanjia2 = document.getElementById("player2");
 		wanjia2.onclick = function() {
-		
-		//userStatus 当前用户  0房主  1玩家  2旁观者
+
+			//userStatus 当前用户  0房主  1玩家  2旁观者
 			if (userStatus == 0) {
-				 alert("房主不能换座");
-				return false; 
+				alert("房主不能换座");
+				return false;
 			}
-			//四人座位src
-			/* var piclisti=head1.src+","+head2.src+","+head3.src+","+head4.src;
-			//八人src进行比较 添加文本
-			for(var z=1;z<=8;z++ ){
-				 var teas111=document.getElementById("img"+z);
-				  var spanI=document.getElementById("span"+z);
-				  alert(piclisti.indexOf( teas111.src ));
-				  	if(piclisti.indexOf( teas111.src )>-1){
-				 		spanI.innerHTML="已准备";
-				 	}else{ 
-				 		spanI.innerHTML="";
-				 	}
-			}
-			 */
-			
-			
+
 			//第二个位置 信息
 			var userId1 = wanjia2.value;
-			 
-			
+
 			if (userId1 == '') {
 				//	f2 = true;
 				showUpHeader("down", 2);
@@ -283,9 +266,9 @@
 			} else {
 				//位置有人  起立 
 				if (userId1 == userId) {
-				
+
 					showUpHeader("up", 2);
-					alert(userId1+";"+userId)
+
 				} else {
 					alert("请安心坐在自己位置上！");
 				}
@@ -294,9 +277,9 @@
 		var wanjia3 = document.getElementById("player3");
 		wanjia3.onclick = function() {
 			if (userStatus == 0) {
-				
-				 alert("房主不能换座");
-				return false; 
+
+				alert("房主不能换座");
+				return false;
 			}
 			var userId3 = wanjia3.value;
 			if (userId3 == '') {
@@ -314,8 +297,8 @@
 		var wanjia4 = document.getElementById("player4");
 		wanjia4.onclick = function() {
 			if (userStatus == 0) {
-				 alert("房主不能换座");
-					return false; 
+				alert("房主不能换座");
+				return false;
 			}
 			var userId4 = wanjia4.value;
 			if (userId4 == '') {
@@ -361,39 +344,53 @@
 		//接收起立type 展示数据
 		function showUpmessage(b) {
 			if (b.position == '2') {
-				
+
 				//var head2 = document.getElementById("headImg2");
 				//透明图片
 				head2.src = '../img/play/logo.jpg';
-				orPrepare2.innerHTML = "";
+				//orPrepare2.innerHTML = "";
 				wanjia2.value = '';
-				
+
 			} else if (b.position == '3') {
 				head3.src = '../img/play/logo.jpg';
-				orPrepare3.innerHTML = ""
+				//orPrepare3.innerHTML = ""
 				wanjia3.value = '';
 			} else if (b.position == '4') {
 				head4.src = '../img/play/logo.jpg';
-				orPrepare4.innerHTML = ""
+				//orPrepare4.innerHTML = ""
 				wanjia4.value = '';
 			}
-			
-			var zuowei=b.position;
-			for(var i=1;i<=4;i++)  {
-				var headImage = document.getElementById("headImg"+i);
-				var player= document.getElementById("player"+i);
-				if(i!=zuowei ){
+
+			var zuowei = b.position;
+			for (var i = 1; i <= 4; i++) {
+				var headImage = document.getElementById("headImg" + i);
+				var player = document.getElementById("player" + i);
+				if (i != zuowei) {
 					//alert(headImage.src+"+")
-				
-					if(headImage.src == b.headimgurl){
+
+					if (headImage.src == b.headimgurl) {
 						headImage.src = '../img/play/touming.jpg';
-						player.value='';
+						player.value = '';
 					}
-					
+
 					//alert("22222"+headImage.src);
 				}
-				
+
 			}
+			for (var z = 1; z <= 8; z++) {
+
+				var teas111 = document.getElementById("img" + z);
+
+				if (imagelist.indexOf(teas111.src) > -1 && teas111.src != "") {
+					document.getElementById("orPrepare" + z).innerHTML = "已准备"
+							+ z;
+				} else {
+					document.getElementById("orPrepare" + z).innerHTML = "清"
+							+ z;
+				}
+
+			}
+
 		}
 		function showChangeSeat(b) {
 
@@ -424,35 +421,34 @@
 		}
 		//接收坐下type 展示数据
 		function showDownmessage(b) {
+
 			var sitUl = document.getElementsByClassName("sit");
-			
 			var hd1src = head1.src;
 			var hd2src = head2.src;
 			var hd3src = head3.src;
 			var hd4src = head4.src;
-			
-			
-		/* 	
-			if (head1.src == b.headimgurl) {
-				head1.src = '';
-				wanjia1.value = '';
-				showUpHeader("changeSeat", 5);
-			}
-			if (head2.src == b.headimgurl) {
-				head2.src = '';
-				wanjia2.value = '';
-				showUpHeader("changeSeat", 5);
-			}
-			if (head3.src == b.headimgurl) {
-				head3.src = '';
-				wanjia3.value = '';
-				showUpHeader("changeSeat", 5);
-			}
-			if (head4.src == b.headimgurl) {
-				head4.src = '';
-				wanjia4.value = '';
-				showUpHeader("changeSeat", 5);
-			} */
+
+			/* 	
+				if (head1.src == b.headimgurl) {
+					head1.src = '';
+					wanjia1.value = '';
+					showUpHeader("changeSeat", 5);
+				}
+				if (head2.src == b.headimgurl) {
+					head2.src = '';
+					wanjia2.value = '';
+					showUpHeader("changeSeat", 5);
+				}
+				if (head3.src == b.headimgurl) {
+					head3.src = '';
+					wanjia3.value = '';
+					showUpHeader("changeSeat", 5);
+				}
+				if (head4.src == b.headimgurl) {
+					head4.src = '';
+					wanjia4.value = '';
+					showUpHeader("changeSeat", 5);
+				} */
 			/* var list = [ hd1src, hd2src, hd3src, hd4src ];
 			for (var i = 0; i < list.length; i++) {
 				if (list[i] == b.headimgurl) {
@@ -462,46 +458,60 @@
 					showUpHeader("changeSeat", 5);
 				}
 			} */
-			
-			
-			  
-			 if (b.position == '2') {
+
+			if (b.position == '2') {
 				//给位置填充图片
 				head2.src = b.headimgurl;
 				//修改旁观者信息为 已准备
-				orPrepare2.innerHTML = "已准备";
+				/* orPrepare2.innerHTML = "已准备";  */
 				//设置头像value为userid
 				wanjia2.value = b.userId;
 				//遍历头像 设置之前头像消失
 
 			} else if (b.position == '3') {
 				head3.src = b.headimgurl;
-				orPrepare3.innerHTML = "已准备";
+				//orPrepare3.innerHTML = "已准备"; 
 				wanjia3.value = b.userId;
 				//遍历头像 设置之前头像消失
 			} else if (b.position == '4') {
 				head4.src = b.headimgurl;
-				orPrepare4.innerHTML = "已准备";
+				//orPrepare4.innerHTML = "已准备";  
 				wanjia4.value = b.userId;
 				//遍历头像 设置之前头像消失
-			} 
-			
-			var zuowei=b.position;
-			
-			for(var i=1;i<=4;i++)  {
-				var headImage = document.getElementById("headImg"+i);
-				var player= document.getElementById("player"+i);
-				if(i!=zuowei ){
-					//alert(headImage.src+"+")
-				
-					if(headImage.src == b.headimgurl){
+			}
+			//清理原来座位
+			var zuowei = b.position;
+			for (var i = 1; i <= 4; i++) {
+				var headImage = document.getElementById("headImg" + i);
+				var player = document.getElementById("player" + i);
+				if (i != zuowei) {
+					//alert(headImage.src+"+")		
+					if (headImage.src == b.headimgurl) {
 						headImage.src = '../img/play/touming.jpg';
-						player.value='';
+						player.value = '';
 					}
-					
 					//alert("22222"+headImage.src);
 				}
-				
+			}
+			//四人座位src 
+			//var piclisti=head1.src+","+head2.src+","+head3.src+","+head4.src;
+			//orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3
+			function aa() {
+
+			}
+			for (var z = 1; z <= 8; z++) {
+
+				var teas111 = document.getElementById("img" + z);
+
+				if (imagelist.indexOf(teas111.src) > -1 && teas111.src != "") {
+					document.getElementById("orPrepare" + z).innerHTML = "已准备"
+							+ z;
+				} else {
+					document.getElementById("orPrepare" + z).innerHTML = "清"
+							+ z;
+					showUpHeader("clearReady", 6);
+				}
+
 			}
 
 		}
@@ -574,7 +584,16 @@
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
 			var b = JSON.parse(jsonObj);
-			//优先级 *****
+			//var nowImgs = b.listImgs;
+			//alert(nowImgs[0].nowImg+"==这些！");
+			var returnLists = b.listUsers;
+			alert("1接收数据"+b);
+			for (var a = 0; a < returnLists.length; a++) {
+				alert("2进入循环");
+				//图片数组 
+				imagelist = imagelist + returnLists[a].userportrait;
+			}
+
 			if (b.type == 'usmesage') {
 				//显示旁观者信息
 				showHeadImg(b.listUsers);
@@ -595,8 +614,7 @@
 			if (b.type == 'down') {
 				//展示坐下信息
 				showDownmessage(b);
-				
-				
+
 			}
 			if (b.type == 'roomStatus') {
 				//展示游戏开始数据
@@ -611,24 +629,31 @@
 		//显示旁观者信息
 		function showUserList(listUsers) {
 			for (var i = 0; i < listUsers.length; i++) {
-				if (listUsers[i].status == 0) {
+
+				document.getElementById("img" + (i + 1)).src = listUsers[i].userportrait;
+				//判断房主的位置
+				//alert(document.getElementById("img"+(i+1)).src );
+
+				/* if (listUsers[i].status == 0) {
 					headUrl0.src = listUsers[i].userportrait;
 				}
 				if (i == 1) {
 					headUrl1.src = listUsers[i].userportrait;
 				}
 				if (i == 2) {
+					
+					
 					headUrl2.src = listUsers[i].userportrait;
 				}
 				if (i == 3) {
+					
+				
 					headUrl3.src = listUsers[i].userportrait;
 				}
 				if (i == 4) {
 					headUrl4.src = listUsers[i].userportrait;
 				}
-				if (i == 4) {
-					headUrl4.src = listUsers[i].userportrait;
-				}
+				
 				if (i == 5) {
 					headUrl5.src = listUsers[i].userportrait;
 				}
@@ -637,7 +662,7 @@
 				}
 				if (i == 7) {
 					headUrl7.src = listUsers[i].userportrait;
-				}
+				} */
 			}
 		}
 
