@@ -203,4 +203,8 @@ public class SocketMessage implements Serializable {
 		
 	}
 
+	public void setSetOnclient(int onlint) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -74,7 +74,9 @@ public class WebSocketServer {
 		this.roomId = message.getRoomId();
 		SocketManger.addRoom(roomId, this);
 		if (message != null) {
+			MessageManger.getType(message.getType()).onMessage(message);
 			if (MessageManger.getType(message.getType()) != null) {
+				message.setGetOnclient(WebSocketServer.getOnlineCount());
 				MessageManger.getType(message.getType()).onMessage(message);
 			}
 		}

@@ -540,7 +540,6 @@
 		websocket.onmessage = function(e) {
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj)
-			
 			var b = JSON.parse(jsonObj);
 			//优先级 *****
 			if (b.type == 'usmesage') {
