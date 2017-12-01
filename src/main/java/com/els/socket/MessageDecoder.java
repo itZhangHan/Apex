@@ -1,5 +1,6 @@
 package com.els.socket;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.websocket.DecodeException;
@@ -63,6 +64,9 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		positionMessage.setPosition(object.getString("position"));
 		positionMessage.setNowImg(object.getString("headimgurl"));
 		message.setPositionMessage(positionMessage);
+		List<PositionMessage> listImgs = new ArrayList();
+		listImgs.add(positionMessage);
+		message.setListImgs(listImgs);
 		System.out.println("获取到信息:" + message);
 		return message;
 

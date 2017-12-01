@@ -14,7 +14,7 @@
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <link rel="stylesheet" href="../css/hall.css">
 </head>
-<body onload="usmessage()">
+<body>
 
 	<div class="centainer">
 		<div class="room">
@@ -137,10 +137,11 @@
 	</div>
 
 	<script type="text/javascript">
-		//页面加载前发送给服务端的数据
+	
 
+		//页面加载前发送给服务端的数据
 		var imagelist = "";
-		function usmessage() {
+		window.onload = function usmessage() {
 			//邀请好友
 			var iconBtn = document.getElementById("iconBtn");
 			iconBtn.onclick = function() {
@@ -148,19 +149,8 @@
 			}
 			//判断当前用户是否属于房主  如果不是房主 不给于开始游戏的 权限 并显示房主名字	
 			//删除房间逻辑判断 此处需要 增加
-			if (userStatus != 0) {
-				var gameDom = document.getElementById("game_go");
-				gameDom.style.display = "none";
-
-				var openRoom = document.getElementById("roomID");
-				openRoom.innerText = nicakname + "的房间";
-
-			} else if (userStatus == 0) {
-				var openRoom = document.getElementById("roomID");
-				openRoom.innerText = nicakname + "的房间";
-			}
+			
 			var userMessage = {};
-
 			userMessage.type = "usmesage"
 			userMessage.roomId = roomId;
 			userMessage.toUserName = "";
@@ -343,8 +333,8 @@
 		}
 		//接收起立type 展示数据
 		function showUpmessage(b) {
-			if (b.position == '2') {
 
+			if (b.position == '2') {
 				//var head2 = document.getElementById("headImg2");
 				//透明图片
 				head2.src = '../img/play/logo.jpg';
@@ -388,7 +378,6 @@
 					document.getElementById("orPrepare" + z).innerHTML = "清"
 							+ z;
 				}
-
 			}
 
 		}
@@ -509,8 +498,11 @@
 				} else {
 					document.getElementById("orPrepare" + z).innerHTML = "清"
 							+ z;
-					showUpHeader("clearReady", 6);
 				}
+				/* if(ownerImg == imagelist){
+					document.getElementById("orPrepare" + z).innerHTML = ""
+						+ z;
+				} */
 
 			}
 
@@ -579,6 +571,7 @@
 			div_2.scrollTop = div_2.scrollHeight;
 
 		}
+		//房主名字
 
 		websocket.onmessage = function(e) {
 			var jsonObj = eval("(" + e.data + ")");
@@ -586,18 +579,29 @@
 			var b = JSON.parse(jsonObj);
 			//var nowImgs = b.listImgs;
 			//alert(nowImgs[0].nowImg+"==这些！");
-			var returnLists = b.listUsers;
-			alert("1接收数据"+b);
+			var returnLists = b.listImgs;
+			//房主头像
+			//var ownerImg = b.headimgurl;
+			imagelist = "";
 			for (var a = 0; a < returnLists.length; a++) {
-				alert("2进入循环");
 				//图片数组 
-				imagelist = imagelist + returnLists[a].userportrait;
+				imagelist = imagelist + returnLists[a].nowImg
+						+ "@@@@@@@@@@@@@@@" + a;
 			}
-
+			alert("ssss"+imagelist);
+			//alert("房主头像"+ownerImgs);
 			if (b.type == 'usmesage') {
+			
+				var gameDom = document.getElementById("game_go");
+				gameDom.style.display = "none";
+
+				var openRoom = document.getElementById("roomID");
+				openRoom.innerText = b.roomName;
+				//var openRoom = document.getElementById("roomID");
 				//显示旁观者信息
 				showHeadImg(b.listUsers);
 				showUserList(b.listUsers);
+				
 			}
 			//允许换做 给将要坐的位置填充图片
 			if (b.type == 'changeSeat') {

@@ -20,11 +20,9 @@ public class UpdateImg implements InterfaceType {
 		for (WebSocketServer object : arrayset) {
 			try {
 				if (message != null) {
-					if (message.getPositionMessage()!=null) {
-						System.out.println(message.getPositionMessage()+"sssssssssssssssssssssssssssssssssssssssssssssssssssssss");
-						System.out.println(message.getPositionMessage().getNowImg()+"=img;position="+message.getPositionMessage().getPosition());
+					message.setUserStatus("1");
+					message.setType("down");
 						positionMessage.add(object.getPositionMessage());
-					}
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

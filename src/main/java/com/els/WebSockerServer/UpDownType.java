@@ -20,42 +20,64 @@ import com.els.socket.SocketMessage;
 public class UpDownType extends BaseType {
 
 	@Override
-	public String onMessage(SocketMessage message) {
+	public synchronized String onMessage(SocketMessage message) {
 		// TODO Auto-generated method stub
 		System.out.println("进入分发起立");
 		Integer userId = Integer.parseInt(message.getUserId());
+		List<PositionMessage> positionMessage = new ArrayList<PositionMessage>();
 		// 上座下座
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
 		if (arrayset != null) {
 			for (WebSocketServer object : arrayset) {
 				try {
-					try {
-						/*List<String> positions = new ArrayList<>();
-						positions.add("1");
-						positions.add("2");
-						positions.add("3");
-						positions.add("4");
-						ReadUsersInfo readers = message.getReaders();
-						readers.setPositions(positions);
-						readers.getIsReady();*/
-						if (object.getSocketUser().getUserid() == userId) {
-							System.out.println("ID相同");
-							object.getSocketUser().setHeadPostion(Integer.parseInt(message.getPosition()));
-						}
-						message.setUserStatus("2");
-						message.setType("up");
-						object.getSession().getBasicRemote().sendObject(message);
-					} catch (EncodeException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					List<PositionMessage> listImgs = new ArrayList<>();
+					Integer status = object.getSocketUser().getStatus();
+					System.out.println("原有状态："+status);
+					if(status == 0){
+						//设置头像
+						//message.setHeadimgurl(object.getSocketUser().getUserportrait());
+						positionMessage.add(object.getPositionMessage());
+						System.out.println("加进去房主");
 					}
-				} catch (IOException e) {
+					if(status == 1){
+						positionMessage.add(object.getPositionMessage());
+						System.out.println("加进去第二个");
+					}
+					message.setUserStatus("2");
+					message.setType("up");
+					if(object != null){
+						if(message.getUserStatus() == "2"){
+							positionMessage.remove(message.getPositionMessage());
+							System.out.println("删除第二个。。。");
+						}
+					}
+					
+					if (object.getPositionMessage().getNowImg() == message.getPositionMessage().getNowImg()) {
+						positionMessage.remove(message.getPositionMessage());
+					}
+					listImgs.addAll(positionMessage);
+					System.out.println("取消坐下之后再坐的人的大小为："+listImgs.size());
+					for (PositionMessage positionMessage2 : listImgs) {
+						System.out.println("集合中的图片："+positionMessage2.getNowImg());
+					}
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+
 			}
 		}
-
+		try {
+			if (message != null)
+				// 返回当前在线人数
+				message.setListImgs(positionMessage);
+			for (WebSocketServer object : arrayset) {
+				object.getSession().getBasicRemote().sendObject(message);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 

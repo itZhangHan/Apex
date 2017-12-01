@@ -3,7 +3,9 @@ package com.els.WebSockerServer;
 import java.util.HashMap;
 
 import java.util.Map;
-
+/*
+ * 进入页面根据type跳转响应页面。
+ */
 
 public class MessageManger {
 
