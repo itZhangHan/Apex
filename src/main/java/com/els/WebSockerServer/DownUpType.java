@@ -15,15 +15,24 @@ public class DownUpType implements InterfaceType {
 	public synchronized String onMessage(SocketMessage message) {
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
 		List<PositionMessage> positionMessage = new ArrayList<PositionMessage>();
+		List<PositionMessage> listImgs = new ArrayList<>();
 		if (arrayset != null) {
 			for (WebSocketServer object : arrayset) {
 				try {
 					if (object != null) {
+						Integer status = object.getSocketUser().getStatus();
+						System.out.println("object中的status="+status);
 						if (object.getSocketUser().getStatus() == 0) {
-							//设置房主图片
-							//message.setHeadimgurl(object.getSocketUser().getUserportrait());
+							// 设置房主图片
+							message.setOwnerImg(object.getSocketUser().getUserportrait());
 							positionMessage.add(object.getPositionMessage());
-							System.out.println("第一次＋图片");
+							System.out.println("第一次＋图片为0的图片 ");
+						}
+						
+						if (object.getSocketUser().getStatus() == 1) {
+							positionMessage.add(object.getPositionMessage());
+							System.out.println("第一次＋图片为1的图片 ");
+							
 						}
 						/*
 						 * if (object.getSocketUser().getStatus() == 1) {
@@ -31,24 +40,26 @@ public class DownUpType implements InterfaceType {
 						 */
 					}
 
-					message.setUserStatus("1");
-					message.setType("down");
-					List<PositionMessage> listImgs = new ArrayList<>();
+
 					if (message != null) {
-						if (object.getPositionMessage() != message.getPositionMessage()) {
+						if (!positionMessage.contains(message.getPositionMessage())) {
 							positionMessage.add(message.getPositionMessage());
+
+							message.setUserStatus("1");
+							message.setType("down");
 							System.out.println("第2次＋图片");
 						}
 					}
-					listImgs.addAll(positionMessage);
-					System.out.println("在座的人的长度为：" + listImgs.size());
-					for (PositionMessage positionMessage2 : listImgs) {
-						System.out.println("集合中的图片：" + positionMessage2.getNowImg());
-					}
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+			listImgs.addAll(positionMessage);
+			System.out.println("在座的人的长度为：" + listImgs.size());
+			for (PositionMessage positionMessage2 : listImgs) {
+				System.out.println("集合中的图片：" + positionMessage2.getNowImg());
 			}
 		}
 		try {

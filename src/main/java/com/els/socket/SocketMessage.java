@@ -29,6 +29,7 @@ public class SocketMessage implements Serializable {
 	private String props;
 	private String isSelf;//
 	private String getOnclient;
+	private String ownerImg;
 	private SocketUsers socketUser;
 	private PositionMessage positionMessage;
 	private List<String> playerImg;
@@ -36,6 +37,14 @@ public class SocketMessage implements Serializable {
 	private List<PositionMessage> listImgs = new ArrayList();
 	
 	
+	public String getOwnerImg() {
+		return ownerImg;
+	}
+
+	public void setOwnerImg(String ownerImg) {
+		this.ownerImg = ownerImg;
+	}
+
 	public PositionMessage getPositionMessage() {
 		return positionMessage;
 	}

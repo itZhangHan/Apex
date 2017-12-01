@@ -29,7 +29,7 @@ public class UsersMessage extends BaseType {
 					if(object != null){
 						if(object.getSocketUser().getStatus() == 0){
 							//设置房主图片
-							//message.setHeadimgurl(object.getSocketUser().getUserportrait());
+							message.setOwnerImg(object.getSocketUser().getUserportrait());
 							//设置房主姓名
 							message.setRoomName(object.getSocketUser().getUsername()+"的房间");
 							listImgs.add(object.getPositionMessage());

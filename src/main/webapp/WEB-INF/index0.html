@@ -75,70 +75,10 @@
 			</button>
 		</div>
 
-		<!-- 			<div class="play_go" id="play_go" onload="sendUsers()">
-		
-			<div class="wrap" id="wrap">
-			<div class="local">
-			<div class="time">
-				<img src="../img/a/image4.png">
-				<div class="info">
-					<div>
-						<span id="local_time">0</span>
-					</div>
-				</div>
-			</div>
-			<div class="gameScene" id="local_gameScene">
-				<img src="../img/bg2.png">
-				<div class="game" id="local_game"></div>
-				<div class="next" id="local_next">
-					<img src="../img/a/nextLayer.png">
-				</div>
-			</div>
-			<div class="ranking">
-				<ul>
-					<li id="num1"><img id="img1" src="../img/a/e.png"> <span
-						id="score">000</span> <img id="img2" src="../img/a/d.png"> <img
-						id="img3" src="../img/a/c.png"></li>
-					<li id="num2"><img id="img4" src="../img/a/f.png"> <span
-						id="score1">000</span> <img id="img5" src="../img/a/d.png">
-						<img id="img6" src="../img/a/c.png"></li>
-					<li id="num3"><img id="img7" src="../img/a/g.png"> <span
-						id="score2">000</span> <img id="img8" src="../img/a/d.png">
-						<img id="img9" src="../img/a/c.png"></li>
-					<li id="num4"><img id="img10" src="../img/a/h.png"> <span
-						id="scoreMe">0</span> <img id="img11" src="../img/a/d.png">
-						<img id="img12" src="../img/a/c.png"></li>
-				</ul>
-			</div>
-			<div class="stage_btn">
-				<ul>
-					<li><img id="stage1" src="../img/a/stage2.png"></li>
-					<li><img id="stage2" src="../img/a/stage1.png"><span
-						id="stage2_num">0</span></li>
-				</ul>
-			</div>
-			<div class="bottom_btn">
-				<ul>
-					<li id="btn_left"><img id="btnImg_left"
-						src="../img/button4.png"></li>
-					<li id="btn_right"><img id="btnImg_right"
-						src="../img/button3.png"></li>
-					<li id="btn_rotate"><img id="btnImg_rotate"
-						src="../img/button1.png"></li>
-					<li id="btn_down"><img id="btnImg_down"
-						src="../img/button2.png"></li>
-				</ul>
-			</div>
-		</div>
-		<canvas id="canvas1"></canvas>
-	</div>
-		
-		</div> -->
 	</div>
 
 	<script type="text/javascript">
-	
-
+		var ownerImg = "";
 		//页面加载前发送给服务端的数据
 		var imagelist = "";
 		window.onload = function usmessage() {
@@ -149,7 +89,7 @@
 			}
 			//判断当前用户是否属于房主  如果不是房主 不给于开始游戏的 权限 并显示房主名字	
 			//删除房间逻辑判断 此处需要 增加
-			
+
 			var userMessage = {};
 			userMessage.type = "usmesage"
 			userMessage.roomId = roomId;
@@ -167,6 +107,7 @@
 			userMessage.props = "";
 			userMessage.isSelf = "";
 			userMessage.getOnclient = "";
+			userMessage.ownerImg = "";
 			websocket.send(JSON.stringify(userMessage));
 		}
 
@@ -189,6 +130,7 @@
 				gameMessage.props = "";
 				gameMessage.isSelf = "";
 				gameMessage.getOnclient = "";
+				gameMessage.ownerImg = "";
 				websocket.send(JSON.stringify(gameMessage));
 
 				/* var gameGo = document.getElementById("game_go");
@@ -329,6 +271,7 @@
 			mes.props = "";
 			mes.isSelf = "";
 			mes.getOnclient = "";
+			mes.ownerImg = "";
 			websocket.send(JSON.stringify(mes));
 		}
 		//接收起立type 展示数据
@@ -350,7 +293,28 @@
 				//orPrepare4.innerHTML = ""
 				wanjia4.value = '';
 			}
-
+			imagelist="";
+			var hd1src = document.getElementById("headImg1").src;
+			var hd2src = document.getElementById("headImg2").src;
+			var hd3src = document.getElementById("headImg3").src;
+			var hd4src = document.getElementById("headImg4").src;
+				//var imagelist=""
+		   if (hd1src.indexOf("index0send")<0 && hd1src.indexOf("joinRoomSend")<0) {
+				imagelist = imagelist+hd1src;
+				
+			}  
+		   if (hd2src.indexOf("index0send")<0 && hd2src.indexOf("joinRoomSend")<0) {
+				imagelist = imagelist+hd2src;
+				//alert("2"+head2.src+":"+imagelist);
+			} 
+		   if (hd3src.indexOf("index0send")<0 && hd3src.indexOf("joinRoomSend")<0) {
+				imagelist = imagelist+hd3src;
+				//alert("3"+head3.src+":"+imagelist);
+			} 
+		   if (hd4src.indexOf("index0send")<0 && hd4src.indexOf("joinRoomSend")<0) {
+				imagelist = "4"+imagelist+hd4src;
+				//alert("4"+head4.src+":"+imagelist);
+			} 
 			var zuowei = b.position;
 			for (var i = 1; i <= 4; i++) {
 				var headImage = document.getElementById("headImg" + i);
@@ -372,11 +336,12 @@
 				var teas111 = document.getElementById("img" + z);
 
 				if (imagelist.indexOf(teas111.src) > -1 && teas111.src != "") {
-					document.getElementById("orPrepare" + z).innerHTML = "已准备"
-							+ z;
+					document.getElementById("orPrepare" + z).innerHTML = "已准备";
 				} else {
-					document.getElementById("orPrepare" + z).innerHTML = "清"
-							+ z;
+					document.getElementById("orPrepare" + z).innerHTML = "";
+				}
+				if (ownerImg == teas111.src) {
+					document.getElementById("orPrepare1").innerHTML = "";
 				}
 			}
 
@@ -410,43 +375,8 @@
 		}
 		//接收坐下type 展示数据
 		function showDownmessage(b) {
-
 			var sitUl = document.getElementsByClassName("sit");
-			var hd1src = head1.src;
-			var hd2src = head2.src;
-			var hd3src = head3.src;
-			var hd4src = head4.src;
-
-			/* 	
-				if (head1.src == b.headimgurl) {
-					head1.src = '';
-					wanjia1.value = '';
-					showUpHeader("changeSeat", 5);
-				}
-				if (head2.src == b.headimgurl) {
-					head2.src = '';
-					wanjia2.value = '';
-					showUpHeader("changeSeat", 5);
-				}
-				if (head3.src == b.headimgurl) {
-					head3.src = '';
-					wanjia3.value = '';
-					showUpHeader("changeSeat", 5);
-				}
-				if (head4.src == b.headimgurl) {
-					head4.src = '';
-					wanjia4.value = '';
-					showUpHeader("changeSeat", 5);
-				} */
-			/* var list = [ hd1src, hd2src, hd3src, hd4src ];
-			for (var i = 0; i < list.length; i++) {
-				if (list[i] == b.headimgurl) {
-					list[i] = '';
-					head2.src = '';
-					alert("清空=" + list[i]);
-					showUpHeader("changeSeat", 5);
-				}
-			} */
+		
 
 			if (b.position == '2') {
 				//给位置填充图片
@@ -468,6 +398,30 @@
 				wanjia4.value = b.userId;
 				//遍历头像 设置之前头像消失
 			}
+			
+			imagelist="";
+			var hd1src = document.getElementById("headImg1").src;
+			var hd2src = document.getElementById("headImg2").src;
+			var hd3src = document.getElementById("headImg3").src;
+			var hd4src = document.getElementById("headImg4").src;
+				//var imagelist=""
+		   if (hd1src.indexOf("index0send")<0 && hd1src.indexOf("joinRoomSend")<0) {
+				imagelist = imagelist+hd1src;
+				
+			}  
+		   if (hd2src.indexOf("index0send")<0 && hd2src.indexOf("joinRoomSend")<0) {
+				imagelist = imagelist+hd2src;
+				//alert("2"+head2.src+":"+imagelist);
+			} 
+		   if (hd3src.indexOf("index0send")<0 && hd3src.indexOf("joinRoomSend")<0) {
+				imagelist = imagelist+hd3src;
+				//alert("3"+head3.src+":"+imagelist);
+			} 
+		   if (hd4src.indexOf("index0send")<0 && hd4src.indexOf("joinRoomSend")<0) {
+				imagelist = "4"+imagelist+hd4src;
+				//alert("4"+head4.src+":"+imagelist);
+			} 
+			
 			//清理原来座位
 			var zuowei = b.position;
 			for (var i = 1; i <= 4; i++) {
@@ -485,24 +439,19 @@
 			//四人座位src 
 			//var piclisti=head1.src+","+head2.src+","+head3.src+","+head4.src;
 			//orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3
-			function aa() {
-
-			}
 			for (var z = 1; z <= 8; z++) {
 
 				var teas111 = document.getElementById("img" + z);
 
 				if (imagelist.indexOf(teas111.src) > -1 && teas111.src != "") {
-					document.getElementById("orPrepare" + z).innerHTML = "已准备"
-							+ z;
+					document.getElementById("orPrepare" + z).innerHTML = "已准备";
 				} else {
-					document.getElementById("orPrepare" + z).innerHTML = "清"
-							+ z;
+					document.getElementById("orPrepare" + z).innerHTML = "";
 				}
-				/* if(ownerImg == imagelist){
-					document.getElementById("orPrepare" + z).innerHTML = ""
-						+ z;
-				} */
+				if (ownerImg == teas111.src) {
+
+					document.getElementById("orPrepare1").innerHTML = "";
+				}
 
 			}
 
@@ -579,19 +528,21 @@
 			var b = JSON.parse(jsonObj);
 			//var nowImgs = b.listImgs;
 			//alert(nowImgs[0].nowImg+"==这些！");
-			var returnLists = b.listImgs;
+			//var returnLists = b.listImgs;
 			//房主头像
-			//var ownerImg = b.headimgurl;
-			imagelist = "";
-			for (var a = 0; a < returnLists.length; a++) {
-				//图片数组 
-				imagelist = imagelist + returnLists[a].nowImg
-						+ "@@@@@@@@@@@@@@@" + a;
-			}
-			alert("ssss"+imagelist);
-			//alert("房主头像"+ownerImgs);
+			ownerImg = b.ownerImg;
+
+			//imagelist = "";
+			//for (var a = 0; a < returnLists.length; a++) {
+			//图片数组 
+			/* imagelist = imagelist + returnLists[a].nowImg
+					+ "@@@@@@@@@@@@@@@" + a; */
+			//imagelist = imagelist + b.headimgurl
+			//+ "@@@@@@@@@@@@@@@" + a;
+			//}
+			//alert("集合头像："+imagelist);
 			if (b.type == 'usmesage') {
-			
+
 				var gameDom = document.getElementById("game_go");
 				gameDom.style.display = "none";
 
@@ -601,7 +552,7 @@
 				//显示旁观者信息
 				showHeadImg(b.listUsers);
 				showUserList(b.listUsers);
-				
+
 			}
 			//允许换做 给将要坐的位置填充图片
 			if (b.type == 'changeSeat') {
@@ -635,38 +586,7 @@
 			for (var i = 0; i < listUsers.length; i++) {
 
 				document.getElementById("img" + (i + 1)).src = listUsers[i].userportrait;
-				//判断房主的位置
-				//alert(document.getElementById("img"+(i+1)).src );
 
-				/* if (listUsers[i].status == 0) {
-					headUrl0.src = listUsers[i].userportrait;
-				}
-				if (i == 1) {
-					headUrl1.src = listUsers[i].userportrait;
-				}
-				if (i == 2) {
-					
-					
-					headUrl2.src = listUsers[i].userportrait;
-				}
-				if (i == 3) {
-					
-				
-					headUrl3.src = listUsers[i].userportrait;
-				}
-				if (i == 4) {
-					headUrl4.src = listUsers[i].userportrait;
-				}
-				
-				if (i == 5) {
-					headUrl5.src = listUsers[i].userportrait;
-				}
-				if (i == 6) {
-					headUrl6.src = listUsers[i].userportrait;
-				}
-				if (i == 7) {
-					headUrl7.src = listUsers[i].userportrait;
-				} */
 			}
 		}
 
@@ -709,6 +629,7 @@
 			upDown.props = "";
 			upDown.isSelf = "";
 			upDown.getOnclient = "";
+			upDown.ownerImg = "";
 			websocket.send(JSON.stringify(upDown));
 		}
 
@@ -735,6 +656,7 @@
 			mes.props = "";
 			mes.isSelf = "";
 			mes.getOnclient = "";
+			mes.ownerImg = "";
 			websocket.send(JSON.stringify(mes));
 		}
 		function sendUsers() {
@@ -756,30 +678,11 @@
 			readingUsers.props = "道具";
 			readingUsers.isSelf = "";
 			readingUsers.getOnclient = "";
+			readingUsers.ownerImg = "";
 			websocket.send(JSON.stringify(readingUsers));
 
 		}
-		/* websocket.onmessage = function(e) {
-			alert("hello");
-			var jsonObj = eval("(" + e.data + ")");
-			console.log(jsonObj)
-			var allInfo = JSON.parse(jsonObj);
-			if (allInfo.type == 'gameUsmesage') {
-				//将信息放在改放的地方
-				showReadingUsers(allInfo);
-			}
-		}
-		function showReadingUsers(allInfo) {
-			//遍历数据 放在该放的地方
-			alert("进入");
-		}  */
 	</script>
 
-	<!-- 	<script src="../js/square.js"></script>
-	<script src="../js/squareFactory.js"></script>
-	<script src="../js/game.js"></script>
-	<script src="../js/local.js"></script>
-	<script src="../js/script.js"></script>
-	<script src="../js/hall.js"></script> -->
 </body>
 </html>
