@@ -11,7 +11,7 @@ import com.els.bean.JhddPositionimgExample;
 import com.els.mapper.JhddPositionimgMapper;
 import com.els.serviceinterface.PositionImgService;
 @Transactional
-@Service
+@Service("positionImgService")
 public class PositionImgServiceImpl implements PositionImgService{
 
 	@Autowired
@@ -28,15 +28,17 @@ public class PositionImgServiceImpl implements PositionImgService{
 	@Override
 	public void updateImg(JhddPositionimg positionImgs) {
 		// TODO Auto-generated method stub
-		jhddPositionimgMapper.updateByPrimaryKeySelective(positionImgs);
+		jhddPositionimgMapper.updateByPrimaryKey(positionImgs);
 	}
 
 	@Override
 	public JhddPositionimg selectImg() {
 		// TODO Auto-generated method stub
-		JhddPositionimg jhddPositionimg = (JhddPositionimg)jhddPositionimgMapper.selectByExample(new JhddPositionimgExample());
-		
-		return jhddPositionimg;
+		List<JhddPositionimg> list = jhddPositionimgMapper.selectByExample(new JhddPositionimgExample());
+		for (JhddPositionimg jhddPositionimg2 : list) {
+			return jhddPositionimg2;
+		}
+		return null;
 	}
 
 }
