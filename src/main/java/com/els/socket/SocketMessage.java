@@ -32,11 +32,56 @@ public class SocketMessage implements Serializable {
 	private String ownerImg;
 	private SocketUsers socketUser;
 	private PositionMessage positionMessage;
+	private String [] playerImgs;
 	private List<String> playerImg;
+	private String imgOne;
+	private String imgTwo;
+	private String imgThree;
+	private String imgFour;
 	private List<SocketUsers> listUsers = new ArrayList();
 	private List<PositionMessage> listImgs = new ArrayList();
 	
 	
+	public String getImgOne() {
+		return imgOne;
+	}
+
+	public void setImgOne(String imgOne) {
+		this.imgOne = imgOne;
+	}
+
+	public String getImgTwo() {
+		return imgTwo;
+	}
+
+	public void setImgTwo(String imgTwo) {
+		this.imgTwo = imgTwo;
+	}
+
+	public String getImgThree() {
+		return imgThree;
+	}
+
+	public void setImgThree(String imgThree) {
+		this.imgThree = imgThree;
+	}
+
+	public String getImgFour() {
+		return imgFour;
+	}
+
+	public void setImgFour(String imgFour) {
+		this.imgFour = imgFour;
+	}
+
+	public String[] getPlayerImgs() {
+		return playerImgs;
+	}
+
+	public void setPlayerImgs(String[] playerImgs) {
+		this.playerImgs = playerImgs;
+	}
+
 	public String getOwnerImg() {
 		return ownerImg;
 	}

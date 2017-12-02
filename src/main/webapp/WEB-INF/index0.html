@@ -108,6 +108,10 @@
 			userMessage.isSelf = "";
 			userMessage.getOnclient = "";
 			userMessage.ownerImg = "";
+			userMessage.imgOne = "";
+			userMessage.imgTwo = "";
+			userMessage.imgThree = "";
+			userMessage.imgFour = "";
 			websocket.send(JSON.stringify(userMessage));
 		}
 
@@ -377,10 +381,19 @@
 		function showDownmessage(b) {
 			var sitUl = document.getElementsByClassName("sit");
 		
+			if (b.position == '1') {
+				//给位置填充图片
+				head2.src = b.imgOne;
+				//修改旁观者信息为 已准备
+				/* orPrepare2.innerHTML = "已准备";  */
+				//设置头像value为userid
+				wanjia2.value = b.userId;
+				//遍历头像 设置之前头像消失
 
+			} 
 			if (b.position == '2') {
 				//给位置填充图片
-				head2.src = b.headimgurl;
+				head2.src = b.imgTwo;
 				//修改旁观者信息为 已准备
 				/* orPrepare2.innerHTML = "已准备";  */
 				//设置头像value为userid
@@ -388,12 +401,12 @@
 				//遍历头像 设置之前头像消失
 
 			} else if (b.position == '3') {
-				head3.src = b.headimgurl;
+				head3.src = b.imgThree;
 				//orPrepare3.innerHTML = "已准备"; 
 				wanjia3.value = b.userId;
 				//遍历头像 设置之前头像消失
 			} else if (b.position == '4') {
-				head4.src = b.headimgurl;
+				head4.src = b.imgFour;
 				//orPrepare4.innerHTML = "已准备";  
 				wanjia4.value = b.userId;
 				//遍历头像 设置之前头像消失
@@ -531,7 +544,12 @@
 			//var returnLists = b.listImgs;
 			//房主头像
 			ownerImg = b.ownerImg;
-
+			alert("位置一的头像="+b.imgOne+"，位置二的头像="+b.imgTwo+"，位置三的头像="+b.imgThree+"，位置四的头像="+b.imgFour);
+		/* 	var shuzu = b.playerImgs;
+			alert("数组0："+shuzu[0]);
+			alert("数组1："+shuzu[1]);
+			alert("数组2："+shuzu[2]);
+			alert("数组4："+shuzu[3]); */
 			//imagelist = "";
 			//for (var a = 0; a < returnLists.length; a++) {
 			//图片数组 
@@ -630,6 +648,10 @@
 			upDown.isSelf = "";
 			upDown.getOnclient = "";
 			upDown.ownerImg = "";
+			upDown.imgOne = "";
+			upDown.imgTwo = "";
+			upDown.imgThree = "";
+			upDown.imgFour = "";
 			websocket.send(JSON.stringify(upDown));
 		}
 

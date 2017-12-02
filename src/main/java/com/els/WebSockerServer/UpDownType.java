@@ -55,7 +55,20 @@ public class UpDownType extends BaseType {
 					if (object.getPositionMessage().getNowImg() == message.getPositionMessage().getNowImg()) {
 						positionMessage.remove(message.getPositionMessage());
 					}
-
+					if (message != null) {
+						if (message.getPosition() == "1") {
+							message.setImgOne("");
+						}
+						if (message.getPosition() == "2") {
+							message.setImgTwo("");
+						}
+						if (message.getPosition() == "3") {
+							message.setImgThree("");
+						}
+						if (message.getPosition() == "4") {
+							message.setImgFour("");
+						}
+					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

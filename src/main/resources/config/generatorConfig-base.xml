@@ -36,7 +36,7 @@
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
 
-		<table schema="" tableName="jhdd_users" />
+		<table schema="" tableName="jhdd_positionImg" />
 
 
 	</context>

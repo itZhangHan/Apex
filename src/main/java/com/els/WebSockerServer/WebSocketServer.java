@@ -43,8 +43,7 @@ public class WebSocketServer {
 	 *            可选的参数。session为与某个客户端的连接会话，需要通过它来给客户端发送数据
 	 */
 	@OnOpen
-	public void onOpen(EndpointConfig config, Session session) {
-		this.session = session;
+	public void onOpen(EndpointConfig config, Session session) {		this.session = session;
 		addOnlineCount(); // 在线数加1
 		
 		System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());

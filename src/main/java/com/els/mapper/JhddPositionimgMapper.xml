@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.mapper.JhddPositionimgMapper" >
+  <resultMap id="BaseResultMap" type="com.els.bean.JhddPositionimg" >
+    <id column="positionId" property="positionid" jdbcType="INTEGER" />
+    <result column="imgOne" property="imgone" jdbcType="VARCHAR" />
+    <result column="imgTwo" property="imgtwo" jdbcType="VARCHAR" />
+    <result column="imgThree" property="imgthree" jdbcType="VARCHAR" />
+    <result column="imgFour" property="imgfour" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    positionId, imgOne, imgTwo, imgThree, imgFour
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.bean.JhddPositionimgExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jhdd_positionimg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jhdd_positionimg
+    where positionId = #{positionid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jhdd_positionimg
+    where positionId = #{positionid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.bean.JhddPositionimgExample" >
+    delete from jhdd_positionimg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.bean.JhddPositionimg" >
+    insert into jhdd_positionimg (positionId, imgOne, imgTwo, 
+      imgThree, imgFour)
+    values (#{positionid,jdbcType=INTEGER}, #{imgone,jdbcType=VARCHAR}, #{imgtwo,jdbcType=VARCHAR}, 
+      #{imgthree,jdbcType=VARCHAR}, #{imgfour,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.bean.JhddPositionimg" >
+    insert into jhdd_positionimg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="positionid != null" >
+        positionId,
+      </if>
+      <if test="imgone != null" >
+        imgOne,
+      </if>
+      <if test="imgtwo != null" >
+        imgTwo,
+      </if>
+      <if test="imgthree != null" >
+        imgThree,
+      </if>
+      <if test="imgfour != null" >
+        imgFour,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="positionid != null" >
+        #{positionid,jdbcType=INTEGER},
+      </if>
+      <if test="imgone != null" >
+        #{imgone,jdbcType=VARCHAR},
+      </if>
+      <if test="imgtwo != null" >
+        #{imgtwo,jdbcType=VARCHAR},
+      </if>
+      <if test="imgthree != null" >
+        #{imgthree,jdbcType=VARCHAR},
+      </if>
+      <if test="imgfour != null" >
+        #{imgfour,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.bean.JhddPositionimgExample" resultType="java.lang.Integer" >
+    select count(*) from jhdd_positionimg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update jhdd_positionimg
+    <set >
+      <if test="record.positionid != null" >
+        positionId = #{record.positionid,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgone != null" >
+        imgOne = #{record.imgone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgtwo != null" >
+        imgTwo = #{record.imgtwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgthree != null" >
+        imgThree = #{record.imgthree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgfour != null" >
+        imgFour = #{record.imgfour,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update jhdd_positionimg
+    set positionId = #{record.positionid,jdbcType=INTEGER},
+      imgOne = #{record.imgone,jdbcType=VARCHAR},
+      imgTwo = #{record.imgtwo,jdbcType=VARCHAR},
+      imgThree = #{record.imgthree,jdbcType=VARCHAR},
+      imgFour = #{record.imgfour,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.bean.JhddPositionimg" >
+    update jhdd_positionimg
+    <set >
+      <if test="imgone != null" >
+        imgOne = #{imgone,jdbcType=VARCHAR},
+      </if>
+      <if test="imgtwo != null" >
+        imgTwo = #{imgtwo,jdbcType=VARCHAR},
+      </if>
+      <if test="imgthree != null" >
+        imgThree = #{imgthree,jdbcType=VARCHAR},
+      </if>
+      <if test="imgfour != null" >
+        imgFour = #{imgfour,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where positionId = #{positionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.bean.JhddPositionimg" >
+    update jhdd_positionimg
+    set imgOne = #{imgone,jdbcType=VARCHAR},
+      imgTwo = #{imgtwo,jdbcType=VARCHAR},
+      imgThree = #{imgthree,jdbcType=VARCHAR},
+      imgFour = #{imgfour,jdbcType=VARCHAR}
+    where positionId = #{positionid,jdbcType=INTEGER}
+  </update>
+</mapper>

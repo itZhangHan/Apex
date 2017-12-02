@@ -16,13 +16,21 @@ public class UsersMessage extends BaseType {
 	public String onMessage(SocketMessage message) {
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
 		List<SocketUsers> list = new ArrayList<SocketUsers>();
+		//String [] playerImgs= new String[3];
 	//	List<PositionMessage> positionMessage = new ArrayList<PositionMessage>();
 		for (WebSocketServer object : arrayset) {
 			try {
+//				playerImgs[0] = "img0";
+//				playerImgs[1] = "img1";
+//				playerImgs[2] = "img2";
+//				playerImgs[3] = "img3";
+//				message.setPlayerImgs(playerImgs);
 				List<PositionMessage> listImgs = new ArrayList<>();
 				message.setListImgs(listImgs);
 				//positionMessage.add(object.getPositionMessage());
+				
 				if (message != null) {
+					
 					if (message.getSocketUser() != null) {
 						list.add(object.getSocketUser());
 					}
