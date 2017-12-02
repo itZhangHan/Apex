@@ -7,7 +7,9 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.websocket.EncodeException;
 
+import com.els.bean.JhddPositionimg;
 import com.els.common.SocketUsers;
+import com.els.controller.DBController;
 import com.els.socket.SocketManger;
 import com.els.socket.SocketMessage;
 
@@ -16,10 +18,19 @@ public class UsersMessage extends BaseType {
 	public String onMessage(SocketMessage message) {
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
 		List<SocketUsers> list = new ArrayList<SocketUsers>();
+		DBController dbController = new DBController();
 		//String [] playerImgs= new String[3];
 	//	List<PositionMessage> positionMessage = new ArrayList<PositionMessage>();
 		for (WebSocketServer object : arrayset) {
 			try {
+				//查询数据库中的值
+				JhddPositionimg positionImg = dbController.selectPositionImg();
+				if(positionImg != null){
+					message.setImgOne(positionImg.getImgone());
+					message.setImgTwo(positionImg.getImgtwo());
+					message.setImgThree(positionImg.getImgthree());
+					message.setImgFour(positionImg.getImgfour());
+				}
 //				playerImgs[0] = "img0";
 //				playerImgs[1] = "img1";
 //				playerImgs[2] = "img2";

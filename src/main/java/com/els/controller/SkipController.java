@@ -6,9 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.els.bean.JhddPositionimg;
+import com.els.service.PositionImgServiceImpl;
 
 /*
  * 跳转页面Controller
@@ -16,14 +21,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/skip")
 public class SkipController {
-
-	
-	
-	@RequestMapping(value="/toA")
+	@Autowired
+	private static PositionImgServiceImpl positionImgService;
+	@RequestMapping("/toA")
+	@ResponseBody
+	public JhddPositionimg getJhddPositionimg(){
+		JhddPositionimg pg = new JhddPositionimg();
+		pg.setImgone("aaa");
+		DBController dbc = new DBController();
+		positionImgService.addImg(pg);
+		JhddPositionimg selectPositionImg = dbc.selectPositionImg();
+		System.out.println(selectPositionImg.getImgone()+"=获取到的第一个图片。");
+		return selectPositionImg;
+	}
+	/*@RequestMapping(value="/toA")
 	public String toA(){
 		
 		return "a";
-	}
+	}*/
 	// 游戏场景
 	@RequestMapping("/index")
 	public String toIndex(HttpSession session) {

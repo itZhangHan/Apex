@@ -6,6 +6,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.els.bean.JhddPositionimg;
 import com.els.controller.DBController;
 import com.els.socket.SocketManger;
 import com.els.socket.SocketMessage;
@@ -17,7 +18,8 @@ public class DownUpType implements InterfaceType {
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
 		List<PositionMessage> positionMessage = new ArrayList<PositionMessage>();
 		List<PositionMessage> listImgs = new ArrayList<>();
-		DBController dbc = new DBController();
+		DBController dbController = new DBController();
+		JhddPositionimg positionImgs = new JhddPositionimg();
 		if (arrayset != null) {
 			for (WebSocketServer object : arrayset) {
 				try {
@@ -39,19 +41,26 @@ public class DownUpType implements InterfaceType {
 						if (message != null) {
 							if (object.getSocketUser().getStatus() == 0) {
 								message.setImgOne(object.getSocketUser().getUserportrait());
+								//將值存入数据库
+								positionImgs.setImgone(object.getSocketUser().getUserportrait());
 							}
 							String position = message.getPosition();
 							if (position == "2" || "2".equals(position)) {
 								message.setImgTwo(message.getHeadimgurl());
+								positionImgs.setImgtwo(message.getHeadimgurl());
 							}
 							if (position == "3" || "3".equals(position)) {
 								message.setImgThree(message.getHeadimgurl());
+								positionImgs.setImgthree(message.getHeadimgurl());
 							}
 							if (position == "4" || "4".equals(position)) {
 								message.setImgFour(message.getHeadimgurl());
+								positionImgs.setImgfour(message.getHeadimgurl());
 							}
 							
+							dbController.addPositionImg(positionImgs);
 						}
+					
 						/*
 						 * if (object.getSocketUser().getStatus() == 1) {
 						 * positionMessage.add(object.getPositionMessage()); }

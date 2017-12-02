@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.els.bean.JhddPositionimg;
 import com.els.service.PositionImgServiceImpl;
-import com.els.serviceinterface.PositionImgService;
 
 @Controller
 public class DBController {
@@ -14,17 +13,27 @@ public class DBController {
 	@Autowired
 	private static PositionImgServiceImpl positionImgService;
 	
-	public PositionImgServiceImpl getPositionImgService() {
-		return positionImgService;
-	}
-
-	public void setPositionImgService(PositionImgServiceImpl positionImgService) {
-		this.positionImgService = positionImgService;
-	}
-
-	@RequestMapping
+/*
+ * 向数据库增加座位信息。
+ */
+	@RequestMapping("/addPositionImg")
 	public void addPositionImg(JhddPositionimg positionImg){
+		positionImgService.addImg(positionImg);
 		
+	}
+/*
+ * 
+ */
+	@RequestMapping("/updatePositionImg")
+	public void updataPositionImg(JhddPositionimg positionImg){
+		positionImgService.updateImg(positionImg);
+		
+	}
+	
+	@RequestMapping("/selectPositionImg")
+	public JhddPositionimg selectPositionImg(){
+		JhddPositionimg jhddPositionimg = positionImgService.selectImg();
+		return jhddPositionimg;
 		
 	}
 	

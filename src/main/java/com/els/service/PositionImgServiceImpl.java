@@ -26,7 +26,7 @@ public class PositionImgServiceImpl implements PositionImgService{
 	}
 
 	@Override
-	public void deleteImg(JhddPositionimg positionImgs) {
+	public void updateImg(JhddPositionimg positionImgs) {
 		// TODO Auto-generated method stub
 		jhddPositionimgMapper.updateByPrimaryKeySelective(positionImgs);
 	}

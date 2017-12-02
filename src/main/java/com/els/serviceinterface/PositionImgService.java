@@ -6,7 +6,7 @@ public interface PositionImgService {
 
 	public void addImg(JhddPositionimg positionImgs);
 	
-	public void deleteImg(JhddPositionimg positionImgs);
+	public void updateImg(JhddPositionimg positionImgs);
 	
 	public JhddPositionimg selectImg();
 }
