@@ -31,8 +31,8 @@ public class DBController {
 	}
 	
 	@RequestMapping("/selectPositionImg")
-	public JhddPositionimg selectPositionImg(){
-		JhddPositionimg jhddPositionimg = positionImgService.selectImg();
+	public JhddPositionimg selectPositionImg(Integer roomId){
+		JhddPositionimg jhddPositionimg = positionImgService.selectByRoomId(roomId);
 		return jhddPositionimg;
 		
 	}

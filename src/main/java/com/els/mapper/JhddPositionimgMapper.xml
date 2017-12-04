@@ -7,6 +7,7 @@
     <result column="imgTwo" property="imgtwo" jdbcType="VARCHAR" />
     <result column="imgThree" property="imgthree" jdbcType="VARCHAR" />
     <result column="imgFour" property="imgfour" jdbcType="VARCHAR" />
+    <result column="roomId" property="roomid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    positionId, imgOne, imgTwo, imgThree, imgFour
+    positionId, imgOne, imgTwo, imgThree, imgFour, roomId
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.bean.JhddPositionimgExample" >
     select
@@ -82,6 +83,10 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+  </select>
+  <!-- 根据房间id查询数据库图片 -->
+  <select id="selectByRoomId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+   SELECT * FROM `jhdd_positionimg` WHERE roomId = #{roomId};
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -101,9 +106,11 @@
   </delete>
   <insert id="insert" parameterType="com.els.bean.JhddPositionimg" >
     insert into jhdd_positionimg (positionId, imgOne, imgTwo, 
-      imgThree, imgFour)
+      imgThree, imgFour, roomId
+      )
     values (#{positionid,jdbcType=INTEGER}, #{imgone,jdbcType=VARCHAR}, #{imgtwo,jdbcType=VARCHAR}, 
-      #{imgthree,jdbcType=VARCHAR}, #{imgfour,jdbcType=VARCHAR})
+      #{imgthree,jdbcType=VARCHAR}, #{imgfour,jdbcType=VARCHAR}, #{roomid,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.els.bean.JhddPositionimg" >
     insert into jhdd_positionimg
@@ -123,6 +130,9 @@
       <if test="imgfour != null" >
         imgFour,
       </if>
+      <if test="roomid != null" >
+        roomId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="positionid != null" >
@@ -139,6 +149,9 @@
       </if>
       <if test="imgfour != null" >
         #{imgfour,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null" >
+        #{roomid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -166,6 +179,9 @@
       <if test="record.imgfour != null" >
         imgFour = #{record.imgfour,jdbcType=VARCHAR},
       </if>
+      <if test="record.roomid != null" >
+        roomId = #{record.roomid,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +193,8 @@
       imgOne = #{record.imgone,jdbcType=VARCHAR},
       imgTwo = #{record.imgtwo,jdbcType=VARCHAR},
       imgThree = #{record.imgthree,jdbcType=VARCHAR},
-      imgFour = #{record.imgfour,jdbcType=VARCHAR}
+      imgFour = #{record.imgfour,jdbcType=VARCHAR},
+      roomId = #{record.roomid,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +214,9 @@
       <if test="imgfour != null" >
         imgFour = #{imgfour,jdbcType=VARCHAR},
       </if>
+      <if test="roomid != null" >
+        roomId = #{roomid,jdbcType=INTEGER},
+      </if>
     </set>
     where positionId = #{positionid,jdbcType=INTEGER}
   </update>
@@ -205,7 +225,8 @@
     set imgOne = #{imgone,jdbcType=VARCHAR},
       imgTwo = #{imgtwo,jdbcType=VARCHAR},
       imgThree = #{imgthree,jdbcType=VARCHAR},
-      imgFour = #{imgfour,jdbcType=VARCHAR}
+      imgFour = #{imgfour,jdbcType=VARCHAR},
+      roomId = #{roomid,jdbcType=INTEGER}
     where positionId = #{positionid,jdbcType=INTEGER}
   </update>
 </mapper>

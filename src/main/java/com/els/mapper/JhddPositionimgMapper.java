@@ -27,4 +27,6 @@ public interface JhddPositionimgMapper {
     int updateByPrimaryKeySelective(JhddPositionimg record);
 
     int updateByPrimaryKey(JhddPositionimg record);
+
+	JhddPositionimg selectByRoomId(Integer roomId);
 }

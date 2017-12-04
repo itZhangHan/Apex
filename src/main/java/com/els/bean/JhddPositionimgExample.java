@@ -443,6 +443,66 @@ public class JhddPositionimgExample {
             addCriterion("imgFour not between", value1, value2, "imgfour");
             return (Criteria) this;
         }
+
+        public Criteria andRoomidIsNull() {
+            addCriterion("roomId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomidIsNotNull() {
+            addCriterion("roomId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomidEqualTo(Integer value) {
+            addCriterion("roomId =", value, "roomid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomidNotEqualTo(Integer value) {
+            addCriterion("roomId <>", value, "roomid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomidGreaterThan(Integer value) {
+            addCriterion("roomId >", value, "roomid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("roomId >=", value, "roomid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomidLessThan(Integer value) {
+            addCriterion("roomId <", value, "roomid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomidLessThanOrEqualTo(Integer value) {
+            addCriterion("roomId <=", value, "roomid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomidIn(List<Integer> values) {
+            addCriterion("roomId in", values, "roomid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomidNotIn(List<Integer> values) {
+            addCriterion("roomId not in", values, "roomid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomidBetween(Integer value1, Integer value2) {
+            addCriterion("roomId between", value1, value2, "roomid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoomidNotBetween(Integer value1, Integer value2) {
+            addCriterion("roomId not between", value1, value2, "roomid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

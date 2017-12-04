@@ -76,105 +76,18 @@
 		</div>
 
 	</div>
-	<!-- 进入游戏页面 -->		
-	 <div class="play_go" id="play_go"  > 		<!-- onload="sendUsers()" -->
-			<div class="wrap" id="wrap">
-					<div class="local">
-						<!-- 计时区域 -->
-						<div class="time">
-							<img src="../img/a/image4.png">
-							<div class="info">
-								<div>
-									<span id="local_time">0</span>
-								</div>
-							</div>
-						</div>
-						<!--游戏区域  -->
-						<div class="gameScene" id="local_gameScene">
-							<img src="../img/bg2.png">
-							<div class="game" id="local_game"></div>
-							<div class="next" id="local_next">
-								<img src="../img/a/nextLayer.png">
-							</div>
-						</div>
-						<!-- 排行榜区域 -->
-						<div class="ranking">
-							<ul id="rankingUl">
-								<li id="num1">
-									<a><img id="img1" src=""></a>
-									<span id="score">000</span> <img id="img2" src="../img/a/d.png">
-									<img id="img3" src="../img/a/c.png">
-								</li>
-								<li id="num2">
-									<a><img id="img4" src=""></a>
-									<span id="score1">000</span> <img id="img5" src="../img/a/d.png">
-									<img id="img6" src="../img/a/c.png"></li>
-								<li id="num3">
-									<a><img id="img7" src=""></a> 
-									<span id="score2">000</span> <img id="img8" src="../img/a/d.png">
-									<img id="img9" src="../img/a/c.png"></li>
-								<li id="num4">
-									<a><img id="img10" src=""></a>
-									 <span id="scoreMe">0</span> <img id="img11" src="../img/a/d.png">
-									<img id="img12" src="../img/a/c.png">
-								</li>
-							</ul>
-						</div>
-						<!-- 道具区域 -->
-						<div class="stage_btn">
-							<ul>
-								<li><img id="stage1" src="../img/a/stage2.png"></li>
-								<li><img id="stage2" src="../img/a/stage1.png"><span
-									id="stage2_num">0</span></li>
-							</ul>
-						</div>
-						<!-- 按键区域 -->
-						<div class="bottom_btn">
-							<ul>
-								<li id="btn_left"><img id="btnImg_left"
-									src="../img/button4.png"></li>
-								<li id="btn_right"><img id="btnImg_right"
-									src="../img/button3.png"></li>
-								<li id="btn_rotate"><img id="btnImg_rotate"
-									src="../img/button1.png"></li>
-								<li id="btn_down"><img id="btnImg_down"
-									src="../img/button2.png"></li>
-							</ul>
-						</div>
-					</div>
-					<canvas id="canvas1"></canvas>
-				</div>		 
-			</div> 	
-	
+
 	<script type="text/javascript">
-	alert(nicakname+"=当前房间姓名");
 		var ownerImg = "";
 		//页面加载前发送给服务端的数据
 		var imagelist = "";
 		window.onload = function usmessage() {
-			alert("aaaaaa");
 			//邀请好友
 			var iconBtn = document.getElementById("iconBtn");
 			iconBtn.onclick = function() {
 				document.location = "http://thdd.apexgame.cn/tetris/skip/first";
 			}
-			//判断当前用户是否属于房主  如果不是房主 不给于开始游戏的 权限 并显示房主名字
-			var gameGo = document.getElementById("game_go");
-			var play_go = document.getElementById("play_go");
-			
-			/* if (userStatus == 0) {		
-				gameGo.style.display = "block";	
-				gameGo.onclick = function(){
-					play_go.style.display = "block"; */
-					/* var head= document.getElementsByClassName('play_go'); 
-					var script= document.createElement('script'); 
-						script.type= 'text/javascript'; 
-						script.src= '../js/script.js'; 
-						head.appendChild(script); 
-					  } */
-			/* }else{
-				gameGo.style.display = "none";	
-			} */
+			//判断当前用户是否属于房主  如果不是房主 不给于开始游戏的 权限 并显示房主名字	
 			//删除房间逻辑判断 此处需要 增加
 
 			var userMessage = {};
@@ -222,7 +135,17 @@
 				gameMessage.isSelf = "";
 				gameMessage.getOnclient = "";
 				gameMessage.ownerImg = "";
+				userMessage.imgOne = "";
+				userMessage.imgTwo = "";
+				userMessage.imgThree = "";
+				userMessage.imgFour = "";
 				websocket.send(JSON.stringify(gameMessage));
+
+				/* var gameGo = document.getElementById("game_go");
+				var gameGo = document.getElementById("game_go");
+				var play_go = document.getElementById("play_go");
+					gameGo.onclick = function(){
+					play_go.style.display = "block"; */
 			} else {
 				alert("别动")
 			}
@@ -263,10 +186,10 @@
 
 			setTimeout("timer( )", 1000)
 		}
-
+		var wanjia1 = document.getElementById("player1");
 		var wanjia2 = document.getElementById("player2");
 		wanjia2.onclick = function() {
-
+			
 			//userStatus 当前用户  0房主  1玩家  2旁观者
 			if (userStatus == 0) {
 				alert("房主不能换座");
@@ -275,7 +198,7 @@
 
 			//第二个位置 信息
 			var userId1 = wanjia2.value;
-
+			alert(userId1+"22====22"+userId);
 			if (userId1 == '') {
 				//	f2 = true;
 				showUpHeader("down", 2);
@@ -299,6 +222,7 @@
 				return false;
 			}
 			var userId3 = wanjia3.value;
+			alert(userId3+"===="+userId);
 			if (userId3 == '') {
 				//	f2 = true;
 				showUpHeader("down", 3);
@@ -318,6 +242,7 @@
 				return false;
 			}
 			var userId4 = wanjia4.value;
+			alert(userId4+"44====44"+userId);
 			if (userId4 == '') {
 				//	f2 = true;
 				showUpHeader("down", 4);
@@ -357,10 +282,14 @@
 			mes.isSelf = "";
 			mes.getOnclient = "";
 			mes.ownerImg = "";
+			mes.imgOne = "";
+			mes.imgTwo = "";
+			mes.imgThree = "";
+			mes.imgFour = "";
 			websocket.send(JSON.stringify(mes));
 		}
 		//接收起立type 展示数据
-		function showUpmessage(b) {
+		function showUpmessage(b,imagelist) {
 
 			if (b.position == '2') {
 				//var head2 = document.getElementById("headImg2");
@@ -378,28 +307,7 @@
 				//orPrepare4.innerHTML = ""
 				wanjia4.value = '';
 			}
-			imagelist="";
-			var hd1src = document.getElementById("headImg1").src;
-			var hd2src = document.getElementById("headImg2").src;
-			var hd3src = document.getElementById("headImg3").src;
-			var hd4src = document.getElementById("headImg4").src;
-				//var imagelist=""
-		   if (hd1src.indexOf("index0send")<0 && hd1src.indexOf("joinRoomSend")<0) {
-				imagelist = imagelist+hd1src;
-				
-			}  
-		   if (hd2src.indexOf("index0send")<0 && hd2src.indexOf("joinRoomSend")<0) {
-				imagelist = imagelist+hd2src;
-				//alert("2"+head2.src+":"+imagelist);
-			} 
-		   if (hd3src.indexOf("index0send")<0 && hd3src.indexOf("joinRoomSend")<0) {
-				imagelist = imagelist+hd3src;
-				//alert("3"+head3.src+":"+imagelist);
-			} 
-		   if (hd4src.indexOf("index0send")<0 && hd4src.indexOf("joinRoomSend")<0) {
-				imagelist = "4"+imagelist+hd4src;
-				//alert("4"+head4.src+":"+imagelist);
-			} 
+
 			var zuowei = b.position;
 			for (var i = 1; i <= 4; i++) {
 				var headImage = document.getElementById("headImg" + i);
@@ -431,7 +339,7 @@
 			}
 
 		}
-		function showChangeSeat(b) {
+	/* 	function showChangeSeat(b) {
 
 			//清除之前位置头像
 			if (b.msgStr == "server同意交换") {
@@ -457,23 +365,96 @@
 					//遍历头像 设置之前头像消失
 				}
 			}
-		}
-		//接收坐下type 展示数据
-		function showDownmessage(b) {
-			var sitUl = document.getElementsByClassName("sit");
+		} */
 		
-			if (b.position == '1') {
+		function findCache(imagelist,b){
+			if (b.imgOne != null) {
 				//给位置填充图片
-				head2.src = b.imgOne;
+				head1.src = b.imgOne;
 				//修改旁观者信息为 已准备
 				/* orPrepare2.innerHTML = "已准备";  */
 				//设置头像value为userid
-				wanjia2.value = b.userId;
+			//	wanjia1.value = b.userId;
 				//遍历头像 设置之前头像消失
 
-			} 
+			}
+			if (b.imgTwo != null) {
+				//给位置填充图片
+				head2.src = b.imgTwo;
+				//修改旁观者信息为 已准备
+				/* orPrepare2.innerHTML = "已准备";  */
+				//设置头像value为userid
+				//wanjia2.value = b.userId;
+				//遍历头像 设置之前头像消失
+
+			} else if (b.imgThree != null) {
+				head3.src = b.imgThree;
+				//orPrepare3.innerHTML = "已准备"; 
+				//wanjia3.value = b.userId;
+				//遍历头像 设置之前头像消失
+			} else if (b.imgFour != null) {
+				head4.src = b.imgFour;
+				//orPrepare4.innerHTML = "已准备";  
+			//	wanjia4.value = b.userId;
+				//遍历头像 设置之前头像消失
+			}
+			var zuowei = b.position;
+			for (var i = 1; i <= 4; i++) {
+				var headImage = document.getElementById("headImg" + i);
+				var player = document.getElementById("player" + i);
+				if (i != zuowei) {
+					//alert(headImage.src+"+")		
+					if (headImage.src == b.headimgurl) {
+						headImage.src = '../img/play/touming.jpg';
+						player.value = '';
+					}
+					//alert("22222"+headImage.src);
+				}
+			}
+			//四人座位src 
+			//var piclisti=head1.src+","+head2.src+","+head3.src+","+head4.src;
+			//orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3orPrepare3
+			for (var z = 1; z <= 8; z++) {
+
+				var teas111 = document.getElementById("img" + z);
+
+				if (imagelist.indexOf(teas111.src) > -1 && teas111.src != "") {
+					document.getElementById("orPrepare" + z).innerHTML = "已准备";
+				} else {
+					document.getElementById("orPrepare" + z).innerHTML = "";
+				}
+				if (ownerImg == teas111.src) {
+
+					document.getElementById("orPrepare1").innerHTML = "";
+				}
+
+			}
+		}
+		//接收坐下type 展示数据
+		function showDownmessage(b,imagelist) {
+		//	alert("进入down方法了");
+			var sitUl = document.getElementsByClassName("sit");
+			var hd1src = head1.src;
+			var hd2src = head2.src;
+			var hd3src = head3.src;
+			var hd4src = head4.src;
+			//var iimg1 = document.getElementById("headImg1");
+			
+			//alert("111"+b.imgOne);
+			//alert("userid="+b.userId);
+			if (b.position == '1') {
+				//给位置填充图片
+				head1.src = b.imgOne;
+				//修改旁观者信息为 已准备
+				/* orPrepare2.innerHTML = "已准备";  */
+				//设置头像value为userid
+				wanjia1.value = b.userId;
+				//遍历头像 设置之前头像消失
+
+			}
 			if (b.position == '2') {
 				//给位置填充图片
+				//alert("进入22222");
 				head2.src = b.imgTwo;
 				//修改旁观者信息为 已准备
 				/* orPrepare2.innerHTML = "已准备";  */
@@ -481,41 +462,20 @@
 				wanjia2.value = b.userId;
 				//遍历头像 设置之前头像消失
 
-			} else if (b.position == '3') {
+			} 
+			if (b.position == '3') {
+				//alert("进入333"+b.imgThree);	
 				head3.src = b.imgThree;
 				//orPrepare3.innerHTML = "已准备"; 
 				wanjia3.value = b.userId;
 				//遍历头像 设置之前头像消失
-			} else if (b.position == '4') {
+			} 
+			if (b.position == '4') {
 				head4.src = b.imgFour;
 				//orPrepare4.innerHTML = "已准备";  
 				wanjia4.value = b.userId;
 				//遍历头像 设置之前头像消失
 			}
-			
-			imagelist="";
-			var hd1src = document.getElementById("headImg1").src;
-			var hd2src = document.getElementById("headImg2").src;
-			var hd3src = document.getElementById("headImg3").src;
-			var hd4src = document.getElementById("headImg4").src;
-				//var imagelist=""
-		   if (hd1src.indexOf("index0send")<0 && hd1src.indexOf("joinRoomSend")<0) {
-				imagelist = imagelist+hd1src;
-				
-			}  
-		   if (hd2src.indexOf("index0send")<0 && hd2src.indexOf("joinRoomSend")<0) {
-				imagelist = imagelist+hd2src;
-				//alert("2"+head2.src+":"+imagelist);
-			} 
-		   if (hd3src.indexOf("index0send")<0 && hd3src.indexOf("joinRoomSend")<0) {
-				imagelist = imagelist+hd3src;
-				//alert("3"+head3.src+":"+imagelist);
-			} 
-		   if (hd4src.indexOf("index0send")<0 && hd4src.indexOf("joinRoomSend")<0) {
-				imagelist = "4"+imagelist+hd4src;
-				//alert("4"+head4.src+":"+imagelist);
-			} 
-			
 			//清理原来座位
 			var zuowei = b.position;
 			for (var i = 1; i <= 4; i++) {
@@ -622,25 +582,20 @@
 			var b = JSON.parse(jsonObj);
 			//var nowImgs = b.listImgs;
 			//alert(nowImgs[0].nowImg+"==这些！");
-			//var returnLists = b.listImgs;
+			var returnLists = b.listImgs;
 			//房主头像
-			alert(b+"ssss");
-			ownerImg = b.ownerImg;
-			alert("位置一的头像="+b.imgOne+"，位置二的头像="+b.imgTwo+"，位置三的头像="+b.imgThree+"，位置四的头像="+b.imgFour);
-		/* 	var shuzu = b.playerImgs;
-			alert("数组0："+shuzu[0]);
-			alert("数组1："+shuzu[1]);
-			alert("数组2："+shuzu[2]);
-			alert("数组4："+shuzu[3]); */
-			//imagelist = "";
-			//for (var a = 0; a < returnLists.length; a++) {
+			ownerImg = b.headimgurl;
+
+			imagelist = "";
+
 			//图片数组 
-			/* imagelist = imagelist + returnLists[a].nowImg
-					+ "@@@@@@@@@@@@@@@" + a; */
-			//imagelist = imagelist + b.headimgurl
-			//+ "@@@@@@@@@@@@@@@" + a;
-			//}
-			//alert("集合头像："+imagelist);
+			imagelist = imagelist + b.imgOne + b.imgTwo + b.imgThree
+					+ b.imgFour;
+			alert("数据库中位置一的图片="+b.imgOne + ",,,位置二的图片"+b.imgTwo + ",,,位置三的图片"+b.imgThree
+					+ ",,,位置四的图片"+b.imgFour);
+			//提取缓存数据
+		//	findCache(imagelist,b);
+			//alert("弹出1");
 			if (b.type == 'usmesage') {
 
 				var gameDom = document.getElementById("game_go");
@@ -664,11 +619,11 @@
 			}
 			if (b.type == 'up') {
 				//展示起立信息
-				showUpmessage(b);
+				showUpmessage(b,imagelist);
 			}
 			if (b.type == 'down') {
 				//展示坐下信息
-				showDownmessage(b);
+				showDownmessage(b,imagelist);
 
 			}
 			if (b.type == 'roomStatus') {
@@ -761,6 +716,10 @@
 			mes.isSelf = "";
 			mes.getOnclient = "";
 			mes.ownerImg = "";
+			mes.imgOne = "";
+			mes.imgTwo = "";
+			mes.imgThree = "";
+			mes.imgFour = "";
 			websocket.send(JSON.stringify(mes));
 		}
 		function sendUsers() {
@@ -783,15 +742,14 @@
 			readingUsers.isSelf = "";
 			readingUsers.getOnclient = "";
 			readingUsers.ownerImg = "";
+			readingUsers.imgOne = "";
+			readingUsers.imgTwo = "";
+			readingUsers.imgThree = "";
+			readingUsers.imgFour = "";
 			websocket.send(JSON.stringify(readingUsers));
 
 		}
 	</script>
-<!-- 	<script src="../js/square.js"></script>
-	<script src="../js/squareFactory.js"></script>
-	<script src="../js/game.js"></script>
-	<script src="../js/local.js"></script>
-	<script src="../js/script.js"></script>
-	<script src="../js/hall.js"></script> -->
+
 </body>
 </html>

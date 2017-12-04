@@ -11,6 +11,8 @@ public class JhddPositionimg {
 
     private String imgfour;
 
+    private Integer roomid;
+
     public Integer getPositionid() {
         return positionid;
     }
@@ -49,5 +51,13 @@ public class JhddPositionimg {
 
     public void setImgfour(String imgfour) {
         this.imgfour = imgfour == null ? null : imgfour.trim();
+    }
+
+    public Integer getRoomid() {
+        return roomid;
+    }
+
+    public void setRoomid(Integer roomid) {
+        this.roomid = roomid;
     }
 }

@@ -1,14 +1,9 @@
 package com.els.WebSockerServer;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
-
-import javax.servlet.http.HttpServletRequest;
 
 import com.els.bean.JhddPositionimg;
 import com.els.common.SpringContextUtil;
-import com.els.controller.DBController;
 import com.els.serviceinterface.PositionImgService;
 import com.els.socket.SocketManger;
 import com.els.socket.SocketMessage;
@@ -19,10 +14,11 @@ public class DownUpType implements InterfaceType {
 	@Override
 	public synchronized String onMessage(SocketMessage message) {
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
-		List<PositionMessage> positionMessage = new ArrayList<PositionMessage>();
-		List<PositionMessage> listImgs = new ArrayList<>();
+		// List<PositionMessage> positionMessage = new
+		// ArrayList<PositionMessage>();
+		// List<PositionMessage> listImgs = new ArrayList<>();
 		// 查询数据库当前属性
-		JhddPositionimg positionImg = positionImgService.selectImg();
+		JhddPositionimg positionImg = positionImgService.selectByRoomId(Integer.parseInt(message.getRoomId()));
 		if (arrayset != null) {
 			for (WebSocketServer object : arrayset) {
 				try {
@@ -43,22 +39,53 @@ public class DownUpType implements InterfaceType {
 						 * }
 						 */
 						if (message != null) {
-							if (object.getSocketUser().getStatus() == 0) {
-								message.setImgOne(object.getSocketUser().getUserportrait());
-								// 將值存入数据库
-								positionImg.setImgone(object.getSocketUser().getUserportrait());
-							}
+							// if (object.getSocketUser().getStatus() == 0) {
+							// message.setImgOne(object.getSocketUser().getUserportrait());
+							// // 將值存入数据库
+							// positionImg.setImgone(object.getSocketUser().getUserportrait());
+							// }
 							String position = message.getPosition();
 							if (position == "2" || "2".equals(position)) {
 								message.setImgTwo(message.getHeadimgurl());
+								if (!"".equals(message.getHeadimgurl()) && message.getHeadimgurl() != null) {
+									if (positionImg.getImgthree().equals(message.getHeadimgurl())) {
+										// 设置之前存在的图片为空
+										positionImg.setImgthree("");
+									}
+									if (positionImg.getImgfour().equals(message.getHeadimgurl())) {
+										// 设置之前存在的图片为空
+										positionImg.setImgfour("");
+									}
+								}
 								positionImg.setImgtwo(message.getHeadimgurl());
+
 							}
 							if (position == "3" || "3".equals(position)) {
 								message.setImgThree(message.getHeadimgurl());
+								if (!"".equals(message.getHeadimgurl()) && message.getHeadimgurl() != null) {
+									if (positionImg.getImgtwo().equals(message.getHeadimgurl())) {
+										// 设置之前存在的图片为空
+										positionImg.setImgtwo("");
+									}
+									if (positionImg.getImgfour().equals(message.getHeadimgurl())) {
+										// 设置之前存在的图片为空
+										positionImg.setImgfour("");
+									}
+								}
 								positionImg.setImgthree(message.getHeadimgurl());
 							}
 							if (position == "4" || "4".equals(position)) {
 								message.setImgFour(message.getHeadimgurl());
+								if (!"".equals(message.getHeadimgurl()) && message.getHeadimgurl() != null) {
+									if (positionImg.getImgtwo().equals(message.getHeadimgurl())) {
+										// 设置之前存在的图片为空
+										positionImg.setImgtwo("");
+									}
+									if (positionImg.getImgthree().equals(message.getHeadimgurl())) {
+										// 设置之前存在的图片为空
+										positionImg.setImgthree("");
+									}
+								}
 								positionImg.setImgfour(message.getHeadimgurl());
 							}
 							System.out.println("数据库中的头像信息为：");
@@ -99,9 +126,9 @@ public class DownUpType implements InterfaceType {
 			 */
 		}
 		try {
-			//if (message != null)
-				// 返回当前在线人数
-				//message.setListImgs(positionMessage);
+			// if (message != null)
+			// 返回当前在线人数
+			// message.setListImgs(positionMessage);
 			for (WebSocketServer object : arrayset) {
 				object.getSession().getBasicRemote().sendObject(message);
 			}

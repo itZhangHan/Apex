@@ -25,12 +25,12 @@ public class SkipController {
 	private static PositionImgServiceImpl positionImgService;
 	@RequestMapping("/toA")
 	@ResponseBody
-	public JhddPositionimg getJhddPositionimg(){
+	public JhddPositionimg getJhddPositionimg(Integer roomId){
 		JhddPositionimg pg = new JhddPositionimg();
 		pg.setImgone("aaa");
 		DBController dbc = new DBController();
 		positionImgService.addImg(pg);
-		JhddPositionimg selectPositionImg = dbc.selectPositionImg();
+		JhddPositionimg selectPositionImg = dbc.selectPositionImg(roomId);
 		System.out.println(selectPositionImg.getImgone()+"=获取到的第一个图片。");
 		return selectPositionImg;
 	}
