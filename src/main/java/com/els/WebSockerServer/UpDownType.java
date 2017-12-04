@@ -61,7 +61,7 @@ public class UpDownType extends BaseType {
 						System.out.println("message中的头像信息为：");
 						System.out.println(message.getImgOne() + ",头像二：" + message.getImgTwo() + ",头像三："
 								+ message.getImgThree() + ",头像四：" + message.getImgFour());
-						positionImgService.updateImg(positionImgs);
+						
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -69,7 +69,11 @@ public class UpDownType extends BaseType {
 				}
 
 			}
-
+			positionImgService.updateImg(positionImgs);
+			message.setImgOne(positionImgs.getImgone());
+			message.setImgTwo(positionImgs.getImgtwo());
+			message.setImgThree(positionImgs.getImgthree());
+			message.setImgFour(positionImgs.getImgfour());
 		}
 		try {
 			if (message != null)

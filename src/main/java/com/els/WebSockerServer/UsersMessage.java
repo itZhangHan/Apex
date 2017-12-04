@@ -25,7 +25,6 @@ public class UsersMessage extends BaseType {
 		JhddPositionimg positionImg = positionImgService.selectByRoomId(Integer.parseInt(message.getRoomId()));
 		for (WebSocketServer object : arrayset) {
 			try {
-
 				// 查询数据库中的值
 				if (positionImg != null) {
 					if (object != null) {
@@ -44,7 +43,7 @@ public class UsersMessage extends BaseType {
 					message.setImgThree(positionImg.getImgthree());
 					message.setImgFour(positionImg.getImgfour());
 					// 去更新数据库
-					positionImgService.updateImg(positionImg);
+					
 				} else {
 
 					JhddPositionimg newPositionImg = new JhddPositionimg();
@@ -73,6 +72,11 @@ public class UsersMessage extends BaseType {
 				if (message.getSocketUser() != null) {
 					list.add(object.getSocketUser());
 				}
+				positionImgService.updateImg(positionImg);
+				message.setImgOne(positionImg.getImgone());
+				message.setImgTwo(positionImg.getImgtwo());
+				message.setImgThree(positionImg.getImgthree());
+				message.setImgFour(positionImg.getImgfour());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

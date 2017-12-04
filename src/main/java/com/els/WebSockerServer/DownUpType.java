@@ -25,26 +25,22 @@ public class DownUpType implements InterfaceType {
 					if (object != null) {
 						Integer status = object.getSocketUser().getStatus();
 						System.out.println("object中的status=" + status);
-						/*
-						 * if (object.getSocketUser().getStatus() == 0) { //
-						 * 设置房主图片 message.setOwnerImg(object.getSocketUser().
-						 * getUserportrait());
-						 * positionMessage.add(object.getPositionMessage());
-						 * System.out.println("第一次＋图片为0的图片 "); }
-						 * 
-						 * if (object.getSocketUser().getStatus() == 1) {
-						 * positionMessage.add(object.getPositionMessage());
-						 * System.out.println("第一次＋图片为1的图片 ");
-						 * 
-						 * }
-						 */
+	
 						if (message != null) {
-							// if (object.getSocketUser().getStatus() == 0) {
-							// message.setImgOne(object.getSocketUser().getUserportrait());
-							// // 將值存入数据库
-							// positionImg.setImgone(object.getSocketUser().getUserportrait());
-							// }
+		
+							message.setOwnerImg(object.getSocketUser().getUserportrait());
+							message.setImgOne(object.getSocketUser().getUserportrait());
 							String position = message.getPosition();
+							//如果位置二的不等于null 那么就给位置二null
+							if(positionImg.getImgtwo() != null && !"".equals(positionImg.getImgtwo())){
+								message.setImgTwo(positionImg.getImgtwo());
+							}
+							if(positionImg.getImgthree() != null && !"".equals(positionImg.getImgthree())){
+								message.setImgThree(positionImg.getImgthree());
+							}
+							if(positionImg.getImgfour() != null && !"".equals(positionImg.getImgfour())){
+								message.setImgFour(positionImg.getImgfour());
+							}
 							if (position == "2" || "2".equals(position)) {
 								message.setImgTwo(message.getHeadimgurl());
 								if (!"".equals(message.getHeadimgurl()) && message.getHeadimgurl() != null) {
@@ -94,8 +90,8 @@ public class DownUpType implements InterfaceType {
 							System.out.println("message中的头像信息为：");
 							System.out.println(message.getImgOne() + ",头像二：" + message.getImgTwo() + ",头像三："
 									+ message.getImgThree() + ",头像四：" + message.getImgFour());
-							positionImgService.updateImg(positionImg);
 						}
+					
 
 						/*
 						 * if (object.getSocketUser().getStatus() == 1) {
@@ -118,6 +114,11 @@ public class DownUpType implements InterfaceType {
 					e.printStackTrace();
 				}
 			}
+			positionImgService.updateImg(positionImg);
+			message.setImgOne(positionImg.getImgone());
+			message.setImgTwo(positionImg.getImgtwo());
+			message.setImgThree(positionImg.getImgthree());
+			message.setImgFour(positionImg.getImgfour());
 			/*
 			 * listImgs.addAll(positionMessage); System.out.println("在座的人的长度为："
 			 * + listImgs.size()); for (PositionMessage positionMessage2 :
