@@ -8,6 +8,9 @@ var Game = function () {
     var stage2_num;
     var stage_arr = [];
 
+    // 行数
+    var line=0;
+
     // 分数
     var score = 0;
     var stage2num = 0;
@@ -431,7 +434,7 @@ var Game = function () {
     var c = 0;
     // 消行
     var checkClear = function () {
-        var line = 0;
+        
         for (var i=gameData.length-1; i>=0; i--) { // 反过来遍历
             var clear = true;
             for (var j=0; j<gameData[0].length; j++) { // 判断一行是否可以清除
@@ -443,6 +446,7 @@ var Game = function () {
             }
             if (clear) {
                 line++;
+               
 
                 for(var k = 0; k<gameData[0].length; k++){
                     if(gameData[i][k] != 1){
@@ -494,10 +498,14 @@ var Game = function () {
                     gameData[0][n] = 0;
                 }
                 i++;
+                
             }
+            
         }
-        console.log("stage_arr================"+this.stage_arr.length)
+        console.log("stage_arr================"+this.stage_arr.length);
+        console.log("消了"+line+"行");
         return line;
+        
     }
 
     // 检查游戏结束
@@ -505,6 +513,8 @@ var Game = function () {
         var gameOver = false;
         for (var i=0; i<gameData[0].length; i++) {
             if (gameData[1][i] == 1) {
+                gameOver = true;
+            }else if(line>2){
                 gameOver = true;
             }
         }
@@ -592,38 +602,54 @@ var Game = function () {
         score += s;
         scoreDiv.innerHTML = score;
         this.score = score;
-        console.log("scoreDiv.innerHTML"+scoreDiv.innerHTML)
+        console.log("scoreDiv.innerHTML"+scoreDiv.innerHTML);
+        console.log("分数"+score);
     }
 
     // 游戏结束
     var onGameOver = function (win) {
+        console.log("游戏结束"+line);
         if (win) {
             resultDiv.innerHTML = '你赢了';
         } else {
             //     resultDiv.innerHTML = '游戏结束';
             var can1 = document.getElementById("canvas1")//fishes  dust ui circle  20px Verdana
             var ctx1 = can1.getContext('2d');
+            var ctx2 =can1.getContext('2d');
             document.getElementById("canvas1").width = 320;
             document.getElementById("canvas1").height = 468;
             ctx1.font = "27px Verdana";
             ctx1.textAlign = "center";
-
+             ctx2.font = "24px Verdana";
+            ctx2.textAlign = "center";
             var w = can1.width;
             var h = can1.height;
             console.log("khhhhh666666666666666666666")
 
             ctx1.save();
+            ctx2.save();
             /*ctx1.lineWidth = 20;*/
             ctx1.shadowBlur = 20;
             ctx1.shadowColor = "white";
             ctx1.fillStyle = "white";
+             ctx2.shadowBlur = 20;
+            ctx2.shadowColor = "white";
+            ctx2.fillStyle = "white";
             //   ctx1.fillStyle = "rgba(255,255,255,"+0.9+")";
             ctx1.fillText("GAMEOVER",w/2,h/2);
+             ctx2.fillText("重新开始",w/2,h/2+50);
             /*ctx1.fillText("num ",100,h-50);
              ctx1.fillText("double ",w*0.5,h-80);
              ctx1.fillText("score ",w/2,h-20);*/
             ctx1.restore();
+            ctx2.restore();
+            // to_over=setInterval(to_over,3000);
         }
+    }
+
+    // 跳转结果页
+    var to_over=function(){
+        window.location.href="http://thdd.apexgame.cn/tetris/skip/oversend"
     }
 
     // 底部增加行

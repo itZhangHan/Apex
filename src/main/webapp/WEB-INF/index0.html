@@ -148,10 +148,13 @@
 	</div>
 
 	<script type="text/javascript">
+		var players=[{"userid":"1","nickName":"小梅","score":"100","lines":"40","img":"","props":""},{"userid":"2","nickName":"小明","score":"50","lines":"10","img":"","props":""},{"userid":"3","nickName":"小李","score":"500","lines":"30","img":"","props":""},{"userid":"4","nickName":"王可可","score":"320","lines":"5","img":"","props":""}]
 		var ownerImg = "";
 		//页面加载前发送给服务端的数据
 		var imagelist = "";
 		window.onload = function usmessage() {
+						
+						
 			//判断当前用户是否属于房主  如果不是房主 不给于开始游戏的 权限 并显示房主名字	
 			//删除房间逻辑判断 此处需要 增加
 			var iconBtn = document.getElementById("iconBtn");
@@ -162,11 +165,11 @@
 			var gameGo = document.getElementById("game_go");
 			var play_go = document.getElementById("play_go");
 
-			if (userStatus != 0) {
-				gameGo.style.display = "none";
-			} else {
-				gameGo.style.display = "block";
-			}
+			// if (userStatus != 0) {
+			// 	gameGo.style.display = "none";
+			// } else {
+			// 	gameGo.style.display = "block";
+			// }
 			gameGo.onclick = function(b) {
 				play_go.style.display = "block";
 				var local = new Local();
@@ -175,23 +178,25 @@
 				rankingUl.innerHTML = 
 					"<li id='num1'>"+
 						"<a><img id='img_1' src='"+b.imgOne+"'></a>"+
-						"<span id='score'>000</span> <img id='img_2' src='../img/a/d.png>'"+
+						"<span id='score'>22</span> <img id='img_2' src='../img/a/d.png'>"+
 						"<img id='img_3' src='../img/a/c.png'>"+
 					"</li>"+
 				   "<li id='num2'>"+
-						"<a><img id='img4' src='"+b.imgTwo+"'></a>"+
-						"<span id='score1'>000</span> <img id='img5' src='../img/a/d.png'>"+
-						"<img id='img6' src='../img/a/c.png'></li>"+
+						"<a><img id='img_4' src='"+b.imgTwo+"'></a>"+
+						"<span id='score1'>000</span> <img id='img_5' src='../img/a/d.png'>"+
+						"<img id='img_6' src='../img/a/c.png'></li>"+
 				  "<li id='num3'>"+
-						"<a><img id='img7' src='"+b.imgThree+"'>></a>"+
-						"<span id='score2'>000</span> <img id='img8' src='../img/a/d.png'>"+
-						"<img id='img9' src='../img/a/c.png'>"+
+						"<a><img id='img_7' src='"+b.imgThree+"'>></a>"+
+						"<span id='score2'>000</span> <img id='img_8' src='../img/a/d.png'>"+
+						"<img id='img_9' src='../img/a/c.png'>"+
 						"</li>"+
 				"<li id='num4'>"+
-						"<a><img id='img10' src='"+b.imgFour+"'></a>"+
-				 		"<span id='scoreMe'>0</span> <img id='img11' src='../img/a/d.png'>"+
-				 		"<img id='img12' src='../img/a/c.png'>"+
+						"<a><img id='img_10' src='"+b.imgFour+"'></a>"+
+				 		"<span id='scoreMe'>0</span> <img id='img_11' src='../img/a/d.png'>"+
+				 		"<img id='img_12' src='../img/a/c.png'>"+
 				"</li>" 
+
+				showPlayers();
 			}
 			
 			
@@ -219,9 +224,12 @@
 			userMessage.imgThree = "";
 			userMessage.imgFour = "";
 			websocket.send(JSON.stringify(userMessage));
+			
 		}
-
+		
+		
 		function startGame() {
+			playersInfo();
 			if (userStatus == 0) {
 				var gameMessage = {};
 				gameMessage.type = "roomStatus"
@@ -753,6 +761,9 @@
 				//展示分数信息
 				showScore(b);
 			}
+			if(b.type=='playersInfo'){
+				// showPlayers(b);
+			}
 		}
 
 		//显示旁观者信息
@@ -868,6 +879,45 @@
 			websocket.send(JSON.stringify(readingUsers));
 
 		}
+
+		function playersInfo(){
+			var playersInfo={};
+			playersInfo.type="playersInfo";
+			websocket.send(JSON.stringify(playersInfo));
+		}
+
+		
+		function showPlayers(){
+			
+			// console.log("woshidjflkdsjfldskjfkldsjf大家好才是真的好");
+			// var lines_list=new Array();
+			// for(var i in players){
+			// 	lines_list.push(players[i].lines);
+			// }
+			// lines_list.sort();
+			// console.log(lines_list);
+			alert("排序")
+
+			players.sort(getsortfun('desc','lines'));
+			console.log(JSON.stringify(players));
+			
+			document.getElementById("score").innerHTML = players[0].nickName;
+			document.getElementById("score1").innerHTML = players[1].nickName;
+			document.getElementById("score2").innerHTML = players[2].nickName;
+			document.getElementById("scoreMe").innerHTML = players[3].nickName;
+			// alert(document.getElementById("score").innerHTML);
+			
+
+		}
+
+		// 按行数排序
+		function getsortfun(order,sortBy){
+			var ordAlpah=(order=='asc')?'>':'<';
+			var sortFun=new Function('a','b','return a.'+sortBy+ordAlpah+'b.'+sortBy+'?1:-1');
+			return sortFun;
+		}
+
+
 	</script>
 	<!-- 测试 -->
 	<!-- CESHI22 -->

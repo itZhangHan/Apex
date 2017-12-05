@@ -296,8 +296,10 @@ var Local = function () {
   var stop = function () {
     if (timer) {
       clearInterval(timer);
+      clearInterval(sec_1);
       timer = null;
     }
+
     document.onkeydown = null;
   }
   // 开始
