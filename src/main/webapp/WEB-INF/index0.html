@@ -100,25 +100,25 @@
 				</div>
 				<!-- 排行榜区域 -->
 				<div class="ranking">
-					<ul id="rankingUl">			
-						<!-- <li id="num1">
-							<a><img id="img1" src=""></a>
+					<ul id="rankingUl">
+						<li id="num1">
+							<!-- <a><img id="img1" src=""></a>
 									<span id="score">000</span> <img id="img2" src="../img/a/d.png">
-									<img id="img3" src="../img/a/c.png">
+									<img id="img3" src="../img/a/c.png"> -->
 						</li>
 						<li id="num2">
-							<a><img id="img4" src=""></a>
+							<!-- <a><img id="img4" src=""></a>
 									<span id="score1">000</span> <img id="img5" src="../img/a/d.png">
-									<img id="img6" src="../img/a/c.png"></li>
+									<img id="img6" src="../img/a/c.png"></li> -->
 						<li id="num3">
-								<a><img id="img7" src=""></a> 
+							<!-- 	<a><img id="img7" src=""></a> 
 									<span id="score2">000</span> <img id="img8" src="../img/a/d.png">
-									<img id="img9" src="../img/a/c.png"></li>
+									<img id="img9" src="../img/a/c.png"></li> -->
 						<li id="num4">
-							<a><img id="img10" src=""></a>
+							<!-- <a><img id="img10" src=""></a>
 									 <span id="scoreMe">0</span> <img id="img11" src="../img/a/d.png">
-									<img id="img12" src="../img/a/c.png">
-						</li> -->
+									<img id="img12" src="../img/a/c.png"> -->
+						</li>
 					</ul>
 				</div>
 				<!-- 道具区域 -->
@@ -165,11 +165,12 @@
 			var gameGo = document.getElementById("game_go");
 			var play_go = document.getElementById("play_go");
 
-			// if (userStatus != 0) {
-			// 	gameGo.style.display = "none";
-			// } else {
-			// 	gameGo.style.display = "block";
-			// }
+<<<<<<< HEAD
+			if (userStatus != 0) {
+				gameGo.style.display = "none";
+			} else {
+				gameGo.style.display = "block";
+			}
 			gameGo.onclick = function(b) {
 				play_go.style.display = "block";
 				var local = new Local();
@@ -200,7 +201,7 @@
 			}
 			
 			
-				
+
 			var userMessage = {};
 			userMessage.type = "usmesage"
 			userMessage.roomId = roomId;
@@ -255,11 +256,6 @@
 				userMessage.imgFour = "";
 				websocket.send(JSON.stringify(gameMessage));
 
-				/* var gameGo = document.getElementById("game_go");
-				var gameGo = document.getElementById("game_go");
-				var play_go = document.getElementById("play_go");
-					gameGo.onclick = function(){
-					play_go.style.display = "block"; */
 			} else {
 				alert("别动")
 			}
@@ -502,6 +498,28 @@
 				//遍历头像 设置之前头像消失
 			}
 
+			var rankingUl = document.getElementById("rankingUl");
+			rankingUl.innerHTML = 
+				"<li id='num1'>"+
+					"<a><img id='img_1' src='"+b.imgOne+"'></a>"+
+					"<span id='score'>000</span> <img id='img_2' src='../img/a/d.png'>"+
+					"<img id='img_3' src='../img/a/c.png'>"+
+				"</li>"+
+			   "<li id='num2'>"+
+					"<a><img id='img_4' src='"+b.imgTwo+"'></a>"+
+					"<span id='score1'>000</span> <img id='img_5' src='../img/a/d.png'>"+
+					"<img id='img_6' src='../img/a/c.png'></li>"+
+			  "<li id='num3'>"+
+					"<a><img id='img_7' src='"+b.imgThree+"'>></a>"+
+					"<span id='score2'>000</span> <img id='img_8' src='../img/a/d.png'>"+
+					"<img id='img_9' src='../img/a/c.png'>"+
+					"</li>"+
+			"<li id='num4'>"+
+					"<a><img id='img_10' src='"+b.imgFour+"'></a>"+
+			 		"<span id='scoreMe'>0</span> <img id='img_11' src='../img/a/d.png'>"+
+			 		"<img id='img_12' src='../img/a/c.png'>"+
+			"</li>" 
+	
 			/* 	alert(imagelist+"=imagelist");
 				var xiaomao=document.getElementById("headImg2");
 				alert(xiaomao.src+"小猫");  */

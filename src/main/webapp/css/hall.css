@@ -444,7 +444,9 @@ position: absolute;
     margin-top: -1px;
 }
 
+
  #img_2,#img_5,#img_8,#img_11{
+
     position: absolute;
     clear: left;
     width: 17%;
@@ -461,11 +463,14 @@ position: absolute;
  
 
 
+
+
 /*#canvas1{
-    position:absolute;
+     position:absolute;
+
     width:100%;
     height: 100%;
-   z-index: 99;
+   z-index: 99; 
 
 }*/
 

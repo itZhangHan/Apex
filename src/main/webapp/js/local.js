@@ -150,7 +150,7 @@ var Local = function () {
           }*/
 
       }, false);
-
+   
       left.addEventListener('touchstart', function () {
           this.style.width = "89%"
           game.left();
