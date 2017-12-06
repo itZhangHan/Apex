@@ -17,6 +17,7 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import com.els.common.SocketUsers;
+import com.els.socket.GameMessage;
 import com.els.socket.MessageDecoder;
 import com.els.socket.MessageEncoder;
 import com.els.socket.SocketManger;
@@ -35,6 +36,8 @@ public class WebSocketServer {
 	private SocketUsers socketUser;
 	
 	private PositionMessage positionMessage;
+	
+	private GameMessage gameMessage;
 
 	/**
 	 * 连接建立成功调用的方法
@@ -73,6 +76,7 @@ public class WebSocketServer {
 		// 用户进来就有的数据
 		this.socketUser = message.getSocketUser();
 		this.positionMessage = message.getPositionMessage();
+		this.gameMessage = message.getGameMessage();
 		this.roomId = message.getRoomId();
 		SocketManger.addRoom(roomId, this);
 		if (message != null) {
@@ -80,6 +84,14 @@ public class WebSocketServer {
 				MessageManger.getType(message.getType()).onMessage(message);
 			}
 		}
+	}
+
+	public GameMessage getGameMessage() {
+		return gameMessage;
+	}
+
+	public void setGameMessage(GameMessage gameMessage) {
+		this.gameMessage = gameMessage;
 	}
 
 	/**

@@ -2,6 +2,7 @@ package com.els.socket;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.els.WebSockerServer.PositionMessage;
@@ -38,11 +39,30 @@ public class SocketMessage implements Serializable {
 	private String imgTwo;
 	private String imgThree;
 	private String imgFour;
+	private GameMessage gameMessage;
 	private List<SocketUsers> listUsers = new ArrayList();
 	private List<PositionMessage> listImgs = new ArrayList();
-	//private List<GameMessage> gameMessage = new ArrayList<>();
+	private List<GameMessage> gameMessages = new LinkedList<>();
 	
 	
+
+
+	public GameMessage getGameMessage() {
+		return gameMessage;
+	}
+
+	public void setGameMessage(GameMessage gameMessage) {
+		this.gameMessage = gameMessage;
+	}
+
+	public List<GameMessage> getGameMessages() {
+		return gameMessages;
+	}
+
+	public void setGameMessages(List<GameMessage> gameMessages) {
+		this.gameMessages = gameMessages;
+	}
+
 	public String getImgOne() {
 		return imgOne;
 	}

@@ -152,6 +152,7 @@ alert("启动页面");
 				</div>
 			</div>
 			<canvas id="canvas1"></canvas>
+			<div id="re_btn"></div>
 		</div>
 	</div>
 
@@ -169,11 +170,18 @@ alert("启动页面");
 				document.location = "http://thdd.apexgame.cn/tetris/skip/first";
 			}
 			//判断当前用户是否属于房主  如果不是房主 不给于开始游戏的 权限 并显示房主名字
-			if (userStatus != 0) {
+			/*if (userStatus != 0) {
 				gameGo.style.display = "none";
 			} else {
 				gameGo.style.display = "block";
+			} */
+			gameGo.onclick=function(){
+				play_go.style.display = "block";
+				var local = new Local();
+				local.start();
 			}
+			
+			
 			var userMessage = {};
 			userMessage.type = "usmesage"
 			userMessage.roomId = roomId;
@@ -203,19 +211,19 @@ alert("启动页面");
 			//想服务端发起开始游戏请求
 			var playMessage = {};
 			playMessage.type = "gameUsmessage"
-			playMessage.roomId = roomId;
-			playMessage.toUserName = "";
-			playMessage.fromUserName = "";
-			playMessage.msgStr = "";
-			playMessage.userStatus = userStatus;
+			playMessage.roomId = roomId;//房间id
+			playMessage.toUserName = "";//道具攻击人
+			playMessage.fromUserName = "";//道具发起人
+			playMessage.msgStr = "";//弹幕
+			playMessage.userStatus = userStatus;//玩家状态
 			playMessage.roomState = roomState;
 			playMessage.position = "1";
-			playMessage.headimgurl = img;
-			playMessage.nicakname = nicakname;
+			playMessage.headimgurl = img;//头像
+			playMessage.nicakname = nicakname;//玩家姓名
 			playMessage.sex = sex;
 			playMessage.city = city;
-			playMessage.userId = userId;
-			playMessage.props = "";
+			playMessage.userId = userId;//userId
+			playMessage.props = "";//道具名称  
 			playMessage.isSelf = "";
 			playMessage.getOnclient = "";
 			playMessage.ownerImg = "";
@@ -223,6 +231,7 @@ alert("启动页面");
 			playMessage.imgTwo = "";
 			playMessage.imgThree = "";
 			playMessage.imgFour = "";
+			
 			websocket.send(JSON.stringify(playMessage));
 		}
 
@@ -875,7 +884,6 @@ alert("启动页面");
 	<!-- 测试 -->
 	<!-- CESHI22 -->
 
-	<!-- <script src="../js/script.js"></script> -->
 	
 </body>
 </html>

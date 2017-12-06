@@ -414,6 +414,7 @@ html,body{
     left: 30%;
     top: 30%;
     width: 56%;
+    border-radius: 8px;
 }
 
 #num2 a img{
@@ -421,18 +422,21 @@ html,body{
     left: 30%;
     top: 34%;
     width: 54%;
+    border-radius: 8px;
 }
 #num3 a img{
 position: absolute;
     left: 30%;
     top: 31%;
     width: 55%;
+    border-radius: 8px;
 }
  #num4 a img{
     position: absolute;
     left: 30%;
     top: 32%;
     width: 54%;
+    border-radius: 8px;
 }   
 
 
