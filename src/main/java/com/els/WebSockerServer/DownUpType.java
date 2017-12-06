@@ -115,10 +115,11 @@ public class DownUpType implements InterfaceType {
 				}
 			}
 			positionImgService.updateImg(positionImg);
-			message.setImgOne(positionImg.getImgone());
-			message.setImgTwo(positionImg.getImgtwo());
-			message.setImgThree(positionImg.getImgthree());
-			message.setImgFour(positionImg.getImgfour());
+			JhddPositionimg newPositionImg = positionImgService.selectByRoomId(Integer.parseInt(message.getRoomId()));
+			message.setImgOne(newPositionImg.getImgone());
+			message.setImgTwo(newPositionImg.getImgtwo());
+			message.setImgThree(newPositionImg.getImgthree());
+			message.setImgFour(newPositionImg.getImgfour());
 			/*
 			 * listImgs.addAll(positionMessage); System.out.println("在座的人的长度为："
 			 * + listImgs.size()); for (PositionMessage positionMessage2 :

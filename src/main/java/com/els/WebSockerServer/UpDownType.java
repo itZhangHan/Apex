@@ -70,10 +70,11 @@ public class UpDownType extends BaseType {
 
 			}
 			positionImgService.updateImg(positionImgs);
-			message.setImgOne(positionImgs.getImgone());
-			message.setImgTwo(positionImgs.getImgtwo());
-			message.setImgThree(positionImgs.getImgthree());
-			message.setImgFour(positionImgs.getImgfour());
+			JhddPositionimg newPositionImg = positionImgService.selectByRoomId(Integer.parseInt(message.getRoomId()));
+			message.setImgOne(newPositionImg.getImgone());
+			message.setImgTwo(newPositionImg.getImgtwo());
+			message.setImgThree(newPositionImg.getImgthree());
+			message.setImgFour(newPositionImg.getImgfour());
 		}
 		try {
 			if (message != null)

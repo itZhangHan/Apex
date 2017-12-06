@@ -8,16 +8,19 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,minimum-
 	    scale=1,maximum-scale=1,user-scalable=no">
+<script src="../js/webSocket.js"></script>
+<script src="../js/userInfo.js"></script>
+<script src="../js/jquery-2.1.1.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="../js/square.js"></script>
 <script src="../js/squareFactory.js"></script>
 <script src="../js/game.js"></script>
 <script src="../js/local.js"></script>
 <script src="../js/hall.js"></script>
-<script src="../js/webSocket.js"></script>
-<script src="../js/userInfo.js"></script>
-<script src="../js/jquery-2.1.1.min.js"></script>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <link rel="stylesheet" href="../css/hall.css">
+<script type="text/javascript">
+alert("启动页面");
+</script>
 </head>
 <body>
 
@@ -149,18 +152,16 @@
 				</div>
 			</div>
 			<canvas id="canvas1"></canvas>
-			<div id="re_btn"></div>
 		</div>
 	</div>
 
 	<script type="text/javascript">
-		var players=[{"userid":"1","nickName":"小梅","score":"100","lines":"40","img":"","props":""},{"userid":"2","nickName":"小明","score":"50","lines":"10","img":"","props":""},{"userid":"3","nickName":"小李","score":"500","lines":"30","img":"","props":""},{"userid":"4","nickName":"王可可","score":"320","lines":"5","img":"","props":""}]
 		var ownerImg = "";
 		//页面加载前发送给服务端的数据
 		var imagelist = "";
+		var gameGo = document.getElementById("game_go");
+		var play_go = document.getElementById("play_go");
 		window.onload = function usmessage() {
-						
-						
 			//判断当前用户是否属于房主  如果不是房主 不给于开始游戏的 权限 并显示房主名字	
 			//删除房间逻辑判断 此处需要 增加
 			var iconBtn = document.getElementById("iconBtn");
@@ -168,24 +169,11 @@
 				document.location = "http://thdd.apexgame.cn/tetris/skip/first";
 			}
 			//判断当前用户是否属于房主  如果不是房主 不给于开始游戏的 权限 并显示房主名字
-			var gameGo = document.getElementById("game_go");
-			var play_go = document.getElementById("play_go");
-
-
-			// if (userStatus != 0) {
-			// 	gameGo.style.display = "none";
-			// } else {
-			// 	gameGo.style.display = "block";
-			// }
-			gameGo.onclick = function(b) {
-				play_go.style.display = "block";
-				var local = new Local();
-				local.start();
-				showPlayers();
+			if (userStatus != 0) {
+				gameGo.style.display = "none";
+			} else {
+				gameGo.style.display = "block";
 			}
-			
-			
-
 			var userMessage = {};
 			userMessage.type = "usmesage"
 			userMessage.roomId = roomId;
@@ -209,42 +197,35 @@
 			userMessage.imgThree = "";
 			userMessage.imgFour = "";
 			websocket.send(JSON.stringify(userMessage));
-			
 		}
-		
-		
+		//开始游戏请求
 		function startGame() {
-			playersInfo();
-			if (userStatus == 0) {
-				var gameMessage = {};
-				gameMessage.type = "roomStatus"
-				gameMessage.roomId = roomId;
-				gameMessage.toUserName = "";
-				gameMessage.fromUserName = "";
-				gameMessage.msgStr = "";
-				gameMessage.userStatus = userStatus;
-				gameMessage.roomState = roomState;
-				gameMessage.position = "1";
-				gameMessage.headimgurl = img;
-				gameMessage.nicakname = nicakname;
-				gameMessage.sex = sex;
-				gameMessage.city = city;
-				gameMessage.userId = userId;
-				gameMessage.props = "";
-				gameMessage.isSelf = "";
-				gameMessage.getOnclient = "";
-				gameMessage.ownerImg = "";
-				userMessage.imgOne = "";
-				userMessage.imgTwo = "";
-				userMessage.imgThree = "";
-				userMessage.imgFour = "";
-				websocket.send(JSON.stringify(gameMessage));
-
-			} else {
-				alert("别动")
-			}
-
+			//想服务端发起开始游戏请求
+			var playMessage = {};
+			playMessage.type = "gameUsmessage"
+			playMessage.roomId = roomId;
+			playMessage.toUserName = "";
+			playMessage.fromUserName = "";
+			playMessage.msgStr = "";
+			playMessage.userStatus = userStatus;
+			playMessage.roomState = roomState;
+			playMessage.position = "1";
+			playMessage.headimgurl = img;
+			playMessage.nicakname = nicakname;
+			playMessage.sex = sex;
+			playMessage.city = city;
+			playMessage.userId = userId;
+			playMessage.props = "";
+			playMessage.isSelf = "";
+			playMessage.getOnclient = "";
+			playMessage.ownerImg = "";
+			playMessage.imgOne = "";
+			playMessage.imgTwo = "";
+			playMessage.imgThree = "";
+			playMessage.imgFour = "";
+			websocket.send(JSON.stringify(playMessage));
 		}
+
 		//旁观者
 		var headUrl0 = document.getElementById("img1");
 		var headUrl1 = document.getElementById("img2");
@@ -280,8 +261,10 @@
 
 			setTimeout("timer( )", 1000)
 		}
+		
 		var wanjia1 = document.getElementById("player1");
-		var wanjia2 = document.getElementById("player2");
+		var wanjia2 = document.getElementById("player2"); 
+		var userIdTwo = wanjia2.value;
 		wanjia2.onclick = function() {
 			//userStatus 当前用户  0房主  1玩家  2旁观者
 			if (userStatus == 0) {
@@ -289,75 +272,89 @@
 				return false;
 			}
 			//第二个位置 信息
-			var userId2 = wanjia2.value;
+			
+			//var userId2 = wanjia2.value;
 			var user2Img = head2.src;
 			var subImg2 = user2Img.substr(-20, 20);
 			var nowImg = img.substr(-20, 20);
-			//	alert(userId1+"22====22"+userId);
+			//alert( "判断方法前"+user2Img);
 			if (subImg2 == nowImg) {
+				//alert("进入位置4第一个if语句=执行请求起立方法；；缓存第一下");
+				//alert("up");
 				showUpHeader("up", 2);
-			} else if (userId2 == '') {
+				
+			} else if ((document.getElementById("headImg2").src).indexOf('no.jpg') >-1) {
+				//alert("进入位置4第222个if语句=执行请求起立方法");
+				//alert("down");
 				//	f2 = true;
 				showUpHeader("down", 2);
 			} else {
-				//位置有人  起立 
-				if (subImg2 == nowImg || userId2 == userId) {
-					showUpHeader("up", 2);
-				} else {
-					alert("请安心坐在自己位置上！");
-				}
+			
+			alert("座位有玩家！");
+					
 			}
 		}
 		var wanjia3 = document.getElementById("player3");
-
+		var userIdThree = wanjia3.value;
 		wanjia3.onclick = function() {
 			if (userStatus == 0) {
 				alert("房主不能换座");
 				return false;
 			}
-			var userId3 = wanjia3.value;
-			var user3Img = head3.src;
+		//	var userId3 = wanjia3.value;
+			var user3Img = document.getElementById("headImg3").src;
 			var subImg3 = user3Img.substr(-20, 20);
 			var nowImg = img.substr(-20, 20);
-			//	alert(userId3+"===="+userId);
+		//	alert(userId3+"====当前:"+userId);
+			//alert( "判断方法前"+user3Img);
 			if (subImg3 == nowImg) {
+				//alert("进入位置4第一个if语句=执行请求起立方法；；缓存第一下");
+				//alert("up");
 				showUpHeader("up", 3);
-			} else if (userId3 == '') {
+				
+			} else if ((document.getElementById("headImg3").src).indexOf('no.jpg') >-1) {
+				//alert("进入位置4第222个if语句=执行请求起立方法");
+				//alert("down");
 				//	f2 = true;
 				showUpHeader("down", 3);
 			} else {
-				//位置有人
-				if (subImg3 == nowImg || userId3 == userId) {
-					showUpHeader("up", 3);
-				} else {
-					alert("请安心坐在自己位置上！");
-				}
+			
+			alert("座位有玩家！");
+					
 			}
 		}
 		var wanjia4 = document.getElementById("player4");
+		var userIdFour = document.getElementById("player4").value;
 		wanjia4.onclick = function() {
 			if (userStatus == 0) {
 				alert("房主不能换座");
 				return false;
 			}
-			var userId4 = wanjia4.value;
-			var user4Img = head4.src;
+		//	var userId4 = wanjia4.value;
+		  //  var  pic=document.getElementById("headImg4").src;
+		 // var  _user4Img= document.getElementById("headImg4");
+		 // alert(_user4Img);
+			var user4Img = document.getElementById("headImg4").src;
 			var subImg4 = user4Img.substr(-20, 20);
 			var nowImg = img.substr(-20, 20);
-			//alert(userId4+"44====44"+userId);
+			
+			//alert( "判断方法前"+user4Img);
 			if (subImg4 == nowImg) {
-				showUpHeader("up", 3);
-			} else if (userId4 == '') {
+				//alert("进入位置4第一个if语句=执行请求起立方法；；缓存第一下");
+				//alert("up");
+				showUpHeader("up", 4);
+				
+			} else if ((document.getElementById("headImg4").src).indexOf('no.jpg') >-1) {
+				//alert("进入位置4第222个if语句=执行请求起立方法");
+				//alert("down");
 				//	f2 = true;
 				showUpHeader("down", 4);
 			} else {
-				//位置有人
-				if (subImg4 == nowImg || userId4 == userId) {
-					showUpHeader("up", 4);
-				} else {
-					alert("别动！");
-				}
+			
+			alert("座位有玩家！");
+					
 			}
+			
 		}
 
 		//聊天通信模块
@@ -398,18 +395,21 @@
 			if (b.position == '2') {
 				//var head2 = document.getElementById("headImg2");
 				//透明图片
-				head2.src = '../img/play/logo.jpg';
+				head2.src = 'no.jpg';
 				//orPrepare2.innerHTML = "";
-				wanjia2.value = '';
+			//	var uid2=document.getElementById("player2");
+				userIdTwo = '';
 
 			} else if (b.position == '3') {
-				head3.src = '../img/play/logo.jpg';
+				head3.src = 'no.jpg';
 				//orPrepare3.innerHTML = ""
-				wanjia3.value = '';
+				//var uid3=document.getElementById("player3");
+				userIdThree= '';
 			} else if (b.position == '4') {
-				head4.src = '../img/play/logo.jpg';
+				head4.src = 'no.jpg';
 				//orPrepare4.innerHTML = ""
-				wanjia4.value = '';
+				//var uid4=document.getElementById("player4");
+				document.getElementById("player4").value = '';
 			}
 
 			var zuowei = b.position;
@@ -421,7 +421,7 @@
 					//alert(headImage.src+"+")
 
 					if (headImage.src == b.headimgurl) {
-						headImage.src = '../img/play/touming.jpg';
+						headImage.src = '';
 						player.value = '';
 					}
 
@@ -446,64 +446,45 @@
 		}
 
 		function findCache(imagelist, b) {
-			//	alert("将缓存图片赋值1=="+b.imgOne);
-			if (head1.src == null) {
-				//给位置填充图片
+				//给位置填充图片  房主
 				document.getElementById("headImg1").src = b.imgOne;
-				//修改旁观者信息为 已准备
-				/* orPrepare2.innerHTML = "已准备";  */
-				//设置头像value为userid
-				//	wanjia1.value = b.userId;
-				//遍历头像 设置之前头像消失
-			}
-			//alert("将缓存图片赋值=="+b.imgTwo);
-			if (head2.src != null) {
-				//给位置填充图片
-				document.getElementById("headImg2").src = b.imgTwo;
-				//修改旁观者信息为 已准备
-				/* orPrepare2.innerHTML = "已准备";  */
-				//设置头像value为userid
-				//wanjia2.value = b.userId;
-				//遍历头像 设置之前头像消失
-			}
-			//alert("将缓存图片赋值3=="+b.imgThree);
-			if (head3.src != null) {
-				document.getElementById("headImg3").src = b.imgThree;
-				//orPrepare3.innerHTML = "已准备"; 
-				//wanjia3.value = b.userId;
-				//遍历头像 设置之前头像消失
-			}
-			//alert("将缓存图片赋值4=="+b.imgFour);
-			if (head4.src != null) {
-				document.getElementById("headImg4").src = b.imgFour;
-				//head4.src = b.imgFour;
-				//orPrepare4.innerHTML = "已准备";  
-				//	wanjia4.value = b.userId;
-				//遍历头像 设置之前头像消失
-			}
+		
 
+				if(b.imgTwo != "")
+					document.getElementById("headImg2").src = b.imgTwo;
+				else
+					document.getElementById("headImg2").src = 'no.jpg';
+					
+				if(b.imgThree != "")
+					document.getElementById("headImg3").src = b.imgThree;
+				else
+					document.getElementById("headImg3").src = 'no.jpg';
+				if(b.imgFour != "")
+					document.getElementById("headImg4").src = b.imgFour;
+				else
+					document.getElementById("headImg4").src = 'no.jpg';
+			
+		
 			var rankingUl = document.getElementById("rankingUl");
-			rankingUl.innerHTML = 
-				"<li id='num1'>"+
-					"<a><img id='img_1' src='"+b.imgOne+"'></a>"+
-					"<span id='score'>000</span> <img id='img_2' src='../img/a/d.png'>"+
-					"<img id='img_3' src='../img/a/c.png'>"+
-				"</li>"+
-			   "<li id='num2'>"+
-					"<a><img id='img_4' src='"+b.imgTwo+"'></a>"+
-					"<span id='score1'>000</span> <img id='img_5' src='../img/a/d.png'>"+
-					"<img id='img_6' src='../img/a/c.png'></li>"+
-			  "<li id='num3'>"+
-					"<a><img id='img_7' src='"+b.imgThree+"'>></a>"+
-					"<span id='score2'>000</span> <img id='img_8' src='../img/a/d.png'>"+
-					"<img id='img_9' src='../img/a/c.png'>"+
-					"</li>"+
-			"<li id='num4'>"+
-					"<a><img id='img_10' src='"+b.imgFour+"'></a>"+
-			 		"<span id='scoreMe'>0</span> <img id='img_11' src='../img/a/d.png'>"+
-			 		"<img id='img_12' src='../img/a/c.png'>"+
-			"</li>" 
-	
+			rankingUl.innerHTML = "<li id='num1'>"
+					+ "<a><img id='img_1' src='"+b.imgOne+"'></a>"
+					+ "<span id='score'>000</span> <img id='img_2' src='../img/a/d.png'>"
+					+ "<img id='img_3' src='../img/a/c.png'>"
+					+ "</li>"
+					+ "<li id='num2'>"
+					+ "<a><img id='img_4' src='"+b.imgTwo+"'></a>"
+					+ "<span id='score1'>000</span> <img id='img_5' src='../img/a/d.png'>"
+					+ "<img id='img_6' src='../img/a/c.png'></li>"
+					+ "<li id='num3'>"
+					+ "<a><img id='img_7' src='"+b.imgThree+"'>></a>"
+					+ "<span id='score2'>000</span> <img id='img_8' src='../img/a/d.png'>"
+					+ "<img id='img_9' src='../img/a/c.png'>"
+					+ "</li>"
+					+ "<li id='num4'>"
+					+ "<a><img id='img_10' src='"+b.imgFour+"'></a>"
+					+ "<span id='scoreMe'>0</span> <img id='img_11' src='../img/a/d.png'>"
+					+ "<img id='img_12' src='../img/a/c.png'>" + "</li>"
+
 			/* 	alert(imagelist+"=imagelist");
 				var xiaomao=document.getElementById("headImg2");
 				alert(xiaomao.src+"小猫");  */
@@ -578,18 +559,19 @@
 				//修改旁观者信息为 已准备
 				/* orPrepare2.innerHTML = "已准备";  */
 				//设置头像value为userid
-				wanjia1.value = b.userId;
+				userId1 = b.userId;
 				//遍历头像 设置之前头像消失
 
 			}
 			if (b.position == '2') {
+				//var uid2 = document.getElementById("player2");
 				//给位置填充图片
 				//alert("进入22222");
 				head2.src = b.imgTwo;
 				//修改旁观者信息为 已准备
 				/* orPrepare2.innerHTML = "已准备";  */
 				//设置头像value为userid
-				wanjia2.value = b.userId;
+				userIdTwo = b.userId;
 				//遍历头像 设置之前头像消失
 
 			}
@@ -597,13 +579,14 @@
 				//alert("进入333"+b.imgThree);	
 				head3.src = b.imgThree;
 				//orPrepare3.innerHTML = "已准备"; 
-				wanjia3.value = b.userId;
+				userIdThree = b.userId;
 				//遍历头像 设置之前头像消失
 			}
 			if (b.position == '4') {
+				//alert("4444坐下 赋值="+b.imgFour)
 				head4.src = b.imgFour;
 				//orPrepare4.innerHTML = "已准备";  
-				wanjia4.value = b.userId;
+				document.getElementById("player4").value = b.userId;
 				//遍历头像 设置之前头像消失
 			}
 			//清理原来座位
@@ -614,7 +597,7 @@
 				if (i != zuowei) {
 					//alert(headImage.src+"+")		
 					if (headImage.src == b.headimgurl) {
-						headImage.src = '../img/play/touming.jpg';
+						headImage.src = '';
 						player.value = '';
 					}
 					//alert("22222"+headImage.src);
@@ -641,27 +624,27 @@
 
 		}
 		//接收游戏类型 设置游戏开始
-		function actionGame(b) {
+		function actionGame(b, imagelist) {
+
 			//当接收到返回房间状态为1时候跳转到开始游戏界面
-			if (b.roomState == 1) {
+			for (var z = 1; z <= 8; z++) {
+
+				var teas111 = document.getElementById("img" + z);
+				if (imagelist.indexOf(teas111.src) > -1) {
+					play_go.style.display = "block";
+					var local = new Local();
+					local.start();
+				}
+			}
+			/* if (img == head1.src || img == head2.src || img == head3.src
+					|| img == head4.src) {
 				//当房间状态为1时候判断玩家状态
 				//将玩家状态为1(准备玩家)的玩家跳转到游戏页面
 				//其余旁观者不予改变
-				if (b.socketUser.status == 0) {
-
-					document.location = "http://thdd.apexgame.cn/tetris/skip/indexsend?userName="
-							+ b.nickName
-							+ "&roomStatus="
-							+ b.roomState
-							+ "&roomId="
-							+ b.roomId
-							+ "&userStatus="
-							+ b.userStatus + "&headImg=" + b.headimgurl;
-
-				}
-			} else {
-				document.location = "http://thdd.apexgame.cn/tetris/skip/index0send";
-			}
+				play_go.style.display = "block";
+				var local = new Local();
+				local.start();
+			} */
 		}
 		//显示分数信息
 		function showScore(b) {
@@ -707,9 +690,10 @@
 		//房主名字
 
 		websocket.onmessage = function(e) {
-			alert("自己的头像="+img);
+			//alert("我的userId="+userId);
+			//	alert("自己的头像="+img);
 			var jsonObj = eval("(" + e.data + ")");
-			console.log(jsonObj)
+			console.log(jsonObj);
 			var b = JSON.parse(jsonObj);
 			//var nowImgs = b.listImgs;
 			//alert(nowImgs[0].nowImg+"==这些！");
@@ -722,8 +706,8 @@
 			//图片数组 
 			imagelist = imagelist + b.imgOne + "---" + b.imgTwo + "---"
 					+ b.imgThree + "---" + b.imgFour;
-			//alert("数据库中位置一的图片="+b.imgOne + ",,,位置二的图片"+b.imgTwo + ",,,位置三的图片"+b.imgThree
-			//	+ ",,,位置四的图片"+b.imgFour);
+			// alert("数据库中位置一的图片="+b.imgOne + ",,,位置二的图片"+b.imgTwo + ",,,位置三的图片"+b.imgThree
+			// 	+ ",,,位置四的图片"+b.imgFour);
 			//提取缓存数据
 			showUserList(b.listUsers);
 			findCache(imagelist, b);
@@ -739,6 +723,9 @@
 
 			}
 			//允许换做 给将要坐的位置填充图片
+		//	alert(b.type+" ============= "+"数据库中位置一的图片="+b.imgOne + "|||||||位置二的图片"+b.imgTwo + "|||||||位置三的图片="+b.imgThree
+			//	 	+ "|||||||位置四的图片=mx"+b.imgFour);
+			
 			if (b.type == 'changeSeat') {
 				showChangeSeat(b);
 			}
@@ -763,8 +750,9 @@
 				//展示分数信息
 				showScore(b);
 			}
-			if(b.type=='playersInfo'){
-				// showPlayers(b);
+			//分发开始游戏
+			if (b.type == 'actionGame') {
+				actionGame(b, imagelist);
 			}
 		}
 
@@ -799,6 +787,8 @@
 		}
 
 		function showUpHeader(ud, position) {
+			
+			
 			var upDown = {};
 			upDown.type = ud;
 			upDown.roomId = roomId;
@@ -881,47 +871,11 @@
 			websocket.send(JSON.stringify(readingUsers));
 
 		}
-
-		function playersInfo(){
-			var playersInfo={};
-			playersInfo.type="playersInfo";
-			websocket.send(JSON.stringify(playersInfo));
-		}
-
-		
-		function showPlayers(){
-			
-			// console.log("woshidjflkdsjfldskjfkldsjf大家好才是真的好");
-			// var lines_list=new Array();
-			// for(var i in players){
-			// 	lines_list.push(players[i].lines);
-			// }
-			// lines_list.sort();
-			// console.log(lines_list);
-			alert("排序")
-
-			players.sort(getsortfun('desc','lines'));
-			console.log(JSON.stringify(players));
-			
-			document.getElementById("score").innerHTML = players[0].nickName;
-			document.getElementById("score1").innerHTML = players[1].nickName;
-			document.getElementById("score2").innerHTML = players[2].nickName;
-			document.getElementById("scoreMe").innerHTML = players[3].nickName;
-			// alert(document.getElementById("score").innerHTML);
-			
-
-		}
-
-		// 按行数排序
-		function getsortfun(order,sortBy){
-			var ordAlpah=(order=='asc')?'>':'<';
-			var sortFun=new Function('a','b','return a.'+sortBy+ordAlpah+'b.'+sortBy+'?1:-1');
-			return sortFun;
-		}
-
-
 	</script>
-	
+	<!-- 测试 -->
+	<!-- CESHI22 -->
 
+	<!-- <script src="../js/script.js"></script> -->
+	
 </body>
 </html>

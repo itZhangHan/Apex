@@ -40,6 +40,7 @@ public class SocketMessage implements Serializable {
 	private String imgFour;
 	private List<SocketUsers> listUsers = new ArrayList();
 	private List<PositionMessage> listImgs = new ArrayList();
+	//private List<GameMessage> gameMessage = new ArrayList<>();
 	
 	
 	public String getImgOne() {

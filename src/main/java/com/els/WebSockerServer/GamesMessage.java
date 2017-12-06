@@ -21,6 +21,8 @@ public class GamesMessage implements InterfaceType {
 					try {
 						System.out.println("sendmessage...gamesUsers");
 						message.setMsgStr("游戏开始了!!!!!!!!!!!!!!");
+						message.setRoomState("1");
+						message.setType("actionGame");
 						object.getSession().getBasicRemote().sendObject(message);
 					} catch (EncodeException e) {
 						// TODO Auto-generated catch block
