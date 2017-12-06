@@ -655,7 +655,7 @@ var Game = function () {
         var local = new Local();
         local.start();
         
-        // checkGameOver();
+        
         
     }
     // 跳转结果页
