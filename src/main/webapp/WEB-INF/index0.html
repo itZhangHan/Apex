@@ -144,6 +144,7 @@
 				</div>
 			</div>
 			<canvas id="canvas1"></canvas>
+			<div id="re_btn"></div>
 		</div>
 	</div>
 
@@ -166,11 +167,11 @@
 			var play_go = document.getElementById("play_go");
 
 
-			if (userStatus != 0) {
-				gameGo.style.display = "none";
-			} else {
-				gameGo.style.display = "block";
-			}
+			// if (userStatus != 0) {
+			// 	gameGo.style.display = "none";
+			// } else {
+			// 	gameGo.style.display = "block";
+			// }
 			gameGo.onclick = function(b) {
 				play_go.style.display = "block";
 				var local = new Local();
