@@ -600,53 +600,54 @@ var Game = function () {
         }
         this.stage = stage2num;
         score += s;
-        scoreDiv.innerHTML = score;
+        // scoreDiv.innerHTML = score;
         this.score = score;
-        console.log("scoreDiv.innerHTML"+scoreDiv.innerHTML);
+        // console.log("scoreDiv.innerHTML"+scoreDiv.innerHTML);
         console.log("分数"+score);
     }
 
     // 游戏结束
     var onGameOver = function (win) {
-        console.log("游戏结束"+line);
+        alert("游戏结束"+line);
         if (win) {
             resultDiv.innerHTML = '你赢了';
         } else {
+             $("#canvas1").show();
+            $("#re_btn").show();
             //     resultDiv.innerHTML = '游戏结束';
             var can1 = document.getElementById("canvas1")//fishes  dust ui circle  20px Verdana
             var ctx1 = can1.getContext('2d');
-            var ctx2 =can1.getContext('2d');
+           
             document.getElementById("canvas1").width = 320;
             document.getElementById("canvas1").height = 468;
             ctx1.font = "27px Verdana";
             ctx1.textAlign = "center";
-             ctx2.font = "24px Verdana";
-            ctx2.textAlign = "center";
+        
             var w = can1.width;
             var h = can1.height;
             console.log("khhhhh666666666666666666666")
 
             ctx1.save();
-            ctx2.save();
+           
             /*ctx1.lineWidth = 20;*/
             ctx1.shadowBlur = 20;
             ctx1.shadowColor = "white";
             ctx1.fillStyle = "white";
-             ctx2.shadowBlur = 20;
-            ctx2.shadowColor = "white";
-            ctx2.fillStyle = "white";
+           
             //   ctx1.fillStyle = "rgba(255,255,255,"+0.9+")";
             ctx1.fillText("GAMEOVER",w/2,h/2);
-             ctx2.fillText("重新开始",w/2,h/2+50);
+            
             /*ctx1.fillText("num ",100,h-50);
              ctx1.fillText("double ",w*0.5,h-80);
              ctx1.fillText("score ",w/2,h-20);*/
             ctx1.restore();
-            ctx2.restore();
+           
+            restart();
+
+
             // to_over=setInterval(to_over,3000);
         }
     }
-
     re_btn.onclick=function(){
         
         $("#canvas1").hide();
@@ -657,11 +658,26 @@ var Game = function () {
         
         
     }
-
     // 跳转结果页
     var to_over=function(){
         window.location.href="http://thdd.apexgame.cn/tetris/skip/oversend"
     }
+
+    // 重新开始游戏
+    var restart=function(){
+        var butdiv=document.createElement("p");
+         var re_btn = document.getElementById("re_btn");
+         re_btn.appendChild(butdiv);
+         butdiv.setAttribute("id","restart_btn");
+         butdiv.innerHTML="重新开始";
+         butdiv.style.width="320px";
+         butdiv.style.height="468px";
+         butdiv.style.color="white";
+         butdiv.style.fontSize="27px";
+         butdiv.style.textAlign="center";
+
+    }
+
 
     // 底部增加行
     var addBotLine = function (lines) {
