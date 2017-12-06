@@ -152,7 +152,6 @@ alert("Æô¶¯Ò³Ãæ");
 				</div>
 			</div>
 			<canvas id="canvas1"></canvas>
-			<div id="re_btn"></div>
 		</div>
 	</div>
 
@@ -169,6 +168,7 @@ alert("Æô¶¯Ò³Ãæ");
 			iconBtn.onclick = function() {
 				document.location = "http://thdd.apexgame.cn/tetris/skip/first";
 			}
+<<<<<<< HEAD
 			//ÅÐ¶Ïµ±Ç°ÓÃ»§ÊÇ·ñÊôÓÚ·¿Ö÷  Èç¹û²»ÊÇ·¿Ö÷ ²»¸øÓÚ¿ªÊ¼ÓÎÏ·µÄ È¨ÏÞ ²¢ÏÔÊ¾·¿Ö÷Ãû×Ö
 			/*if (userStatus != 0) {
 				gameGo.style.display = "none";
@@ -176,6 +176,19 @@ alert("Æô¶¯Ò³Ãæ");
 				gameGo.style.display = "block";
 			} */
 			gameGo.onclick=function(){
+=======
+			//判断当前用户是否属于房主  如果不是房主 不给于开始游戏的 权限 并显示房主名字
+			var gameGo = document.getElementById("game_go");
+			var play_go = document.getElementById("play_go");
+
+
+			if (userStatus != 0) {
+				gameGo.style.display = "none";
+			} else {
+				gameGo.style.display = "block";
+			}
+			gameGo.onclick = function(b) {
+>>>>>>> parent of d8a7935... 35443
 				play_go.style.display = "block";
 				var local = new Local();
 				local.start();
