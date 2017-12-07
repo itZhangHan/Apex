@@ -1,6 +1,7 @@
 package com.els.socket;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.websocket.DecodeException;
@@ -46,7 +47,7 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		message.setNickName(object.getString("nicakname"));
 		message.setCity(object.getString("city"));
 		message.setSex(object.getString("sex"));
-		message.setProps(object.getString("props"));
+		message.setProps(object.getString("propsName"));
 		message.setUserId(object.getString("userId"));
 		message.setIsSelf(object.getString("isSelf"));
 		message.setIsSelf(object.getString("getOnclient"));
@@ -58,7 +59,20 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		//message.setPlayerImgs(object.get("playerImgs"));
 		//message.setPlayerImg((List<String>) object.get("readyToDownUp"));
 		//游戏中玩家信息
-		
+		GameMessage gameMessage = new GameMessage();
+		gameMessage.setPlayerId(object.getInt("userId"));
+		gameMessage.setCount(object.getInt("count"));
+		gameMessage.setFromPlayer(object.getString("fromUserName"));
+		gameMessage.setLines(object.getInt("lines"));
+		gameMessage.setPlayerImg(object.getString("headimgurl"));
+		gameMessage.setPlayerName(object.getString("nicakname"));
+		gameMessage.setPropsName(object.getString("propsName"));
+		gameMessage.setPropsStatus(object.getInt("propsStatus"));
+		gameMessage.setScore(object.getInt("score"));
+		gameMessage.setToPlayer(object.getString("toUserName"));
+		message.setGameMessage(gameMessage);
+		List<GameMessage> listGames = new ArrayList<>();
+		listGames.add(gameMessage);
 		//用户信息
 		SocketUsers socketUser = new SocketUsers();
 		socketUser.setCity(object.getString("city"));

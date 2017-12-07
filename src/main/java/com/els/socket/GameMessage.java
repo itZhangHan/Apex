@@ -2,13 +2,13 @@ package com.els.socket;
 
 public class GameMessage {
 
-	private String playerId;
+	private Integer playerId;
 	// 玩家姓名
 	private String playerName;
 	// 玩家头像
 	private String playerImg;
 	// 分数
-	private String score;
+	private Integer score;
 	// 行数
 	private Integer lines;
 	// 道具名称
@@ -18,17 +18,10 @@ public class GameMessage {
 	// 道具攻击人
 	private String toPlayer;
 	// 道具使用次数
-	private String count;
+	private Integer count;
 	// 道具状态
-	private String propsStatus;// 1增益 2减益
-
-	public String getPlayerId() {
-		return playerId;
-	}
-
-	public void setPlayerId(String playerId) {
-		this.playerId = playerId;
-	}
+	private Integer propsStatus;//0无状态 1增益 2减益
+ 
 
 	public String getPlayerName() {
 		return playerName;
@@ -46,11 +39,13 @@ public class GameMessage {
 		this.playerImg = playerImg;
 	}
 
-	public String getScore() {
+ 
+
+	public Integer getScore() {
 		return score;
 	}
 
-	public void setScore(String score) {
+	public void setScore(Integer score) {
 		this.score = score;
 	}
 
@@ -86,20 +81,30 @@ public class GameMessage {
 		this.toPlayer = toPlayer;
 	}
 
-	public String getCount() {
+	public Integer getPlayerId() {
+		return playerId;
+	}
+
+	public void setPlayerId(Integer playerId) {
+		this.playerId = playerId;
+	}
+
+	public Integer getCount() {
 		return count;
 	}
 
-	public void setCount(String count) {
+	public void setCount(Integer count) {
 		this.count = count;
 	}
 
-	public String getPropsStatus() {
+	public Integer getPropsStatus() {
 		return propsStatus;
 	}
 
-	public void setPropsStatus(String propsStatus) {
+	public void setPropsStatus(Integer propsStatus) {
 		this.propsStatus = propsStatus;
 	}
+
+ 
 
 }

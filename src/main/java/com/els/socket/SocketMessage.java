@@ -42,7 +42,7 @@ public class SocketMessage implements Serializable {
 	private GameMessage gameMessage;
 	private List<SocketUsers> listUsers = new ArrayList();
 	private List<PositionMessage> listImgs = new ArrayList();
-	private List<GameMessage> gameMessages = new LinkedList<>();
+	private List<GameMessage> gameMessages = new ArrayList<>();
 	
 	
 
