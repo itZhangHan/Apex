@@ -477,9 +477,10 @@ position: absolute;
    z-index: 99; 
 
 }*/
-
-#re_btn{position: absolute;top:280px;}
-
+#re_btn{
+    position: absolute;
+    top:280px;
+}
 
 .info {
 
