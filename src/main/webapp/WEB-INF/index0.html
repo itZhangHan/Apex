@@ -502,25 +502,25 @@
 			else
 				document.getElementById("headImg4").src = 'no.jpg';
 
-			var rankingUl = document.getElementById("rankingUl");
-			rankingUl.innerHTML = "<li id='num1'>"
-					+ "<a><img id='img_1' src='"+b.imgOne+"'></a>"
-					+ "<span id='score'>000</span> <img id='img_2' src='../img/a/d.png'>"
-					+ "<img id='img_3' src='../img/a/c.png'>"
-					+ "</li>"
-					+ "<li id='num2'>"
-					+ "<a><img id='img_4' src='"+b.imgTwo+"'></a>"
-					+ "<span id='score1'>000</span> <img id='img_5' src='../img/a/d.png'>"
-					+ "<img id='img_6' src='../img/a/c.png'></li>"
-					+ "<li id='num3'>"
-					+ "<a><img id='img_7' src='"+b.imgThree+"'>></a>"
-					+ "<span id='score2'>000</span> <img id='img_8' src='../img/a/d.png'>"
-					+ "<img id='img_9' src='../img/a/c.png'>"
-					+ "</li>"
-					+ "<li id='num4'>"
-					+ "<a><img id='img_10' src='"+b.imgFour+"'></a>"
-					+ "<span id='scoreMe'>0</span> <img id='img_11' src='../img/a/d.png'>"
-					+ "<img id='img_12' src='../img/a/c.png'>" + "</li>"
+			// var rankingUl = document.getElementById("rankingUl");
+			// rankingUl.innerHTML = "<li id='num1'>"
+			// 		+ "<a><img id='img_1' src='"+b.imgOne+"'></a>"
+			// 		+ "<span id='score'>000</span> <img id='img_2' src='../img/a/d.png'>"
+			// 		+ "<img id='img_3' src='../img/a/c.png'>"
+			// 		+ "</li>"
+			// 		+ "<li id='num2'>"
+			// 		+ "<a><img id='img_4' src='"+b.imgTwo+"'></a>"
+			// 		+ "<span id='score1'>000</span> <img id='img_5' src='../img/a/d.png'>"
+			// 		+ "<img id='img_6' src='../img/a/c.png'></li>"
+			// 		+ "<li id='num3'>"
+			// 		+ "<a><img id='img_7' src='"+b.imgThree+"'>></a>"
+			// 		+ "<span id='score2'>000</span> <img id='img_8' src='../img/a/d.png'>"
+			// 		+ "<img id='img_9' src='../img/a/c.png'>"
+			// 		+ "</li>"
+			// 		+ "<li id='num4'>"
+			// 		+ "<a><img id='img_10' src='"+b.imgFour+"'></a>"
+			// 		+ "<span id='scoreMe'>0</span> <img id='img_11' src='../img/a/d.png'>"
+			// 		+ "<img id='img_12' src='../img/a/c.png'>" + "</li>"
 
 			/* 	alert(imagelist+"=imagelist");
 				var xiaomao=document.getElementById("headImg2");
@@ -666,9 +666,9 @@
 			alert("gameMessages===="+b.gameMessages)
 			var gameMessages = b.gameMessages;
 			for(var k =0;k<gameMessages.length;k++){
-				if(gameMessages[k].playerImg == document.getElementById("headImg1")){
-					gameMessages[k].lines == js.lines;
-				}
+				// if(gameMessages[k].playerImg == document.getElementById("headImg1")){
+				// 	gameMessages[k].lines == js.lines;
+				// }
 				alert("接收到集合中的头像"+k+"==="+gameMessages[k].playerImg);
 			}
 			//当接收到返回房间状态为1时候跳转到开始游戏界面
@@ -691,6 +691,30 @@
 				local.start();
 			} */
 		}
+
+		// 显示游戏玩家信息
+		function showPlayerInfo(gamesInfo){
+			var rankingUl = document.getElementById("rankingUl");
+			rankingUl.innerHTML = "<li id='num1'>"
+					+ "<a><img id='img_1' src='"+gamesInfo[0].playerImg+"'></a>"
+					+ "<span id='score'>"+gamesInfo[0].playerName+"</span> <img id='img_2' src='../img/a/d.png'>"
+					+ "<img id='img_3' src='../img/a/c.png'>"
+					+ "</li>"
+					+ "<li id='num2'>"
+					+ "<a><img id='img_4' src='"+gamesInfo[1].playerImg+"'></a>"
+					+ "<span id='score1'>"+gamesInfo[1].playerName+"</span> <img id='img_5' src='../img/a/d.png'>"
+					+ "<img id='img_6' src='../img/a/c.png'></li>"
+					+ "<li id='num3'>"
+					+ "<a><img id='img_7' src='"+gamesInfo[2].playerImg+"'>></a>"
+					+ "<span id='score2'>"+gamesInfo[2].playerName+"</span> <img id='img_8' src='../img/a/d.png'>"
+					+ "<img id='img_9' src='../img/a/c.png'>"
+					+ "</li>"
+					+ "<li id='num4'>"
+					+ "<a><img id='img_10' src='"+gamesInfo[3].playerImg+"'></a>"
+					+ "<span id='scoreMe'>"+gamesInfo[3].playerName+"</span> <img id='img_11' src='../img/a/d.png'>"
+					+ "<img id='img_12' src='../img/a/c.png'>" + "</li>"
+		}
+
 		//显示分数信息
 		function showScore(b) {
 
@@ -809,6 +833,7 @@
 			}
 			if(b.type == 'gamesInfo'){
 				//b.gamesInfo   游戏玩家数据
+				showPlayerInfo(b.gamesInfo);
 			}
 		}
 
