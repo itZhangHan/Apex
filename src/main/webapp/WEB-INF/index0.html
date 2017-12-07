@@ -680,21 +680,12 @@
 					local.start();
 				}
 			}
-			/* if (img == head1.src || img == head2.src || img == head3.src
-					|| img == head4.src) {
-				//当房间状态为1时候判断玩家状态
-				//将玩家状态为1(准备玩家)的玩家跳转到游戏页面
-				//其余旁观者不予改变
-				play_go.style.display = "block";
-				var local = new Local();
-				local.start();
-			} */
 		}
 		//显示分数信息
 		function showScore(b) {
 
 		}
-
+	//
 		//接收房间所有信息，展示用户信息
 		function showMessage(b) {
 
@@ -774,9 +765,6 @@
 				showUserList(b.listUsers);
 
 			}
-			//允许换做 给将要坐的位置填充图片
-			//	alert(b.type+" ============= "+"数据库中位置一的图片="+b.imgOne + "|||||||位置二的图片"+b.imgTwo + "|||||||位置三的图片="+b.imgThree
-			//	 	+ "|||||||位置四的图片=mx"+b.imgFour);
 
 			if (b.type == 'changeSeat') {
 				showChangeSeat(b);
