@@ -715,20 +715,6 @@
 					local.start();
 				}
 			}
-			/* if (img == head1.src || img == head2.src || img == head3.src
-					|| img == head4.src) {
-				//当房间状态为1时候判断玩家状态
-				//将玩家状态为1(准备玩家)的玩家跳转到游戏页面
-				//其余旁观者不予改变
-				play_go.style.display = "block";
-				var local = new Local();
-				local.start();
-			} */
-		}
-
-		// 显示游戏玩家信息
-		function showPlayerInfo(gamesInfo){
-			alert("收到了玩家信息")
 			var rankingUl = document.getElementById("rankingUl");
 			rankingUl.innerHTML = "<li id='num1'>"
 					+ "<a><img id='img_1' src='"+gamesInfo[0].playerImg+"'></a>"
@@ -748,6 +734,39 @@
 					+ "<a><img id='img_10' src='"+gamesInfo[3].playerImg+"'></a>"
 					+ "<span id='scoreMe'>"+gamesInfo[3].playerName+"</span> <img id='img_11' src='../img/a/d.png'>"
 					+ "<img id='img_12' src='../img/a/c.png'>" + "</li>"
+			/* if (img == head1.src || img == head2.src || img == head3.src
+					|| img == head4.src) {
+				//当房间状态为1时候判断玩家状态
+				//将玩家状态为1(准备玩家)的玩家跳转到游戏页面
+				//其余旁观者不予改变
+				play_go.style.display = "block";
+				var local = new Local();
+				local.start();
+			} */
+		}
+
+		// 显示游戏玩家信息
+		function showPlayerInfo(gamesInfo){
+			alert("收到了玩家信息")
+			// var rankingUl = document.getElementById("rankingUl");
+			// rankingUl.innerHTML = "<li id='num1'>"
+			// 		+ "<a><img id='img_1' src='"+gamesInfo[0].playerImg+"'></a>"
+			// 		+ "<span id='score'>"+gamesInfo[0].playerName+"</span> <img id='img_2' src='../img/a/d.png'>"
+			// 		+ "<img id='img_3' src='../img/a/c.png'>"
+			// 		+ "</li>"
+			// 		+ "<li id='num2'>"
+			// 		+ "<a><img id='img_4' src='"+gamesInfo[1].playerImg+"'></a>"
+			// 		+ "<span id='score1'>"+gamesInfo[1].playerName+"</span> <img id='img_5' src='../img/a/d.png'>"
+			// 		+ "<img id='img_6' src='../img/a/c.png'></li>"
+			// 		+ "<li id='num3'>"
+			// 		+ "<a><img id='img_7' src='"+gamesInfo[2].playerImg+"'>></a>"
+			// 		+ "<span id='score2'>"+gamesInfo[2].playerName+"</span> <img id='img_8' src='../img/a/d.png'>"
+			// 		+ "<img id='img_9' src='../img/a/c.png'>"
+			// 		+ "</li>"
+			// 		+ "<li id='num4'>"
+			// 		+ "<a><img id='img_10' src='"+gamesInfo[3].playerImg+"'></a>"
+			// 		+ "<span id='scoreMe'>"+gamesInfo[3].playerName+"</span> <img id='img_11' src='../img/a/d.png'>"
+			// 		+ "<img id='img_12' src='../img/a/c.png'>" + "</li>"
 		}
 
 		//显示分数信息
