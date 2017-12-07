@@ -433,7 +433,7 @@ var Game = function () {
 
     // 发送玩家数据
         function sendGamesMessage() {
-           
+           alert("发送了玩家信息")
             var playMessage = {};
             playMessage.type = "mutualGame"
             playMessage.roomId = roomId;//房间id
