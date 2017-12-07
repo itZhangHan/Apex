@@ -21,11 +21,13 @@ public class GamesMessage implements InterfaceType {
 
 		// 如果返回信息包含roomid
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
+		
 		if (arrayset != null) {
 			for (WebSocketServer object : arrayset) {
 				try {
 					// 如果房间内所有玩家有和座位上玩家1匹配的话。
 					String img1 = "http://wx.qlogo.cn/mmhead/Q3auHgzwzM6fGibNYJEUdvIHMibSMAoiaQiag6ZmHIiav2E861F52pQgl4A/0http://wx.qlogo.cn/mmhead/Q3auHgzwzM6fGibNYJEUdvIHMibSMAoiaQiag6ZmHIiav2E861F52pQgl4A/0http://wx.qlogo.cn/mmhead/Q3auHgzwzM6fGibNYJEUdvIHMibSMAoiaQiag6ZmHIiav2E861F52pQgl4A/0http://wx.qlogo.cn/mmhead/Q3auHgzwzM6fGibNYJEUdvIHMibSMAoiaQiag6ZmHIiav2E861F52pQgl4A/0";
+					
 					if (object.getSocketUser().getUserportrait().equals(message.getImgOne())) {
 						GameMessage playerOne = new GameMessage();
 						playerOne.setPlayerId(object.getSocketUser().getUserid());

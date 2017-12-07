@@ -20,8 +20,17 @@ public class GameMessage {
 	// 道具使用次数
 	private Integer count;
 	// 道具状态
-	private Integer propsStatus;//0无状态 1增益 2减益
- 
+	private Integer propsStatus;// 0无状态 1增益 2减益
+	// 排行榜
+	private Integer runkIng;
+
+	public Integer getRunkIng() {
+		return runkIng;
+	}
+
+	public void setRunkIng(Integer runkIng) {
+		this.runkIng = runkIng;
+	}
 
 	public String getPlayerName() {
 		return playerName;
@@ -38,8 +47,6 @@ public class GameMessage {
 	public void setPlayerImg(String playerImg) {
 		this.playerImg = playerImg;
 	}
-
- 
 
 	public Integer getScore() {
 		return score;
@@ -104,7 +111,5 @@ public class GameMessage {
 	public void setPropsStatus(Integer propsStatus) {
 		this.propsStatus = propsStatus;
 	}
-
- 
 
 }

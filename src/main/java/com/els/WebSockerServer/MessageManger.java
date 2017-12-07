@@ -12,18 +12,22 @@ public class MessageManger {
 	private static Map<String, InterfaceType> messType = new HashMap();
 
 	static {
+		//聊天模块
 		messType.put("message", new MessageType());
+		//起立模块
 		messType.put("up", new UpDownType());
+		//坐下模块
 		messType.put("down", new DownUpType());
+		//修改房间状态
 		messType.put("roomStatus", new RoomType());
-		messType.put("score", new ScoreType());
-		messType.put("props", new PropsType());
+		//第一次进入页面获取数据
 		messType.put("usmesage", new UsersMessage());
+		//开始游戏返回数据
 		messType.put("gameUsmessage", new GamesMessage());
-		messType.put("readyToDownUp", new ReadyToDownUp());
-		messType.put("changeSeat", new ChangeSeat());
-		messType.put("clearReady", new ClearReady());
+		//获取在线人数
 		messType.put("getOnclient", new GetOnclient());
+		//游戏中数据交互模块
+		messType.put("mutualGame", new MutualGame());
 		//messType.put("updateImg", new UpdateImg());
 	}
 
