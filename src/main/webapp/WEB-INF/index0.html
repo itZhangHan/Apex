@@ -802,22 +802,27 @@
 					+ "<span id='score1'>"+gamesInfo[1].playerName
 					
 					+ "</span> <img id='img_5' src='../img/a/d.png'>"
-					+ "<img id='img_6' src='../img/a/c.png'></li>"
+					+ "<img id='img_6' src='../img/a/c.png'>"+"<progress max='40' value='0' id='pg2'></progress>"
+					+"</li>"
 					+ "<li id='num3'>"
 					+ "<a><img id='img_7' src='"+b.imgThree+"'>></a>"
 					+ "<span id='score2'>"+gamesInfo[2].playerName
 					
 					+ "</span> <img id='img_8' src='../img/a/d.png'>"
-					+ "<img id='img_9' src='../img/a/c.png'>"
+					+ "<img id='img_9' src='../img/a/c.png'>"+"<progress max='40' value='0' id='pg3'></progress>"
 					+ "</li>"
 					+ "<li id='num4'>"
 					+ "<a><img id='img_10' src='"+b.imgFour+"'></a>"
 					+ "<span id='scoreMe'>"+gamesInfo[3].playerName
 					
 					+ "</span> <img id='img_11' src='../img/a/d.png'>"
-					+ "<img id='img_12' src='../img/a/c.png'>" + "</li>"
+					+ "<img id='img_12' src='../img/a/c.png'>" +"<progress max='40' value='0' id='pg4'></progress>"
+					+ "</li>"
 			}
 			loadstart1();
+			loadstart2();
+			loadstart3();
+			loadstart4();
 			
 			
 		}
@@ -831,6 +836,42 @@
 					pg.value=i;
 					if(i==40){
 						clearInterval(setpro);
+					}
+				},1000)
+			}
+			function loadstart2(){
+				var pg2=document.getElementById("pg2");
+				var i=0;
+				var setpro2;
+				setpro2=setInterval(function(){
+					i+=1;
+					pg2.value=i;
+					if(i==40){
+						clearInterval(setpro2);
+					}
+				},1000)
+			}
+			function loadstart3(){
+				var pg3=document.getElementById("pg3");
+				var i=0;
+				var setpro3;
+				setpro3=setInterval(function(){
+					i+=1;
+					pg3.value=i;
+					if(i==40){
+						clearInterval(setpro3);
+					}
+				},1000)
+			}
+			function loadstart4(){
+				var pg4=document.getElementById("pg4");
+				var i=0;
+				var setpro4;
+				setpro4=setInterval(function(){
+					i+=1;
+					pg4.value=i;
+					if(i==40){
+						clearInterval(setpro4);
 					}
 				},1000)
 			}
