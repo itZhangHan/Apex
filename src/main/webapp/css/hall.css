@@ -698,7 +698,7 @@ position: absolute;
     75% {-webkit-transform: translateY(10px);}
 }
 /*进度条*/
-#pg1{position: absolute;margin-top:2px;margin-left:-32%;height:34px;width:82px;background:red;}
+#pg1,#pg2,#pg3,#pg4{position: absolute;margin-top:2px;margin-left:-32%;height:34px;width:82px;background:red;}
 
 
 
