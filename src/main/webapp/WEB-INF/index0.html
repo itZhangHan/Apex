@@ -793,35 +793,52 @@
 				}
 			}*/
 			alert("gamesInfo");
-			var rankingUl = document.getElementById("rankingUl");
+			for(var i=0;i<b.gamesInfo.length;i++){
+				var rankingUl = document.getElementById("rankingUl");
 			rankingUl.innerHTML = "<li id='num1'>"
 					+ "<a><img id='img_1' src='"+b.imgOne+"'></a>"
-					+ "<span id='score'>"
+					+ "<span id='score'>"+gamesInfo[0].playerName
 					
 					+ "</span> <img id='img_2' src='../img/a/d.png'>"
-					+ "<img id='img_3' src='../img/a/c.png'>"
+					+ "<img id='img_3' src='../img/a/c.png'>"+"<progress max='40' value='0' id='pg1'></progress>"
 					+ "</li>"
 					+ "<li id='num2'>"
 					+ "<a><img id='img_4' src='"+b.imgTwo+"'></a>"
-					+ "<span id='score1'>"
+					+ "<span id='score1'>"gamesInfo[1].playerName
 					
 					+ "</span> <img id='img_5' src='../img/a/d.png'>"
 					+ "<img id='img_6' src='../img/a/c.png'></li>"
 					+ "<li id='num3'>"
 					+ "<a><img id='img_7' src='"+b.imgThree+"'>></a>"
-					+ "<span id='score2'>"
+					+ "<span id='score2'>"gamesInfo[2].playerName
 					
 					+ "</span> <img id='img_8' src='../img/a/d.png'>"
 					+ "<img id='img_9' src='../img/a/c.png'>"
 					+ "</li>"
 					+ "<li id='num4'>"
 					+ "<a><img id='img_10' src='"+b.imgFour+"'></a>"
-					+ "<span id='scoreMe'>"
+					+ "<span id='scoreMe'>"gamesInfo[3].playerName
 					
 					+ "</span> <img id='img_11' src='../img/a/d.png'>"
 					+ "<img id='img_12' src='../img/a/c.png'>" + "</li>"
+			}
+			loadstart1();
+			
 			
 		}
+
+		function loadstart1(){
+				var pg=document.getElementById("pg1");
+				var i=0;
+				var setpro;
+				setpro=setInterval(function(){
+					i+=1;
+					pg.value=i;
+					if(i==40){
+						clearInterval(setpro);
+					}
+				},1000)
+			}
 
 		//显示分数信息
 		function showScore(b) {
