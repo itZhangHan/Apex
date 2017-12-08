@@ -788,10 +788,13 @@
 				}
 			}*/
 			alert("gamesInfo");
+			var palyer_count;
+
 			for(var i=0;i<gamesInfo.length;i++){
-				var rankingUl = document.getElementById("rankingUl");
-			rankingUl.innerHTML = "<li id='num1'>"
-					+ "<a><img id='img_1' src='"+gamesInfo[i].playerImg+"'></a>"
+
+						
+			palyer_count=palyer_count+"<li id='num1'>"
+					+ "<a><img id='img_1' src='"+b.imgOne+"'></a>"
 					+ "<span id='score'>"+gamesInfo[i].playerName
 					
 					+ "</span> <img id='img_2' src='../img/a/d.png'>"
@@ -829,7 +832,8 @@
 			// 		+ "</li>"
 			}
 			
-			
+				var rankingUl = document.getElementById("rankingUl");
+			rankingUl.innerHTML=palyer_count；
 			
 		}
 
