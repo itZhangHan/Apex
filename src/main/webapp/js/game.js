@@ -7,6 +7,8 @@ var Game = function () {
     var resultDiv;
     var stage2_num;
     var stage_arr = [];
+    
+
 
     // 行数
     var line=0;
