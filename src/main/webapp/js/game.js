@@ -482,6 +482,7 @@ var Game = function () {
             if (clear) {
                 line++;
                 sendGamesMessage();
+                loadstart1();
 
                 for(var k = 0; k<gameData[0].length; k++){
                     if(gameData[i][k] != 1){
@@ -542,6 +543,13 @@ var Game = function () {
         return line;
         
     }
+    // 进度条
+    function loadstart1(){
+                var pg=document.getElementById("pg1");
+                var i=0;
+                i+=1;
+                pg.value=i;   
+            }
 
     // 检查游戏结束
     var checkGameOver = function () {
