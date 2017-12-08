@@ -33,57 +33,61 @@ public class MutualGame implements InterfaceType {
 		if (arrayset != null) {
 			for (WebSocketServer object : arrayset) {
 				try {
-					
+					String aa = "http://wx.qlogo.cn/mmopen/vi_32/mVtGLzdgB7qeAaBXicXCj9K31mbTibgVicbdkytrSibN5KohzTxvfPBIdiaYU3ByAAS1GEI56kHiaic27eWCgJZpso5ibA/0";
+					String bb = "http://wx.qlogo.cn/mmopen/vi_32/mVtGLzdgB7qeAaBXicXCj9K31mbTibgVicbdkytrSibN5KohzTxvfPBIdiaYU3ByAAS1GEI56kHiaic27eWCgJZpso5ibA/0";
 					//当头像等于第一个头像时候 给玩家一拼接头像 以此类推
-					if(gameMessage.getPlayerImg() == message.getImgOne()){
+					if(object.getSocketUser().getUserportrait().equals(message.getImgOne())){
 						playerInfoOne.setCount(message.getGameMessage().getCount());
 						playerInfoOne.setFromPlayer(message.getGameMessage().getFromPlayer());
 						playerInfoOne.setLines(message.getGameMessage().getLines());
-						playerInfoOne.setPlayerId(message.getGameMessage().getPlayerId());
-						playerInfoOne.setPlayerImg(message.getGameMessage().getPlayerImg());
-						playerInfoOne.setPlayerName(message.getGameMessage().getPlayerName());
-						playerInfoOne.setPropsName(message.getGameMessage().getPlayerName());
+						playerInfoOne.setPlayerId(object.getSocketUser().getUserid());
+						playerInfoOne.setPlayerImg(object.getSocketUser().getUserportrait());
+						playerInfoOne.setPlayerName(object.getSocketUser().getUsername());
+						playerInfoOne.setPropsName(message.getGameMessage().getPropsName());
 						playerInfoOne.setPropsStatus(message.getGameMessage().getPropsStatus());
 						playerInfoOne.setScore(message.getGameMessage().getScore());
 						playerInfoOne.setToPlayer(message.getGameMessage().getToPlayer());
 					}
-					if(gameMessage.getPlayerImg() == message.getImgTwo()){
+					if(object.getSocketUser().getUserportrait().equals(message.getImgTwo())){
 						playerInfoTwo.setCount(message.getGameMessage().getCount());
 						playerInfoTwo.setFromPlayer(message.getGameMessage().getFromPlayer());
 						playerInfoTwo.setLines(message.getGameMessage().getLines());
-						playerInfoTwo.setPlayerId(message.getGameMessage().getPlayerId());
-						playerInfoTwo.setPlayerImg(message.getGameMessage().getPlayerImg());
-						playerInfoTwo.setPlayerName(message.getGameMessage().getPlayerName());
-						playerInfoTwo.setPropsName(message.getGameMessage().getPlayerName());
+						playerInfoTwo.setPlayerId(object.getSocketUser().getUserid());
+						playerInfoTwo.setPlayerImg(object.getSocketUser().getUserportrait());
+						playerInfoTwo.setPlayerName(object.getSocketUser().getUsername());
+						playerInfoTwo.setPropsName(message.getGameMessage().getPropsName());
 						playerInfoTwo.setPropsStatus(message.getGameMessage().getPropsStatus());
 						playerInfoTwo.setScore(message.getGameMessage().getScore());
 						playerInfoTwo.setToPlayer(message.getGameMessage().getToPlayer());
 					}
-					if(gameMessage.getPlayerImg() == message.getImgThree()){
+					if(object.getSocketUser().getUserportrait().equals(message.getImgThree())){
 						playerInfoThree.setCount(message.getGameMessage().getCount());
 						playerInfoThree.setFromPlayer(message.getGameMessage().getFromPlayer());
 						playerInfoThree.setLines(message.getGameMessage().getLines());
-						playerInfoThree.setPlayerId(message.getGameMessage().getPlayerId());
-						playerInfoThree.setPlayerImg(message.getGameMessage().getPlayerImg());
-						playerInfoThree.setPlayerName(message.getGameMessage().getPlayerName());
-						playerInfoThree.setPropsName(message.getGameMessage().getPlayerName());
+						playerInfoThree.setPlayerId(object.getSocketUser().getUserid());
+						playerInfoThree.setPlayerImg(object.getSocketUser().getUserportrait());
+						playerInfoThree.setPlayerName(object.getSocketUser().getUsername());
+						playerInfoThree.setPropsName(message.getGameMessage().getPropsName());
 						playerInfoThree.setPropsStatus(message.getGameMessage().getPropsStatus());
 						playerInfoThree.setScore(message.getGameMessage().getScore());
 						playerInfoThree.setToPlayer(message.getGameMessage().getToPlayer());
 					}
-					if(gameMessage.getPlayerImg() == message.getImgFour()){
+					if(object.getSocketUser().getUserportrait().equals(message.getImgFour())){
 						playerInfoFour.setCount(message.getGameMessage().getCount());
 						playerInfoFour.setFromPlayer(message.getGameMessage().getFromPlayer());
 						playerInfoFour.setLines(message.getGameMessage().getLines());
-						playerInfoFour.setPlayerId(message.getGameMessage().getPlayerId());
-						playerInfoFour.setPlayerImg(message.getGameMessage().getPlayerImg());
-						playerInfoFour.setPlayerName(message.getGameMessage().getPlayerName());
-						playerInfoFour.setPropsName(message.getGameMessage().getPlayerName());
+						playerInfoFour.setPlayerId(object.getSocketUser().getUserid());
+						playerInfoFour.setPlayerImg(object.getSocketUser().getUserportrait());
+						playerInfoFour.setPlayerName(object.getSocketUser().getUsername());
+						playerInfoFour.setPropsName(message.getGameMessage().getPropsName());
 						playerInfoFour.setPropsStatus(message.getGameMessage().getPropsStatus());
 						playerInfoFour.setScore(message.getGameMessage().getScore());
 						playerInfoFour.setToPlayer(message.getGameMessage().getToPlayer());
 					}
-					
+					System.out.println("sendmessage...gamesUsers");
+					message.setMsgStr("游戏开始了!!!!!!!!!!!!!!");
+					message.setRoomState("1");
+					//message.setType("actionGame");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -92,12 +96,27 @@ public class MutualGame implements InterfaceType {
 		}
 		try {
 			//将各个排行放入集合
+			if(playerInfoOne.getLines() == null){
+				playerInfoOne.setLines(0);
+			}
+			if(playerInfoTwo.getLines() == null){
+				playerInfoTwo.setLines(0);
+			}
+			if(playerInfoThree.getLines() == null){
+				playerInfoThree.setLines(0);
+			}
+			if(playerInfoFour.getLines() == null){
+				playerInfoFour.setLines(0);
+			}
 			linesSort.add(playerInfoOne.getLines());
 			linesSort.add(playerInfoTwo.getLines());
 			linesSort.add(playerInfoThree.getLines());
 			linesSort.add(playerInfoFour.getLines());
 			//调用工具类排行
 			Collections.sort(linesSort);
+			for (Integer aa : linesSort) {
+				System.out.println("排序之后的行数："+aa);
+			}
 			playerInfoOne.setRunkIng(linesSort.get(0));
 			playerInfoTwo.setRunkIng(linesSort.get(1));
 			playerInfoThree.setRunkIng(linesSort.get(2));
@@ -122,4 +141,5 @@ public class MutualGame implements InterfaceType {
 		return null;
 	}
 
+	 
 }
