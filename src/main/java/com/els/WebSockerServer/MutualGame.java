@@ -84,8 +84,7 @@ public class MutualGame implements InterfaceType {
 						playerInfoFour.setScore(message.getGameMessage().getScore());
 						playerInfoFour.setToPlayer(message.getGameMessage().getToPlayer());
 					}
-					System.out.println("sendmessage...gamesUsers");
-					message.setMsgStr("游戏开始了!!!!!!!!!!!!!!");
+					message.setMsgStr("触发消行方法！！！！！！！！！");
 					message.setRoomState("1");
 					//message.setType("actionGame");
 				} catch (Exception e) {

@@ -158,7 +158,6 @@
 
 	<script type="text/javascript">
 		function sendPlayersMessage() {
-			alert("发送了玩家er信息")
 			var playerMessage = {};
 			playerMessage.type = "mutualGame";
 			playerMessage.roomId = roomId;//房间id
@@ -185,7 +184,6 @@
 			playerMessage.lines = 0;//行数
 			playerMessage.count = 0;//道具使用次数
 			playerMessage.propsStatus = 0;
-			alert("发送开始游戏请求！");
 			websocket.send(JSON.stringify(playerMessage));
 		}
 		var oneImg = "";
@@ -282,7 +280,6 @@
 			playMessage.lines = 0;//行数
 			playMessage.count = 0;//道具使用次数
 			playMessage.propsStatus = 0;
-			alert("发送开始游戏请求！");
 			websocket.send(JSON.stringify(playMessage));
 		}
 
@@ -315,7 +312,6 @@
 			playInfoMessage.lines = 0;//行数
 			playInfoMessage.count = 0;//道具使用次数
 			playInfoMessage.propsStatus = 0;
-			alert("发送开始游戏请求！");
 			websocket.send(JSON.stringify(playInfoMessage));
 		}
 		//开始游戏请求
@@ -781,7 +777,6 @@
 
 		// 显示游戏玩家信息
 		function showPlayerInfo(b, imagelist, gamesInfo) {
-			alert(b.gamesInfo[0].playerName);
 			/*for (var z = 1; z <= 8; z++) {
 
 				var teas111 = document.getElementById("img" + z);
@@ -793,7 +788,7 @@
 				}
 			}*/
 			alert("gamesInfo");
-			for(var i=0;i<b.gamesInfo.length;i++){
+			for(var i=0;i<gamesInfo.length;i++){
 				var rankingUl = document.getElementById("rankingUl");
 			rankingUl.innerHTML = "<li id='num1'>"
 					+ "<a><img id='img_1' src='"+b.imgOne+"'></a>"
@@ -804,20 +799,20 @@
 					+ "</li>"
 					+ "<li id='num2'>"
 					+ "<a><img id='img_4' src='"+b.imgTwo+"'></a>"
-					+ "<span id='score1'>"gamesInfo[1].playerName
+					+ "<span id='score1'>"+gamesInfo[1].playerName
 					
 					+ "</span> <img id='img_5' src='../img/a/d.png'>"
 					+ "<img id='img_6' src='../img/a/c.png'></li>"
 					+ "<li id='num3'>"
 					+ "<a><img id='img_7' src='"+b.imgThree+"'>></a>"
-					+ "<span id='score2'>"gamesInfo[2].playerName
+					+ "<span id='score2'>"+gamesInfo[2].playerName
 					
 					+ "</span> <img id='img_8' src='../img/a/d.png'>"
 					+ "<img id='img_9' src='../img/a/c.png'>"
 					+ "</li>"
 					+ "<li id='num4'>"
 					+ "<a><img id='img_10' src='"+b.imgFour+"'></a>"
-					+ "<span id='scoreMe'>"gamesInfo[3].playerName
+					+ "<span id='scoreMe'>"+gamesInfo[3].playerName
 					
 					+ "</span> <img id='img_11' src='../img/a/d.png'>"
 					+ "<img id='img_12' src='../img/a/c.png'>" + "</li>"
@@ -958,8 +953,8 @@
 				actionGame(b, imagelist);
 			}
 			if (b.type == 'gamesInfo') {
-				alert(b.gamesInfo);
-				var gamesInfo = b.gamesInfo;
+				alert(b.gameMessages);
+				var gamesInfo = b.gameMessages;
 				//b.gamesInfo   游戏玩家数据
 				showPlayerInfo(b, imagelist, gamesInfo);
 			}
