@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.els.mapper.JhddUseReordsMapper" >
-  <resultMap id="BaseResultMap" type="com.els.bean.JhddUseReords" >
+<mapper namespace="com.els.mapper.JhddPropsRecordsMapper" >
+  <resultMap id="BaseResultMap" type="com.els.bean.JhddPropsRecords" >
     <id column="useRecordId" property="userecordid" jdbcType="INTEGER" />
     <result column="roomId" property="roomid" jdbcType="INTEGER" />
     <result column="userFrom" property="userfrom" jdbcType="VARCHAR" />
@@ -70,13 +70,13 @@
   <sql id="Base_Column_List" >
     useRecordId, roomId, userFrom, userTo, gamePropsName, gamePropState
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.bean.JhddUseReordsExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.bean.JhddPropsRecordsExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from jhdd_use_reords
+    from jhdd_props_records
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,29 +87,32 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from jhdd_use_reords
+    from jhdd_props_records
     where useRecordId = #{userecordid,jdbcType=INTEGER}
   </select>
+  <select id="selectByRoomId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+     SELECT * FROM `jhdd_props_records` WHERE roomId=#{roomId};
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from jhdd_use_reords
+    delete from jhdd_props_records
     where useRecordId = #{userecordid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.els.bean.JhddUseReordsExample" >
-    delete from jhdd_use_reords
+  <delete id="deleteByExample" parameterType="com.els.bean.JhddPropsRecordsExample" >
+    delete from jhdd_props_records
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.els.bean.JhddUseReords" >
-    insert into jhdd_use_reords (useRecordId, roomId, userFrom, 
+  <insert id="insert" parameterType="com.els.bean.JhddPropsRecords" >
+    insert into jhdd_props_records (useRecordId, roomId, userFrom, 
       userTo, gamePropsName, gamePropState
       )
     values (#{userecordid,jdbcType=INTEGER}, #{roomid,jdbcType=INTEGER}, #{userfrom,jdbcType=VARCHAR}, 
       #{userto,jdbcType=VARCHAR}, #{gamepropsname,jdbcType=VARCHAR}, #{gamepropstate,jdbcType=TINYINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.els.bean.JhddUseReords" >
-    insert into jhdd_use_reords
+  <insert id="insertSelective" parameterType="com.els.bean.JhddPropsRecords" >
+    insert into jhdd_props_records
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userecordid != null" >
         useRecordId,
@@ -151,14 +154,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.els.bean.JhddUseReordsExample" resultType="java.lang.Integer" >
-    select count(*) from jhdd_use_reords
+  <select id="countByExample" parameterType="com.els.bean.JhddPropsRecordsExample" resultType="java.lang.Integer" >
+    select count(*) from jhdd_props_records
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update jhdd_use_reords
+    update jhdd_props_records
     <set >
       <if test="record.userecordid != null" >
         useRecordId = #{record.userecordid,jdbcType=INTEGER},
@@ -184,7 +187,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update jhdd_use_reords
+    update jhdd_props_records
     set useRecordId = #{record.userecordid,jdbcType=INTEGER},
       roomId = #{record.roomid,jdbcType=INTEGER},
       userFrom = #{record.userfrom,jdbcType=VARCHAR},
@@ -195,8 +198,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.els.bean.JhddUseReords" >
-    update jhdd_use_reords
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.bean.JhddPropsRecords" >
+    update jhdd_props_records
     <set >
       <if test="roomid != null" >
         roomId = #{roomid,jdbcType=INTEGER},
@@ -216,8 +219,8 @@
     </set>
     where useRecordId = #{userecordid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.els.bean.JhddUseReords" >
-    update jhdd_use_reords
+  <update id="updateByPrimaryKey" parameterType="com.els.bean.JhddPropsRecords" >
+    update jhdd_props_records
     set roomId = #{roomid,jdbcType=INTEGER},
       userFrom = #{userfrom,jdbcType=VARCHAR},
       userTo = #{userto,jdbcType=VARCHAR},

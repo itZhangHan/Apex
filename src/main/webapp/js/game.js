@@ -435,9 +435,8 @@ var Game = function () {
 
     // 发送玩家数据
         function sendGamesMessage() {
-           alert("发送了玩家信息")
             var playMessage = {};
-            playMessage.type = "mutualGame"
+            playMessage.type = "removeLines"
             playMessage.roomId = roomId;//房间id
             playMessage.toUserName = "";//道具攻击人
             playMessage.fromUserName = "";//道具发起人
@@ -462,7 +461,7 @@ var Game = function () {
             playMessage.lines = line;//行数
             playMessage.count = 0;//道具使用次数
             playMessage.propsStatus = 0;
-            alert("发送开始游戏请求！");
+            alert("发送消除行数分数请求！"+"||发送的分数：："+score+"||发送的行数：："+line);
             websocket.send(JSON.stringify(playMessage));
         }
 

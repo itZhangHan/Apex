@@ -6,7 +6,8 @@
 <generatorConfiguration>
 	<properties resource="properties/db.properties" />
 
-	<classPathEntry location="E:\NewEclipse\workspace\repository\mysql\mysql-connector-java\5.1.32\mysql-connector-java-5.1.32.jar" />
+	<classPathEntry
+		location="E:\NewEclipse\workspace\repository\mysql\mysql-connector-java\5.1.32\mysql-connector-java-5.1.32.jar" />
 
 	<context id="testTables" targetRuntime="MyBatis3">
 		<commentGenerator>
@@ -16,7 +17,7 @@
 			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
 		</jdbcConnection>
 
-		 
+
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
@@ -36,8 +37,6 @@
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
 
-		<table schema="" tableName="jhdd_positionImg" />
-
-
+		<table schema="" tableName="jhdd_game_info" />
 	</context>
 </generatorConfiguration>

@@ -28,7 +28,11 @@ public class MessageManger {
 		messType.put("getOnclient", new GetOnclient());
 		//游戏中数据交互模块
 		messType.put("mutualGame", new MutualGame());
+		//游戏中消行调用方法
+		messType.put("removeLines", new RemoveLines());
 		//messType.put("updateImg", new UpdateImg());
+		messType.put("mutualProps", new MutualProps());
+		//道具接口
 	}
 
 	public static InterfaceType getType(String key) {

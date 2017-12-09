@@ -12,29 +12,30 @@ public class DBController {
 
 	@Autowired
 	private static PositionImgServiceImpl positionImgService;
-	
-/*
- * 向数据库增加座位信息。
- */
+
+	/*
+	 * 向数据库增加座位信息。
+	 */
 	@RequestMapping("/addPositionImg")
-	public void addPositionImg(JhddPositionimg positionImg){
+	public void addPositionImg(JhddPositionimg positionImg) {
 		positionImgService.addImg(positionImg);
-		
+
 	}
-/*
- * 
- */
+
+	/*
+	 * 
+	 */
 	@RequestMapping("/updatePositionImg")
-	public void updataPositionImg(JhddPositionimg positionImg){
+	public void updataPositionImg(JhddPositionimg positionImg) {
 		positionImgService.updateImg(positionImg);
-		
+
 	}
-	
+
 	@RequestMapping("/selectPositionImg")
-	public JhddPositionimg selectPositionImg(Integer roomId){
+	public JhddPositionimg selectPositionImg(Integer roomId) {
 		JhddPositionimg jhddPositionimg = positionImgService.selectByRoomId(roomId);
 		return jhddPositionimg;
-		
+
 	}
-	
+
 }

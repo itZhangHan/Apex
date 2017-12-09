@@ -1,6 +1,6 @@
 package com.els.bean;
 
-public class JhddUseReords {
+public class JhddPropsRecords {
     private Integer userecordid;
 
     private Integer roomid;
