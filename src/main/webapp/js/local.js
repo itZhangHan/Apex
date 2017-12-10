@@ -17,6 +17,8 @@ var Local = function () {
   var noChanged = false; /*定身开关*/
   var noChangedBlock = 0;
 
+  
+
   // 绑定键盘事件
   var bindKeyEvent = function (doms) {
    /* document.onkeydown = function (e) {
@@ -44,30 +46,32 @@ var Local = function () {
           this.style.width = "89%";
           console.log("(game.na======"+game.na)
           if(game.d_a){
-              if(game.na == 4){
-                  noChanged  = true;     /*定身*/
+            props=game.na;
+            alert("点击了第一个道具赋值"+props)
+              // if(game.na == 4){
+              //     noChanged  = true;     /*定身*/
 
-              }else if(game.na == 5){
-                  expedite()          /*加速*/
+              // }else if(game.na == 5){
+              //     expedite()          /*加速*/
 
-              }else if(game.na == 6){         /*减速*/
-                  retard();
+              // }else if(game.na == 6){         /*减速*/
+              //     retard();
 
-              }else if(game.na == 7){       /*重生图片    解除buff*/
+              // }else if(game.na == 7){       /*重生图片    解除buff*/
 
-              }else if(game.na == 8){   /*减去2行*/
-                  game.cleanBoLine(2)
+              // }else if(game.na == 8){   /*减去2行*/
+              //     game.cleanBoLine(2)
 
-              }else if(game.na == 9){   /*减去1行*/
-                  game.cleanBoLine(1)
+              // }else if(game.na == 9){   /*减去1行*/
+              //     game.cleanBoLine(1)
 
-              }else if(game.na == 10){      /*增加2行*/
-                  game.addBotLine(generateBotLine(2))
+              // }else if(game.na == 10){      /*增加2行*/
+              //     game.addBotLine(generateBotLine(2))
 
-              }else if(game.na == 11){           /*增加1行*/
-                  game.addBotLine(generateBotLine(1))
+              // }else if(game.na == 11){           /*增加1行*/
+              //     game.addBotLine(generateBotLine(1))
 
-              }
+              // }
 
               game.d_a = false;
            //   console.log("(game.d_a里======"+(game.d_a));
@@ -91,31 +95,32 @@ var Local = function () {
      //     console.log("game.nb=================="+game.nb)
        //   game.addBotLine(generateBotLine(2))
           if(game.d_b){
+            props=game.nb;
+             alert("点击了第二个道具赋值"+props)
+              // if(game.nb == 4){
+              //     noChanged = true;
 
-              if(game.nb == 4){
-                  noChanged = true;
+              // }else if(game.nb == 5){
+              //     expedite();
 
-              }else if(game.nb == 5){
-                  expedite();
+              // }else if(game.nb == 6){
+              //     retard();
 
-              }else if(game.nb == 6){
-                  retard();
+              // }else if(game.nb == 7){
 
-              }else if(game.nb == 7){
+              // }else if(game.nb == 8){
+              //     game.cleanBoLine(2)
 
-              }else if(game.nb == 8){
-                  game.cleanBoLine(2)
+              // }else if(game.nb == 9){
+              //     game.cleanBoLine(1)
 
-              }else if(game.nb == 9){
-                  game.cleanBoLine(1)
+              // }else if(game.nb == 10){
+              //     game.addBotLine(generateBotLine(2))
 
-              }else if(game.nb == 10){
-                  game.addBotLine(generateBotLine(2))
+              // }else if(game.nb == 11){
+              //     game.addBotLine(generateBotLine(1))
 
-              }else if(game.nb == 11){
-                  game.addBotLine(generateBotLine(1))
-
-              }
+              // }
               game.d_b = false;
               stage2.src = "../img/a/stage1.png"
           }
@@ -182,6 +187,35 @@ var Local = function () {
           $('#local_gameScene').toggleClass('gameSceneCss');*/
 
       },false);
+  }
+
+  // 使用道具
+  function clickplayerinfo(){
+    alert("使用的道具是"+props);
+    if(props == 4){
+                  noChanged  = true;     /*定身*/
+
+              }else if(props == 5){
+                  expedite()          /*加速*/
+
+              }else if(props == 6){         /*减速*/
+                  retard();
+
+              }else if(props == 7){       /*重生图片    解除buff*/
+
+              }else if(props == 8){   /*减去2行*/
+                  game.cleanBoLine(2)
+
+              }else if(props == 9){   /*减去1行*/
+                  game.cleanBoLine(1)
+
+              }else if(props == 10){      /*增加2行*/
+                  game.addBotLine(generateBotLine(2))
+
+              }else if(props == 11){           /*增加1行*/
+                  game.addBotLine(generateBotLine(1))
+
+              }
   }
 
     function expedite() {                /*加速*/

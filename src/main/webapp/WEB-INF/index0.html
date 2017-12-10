@@ -186,6 +186,9 @@
 			playerMessage.propsStatus = 0;
 			websocket.send(JSON.stringify(playerMessage));
 		}
+
+		var props;
+
 		var oneImg = "";
 		var twoImg = "";
 		var threeImg = "";
@@ -959,6 +962,14 @@
                         + "<img id='img_3' src='../img/a/c.png'>"
                         + "<progress max='3' value='"+gamesInfo[i].lines+"' id='pg1'></progress>"
                         + "</li>"
+
+                gamesInfo[i].onclick=function(){
+                	alert("玩家可以点击")
+                	if(props){
+                		alert("如果有道具，道具是"+props)
+                		clickplayerinfo();
+                	}
+                }
 
             }
 
