@@ -15,11 +15,14 @@
 <script src="../js/square.js"></script>
 <script src="../js/squareFactory.js"></script>
 <script src="../js/game.js"></script>
-
+<script type="text/javascript">
+	var propsName=0;
+</script>
+<script src="../js/local.js"></script>
 <script src="../js/hall.js"></script>
 <link rel="stylesheet" href="../css/hall.css">
 <script type="text/javascript">
-	alert("启动页面");
+	var local = new Local();
 </script>
 </head>
 <body>
@@ -156,6 +159,32 @@
 		</div>
 	</div>
 
+	<div id="result">
+		<div class="result_k">
+			<img class="result_k_bg" src="../img/result/result_win_k.png"/>
+			<ul class="player_list">
+				<li>
+					<img src="../img/result/result_one.png"/>
+				</li>
+				<li>
+					<img src="../img/result/result_two.png"/>
+				</li>
+				<li>
+					<img src="../img/result/result_three.png"/>
+				</li>
+				<li>
+					<img src="../img/result/result_four.png"/>
+				</li>
+			</ul>
+			<div class="result_txt"></div>
+			<div class="result_btn">
+				<img src="../img/result/result_share_btn.png"/>
+				<img src="../img/result/result_restart_btn.png"/>
+			</div>
+		</div>
+
+	</div>
+
 	<script type="text/javascript">
 		function sendPlayersMessage() {
 			var playerMessage = {};
@@ -186,8 +215,38 @@
 			playerMessage.propsStatus = 0;
 			websocket.send(JSON.stringify(playerMessage));
 		}
+		// 发送道具信息
+		function sendPropsMessage() {
+			var playerMessage = {};
+			playerMessage.type = "mutualProps";
+			playerMessage.roomId = roomId;//房间id
+			playerMessage.toUserName = "";//道具攻击人
+			playerMessage.fromUserName = "";//道具发起人
+			playerMessage.msgStr = "";//弹幕
+			playerMessage.userStatus = userStatus;//玩家状态
+			playerMessage.roomState = roomState;
+			playerMessage.position = "1";
+			playerMessage.headimgurl = img;//头像
+			playerMessage.nicakname = nicakname;//玩家姓名
+			playerMessage.sex = sex;
+			playerMessage.city = city;
+			playerMessage.userId = userId;//userId
+			playerMessage.propsName = propsName;//道具名称  
+			playerMessage.isSelf = "";
+			playerMessage.getOnclient = "";
+			playerMessage.ownerImg = "";
+			playerMessage.imgOne = document.getElementById("headImg1").src;
+			playerMessage.imgTwo = document.getElementById("headImg2").src;
+			playerMessage.imgThree = document.getElementById("headImg3").src;
+			playerMessage.imgFour = document.getElementById("headImg4").src;
+			playerMessage.score = 0;//分数
+			playerMessage.lines = 0;//行数
+			playerMessage.count = 0;//道具使用次数
+			playerMessage.propsStatus = 0;
+			websocket.send(JSON.stringify(playerMessage));
+		}
 
-		var props=0;
+		//var props=0;
 
 		var oneImg = "";
 		var twoImg = "";
@@ -773,7 +832,7 @@
 				//将玩家状态为1(准备玩家)的玩家跳转到游戏页面
 				//其余旁观者不予改变
 				play_go.style.display = "block";
-				var local = new Local();
+				
 				local.start();
 			}
 		}
@@ -944,6 +1003,9 @@
 				}
 				showPlayerInfo(b, imagelist, gamesInfo);
 			}
+			if(b.type == 'mutualProps'){
+				local.clickplayerinfo();
+			}
 		}
 		// 显示游戏玩家信息
        var showPlayerInfo=function(b, imagelist, gamesInfo) {
@@ -976,9 +1038,11 @@
         function playerclick(id){
         	alert(id);
         	alert("玩家可以点击")
-                	if(props){
-                		alert("如果有道具，道具是"+props)
-                		clickplayerinfo();
+                	if(propsName){
+                		sendPropsMessage();
+                		alert("如果有道具，道具是"+propsName)
+                		// local.clickplayerinfo();
+                		alert("调用了函数");
                 	}
         }
 
@@ -1080,7 +1144,7 @@
 	</script>
 	<!-- 测试 -->
 	<!-- CESHI22 -->
-<script src="../js/local.js"></script>
+
 
 </body>
 </html>

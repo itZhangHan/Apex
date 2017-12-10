@@ -700,6 +700,23 @@ position: absolute;
 /*进度条*/
 #pg1,#pg2,#pg3,#pg4{position: absolute;margin-top:2px;margin-left:-32%;height:34px;width:84%;background:red;}
 
+/*结果页面*/
+#result{ background: url(../img/result/result_win_bg.png) no-repeat center center;
+    background-size: 100% 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: none;}
+.result_k{width:90%;height:70%;position: absolute;top:2%;left:5%;}
+.result_k_bg{width:100%;margin-top:2%;margin-left:auto;margin-right:auto;z-index: 1;}
+.player_list{width:66%;margin-top:-66%;margin-left:auto;margin-right:auto;z-index: 2;}
+.player_list li{margin-bottom:1%;}
+.player_list li img{width:10%;}
+.result_btn{width:50%;margin-top:20%;margin-left:auto;margin-right:auto;z-index: 2;}
+.result_btn img{width:45%;margin-left:4%;}
+
 
 
 

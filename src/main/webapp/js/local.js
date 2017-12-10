@@ -46,9 +46,9 @@ var Local = function () {
           this.style.width = "89%";
           console.log("(game.na======"+game.na)
           if(game.d_a){
-            alert("点击了第一个道具赋值之前"+game.na+props);
-            props=game.na;
-            alert("点击了第一个道具赋值"+props)
+            alert("点击了第一个道具赋值之前"+game.na+propsName);
+            propsName=game.na;
+            alert("点击了第一个道具赋值"+propsName)
               // if(game.na == 4){
               //     noChanged  = true;     /*定身*/
 
@@ -96,9 +96,9 @@ var Local = function () {
      //     console.log("game.nb=================="+game.nb)
        //   game.addBotLine(generateBotLine(2))
           if(game.d_b){
-            alert("点击了第一个道具赋值之前"+game.nb+props);
-            props=game.nb;
-             alert("点击了第二个道具赋值"+props)
+            alert("点击了第二个道具赋值之前"+game.nb+propsName);
+            propsName=game.nb;
+             alert("点击了第二个道具赋值"+propsName)
               // if(game.nb == 4){
               //     noChanged = true;
 
@@ -192,29 +192,29 @@ var Local = function () {
   }
 
   // 使用道具
-  function clickplayerinfo(){
-    alert("使用的道具是"+props);
-    if(props == 4){
+  var clickplayerinfo=function(){
+    alert("使用的道具是"+propsName);
+    if(propsName == 4){
                   noChanged  = true;     /*定身*/
 
-              }else if(props == 5){
+              }else if(propsName == 5){
                   expedite()          /*加速*/
 
-              }else if(props == 6){         /*减速*/
+              }else if(propsName == 6){         /*减速*/
                   retard();
 
-              }else if(props == 7){       /*重生图片    解除buff*/
+              }else if(propsName == 7){       /*重生图片    解除buff*/
 
-              }else if(props == 8){   /*减去2行*/
+              }else if(propsName == 8){   /*减去2行*/
                   game.cleanBoLine(2)
 
-              }else if(props == 9){   /*减去1行*/
+              }else if(propsName == 9){   /*减去1行*/
                   game.cleanBoLine(1)
 
-              }else if(props == 10){      /*增加2行*/
+              }else if(propsName == 10){      /*增加2行*/
                   game.addBotLine(generateBotLine(2))
 
-              }else if(props == 11){           /*增加1行*/
+              }else if(propsName == 11){           /*增加1行*/
                   game.addBotLine(generateBotLine(1))
 
               }
@@ -278,6 +278,7 @@ var Local = function () {
       if (gameOver) {
         game.onGameOver(false);
         stop();
+        document.getElementById("result").style.display="block";
       } else {
         game.performNext(generateType(), generateDir());
       }
@@ -360,4 +361,5 @@ var Local = function () {
   }
 
   this.start = start;
+  this.clickplayerinfo=clickplayerinfo;
 }
