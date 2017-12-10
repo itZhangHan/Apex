@@ -39,7 +39,7 @@ public class GamesMessage implements InterfaceType {
 						playerOne.setPlayerImg(message.getImgOne());
 						playerOne.setPlayerName(object.getSocketUser().getUsername());
 						// 道具名称
-						playerOne.setPropsName("");
+						playerOne.setPropsName(null);
 						// 道具状态 0 无状态 1增益道具 2减益道具
 						playerOne.setPropsStatus(0);
 						playerOne.setScore(0);
