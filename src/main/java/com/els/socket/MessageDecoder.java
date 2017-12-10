@@ -56,6 +56,7 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		message.setImgTwo(object.getString("imgTwo"));
 		message.setImgThree(object.getString("imgThree"));
 		message.setImgFour(object.getString("imgFour"));
+	//	message.setProps(object.getInt("props"));
 		//message.setPlayerImgs(object.get("playerImgs"));
 		//message.setPlayerImg((List<String>) object.get("readyToDownUp"));
 		//游戏中玩家信息
