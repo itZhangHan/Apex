@@ -932,13 +932,14 @@
 			}
 			if(b.type == 'removeLines'){
 				var gamesInfo = b.gameMessages;
+				var a = 'http://wx.qlogo.cn/mmopen/vi_32/mVtGLzdgB7qeAaBXicXCj9K31mbTibgVicbdkytrSibN5KohzTxvfPBIdiaYU3ByAAS1GEI56kHiaic27eWCgJZpso5ibA/0';
+				alert(a);
 				for (var l = 0; l < gamesInfo.length; l++) {
 					alert("我是:" + gamesInfo[l].playerName
 							+ "||||||||||||||返回的数据行数：" + gamesInfo[l].lines
 							+ "||||||||||||||返回的分数：" + gamesInfo[l].score);
 				}
 				showPlayerInfo(b, imagelist, gamesInfo);
-				alert(gamesInfo);
 			}
 		}
 		// 显示游戏玩家信息
@@ -946,7 +947,7 @@
             
             alert("gamesInfo");
             var palyer_count="";
-
+            alert("qqqqqqqqqqqqq"+palyer_count);
 
             for (var i = 0; i < gamesInfo.length; i++) {
 
