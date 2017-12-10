@@ -687,7 +687,8 @@ var Game = function () {
             ctx1.restore();
            
             restart();
-
+            play_go.style.display = "none";
+            document.getElementById("result").style.display="block";
 
             // to_over=setInterval(to_over,3000);
         }

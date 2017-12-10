@@ -284,7 +284,7 @@ var Local = function () {
       if (gameOver) {
         game.onGameOver(false);
         stop();
-        document.getElementById("result").style.display="block";
+       
       } else {
         game.performNext(generateType(), generateDir());
       }
