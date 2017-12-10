@@ -542,30 +542,7 @@ var Game = function () {
         return line;
         
     }
-    // 显示游戏玩家信息
-       var showPlayerInfo=function(b, imagelist, gamesInfo) {
-            
-            alert("gamesInfo");
-            var palyer_count;
-
-
-            for (var i = 0; i < gamesInfo.length; i++) {
-
-                palyer_count = palyer_count
-                        + "<li id='num1'>"
-                        + "<a><img id='img_1' src='"+gamesInfo[i].playerImg+"'></a>"
-                        + "<span id='score'>" + gamesInfo[i].playerName
-                        + "</span> <img id='img_2' src='../img/a/d.png'>"
-                        + "<img id='img_3' src='../img/a/c.png'>"
-                        + "<progress max='40' value='0' id='pg1'></progress>"
-                        + "</li>"
-
-            }
-
-            var rankingUl = document.getElementById("rankingUl");
-            rankingUl.innerHTML = palyer_count;
-
-        }
+    
     // 进度条
     function loadstart1(){
                 var pg=document.getElementById("pg1");
