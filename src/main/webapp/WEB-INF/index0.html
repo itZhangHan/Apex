@@ -955,7 +955,7 @@
             for (var i = 0; i < gamesInfo.length; i++) {
 
                 palyer_count = palyer_count
-                        + "<li id='num1'>"
+                        + "<li id='num1' onclick="playerclick(gamesInfo[i].userid)">"
                         + "<a><img id='img_1' src='"+gamesInfo[i].playerImg+"'></a>"
                         + "<span id='score'>" + gamesInfo[i].playerName
                         + "</span> <img id='img_2' src='../img/a/d.png'>"
@@ -963,19 +963,23 @@
                         + "<progress max='3' value='"+gamesInfo[i].lines+"' id='pg1'></progress>"
                         + "</li>"
 
-                gamesInfo[i].onclick=function(){
-                	alert("玩家可以点击")
-                	if(props){
-                		alert("如果有道具，道具是"+props)
-                		clickplayerinfo();
-                	}
-                }
+                // gamesInfo[i].onclick=function(){
+                	
+                // }
 
             }
 
             var rankingUl = document.getElementById("rankingUl");
             rankingUl.innerHTML = palyer_count;
 
+        }
+        function playerclick(id){
+        	alert(id);
+        	alert("玩家可以点击")
+                	if(props){
+                		alert("如果有道具，道具是"+props)
+                		clickplayerinfo();
+                	}
         }
 
 		//显示旁观者信息
