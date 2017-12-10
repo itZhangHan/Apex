@@ -46,9 +46,11 @@ var Local = function () {
           this.style.width = "89%";
           console.log("(game.na======"+game.na)
           if(game.d_a){
+
             alert("点击了第一个道具赋值之前"+game.na+propsName);
             propsName=game.na;
             alert("点击了第一个道具赋值"+propsName)
+
               // if(game.na == 4){
               //     noChanged  = true;     /*定身*/
 
@@ -96,9 +98,11 @@ var Local = function () {
      //     console.log("game.nb=================="+game.nb)
        //   game.addBotLine(generateBotLine(2))
           if(game.d_b){
+
             alert("点击了第二个道具赋值之前"+game.nb+propsName);
             propsName=game.nb;
              alert("点击了第二个道具赋值"+propsName)
+
               // if(game.nb == 4){
               //     noChanged = true;
 
@@ -192,9 +196,11 @@ var Local = function () {
   }
 
   // 使用道具
+
   var clickplayerinfo=function(){
     alert("使用的道具是"+propsName);
     if(propsName == 4){
+
                   noChanged  = true;     /*定身*/
 
               }else if(propsName == 5){

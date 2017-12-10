@@ -18,7 +18,7 @@ import com.els.socket.SocketMessage;
 public class MutualGame implements InterfaceType {
 	@Override
 	public String onMessage(SocketMessage message) {
-		// 查询数据库位置信息
+		// 查询数据库位置信息接口
 		PositionImgService positionImgService = (PositionImgService) SpringContextUtil.getBean("positionImgService");
 		// 调用玩家道具详细接口
 		GameInfoService gameInfoService = (GameInfoService) SpringContextUtil.getBean("gameInfoService");

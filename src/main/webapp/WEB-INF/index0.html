@@ -16,13 +16,17 @@
 <script src="../js/squareFactory.js"></script>
 <script src="../js/game.js"></script>
 <script type="text/javascript">
+
 	var propsName=0;
+
 </script>
 <script src="../js/local.js"></script>
 <script src="../js/hall.js"></script>
 <link rel="stylesheet" href="../css/hall.css">
 <script type="text/javascript">
+
 	var local = new Local();
+
 </script>
 </head>
 <body>
@@ -246,7 +250,6 @@
 			websocket.send(JSON.stringify(playerMessage));
 		}
 
-		//var props=0;
 
 		var oneImg = "";
 		var twoImg = "";
@@ -1038,10 +1041,12 @@
         function playerclick(id){
         	alert(id);
         	alert("玩家可以点击")
+
                 	if(propsName){
                 		sendPropsMessage();
                 		alert("如果有道具，道具是"+propsName)
                 		// local.clickplayerinfo();
+
                 		alert("调用了函数");
                 	}
         }
