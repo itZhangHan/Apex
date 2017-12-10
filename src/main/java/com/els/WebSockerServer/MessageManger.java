@@ -30,9 +30,10 @@ public class MessageManger {
 		messType.put("mutualGame", new MutualGame());
 		//游戏中消行调用方法
 		messType.put("removeLines", new RemoveLines());
-		//messType.put("updateImg", new UpdateImg());
-		messType.put("mutualProps", new MutualProps());
 		//道具接口
+		messType.put("mutualProps", new MutualProps());
+		//结束页面
+		messType.put("endInfo", new EndInfo());
 	}
 
 	public static InterfaceType getType(String key) {

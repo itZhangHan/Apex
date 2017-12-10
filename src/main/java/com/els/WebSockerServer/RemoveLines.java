@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import com.els.bean.JhddGameInfo;
+import com.els.bean.JhddPositionimg;
 import com.els.common.ListSort;
 import com.els.common.SpringContextUtil;
 import com.els.serviceinterface.GameInfoService;
+import com.els.serviceinterface.PositionImgService;
 import com.els.socket.GameMessage;
 import com.els.socket.SocketManger;
 import com.els.socket.SocketMessage;
@@ -17,6 +19,8 @@ public class RemoveLines implements InterfaceType {
 
 	@Override
 	public synchronized String onMessage(SocketMessage message) {
+		PositionImgService positionImgService = (PositionImgService) SpringContextUtil.getBean("positionImgService");
+		JhddPositionimg jhddPositionimg = positionImgService.selectByRoomId(Integer.parseInt(message.getRoomId()));
 		GameInfoService gameInfoService = (GameInfoService) SpringContextUtil.getBean("gameInfoService");
 		// 根据房间Id查询房间内玩家详细信息
 		JhddGameInfo gameInfo = gameInfoService.selectByRoomId(Integer.parseInt(message.getRoomId()));
@@ -49,39 +53,88 @@ public class RemoveLines implements InterfaceType {
 
 		gameInfoService.updataByGamesInfo(gameInfo);
 		JhddGameInfo findGameInfo = gameInfoService.selectByRoomId(Integer.parseInt(message.getRoomId()));
-
-		if (message.getUserId().equals(findGameInfo.getPlayeroneid())) {
+/*
+		if (message.getUserId().equals(findGameInfo.getPlayeroneid()+"")) {
 			playerInfoOne.setLines(Integer.parseInt(findGameInfo.getPlayeronelines()));
 			playerInfoOne.setScore(Integer.parseInt(findGameInfo.getPlayeronescore()));
 			playerInfoOne.setPlayerId(findGameInfo.getPlayeroneid());
 			playerInfoOne.setPlayerImg(findGameInfo.getPlayeroneimg());
 			playerInfoOne.setPlayerName(findGameInfo.getPlayeronename());
-
-			gamesInfo.add(playerInfoOne);
-		} else if (message.getUserId().equals(findGameInfo.getPlayertwoid())) {
+		} else if (message.getUserId().equals(findGameInfo.getPlayertwoid()+"")) {
 			playerInfoTwo.setLines(Integer.parseInt(findGameInfo.getPlayertwolines()));
 			playerInfoTwo.setScore(Integer.parseInt(findGameInfo.getPlayertwoscore()));
 			playerInfoTwo.setPlayerId(findGameInfo.getPlayertwoid());
 			playerInfoTwo.setPlayerImg(findGameInfo.getPlayertwoimg());
 			playerInfoTwo.setPlayerName(findGameInfo.getPlayertwoname());
-			gamesInfo.add(playerInfoTwo);
-		} else if (message.getUserId().equals(findGameInfo.getPlayerthreeid())) {
+		} else if (message.getUserId().equals(findGameInfo.getPlayerthreeid()+"")) {
 			playerInfoThree.setLines(Integer.parseInt(findGameInfo.getPlayerthreelines()));
 			playerInfoThree.setScore(Integer.parseInt(findGameInfo.getPlayerthreescore()));
 			playerInfoThree.setPlayerId(findGameInfo.getPlayerthreeid());
 			playerInfoThree.setPlayerImg(findGameInfo.getPlayerthreeimg());
 			playerInfoThree.setPlayerName(findGameInfo.getPlayerthreename());
-			gamesInfo.add(playerInfoThree);
-		} else if (message.getUserId().equals(findGameInfo.getPlayerfourid())) {
-
+		} else if (message.getUserId().equals(findGameInfo.getPlayerfourid()+"")) {
 			playerInfoFour.setLines(Integer.parseInt(findGameInfo.getPlayerfourlines()));
 			playerInfoFour.setScore(Integer.parseInt(findGameInfo.getPlayerfourscore()));
 			playerInfoFour.setPlayerId(findGameInfo.getPlayerfourid());
 			playerInfoFour.setPlayerImg(findGameInfo.getPlayerfourimg());
 			playerInfoFour.setPlayerName(findGameInfo.getPlayerfourname());
+		}*/
+		if(jhddPositionimg.getImgone().equals(findGameInfo.getPlayeroneimg())){
+			playerInfoOne.setLines(Integer.parseInt(findGameInfo.getPlayeronelines()));
+			playerInfoOne.setScore(Integer.parseInt(findGameInfo.getPlayeronescore()));
+			playerInfoOne.setPlayerId(findGameInfo.getPlayeroneid());
+			playerInfoOne.setPlayerImg(findGameInfo.getPlayeroneimg());
+			playerInfoOne.setPlayerName(findGameInfo.getPlayeronename());
+			gamesInfo.add(playerInfoOne);
+		}
+		if(jhddPositionimg.getImgtwo().equals(findGameInfo.getPlayertwoimg())){
+			if(findGameInfo.getPlayertwolines() == null){
+				playerInfoTwo.setLines(0);
+			}else{
+				playerInfoTwo.setLines(Integer.parseInt(findGameInfo.getPlayertwolines()));
+			}
+			if(findGameInfo.getPlayertwoscore() == null){
+				playerInfoTwo.setScore(0);
+			}else{
+				playerInfoTwo.setScore(Integer.parseInt(findGameInfo.getPlayertwoscore()));
+			}
+			playerInfoTwo.setPlayerId(findGameInfo.getPlayertwoid());
+			playerInfoTwo.setPlayerImg(findGameInfo.getPlayertwoimg());
+			playerInfoTwo.setPlayerName(findGameInfo.getPlayertwoname());
+			gamesInfo.add(playerInfoTwo);
+		}
+		if(jhddPositionimg.getImgthree().equals(findGameInfo.getPlayerthreeimg())){
+			if(findGameInfo.getPlayerthreelines() == null){
+				playerInfoThree.setLines(0);
+			}else{
+				playerInfoThree.setLines(Integer.parseInt(findGameInfo.getPlayerthreelines()));
+			}
+			if(findGameInfo.getPlayerthreescore() == null){
+				playerInfoThree.setScore(0);
+			}else{
+				playerInfoThree.setScore(Integer.parseInt(findGameInfo.getPlayerthreescore()));
+			}
+			playerInfoThree.setPlayerId(findGameInfo.getPlayerthreeid());
+			playerInfoThree.setPlayerImg(findGameInfo.getPlayerthreeimg());
+			playerInfoThree.setPlayerName(findGameInfo.getPlayerthreename());
+			gamesInfo.add(playerInfoThree);
+		}
+		if(jhddPositionimg.getImgfour().equals(findGameInfo.getPlayerfourimg())){
+			if(findGameInfo.getPlayerfourlines() == null){
+				playerInfoFour.setLines(0);
+			}else{
+				playerInfoFour.setLines(Integer.parseInt(findGameInfo.getPlayerfourlines()));
+			}
+			if(findGameInfo.getPlayerfourscore() == null){
+				playerInfoFour.setScore(0);
+			}else{
+				playerInfoFour.setScore(Integer.parseInt(findGameInfo.getPlayerfourscore()));
+			}
+			playerInfoFour.setPlayerId(findGameInfo.getPlayerfourid());
+			playerInfoFour.setPlayerImg(findGameInfo.getPlayerfourimg());
+			playerInfoFour.setPlayerName(findGameInfo.getPlayerfourname());
 			gamesInfo.add(playerInfoFour);
 		}
-
 		// 集合排序 降序
 		ListSort<GameMessage> listSort = new ListSort<GameMessage>();
 		listSort.Sort(gamesInfo, "getLines", "desc");
@@ -91,6 +144,7 @@ public class RemoveLines implements InterfaceType {
 		for (WebSocketServer object : arrayset) {
 			// 分发
 			try {
+
 				object.getSession().getBasicRemote().sendObject(message);
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -23,6 +23,31 @@ public class MutualProps implements InterfaceType {
 
 	@Override
 	public String onMessage(SocketMessage message) {
+		Properties prop = new Properties();
+		InputStream in = MutualProps.class.getClassLoader().getResourceAsStream(
+                "props/props.properties");
+		try {
+			prop.load(in);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//4
+		Integer dingshen = Integer.parseInt(prop.getProperty("定身"));
+		//5
+		Integer jiasu = Integer.parseInt(prop.getProperty("加速"));
+		//6
+		Integer jiansu = Integer.parseInt(prop.getProperty("减速"));
+		//7
+		Integer chongsheng = Integer.parseInt(prop.getProperty("重生"));
+		//8
+		Integer fenjie = Integer.parseInt(prop.getProperty("分解"));
+		//9
+		Integer xiaorong = Integer.parseInt(prop.getProperty("消融"));
+		//10
+		Integer bianyi = Integer.parseInt(prop.getProperty("变异"));
+		//11
+		Integer shenggen = Integer.parseInt(prop.getProperty("生根"));
 		// 道具交互接口
 		MutualPropsService mutualPropsService = (MutualPropsService) SpringContextUtil.getBean("mutualPropsService");
 		// 查询数据库位置信息
@@ -44,11 +69,11 @@ public class MutualProps implements InterfaceType {
 					propsRecords.setUserfrom(playerOne.getUsername());
 					propsRecords.setUserto(message.getToUserName());
 					String propsName = message.getProps();
-					if(propsName.equals("") || propsName.equals("") || propsName.equals("") || propsName.equals("")){
+				/*	if(propsName.equals("") || propsName.equals("") || propsName.equals("") || propsName.equals("")){
 						propsRecords.setGamepropstate((byte) 1);
 					}else{
 						propsRecords.setGamepropstate((byte) 0);
-					}
+					}*/
 					propsRecords.setGamepropsname(propsName);
 				}
 				//二号玩家的详细信息
@@ -58,11 +83,11 @@ public class MutualProps implements InterfaceType {
 					propsRecords.setUserfrom(playerTwo.getUsername());
 					propsRecords.setUserto(message.getToUserName());
 					String propsName = message.getProps();
-					if(propsName.equals("") || propsName.equals("") || propsName.equals("") || propsName.equals("")){
+					/*if(propsName.equals("") || propsName.equals("") || propsName.equals("") || propsName.equals("")){
 						propsRecords.setGamepropstate((byte) 1);
 					}else{
 						propsRecords.setGamepropstate((byte) 0);
-					}
+					}*/
 					propsRecords.setGamepropsname(propsName);
 				}
 				//仨号玩家的详细信息
@@ -72,11 +97,11 @@ public class MutualProps implements InterfaceType {
 					propsRecords.setUserfrom(playerThree.getUsername());
 					propsRecords.setUserto(message.getToUserName());
 					String propsName = message.getProps();
-					if(propsName.equals("") || propsName.equals("") || propsName.equals("") || propsName.equals("")){
+					/*if(propsName.equals("") || propsName.equals("") || propsName.equals("") || propsName.equals("")){
 						propsRecords.setGamepropstate((byte) 1);
 					}else{
 						propsRecords.setGamepropstate((byte) 0);
-					}
+					}*/
 					propsRecords.setGamepropsname(propsName);
 				}
 				//四号玩家的详细信息
@@ -86,16 +111,16 @@ public class MutualProps implements InterfaceType {
 					propsRecords.setUserfrom(playerFour.getUsername());
 					propsRecords.setUserto(message.getToUserName());
 					String propsName = message.getProps();
-					if(propsName.equals("") || propsName.equals("") || propsName.equals("") || propsName.equals("")){
+					/*if(propsName.equals("") || propsName.equals("") || propsName.equals("") || propsName.equals("")){
 						propsRecords.setGamepropstate((byte) 1);
 					}else{
 						propsRecords.setGamepropstate((byte) 0);
-					}
+					}*/
 					propsRecords.setGamepropsname(propsName);
 				}
 			}
 		}
-		
+	//	MutualProps.getProps();
 		//插入数据库
 		mutualPropsService.updatePropsRecords(propsRecords);
 		JhddPropsRecords selectPropsRecords = mutualPropsService.selectPropsRecords(Integer.parseInt(message.getRoomId()));
@@ -117,7 +142,7 @@ public class MutualProps implements InterfaceType {
 	}
 
 	@Test
-	public void aa(){
+	public static void getProps(){
 		Properties prop = new Properties();
 		InputStream in = MutualProps.class.getClassLoader().getResourceAsStream(
                 "props/props.properties");
@@ -127,7 +152,22 @@ public class MutualProps implements InterfaceType {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String aa = prop.getProperty("props1");
-		System.out.println(aa);
+		//4
+		Integer dingshen = Integer.parseInt(prop.getProperty("定身"));
+		//5
+		Integer jiasu = Integer.parseInt(prop.getProperty("加速"));
+		//6
+		Integer jiansu = Integer.parseInt(prop.getProperty("减速"));
+		//7
+		Integer chongsheng = Integer.parseInt(prop.getProperty("重生"));
+		//8
+		Integer fenjie = Integer.parseInt(prop.getProperty("分解"));
+		//9
+		Integer xiaorong = Integer.parseInt(prop.getProperty("消融"));
+		//10
+		Integer bianyi = Integer.parseInt(prop.getProperty("变异"));
+		//11
+		Integer shenggen = Integer.parseInt(prop.getProperty("生根"));
+		 
 	}
 }

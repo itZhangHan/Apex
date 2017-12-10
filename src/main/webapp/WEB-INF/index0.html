@@ -932,6 +932,8 @@
 			}
 			if(b.type == 'removeLines'){
 				var gamesInfo = b.gameMessages;
+				var a = 'http://wx.qlogo.cn/mmopen/vi_32/mVtGLzdgB7qeAaBXicXCj9K31mbTibgVicbdkytrSibN5KohzTxvfPBIdiaYU3ByAAS1GEI56kHiaic27eWCgJZpso5ibA/0';
+				alert(a);
 				for (var l = 0; l < gamesInfo.length; l++) {
 					alert("我是:" + gamesInfo[l].playerName
 							+ "||||||||||||||返回的数据行数：" + gamesInfo[l].lines
@@ -944,8 +946,8 @@
        var showPlayerInfo=function(b, imagelist, gamesInfo) {
             
             alert("gamesInfo");
-            var palyer_count;
-
+            var palyer_count="";
+            alert("qqqqqqqqqqqqq"+palyer_count);
 
             for (var i = 0; i < gamesInfo.length; i++) {
 
@@ -955,7 +957,7 @@
                         + "<span id='score'>" + gamesInfo[i].playerName
                         + "</span> <img id='img_2' src='../img/a/d.png'>"
                         + "<img id='img_3' src='../img/a/c.png'>"
-                        + "<progress max='40' value='0' id='pg1'></progress>"
+                        + "<progress max='3' value='"+gamesInfo[i].lines+"' id='pg1'></progress>"
                         + "</li>"
 
             }
