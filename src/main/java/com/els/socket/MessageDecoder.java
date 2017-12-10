@@ -47,7 +47,7 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		message.setNickName(object.getString("nicakname"));
 		message.setCity(object.getString("city"));
 		message.setSex(object.getString("sex"));
-		message.setProps(object.getInt("propsName"));
+		message.setProps(object.getString("propsName"));
 		message.setUserId(object.getString("userId"));
 		message.setIsSelf(object.getString("isSelf"));
 		message.setIsSelf(object.getString("getOnclient"));
@@ -67,7 +67,7 @@ public class MessageDecoder implements Decoder.Text<SocketMessage> {
 		gameMessage.setLines(object.getInt("lines"));
 		gameMessage.setPlayerImg(object.getString("headimgurl"));
 		gameMessage.setPlayerName(object.getString("nicakname"));
-		gameMessage.setPropsName(object.getInt("propsName"));
+		gameMessage.setPropsName(object.getString("propsName"));
 		gameMessage.setPropsStatus(object.getInt("propsStatus"));
 		gameMessage.setScore(object.getInt("score"));
 		gameMessage.setToPlayer(object.getString("toUserName"));

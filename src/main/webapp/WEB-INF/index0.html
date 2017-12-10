@@ -16,9 +16,9 @@
 <script src="../js/squareFactory.js"></script>
 <script src="../js/game.js"></script>
 <script type="text/javascript">
-
+alert("propsNamepropsNamepropsNamepropsNamepropsName===="+propsName);
 	var propsName=0;
-
+	var playId=0;
 </script>
 <script src="../js/local.js"></script>
 <script src="../js/hall.js"></script>
@@ -234,9 +234,12 @@
 		// 发送道具信息
 		function sendPropsMessage() {
 			var playerMessage = {};
+			
 			playerMessage.type = "mutualProps";
 			playerMessage.roomId = roomId;//房间id
-			playerMessage.toUserName = playerId;//道具攻击人
+
+			playerMessage.toUserName = playId;//道具攻击人
+
 			playerMessage.fromUserName = "";//道具发起人
 			playerMessage.msgStr = "";//弹幕
 			playerMessage.userStatus = userStatus;//玩家状态
@@ -251,14 +254,15 @@
 			playerMessage.isSelf = "";
 			playerMessage.getOnclient = "";
 			playerMessage.ownerImg = "";
-			playerMessage.imgOne = document.getElementById("headImg1").src;
-			playerMessage.imgTwo = document.getElementById("headImg2").src;
-			playerMessage.imgThree = document.getElementById("headImg3").src;
-			playerMessage.imgFour = document.getElementById("headImg4").src;
-			playerMessage.score = 0;//分数
-			playerMessage.lines = 0;//行数
-			playerMessage.count = 0;//道具使用次数
-			playerMessage.propsStatus = 0;
+			playerMessage.imgOne = "";
+			playerMessage.imgTwo = "";
+			playerMessage.imgThree = "";
+			playerMessage.imgFour ="";
+			playerMessage.score = "0";//分数
+			playerMessage.lines = "0";//行数
+			playerMessage.count = "0";//道具使用次数
+			playerMessage.propsStatus = "0";
+			alert("aaaaaaaaaa")
 			websocket.send(JSON.stringify(playerMessage));
 		}
 
@@ -362,7 +366,6 @@
 
 		// 发送玩家数据
 		function sendActionGameMessage() {
-			alert("发送了玩家info信息")
 			var playInfoMessage = {};
 			playInfoMessage.type = "gameUsmessage"
 			playInfoMessage.roomId = roomId;//房间id
@@ -514,15 +517,10 @@
 
 			//alert( "判断方法前"+user4Img);
 			if (subImg4 == nowImg) {
-				//alert("进入位置4第一个if语句=执行请求起立方法；；缓存第一下");
-				//alert("up");
 				showUpHeader("up", 4);
 
 			} else if ((document.getElementById("headImg4").src)
 					.indexOf('no.jpg') > -1) {
-				//alert("进入位置4第222个if语句=执行请求起立方法");
-				//alert("down");
-				//	f2 = true;
 				showUpHeader("down", 4);
 			} else {
 
@@ -597,14 +595,12 @@
 				var headImage = document.getElementById("headImg" + i);
 				var player = document.getElementById("player" + i);
 				if (i != zuowei) {
-					//alert(headImage.src+"+")
 
 					if (headImage.src == b.headimgurl) {
 						headImage.src = '';
 						player.value = '';
 					}
 
-					//alert("22222"+headImage.src);
 				}
 
 			}
@@ -662,25 +658,17 @@
 			// 		+ "<span id='scoreMe'>0</span> <img id='img_11' src='../img/a/d.png'>"
 			// 		+ "<img id='img_12' src='../img/a/c.png'>" + "</li>"
 
-			/* 	alert(imagelist+"=imagelist");
-				var xiaomao=document.getElementById("headImg2");
-				alert(xiaomao.src+"小猫");  */
+			 
 			for (var z = 1; z <= 8; z++) {
 
 				var teas111 = document.getElementById("img" + z);
-				/* if (z == 1) {
-					alert(imagelist + "zzzz--1--zzzz" + teas111.src);
-					alert(imagelist.indexOf(teas111.src));
-				} */
+				 
 				if (imagelist.indexOf(teas111.src) > -1 && teas111.src != "") {
-					//alert("进入已准备");
 					document.getElementById("orPrepare" + z).innerHTML = "已准备";
 				} else {
-					//alert("进入取消准备");
 					document.getElementById("orPrepare" + z).innerHTML = "";
 				}
 				if (ownerImg == teas111.src) {
-					//alert("进入房主");
 					document.getElementById("orPrepare1").innerHTML = "";
 				}
 
@@ -691,12 +679,10 @@
 				var headImage = document.getElementById("headImg" + i);
 				//var player = document.getElementById("player" + i);
 				if (i != zuowei) {
-					//alert(headImage.src+"+")		
 					if (headImage.src == b.headimgurl) {
 						headImage.src = '../img/play/touming.jpg';
 					//	player.value = '';
 					}
-					//alert("22222"+headImage.src);
 				}
 			}
 			//四人座位src 
@@ -720,7 +706,6 @@
 		}
 		//接收坐下type 展示数据
 		function showDownmessage(b, imagelist) {
-			//	alert("进入down方法了");
 			var sitUl = document.getElementsByClassName("sit");
 			var hd1src = head1.src;
 			var hd2src = head2.src;
@@ -728,8 +713,6 @@
 			var hd4src = head4.src;
 			//var iimg1 = document.getElementById("headImg1");
 
-			//alert("111"+b.imgOne);
-			//alert("userid="+b.userId);
 			if (b.position == '1') {
 				//给位置填充图片
 				head1.src = b.imgOne;
@@ -743,7 +726,6 @@
 			if (b.position == '2') {
 				//var uid2 = document.getElementById("player2");
 				//给位置填充图片
-				//alert("进入22222");
 				head2.src = b.imgTwo;
 				//修改旁观者信息为 已准备
 				/* orPrepare2.innerHTML = "已准备";  */
@@ -753,14 +735,12 @@
 
 			}
 			if (b.position == '3') {
-				//alert("进入333"+b.imgThree);	
 				head3.src = b.imgThree;
 				//orPrepare3.innerHTML = "已准备"; 
 				userIdThree = b.userId;
 				//遍历头像 设置之前头像消失
 			}
 			if (b.position == '4') {
-				//alert("4444坐下 赋值="+b.imgFour)
 				head4.src = b.imgFour;
 				//orPrepare4.innerHTML = "已准备";  
 				document.getElementById("player4").value = b.userId;
@@ -772,12 +752,10 @@
 				var headImage = document.getElementById("headImg" + i);
 				var player = document.getElementById("player" + i);
 				if (i != zuowei) {
-					//alert(headImage.src+"+")		
 					if (headImage.src == b.headimgurl) {
 						headImage.src = '';
 						player.value = '';
 					}
-					//alert("22222"+headImage.src);
 				}
 			}
 			//四人座位src 
@@ -802,8 +780,6 @@
 		}
 		//接收游戏类型 设置游戏开始
 		function actionGame(b, imagelist) {
-			alert("actionGame");
-			alert("gameMessages====" + b.gameMessages)
 			var gameMessages = b.gameMessages;
 			/* for(var k =0;k<gameMessages.length;k++){
 				// if(gameMessages[k].playerImg == document.getElementById("headImg1")){
@@ -840,7 +816,6 @@
 					+ "<a><img id='img_10' src='"+b.imgFour+"'></a>"
 					+ "<span id='scoreMe'>44</span> <img id='img_11' src='../img/a/d.png'>"
 					+ "<img id='img_12' src='../img/a/c.png'>" + "</li>" */
-			alert("img==" + img + ":||:" + head1.src);
 			if (img == head1.src || img == head2.src || img == head3.src
 					|| img == head4.src) {
 				//当房间状态为1时候判断玩家状态
@@ -923,13 +898,9 @@
 		//房主名字
 
 		websocket.onmessage = function(e) {
-			//alert("我的userId="+userId);
-			//	alert("自己的头像="+img);
 			var jsonObj = eval("(" + e.data + ")");
 			console.log(jsonObj);
 			var b = JSON.parse(jsonObj);
-			//var nowImgs = b.listImgs;
-			//alert(nowImgs[0].nowImg+"==这些！");
 			var returnLists = b.listImgs;
 			//房主头像
 			ownerImg = b.headimgurl;
@@ -939,10 +910,6 @@
 			//图片数组 
 			imagelist = imagelist + b.imgOne + "---" + b.imgTwo + "---"
 					+ b.imgThree + "---" + b.imgFour;
-			/* alert("第一次获取头像1=="+b.imgOne);
-			alert("第一次获取头像2=="+b.imgTwo);
-			alert("第一次获取头像3=="+b.imgThree);
-			alert("第一次获取头像4=="+b.imgFour); */
 			oneImg = oneImg + b.imgOne;
 			twoImg = twoImg + b.imgTwo;
 			threeImg = threeImg + b.imgThree;
@@ -952,7 +919,6 @@
 			//提取缓存数据
 			showUserList(b.listUsers);
 			findCache(imagelist, b);
-			//alert("弹出1");
 			if (b.type == 'usmesage') {
 
 				var openRoom = document.getElementById("roomID");
@@ -1018,7 +984,7 @@
 				}
 				showPlayerInfo(b, imagelist, gamesInfo);
 			}
-			if(b.type == 'mutualProps'){
+			if(b.type == 'MutualProps'){
 				local.clickplayerinfo();
 			}
 			if(b.type == 'endInfo'){
@@ -1042,7 +1008,8 @@
                         + "<img id='img_3' src='../img/a/c.png'>"
                         + "<progress max='3' value='"+gamesInfo[i].lines+"' id='pg1'></progress>"
                         + "</li>"
-
+                        
+                        //alert("playId==="+playId);
                 // gamesInfo[i].onclick=function(){
                 	
                 // }
@@ -1056,8 +1023,10 @@
         function playerclick(id){
         	alert(id);
         	alert("玩家可以点击")
-
+					
                 	if(propsName){
+                		alert("进入！！！id "+id);
+                		playId=id;
                 		sendPropsMessage();
                 		alert("如果有道具，道具是"+propsName)
                 		// local.clickplayerinfo();
