@@ -27,7 +27,7 @@ public class SocketMessage implements Serializable {
 	private String roomName;
 	private String position;
 	private String headimgurl;
-	private String props;
+	private Integer props;
 	private String isSelf;//
 	private String getOnclient;
 	private String ownerImg;
@@ -151,11 +151,12 @@ public class SocketMessage implements Serializable {
 		this.isSelf = isSelf;
 	}
 
-	public String getProps() {
+ 
+	public Integer getProps() {
 		return props;
 	}
 
-	public void setProps(String props) {
+	public void setProps(Integer props) {
 		this.props = props;
 	}
 

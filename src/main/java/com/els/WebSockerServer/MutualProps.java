@@ -32,22 +32,7 @@ public class MutualProps implements InterfaceType {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//4
-		Integer dingshen = Integer.parseInt(prop.getProperty("定身"));
-		//5
-		Integer jiasu = Integer.parseInt(prop.getProperty("加速"));
-		//6
-		Integer jiansu = Integer.parseInt(prop.getProperty("减速"));
-		//7
-		Integer chongsheng = Integer.parseInt(prop.getProperty("重生"));
-		//8
-		Integer fenjie = Integer.parseInt(prop.getProperty("分解"));
-		//9
-		Integer xiaorong = Integer.parseInt(prop.getProperty("消融"));
-		//10
-		Integer bianyi = Integer.parseInt(prop.getProperty("变异"));
-		//11
-		Integer shenggen = Integer.parseInt(prop.getProperty("生根"));
+		
 		// 道具交互接口
 		MutualPropsService mutualPropsService = (MutualPropsService) SpringContextUtil.getBean("mutualPropsService");
 		// 查询数据库位置信息
@@ -68,11 +53,9 @@ public class MutualProps implements InterfaceType {
 					propsRecords.setUserecordid(playerOne.getUserid());
 					propsRecords.setUserfrom(playerOne.getUsername());
 					propsRecords.setUserto(message.getToUserName());
-					String propsName = message.getProps();
-					if("4".equals(propsName)){
-						propsRecords.setGamepropsname(prop.getProperty("4"));
-					}
-					propsRecords.setGamepropsname(propsName);
+					Integer propsName =message.getProps();
+					//道具名称存入
+					MutualProps.getProps(propsRecords, propsName);
 				}
 				//二号玩家的详细信息
 				JhddUsers playerTwo = gameInfoService.selectByHeadImg(jhddPositionimg.getImgtwo());
@@ -80,13 +63,8 @@ public class MutualProps implements InterfaceType {
 					propsRecords.setUserecordid(playerTwo.getUserid());
 					propsRecords.setUserfrom(playerTwo.getUsername());
 					propsRecords.setUserto(message.getToUserName());
-					String propsName = message.getProps();
-					/*if(propsName.equals("") || propsName.equals("") || propsName.equals("") || propsName.equals("")){
-						propsRecords.setGamepropstate((byte) 1);
-					}else{
-						propsRecords.setGamepropstate((byte) 0);
-					}*/
-					propsRecords.setGamepropsname(propsName);
+					Integer propsName = message.getProps();
+					MutualProps.getProps(propsRecords, propsName);
 				}
 				//仨号玩家的详细信息
 				JhddUsers playerThree = gameInfoService.selectByHeadImg(jhddPositionimg.getImgthree());
@@ -94,13 +72,8 @@ public class MutualProps implements InterfaceType {
 					propsRecords.setUserecordid(playerThree.getUserid());
 					propsRecords.setUserfrom(playerThree.getUsername());
 					propsRecords.setUserto(message.getToUserName());
-					String propsName = message.getProps();
-					/*if(propsName.equals("") || propsName.equals("") || propsName.equals("") || propsName.equals("")){
-						propsRecords.setGamepropstate((byte) 1);
-					}else{
-						propsRecords.setGamepropstate((byte) 0);
-					}*/
-					propsRecords.setGamepropsname(propsName);
+					Integer propsName = message.getProps();
+					MutualProps.getProps(propsRecords, propsName);
 				}
 				//四号玩家的详细信息
 				JhddUsers playerFour = gameInfoService.selectByHeadImg(jhddPositionimg.getImgfour());
@@ -108,17 +81,15 @@ public class MutualProps implements InterfaceType {
 					propsRecords.setUserecordid(playerFour.getUserid());
 					propsRecords.setUserfrom(playerFour.getUsername());
 					propsRecords.setUserto(message.getToUserName());
-					String propsName = message.getProps();
-					/*if(propsName.equals("") || propsName.equals("") || propsName.equals("") || propsName.equals("")){
-						propsRecords.setGamepropstate((byte) 1);
-					}else{
-						propsRecords.setGamepropstate((byte) 0);
-					}*/
-					propsRecords.setGamepropsname(propsName);
+					Integer propsName = message.getProps();
+					MutualProps.getProps(propsRecords, propsName);
 				}
 			}
 		}
-	//	MutualProps.getProps();
+		JhddPropsRecords findPropsRecords = mutualPropsService.selectPropsRecords(Integer.parseInt(message.getRoomId()));
+		if(findPropsRecords == null){
+			
+		}
 		//插入数据库
 		mutualPropsService.updatePropsRecords(propsRecords);
 		JhddPropsRecords selectPropsRecords = mutualPropsService.selectPropsRecords(Integer.parseInt(message.getRoomId()));
@@ -140,7 +111,7 @@ public class MutualProps implements InterfaceType {
 	}
 
 	@Test
-	public void getProps(String props){
+	public static void getProps(JhddPropsRecords propsRecords,Integer propsName){
 		Properties prop = new Properties();
 		InputStream in = MutualProps.class.getClassLoader().getResourceAsStream(
                 "props/props.properties");
@@ -150,30 +121,39 @@ public class MutualProps implements InterfaceType {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//4
-		Integer dingshen = Integer.parseInt(prop.getProperty("定身"));
-		System.out.println(dingshen);
-		//5
-		Integer jiasu = Integer.parseInt(prop.getProperty("加速"));
-		System.out.println(jiasu);
-		//6
-		Integer jiansu = Integer.parseInt(prop.getProperty("减速"));
-		System.out.println(jiansu);
-		//7
-		Integer chongsheng = Integer.parseInt(prop.getProperty("重生"));
-		System.out.println(chongsheng);
-		//8
-		Integer fenjie = Integer.parseInt(prop.getProperty("分解"));
-		System.out.println(fenjie);
-		//9
-		Integer xiaorong = Integer.parseInt(prop.getProperty("消融"));
-		System.out.println(xiaorong);
-		//10
-		Integer bianyi = Integer.parseInt(prop.getProperty("变异"));
-		System.out.println(bianyi);
-		//11
-		Integer shenggen = Integer.parseInt(prop.getProperty("生根"));
-		System.out.println(shenggen);
+		if(4 == propsName){
+			propsRecords.setGamepropsname(prop.getProperty("4"));
+		}else if(5 == propsName){
+			propsRecords.setGamepropsname(prop.getProperty("5"));
+		}else if(6 == propsName){
+			propsRecords.setGamepropsname(prop.getProperty("6"));
+		}else if(7 == propsName){
+			propsRecords.setGamepropsname(prop.getProperty("7"));
+		}else if(8 == propsName){
+			propsRecords.setGamepropsname(prop.getProperty("8"));
+		}else if(9 == propsName){
+			propsRecords.setGamepropsname(prop.getProperty("9"));
+		}else if(10 == propsName){
+			propsRecords.setGamepropsname(prop.getProperty("10"));
+		}else if(11 == propsName){
+			propsRecords.setGamepropsname(prop.getProperty("11"));
+		}
 		 
 	}
+//			//4
+//			Integer dingshen = Integer.parseInt(prop.getProperty("定身"));
+//			//5
+//			Integer jiasu = Integer.parseInt(prop.getProperty("加速"));
+//			//6
+//			Integer jiansu = Integer.parseInt(prop.getProperty("减速"));
+//			//7
+//			Integer chongsheng = Integer.parseInt(prop.getProperty("重生"));
+//			//8
+//			Integer fenjie = Integer.parseInt(prop.getProperty("分解"));
+//			//9
+//			Integer xiaorong = Integer.parseInt(prop.getProperty("消融"));
+//			//10
+//			Integer bianyi = Integer.parseInt(prop.getProperty("变异"));
+//			//11
+//			Integer shenggen = Integer.parseInt(prop.getProperty("生根"));
 }
