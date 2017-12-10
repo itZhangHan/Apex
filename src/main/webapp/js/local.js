@@ -192,7 +192,7 @@ var Local = function () {
   }
 
   // 使用道具
-  function clickplayerinfo(){
+  var clickplayerinfo=function (){
     alert("使用的道具是"+props);
     if(props == 4){
                   noChanged  = true;     /*定身*/
@@ -360,4 +360,5 @@ var Local = function () {
   }
 
   this.start = start;
+  this.clickplayerinfo=clickplayerinfo;
 }

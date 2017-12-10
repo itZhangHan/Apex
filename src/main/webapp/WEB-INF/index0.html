@@ -15,11 +15,15 @@
 <script src="../js/square.js"></script>
 <script src="../js/squareFactory.js"></script>
 <script src="../js/game.js"></script>
+<script type="text/javascript">
+	var props=0;
+	
+</script>
 <script src="../js/local.js"></script>
 <script src="../js/hall.js"></script>
 <link rel="stylesheet" href="../css/hall.css">
 <script type="text/javascript">
-	alert("启动页面");
+		var local = new Local();
 </script>
 </head>
 <body>
@@ -187,8 +191,9 @@
 			websocket.send(JSON.stringify(playerMessage));
 		}
 
-		var props;
-
+		//var props;
+	
+		
 		var oneImg = "";
 		var twoImg = "";
 		var threeImg = "";
@@ -773,7 +778,7 @@
 				//将玩家状态为1(准备玩家)的玩家跳转到游戏页面
 				//其余旁观者不予改变
 				play_go.style.display = "block";
-				var local = new Local();
+				
 				local.start();
 			}
 		}
@@ -978,7 +983,9 @@
         	alert("玩家可以点击")
                 	if(props){
                 		alert("如果有道具，道具是"+props)
-                		clickplayerinfo();
+                		
+                		local.clickplayerinfo();
+                		alert("调用了函数");
                 	}
         }
 

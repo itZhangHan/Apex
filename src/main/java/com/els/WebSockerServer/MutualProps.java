@@ -70,7 +70,7 @@ public class MutualProps implements InterfaceType {
 					propsRecords.setUserto(message.getToUserName());
 					String propsName = message.getProps();
 					if("4".equals(propsName)){
-						
+						propsRecords.setGamepropsname(prop.getProperty("4"));
 					}
 					propsRecords.setGamepropsname(propsName);
 				}
@@ -140,7 +140,7 @@ public class MutualProps implements InterfaceType {
 	}
 
 	@Test
-	public  void getProps(){
+	public void getProps(String props){
 		Properties prop = new Properties();
 		InputStream in = MutualProps.class.getClassLoader().getResourceAsStream(
                 "props/props.properties");
