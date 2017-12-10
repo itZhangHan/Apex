@@ -3,14 +3,14 @@ package com.els.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JhddUseReordsExample {
+public class JhddPropsRecordsExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public JhddUseReordsExample() {
+    public JhddPropsRecordsExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

@@ -31,4 +31,6 @@ public interface JhddUsersMapper {
 	JhddUsers selectByOpenid(String openid);
 	
 	int selectLastInsertUserId();
+
+	JhddUsers selectByHeadImg(String headImg);
 }

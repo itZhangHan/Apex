@@ -1,136 +1,152 @@
 package com.els.WebSockerServer;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+import com.els.bean.JhddGameInfo;
+import com.els.bean.JhddPositionimg;
+import com.els.bean.JhddUsers;
+import com.els.common.SpringContextUtil;
+import com.els.serviceinterface.GameInfoService;
+import com.els.serviceinterface.PositionImgService;
 import com.els.socket.GameMessage;
 import com.els.socket.SocketManger;
 import com.els.socket.SocketMessage;
 
 public class MutualGame implements InterfaceType {
-
 	@Override
 	public String onMessage(SocketMessage message) {
-		 
-		// TODO Auto-generated method stub
+		// 查询数据库位置信息
+		PositionImgService positionImgService = (PositionImgService) SpringContextUtil.getBean("positionImgService");
+		// 调用玩家道具详细接口
+		GameInfoService gameInfoService = (GameInfoService) SpringContextUtil.getBean("gameInfoService");
+		// 房间座位信息
+		JhddPositionimg jhddPositionimg = positionImgService.selectByRoomId(Integer.parseInt(message.getRoomId()));
+
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
-		//获取前端传来的数据
-		GameMessage gameMessage = message.getGameMessage();
-		//排行榜
-		List<Integer> linesSort = new ArrayList<>();
-		//玩家一信息
+		// 获取前端传来的数据
+		List<GameMessage> gameMessages = message.getGameMessages();
+		// 设置初始数据，插入数据库
+		JhddGameInfo gameInfo = new JhddGameInfo();
+		Date createTime = new Date();
+		// 创建时间
+		gameInfo.setCreatetime(createTime);
+		// 房间id
+		gameInfo.setRoomid(Integer.parseInt(message.getRoomId()));
+		// 玩家一信息
 		GameMessage playerInfoOne = new GameMessage();
-		//玩家二信息
+		// 玩家二信息
 		GameMessage playerInfoTwo = new GameMessage();
-		//玩家三信息
+		// 玩家三信息
 		GameMessage playerInfoThree = new GameMessage();
-		//万家四信息
+		// 万家四信息
 		GameMessage playerInfoFour = new GameMessage();
-		//返回集合
+		// 玩家集合
+		// 返回集合
 		List<GameMessage> gamesInfo = new ArrayList<>();
 		if (arrayset != null) {
 			for (WebSocketServer object : arrayset) {
 				try {
-					String aa = "http://wx.qlogo.cn/mmopen/vi_32/mVtGLzdgB7qeAaBXicXCj9K31mbTibgVicbdkytrSibN5KohzTxvfPBIdiaYU3ByAAS1GEI56kHiaic27eWCgJZpso5ibA/0";
-					String bb = "http://wx.qlogo.cn/mmopen/vi_32/mVtGLzdgB7qeAaBXicXCj9K31mbTibgVicbdkytrSibN5KohzTxvfPBIdiaYU3ByAAS1GEI56kHiaic27eWCgJZpso5ibA/0";
-					//当头像等于第一个头像时候 给玩家一拼接头像 以此类推
-					if(object.getSocketUser().getUserportrait().equals(message.getImgOne())){
-						playerInfoOne.setCount(message.getGameMessage().getCount());
-						playerInfoOne.setFromPlayer(message.getGameMessage().getFromPlayer());
-						playerInfoOne.setLines(message.getGameMessage().getLines());
-						playerInfoOne.setPlayerId(object.getSocketUser().getUserid());
-						playerInfoOne.setPlayerImg(object.getSocketUser().getUserportrait());
-						playerInfoOne.setPlayerName(object.getSocketUser().getUsername());
-						playerInfoOne.setPropsName(message.getGameMessage().getPropsName());
-						playerInfoOne.setPropsStatus(message.getGameMessage().getPropsStatus());
-						playerInfoOne.setScore(message.getGameMessage().getScore());
-						playerInfoOne.setToPlayer(message.getGameMessage().getToPlayer());
+					if (jhddPositionimg.getImgone().equals(object.getSocketUser().getUserportrait())) {
+						JhddUsers playerOne = gameInfoService.selectByHeadImg(jhddPositionimg.getImgone());
+						gameInfo.setPlayeroneid(playerOne.getUserid());
+						gameInfo.setPlayeronename(playerOne.getUsername());
+						gameInfo.setPlayeroneimg(playerOne.getUserportrait());
+						gameInfo.setPlayeronelines(message.getGameMessage().getLines() + "");
+						gameInfo.setPlayeronescore(message.getGameMessage().getScore() + "");
+
 					}
-					if(object.getSocketUser().getUserportrait().equals(message.getImgTwo())){
-						playerInfoTwo.setCount(message.getGameMessage().getCount());
-						playerInfoTwo.setFromPlayer(message.getGameMessage().getFromPlayer());
-						playerInfoTwo.setLines(message.getGameMessage().getLines());
-						playerInfoTwo.setPlayerId(object.getSocketUser().getUserid());
-						playerInfoTwo.setPlayerImg(object.getSocketUser().getUserportrait());
-						playerInfoTwo.setPlayerName(object.getSocketUser().getUsername());
-						playerInfoTwo.setPropsName(message.getGameMessage().getPropsName());
-						playerInfoTwo.setPropsStatus(message.getGameMessage().getPropsStatus());
-						playerInfoTwo.setScore(message.getGameMessage().getScore());
-						playerInfoTwo.setToPlayer(message.getGameMessage().getToPlayer());
+					if (jhddPositionimg.getImgtwo().equals(object.getSocketUser().getUserportrait())) {
+						JhddUsers playerTwo = gameInfoService.selectByHeadImg(jhddPositionimg.getImgtwo());
+						if(playerTwo != null){
+							gameInfo.setPlayertwoid(playerTwo.getUserid());
+							gameInfo.setPlayertwoimg(playerTwo.getUserportrait());
+							gameInfo.setPlayertwoname(playerTwo.getUsername());
+							gameInfo.setPlayertwolines(message.getGameMessage().getLines() + "");
+							gameInfo.setPlayertwoscore(message.getGameMessage().getScore() + "");
+						}
+						
 					}
-					if(object.getSocketUser().getUserportrait().equals(message.getImgThree())){
-						playerInfoThree.setCount(message.getGameMessage().getCount());
-						playerInfoThree.setFromPlayer(message.getGameMessage().getFromPlayer());
-						playerInfoThree.setLines(message.getGameMessage().getLines());
-						playerInfoThree.setPlayerId(object.getSocketUser().getUserid());
-						playerInfoThree.setPlayerImg(object.getSocketUser().getUserportrait());
-						playerInfoThree.setPlayerName(object.getSocketUser().getUsername());
-						playerInfoThree.setPropsName(message.getGameMessage().getPropsName());
-						playerInfoThree.setPropsStatus(message.getGameMessage().getPropsStatus());
-						playerInfoThree.setScore(message.getGameMessage().getScore());
-						playerInfoThree.setToPlayer(message.getGameMessage().getToPlayer());
+					if (jhddPositionimg.getImgthree().equals(object.getSocketUser().getUserportrait())) {
+						JhddUsers playerThree = gameInfoService.selectByHeadImg(jhddPositionimg.getImgthree());
+						if(playerThree != null){
+							gameInfo.setPlayerthreeid(playerThree.getUserid());
+							gameInfo.setPlayerthreeimg(playerThree.getUserportrait());
+							gameInfo.setPlayerthreename(playerThree.getUsername());
+							gameInfo.setPlayerthreelines(message.getGameMessage().getLines() + "");
+							gameInfo.setPlayerthreescore(message.getGameMessage().getScore() + "");
+						}
+						
 					}
-					if(object.getSocketUser().getUserportrait().equals(message.getImgFour())){
-						playerInfoFour.setCount(message.getGameMessage().getCount());
-						playerInfoFour.setFromPlayer(message.getGameMessage().getFromPlayer());
-						playerInfoFour.setLines(message.getGameMessage().getLines());
-						playerInfoFour.setPlayerId(object.getSocketUser().getUserid());
-						playerInfoFour.setPlayerImg(object.getSocketUser().getUserportrait());
-						playerInfoFour.setPlayerName(object.getSocketUser().getUsername());
-						playerInfoFour.setPropsName(message.getGameMessage().getPropsName());
-						playerInfoFour.setPropsStatus(message.getGameMessage().getPropsStatus());
-						playerInfoFour.setScore(message.getGameMessage().getScore());
-						playerInfoFour.setToPlayer(message.getGameMessage().getToPlayer());
+					if (jhddPositionimg.getImgfour().equals(object.getSocketUser().getUserportrait())) {
+						JhddUsers playerFour = gameInfoService.selectByHeadImg(jhddPositionimg.getImgfour());
+						if(playerFour != null){
+							gameInfo.setPlayerfourid(playerFour.getUserid());
+							gameInfo.setPlayerfourimg(playerFour.getUserportrait());
+							gameInfo.setPlayerfourname(playerFour.getUsername());
+							gameInfo.setPlayerfourlines(message.getGameMessage().getLines() + "");
+							gameInfo.setPlayerfourscore(message.getGameMessage().getScore() + "");
+						}
 					}
-					message.setMsgStr("触发消行方法！！！！！！！！！");
 					message.setRoomState("1");
-					//message.setType("actionGame");
+					// message.setType("actionGame");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
+			//删除之前存在的数据
+			gameInfoService.deleteByRoomId(message.getRoomId());
+			// 插入数据库
+			gameInfoService.addGamesInfo(gameInfo);
 		}
 		try {
-			//将各个排行放入集合
-			if(playerInfoOne.getLines() == null){
-				playerInfoOne.setLines(0);
+			JhddGameInfo findGameInfo = gameInfoService.selectByRoomId(Integer.parseInt(message.getRoomId()));
+			if (findGameInfo.getPlayeroneid() != null) {
+				playerInfoOne.setLines(Integer.parseInt(findGameInfo.getPlayeronelines()));
+				playerInfoOne.setScore(Integer.parseInt(findGameInfo.getPlayeronescore()));
+				playerInfoOne.setPlayerId(findGameInfo.getPlayeroneid());
+				playerInfoOne.setPlayerImg(findGameInfo.getPlayeroneimg());
+				playerInfoOne.setPlayerName(findGameInfo.getPlayeronename());
+				gamesInfo.add(playerInfoOne);
 			}
-			if(playerInfoTwo.getLines() == null){
-				playerInfoTwo.setLines(0);
+			if (findGameInfo.getPlayertwoid() != null) {
+				playerInfoTwo.setLines(Integer.parseInt(findGameInfo.getPlayertwolines()));
+				playerInfoTwo.setScore(Integer.parseInt(findGameInfo.getPlayertwoscore()));
+				playerInfoTwo.setPlayerId(findGameInfo.getPlayertwoid());
+				playerInfoTwo.setPlayerImg(findGameInfo.getPlayertwoimg());
+				playerInfoTwo.setPlayerName(findGameInfo.getPlayertwoname());
+				gamesInfo.add(playerInfoTwo);
 			}
-			if(playerInfoThree.getLines() == null){
-				playerInfoThree.setLines(0);
+			if (findGameInfo.getPlayerthreeid() != null) {
+				playerInfoThree.setLines(Integer.parseInt(findGameInfo.getPlayerthreelines()));
+				playerInfoThree.setScore(Integer.parseInt(findGameInfo.getPlayerthreescore()));
+				playerInfoThree.setPlayerId(findGameInfo.getPlayerthreeid());
+				playerInfoThree.setPlayerImg(findGameInfo.getPlayerthreeimg());
+				playerInfoThree.setPlayerName(findGameInfo.getPlayerthreename());
+				gamesInfo.add(playerInfoThree);
 			}
-			if(playerInfoFour.getLines() == null){
-				playerInfoFour.setLines(0);
+			if (findGameInfo.getPlayerfourid() != null) {
+				playerInfoFour.setLines(Integer.parseInt(findGameInfo.getPlayerfourlines()));
+				playerInfoFour.setScore(Integer.parseInt(findGameInfo.getPlayerfourscore()));
+				playerInfoFour.setPlayerId(findGameInfo.getPlayerfourid());
+				playerInfoFour.setPlayerImg(findGameInfo.getPlayerfourimg());
+				playerInfoFour.setPlayerName(findGameInfo.getPlayerfourname());
+				gamesInfo.add(playerInfoFour);
 			}
-			linesSort.add(playerInfoOne.getLines());
-			linesSort.add(playerInfoTwo.getLines());
-			linesSort.add(playerInfoThree.getLines());
-			linesSort.add(playerInfoFour.getLines());
-			//调用工具类排行
-			Collections.sort(linesSort);
-			for (Integer aa : linesSort) {
-				System.out.println("排序之后的行数："+aa);
+
+			for (GameMessage gameMessage : gamesInfo) {
+				System.out.println(gameMessage.getLines().toString());
 			}
-			playerInfoOne.setRunkIng(linesSort.get(0));
-			playerInfoTwo.setRunkIng(linesSort.get(1));
-			playerInfoThree.setRunkIng(linesSort.get(2));
-			playerInfoFour.setRunkIng(linesSort.get(3));
-			//将存好的数据放入集合
-			gamesInfo.add(playerInfoOne);
-			gamesInfo.add(playerInfoTwo);
-			gamesInfo.add(playerInfoThree);
-			gamesInfo.add(playerInfoFour);
-			//赋值给对象
+			
+			// 赋值给集合
 			message.setGameMessages(gamesInfo);
-			//设置返回类型
+			// 设置返回类型
 			message.setType("gamesInfo");
 			for (WebSocketServer object : arrayset) {
-				//分发
+				// 分发
 				object.getSession().getBasicRemote().sendObject(message);
 			}
 		} catch (Exception e) {
@@ -140,5 +156,4 @@ public class MutualGame implements InterfaceType {
 		return null;
 	}
 
-	 
 }

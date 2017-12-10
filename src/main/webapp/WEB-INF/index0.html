@@ -790,27 +790,22 @@
 			alert("gamesInfo");
 			var palyer_count;
 
-			for(var i=0;i<gamesInfo.length;i++){
 
-						
-			palyer_count=palyer_count+"<li id='num1'>"
-					+ "<a><img id='img_1' src='"+gamesInfo[i].playerImg+"'></a>"
-					+ "<span id='score'>"+gamesInfo[i].playerName
-					
-					+ "</span> <img id='img_2' src='../img/a/d.png'>"
-					+ "<img id='img_3' src='../img/a/c.png'>"+"<progress max='40' value='0' id='pg1'></progress>"
-					+ "</li>"
+			for (var i = 0; i < gamesInfo.length; i++) {
 
-					gamesInfo[i].onclick=function(){
-						if(game.na){
-							alert(game.na);
-						}
-					}
+				palyer_count = palyer_count
+						+ "<li id='num1'>"
+						+ "<a><img id='img_1' src='"+gamesInfo[i].playerImg+"'></a>"
+						+ "<span id='score'>" + gamesInfo[i].playerName
+						+ "</span> <img id='img_2' src='../img/a/d.png'>"
+						+ "<img id='img_3' src='../img/a/c.png'>"
+						+ "<progress max='40' value='0' id='pg1'></progress>"
+						+ "</li>"
 			}
-			
-				var rankingUl = document.getElementById("rankingUl");
-				rankingUl.innerHTML=palyer_count;
-			
+
+			var rankingUl = document.getElementById("rankingUl");
+			rankingUl.innerHTML = palyer_count;
+
 		}
 
 		// function loadstart1(){
@@ -825,7 +820,6 @@
 		// 			}
 		// 		},1000)
 		// 	}
-			
 
 		//显示分数信息
 		function showScore(b) {
@@ -947,8 +941,21 @@
 			if (b.type == 'gamesInfo') {
 				alert(b.gameMessages);
 				var gamesInfo = b.gameMessages;
+				for (var l = 0; l < gamesInfo.length; l++) {
+					alert("我是:" + gamesInfo[l].playerName
+							+ "||||||||||||||返回的数据行数：" + gamesInfo[l].lines
+							+ "||||||||||||||返回的分数：" + gamesInfo[l].score);
+				}
 				//b.gamesInfo   游戏玩家数据
 				showPlayerInfo(b, imagelist, gamesInfo);
+			}
+			if(b.type == 'removeLines'){
+				var gamesInfo = b.gameMessages;
+				for (var l = 0; l < gamesInfo.length; l++) {
+					alert("我是:" + gamesInfo[l].playerName
+							+ "||||||||||||||返回的数据行数：" + gamesInfo[l].lines
+							+ "||||||||||||||返回的分数：" + gamesInfo[l].score);
+				}
 			}
 		}
 

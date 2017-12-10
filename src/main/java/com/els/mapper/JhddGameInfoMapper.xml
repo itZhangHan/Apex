@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.mapper.JhddGameInfoMapper">
+	<resultMap id="BaseResultMap" type="com.els.bean.JhddGameInfo">
+		<id column="gameId" property="gameid" jdbcType="INTEGER" />
+		<result column="roomId" property="roomid" jdbcType="INTEGER" />
+		<result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="endTime" property="endtime" jdbcType="TIMESTAMP" />
+		<result column="playerOneId" property="playeroneid" jdbcType="INTEGER" />
+		<result column="playerOneName" property="playeronename"
+			jdbcType="VARCHAR" />
+		<result column="playerOneImg" property="playeroneimg" jdbcType="VARCHAR" />
+		<result column="playerOneLines" property="playeronelines"
+			jdbcType="VARCHAR" />
+		<result column="playerOneScore" property="playeronescore"
+			jdbcType="VARCHAR" />
+		<result column="playerTwoId" property="playertwoid" jdbcType="INTEGER" />
+		<result column="playerTwoName" property="playertwoname"
+			jdbcType="VARCHAR" />
+		<result column="playerTwoImg" property="playertwoimg" jdbcType="VARCHAR" />
+		<result column="playerTwoLines" property="playertwolines"
+			jdbcType="VARCHAR" />
+		<result column="playerTwoScore" property="playertwoscore"
+			jdbcType="VARCHAR" />
+		<result column="playerThreeId" property="playerthreeid"
+			jdbcType="INTEGER" />
+		<result column="playerThreeName" property="playerthreename"
+			jdbcType="VARCHAR" />
+		<result column="playerThreeImg" property="playerthreeimg"
+			jdbcType="VARCHAR" />
+		<result column="playerThreeLines" property="playerthreelines"
+			jdbcType="VARCHAR" />
+		<result column="playerThreeScore" property="playerthreescore"
+			jdbcType="VARCHAR" />
+		<result column="playerFourId" property="playerfourid" jdbcType="INTEGER" />
+		<result column="playerFourName" property="playerfourname"
+			jdbcType="VARCHAR" />
+		<result column="playerFourImg" property="playerfourimg"
+			jdbcType="VARCHAR" />
+		<result column="playerFourLines" property="playerfourlines"
+			jdbcType="VARCHAR" />
+		<result column="playerFourScore" property="playerfourscore"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		gameId, roomId, createTime, endTime, playerOneId, playerOneName,
+		playerOneImg, playerOneLines,
+		playerOneScore, playerTwoId, playerTwoName, playerTwoImg, playerTwoLines,
+		playerTwoScore,
+		playerThreeId, playerThreeName, playerThreeImg, playerThreeLines, playerThreeScore,
+		playerFourId, playerFourName, playerFourImg, playerFourLines,
+		playerFourScore
+	</sql>
+
+	<select id="selectByRoomId" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		SELECT * FROM jhdd_game_info WHERE roomId = #{roomId};
+	</select>
+	<select id="deleteByRoomId" parameterType="java.lang.String">
+		DELETE  FROM `jhdd_game_info` WHERE roomId=#{roomId};
+	</select>
+	 
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.els.bean.JhddGameInfoExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from jhdd_game_info
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from jhdd_game_info
+		where gameId = #{gameid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from jhdd_game_info
+		where gameId = #{gameid,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.els.bean.JhddGameInfoExample">
+		delete from jhdd_game_info
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.els.bean.JhddGameInfo">
+		insert into jhdd_game_info (gameId, roomId, createTime,
+		endTime, playerOneId, playerOneName,
+		playerOneImg, playerOneLines, playerOneScore,
+		playerTwoId, playerTwoName, playerTwoImg,
+		playerTwoLines, playerTwoScore, playerThreeId,
+		playerThreeName, playerThreeImg, playerThreeLines,
+		playerThreeScore, playerFourId, playerFourName,
+		playerFourImg, playerFourLines, playerFourScore
+		)
+		values (#{gameid,jdbcType=INTEGER}, #{roomid,jdbcType=INTEGER},
+		#{createtime,jdbcType=TIMESTAMP},
+		#{endtime,jdbcType=TIMESTAMP}, #{playeroneid,jdbcType=INTEGER}, #{playeronename,jdbcType=VARCHAR},
+		#{playeroneimg,jdbcType=VARCHAR}, #{playeronelines,jdbcType=VARCHAR},
+		#{playeronescore,jdbcType=VARCHAR},
+		#{playertwoid,jdbcType=INTEGER}, #{playertwoname,jdbcType=VARCHAR}, #{playertwoimg,jdbcType=VARCHAR},
+		#{playertwolines,jdbcType=VARCHAR},
+		#{playertwoscore,jdbcType=VARCHAR}, #{playerthreeid,jdbcType=INTEGER},
+		#{playerthreename,jdbcType=VARCHAR},
+		#{playerthreeimg,jdbcType=VARCHAR},
+		#{playerthreelines,jdbcType=VARCHAR},
+		#{playerthreescore,jdbcType=VARCHAR},
+		#{playerfourid,jdbcType=INTEGER}, #{playerfourname,jdbcType=VARCHAR},
+		#{playerfourimg,jdbcType=VARCHAR},
+		#{playerfourlines,jdbcType=VARCHAR},
+		#{playerfourscore,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.els.bean.JhddGameInfo">
+		insert into jhdd_game_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="gameid != null">
+				gameId,
+			</if>
+			<if test="roomid != null">
+				roomId,
+			</if>
+			<if test="createtime != null">
+				createTime,
+			</if>
+			<if test="endtime != null">
+				endTime,
+			</if>
+			<if test="playeroneid != null">
+				playerOneId,
+			</if>
+			<if test="playeronename != null">
+				playerOneName,
+			</if>
+			<if test="playeroneimg != null">
+				playerOneImg,
+			</if>
+			<if test="playeronelines != null">
+				playerOneLines,
+			</if>
+			<if test="playeronescore != null">
+				playerOneScore,
+			</if>
+			<if test="playertwoid != null">
+				playerTwoId,
+			</if>
+			<if test="playertwoname != null">
+				playerTwoName,
+			</if>
+			<if test="playertwoimg != null">
+				playerTwoImg,
+			</if>
+			<if test="playertwolines != null">
+				playerTwoLines,
+			</if>
+			<if test="playertwoscore != null">
+				playerTwoScore,
+			</if>
+			<if test="playerthreeid != null">
+				playerThreeId,
+			</if>
+			<if test="playerthreename != null">
+				playerThreeName,
+			</if>
+			<if test="playerthreeimg != null">
+				playerThreeImg,
+			</if>
+			<if test="playerthreelines != null">
+				playerThreeLines,
+			</if>
+			<if test="playerthreescore != null">
+				playerThreeScore,
+			</if>
+			<if test="playerfourid != null">
+				playerFourId,
+			</if>
+			<if test="playerfourname != null">
+				playerFourName,
+			</if>
+			<if test="playerfourimg != null">
+				playerFourImg,
+			</if>
+			<if test="playerfourlines != null">
+				playerFourLines,
+			</if>
+			<if test="playerfourscore != null">
+				playerFourScore,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="gameid != null">
+				#{gameid,jdbcType=INTEGER},
+			</if>
+			<if test="roomid != null">
+				#{roomid,jdbcType=INTEGER},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endtime != null">
+				#{endtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="playeroneid != null">
+				#{playeroneid,jdbcType=INTEGER},
+			</if>
+			<if test="playeronename != null">
+				#{playeronename,jdbcType=VARCHAR},
+			</if>
+			<if test="playeroneimg != null">
+				#{playeroneimg,jdbcType=VARCHAR},
+			</if>
+			<if test="playeronelines != null">
+				#{playeronelines,jdbcType=VARCHAR},
+			</if>
+			<if test="playeronescore != null">
+				#{playeronescore,jdbcType=VARCHAR},
+			</if>
+			<if test="playertwoid != null">
+				#{playertwoid,jdbcType=INTEGER},
+			</if>
+			<if test="playertwoname != null">
+				#{playertwoname,jdbcType=VARCHAR},
+			</if>
+			<if test="playertwoimg != null">
+				#{playertwoimg,jdbcType=VARCHAR},
+			</if>
+			<if test="playertwolines != null">
+				#{playertwolines,jdbcType=VARCHAR},
+			</if>
+			<if test="playertwoscore != null">
+				#{playertwoscore,jdbcType=VARCHAR},
+			</if>
+			<if test="playerthreeid != null">
+				#{playerthreeid,jdbcType=INTEGER},
+			</if>
+			<if test="playerthreename != null">
+				#{playerthreename,jdbcType=VARCHAR},
+			</if>
+			<if test="playerthreeimg != null">
+				#{playerthreeimg,jdbcType=VARCHAR},
+			</if>
+			<if test="playerthreelines != null">
+				#{playerthreelines,jdbcType=VARCHAR},
+			</if>
+			<if test="playerthreescore != null">
+				#{playerthreescore,jdbcType=VARCHAR},
+			</if>
+			<if test="playerfourid != null">
+				#{playerfourid,jdbcType=INTEGER},
+			</if>
+			<if test="playerfourname != null">
+				#{playerfourname,jdbcType=VARCHAR},
+			</if>
+			<if test="playerfourimg != null">
+				#{playerfourimg,jdbcType=VARCHAR},
+			</if>
+			<if test="playerfourlines != null">
+				#{playerfourlines,jdbcType=VARCHAR},
+			</if>
+			<if test="playerfourscore != null">
+				#{playerfourscore,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.els.bean.JhddGameInfoExample"
+		resultType="java.lang.Integer">
+		select count(*) from jhdd_game_info
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update jhdd_game_info
+		<set>
+			<if test="record.gameid != null">
+				gameId = #{record.gameid,jdbcType=INTEGER},
+			</if>
+			<if test="record.roomid != null">
+				roomId = #{record.roomid,jdbcType=INTEGER},
+			</if>
+			<if test="record.createtime != null">
+				createTime = #{record.createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.endtime != null">
+				endTime = #{record.endtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.playeroneid != null">
+				playerOneId = #{record.playeroneid,jdbcType=INTEGER},
+			</if>
+			<if test="record.playeronename != null">
+				playerOneName = #{record.playeronename,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playeroneimg != null">
+				playerOneImg = #{record.playeroneimg,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playeronelines != null">
+				playerOneLines = #{record.playeronelines,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playeronescore != null">
+				playerOneScore = #{record.playeronescore,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playertwoid != null">
+				playerTwoId = #{record.playertwoid,jdbcType=INTEGER},
+			</if>
+			<if test="record.playertwoname != null">
+				playerTwoName = #{record.playertwoname,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playertwoimg != null">
+				playerTwoImg = #{record.playertwoimg,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playertwolines != null">
+				playerTwoLines = #{record.playertwolines,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playertwoscore != null">
+				playerTwoScore = #{record.playertwoscore,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playerthreeid != null">
+				playerThreeId = #{record.playerthreeid,jdbcType=INTEGER},
+			</if>
+			<if test="record.playerthreename != null">
+				playerThreeName = #{record.playerthreename,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playerthreeimg != null">
+				playerThreeImg = #{record.playerthreeimg,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playerthreelines != null">
+				playerThreeLines = #{record.playerthreelines,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playerthreescore != null">
+				playerThreeScore = #{record.playerthreescore,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playerfourid != null">
+				playerFourId = #{record.playerfourid,jdbcType=INTEGER},
+			</if>
+			<if test="record.playerfourname != null">
+				playerFourName = #{record.playerfourname,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playerfourimg != null">
+				playerFourImg = #{record.playerfourimg,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playerfourlines != null">
+				playerFourLines = #{record.playerfourlines,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playerfourscore != null">
+				playerFourScore = #{record.playerfourscore,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update jhdd_game_info
+		set gameId = #{record.gameid,jdbcType=INTEGER},
+		roomId = #{record.roomid,jdbcType=INTEGER},
+		createTime = #{record.createtime,jdbcType=TIMESTAMP},
+		endTime = #{record.endtime,jdbcType=TIMESTAMP},
+		playerOneId = #{record.playeroneid,jdbcType=INTEGER},
+		playerOneName = #{record.playeronename,jdbcType=VARCHAR},
+		playerOneImg = #{record.playeroneimg,jdbcType=VARCHAR},
+		playerOneLines = #{record.playeronelines,jdbcType=VARCHAR},
+		playerOneScore = #{record.playeronescore,jdbcType=VARCHAR},
+		playerTwoId = #{record.playertwoid,jdbcType=INTEGER},
+		playerTwoName = #{record.playertwoname,jdbcType=VARCHAR},
+		playerTwoImg = #{record.playertwoimg,jdbcType=VARCHAR},
+		playerTwoLines = #{record.playertwolines,jdbcType=VARCHAR},
+		playerTwoScore = #{record.playertwoscore,jdbcType=VARCHAR},
+		playerThreeId = #{record.playerthreeid,jdbcType=INTEGER},
+		playerThreeName = #{record.playerthreename,jdbcType=VARCHAR},
+		playerThreeImg = #{record.playerthreeimg,jdbcType=VARCHAR},
+		playerThreeLines = #{record.playerthreelines,jdbcType=VARCHAR},
+		playerThreeScore = #{record.playerthreescore,jdbcType=VARCHAR},
+		playerFourId = #{record.playerfourid,jdbcType=INTEGER},
+		playerFourName = #{record.playerfourname,jdbcType=VARCHAR},
+		playerFourImg = #{record.playerfourimg,jdbcType=VARCHAR},
+		playerFourLines = #{record.playerfourlines,jdbcType=VARCHAR},
+		playerFourScore = #{record.playerfourscore,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.els.bean.JhddGameInfo">
+		update jhdd_game_info
+		<set>
+			<if test="roomid != null">
+				roomId = #{roomid,jdbcType=INTEGER},
+			</if>
+			<if test="createtime != null">
+				createTime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endtime != null">
+				endTime = #{endtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="playeroneid != null">
+				playerOneId = #{playeroneid,jdbcType=INTEGER},
+			</if>
+			<if test="playeronename != null">
+				playerOneName = #{playeronename,jdbcType=VARCHAR},
+			</if>
+			<if test="playeroneimg != null">
+				playerOneImg = #{playeroneimg,jdbcType=VARCHAR},
+			</if>
+			<if test="playeronelines != null">
+				playerOneLines = #{playeronelines,jdbcType=VARCHAR},
+			</if>
+			<if test="playeronescore != null">
+				playerOneScore = #{playeronescore,jdbcType=VARCHAR},
+			</if>
+			<if test="playertwoid != null">
+				playerTwoId = #{playertwoid,jdbcType=INTEGER},
+			</if>
+			<if test="playertwoname != null">
+				playerTwoName = #{playertwoname,jdbcType=VARCHAR},
+			</if>
+			<if test="playertwoimg != null">
+				playerTwoImg = #{playertwoimg,jdbcType=VARCHAR},
+			</if>
+			<if test="playertwolines != null">
+				playerTwoLines = #{playertwolines,jdbcType=VARCHAR},
+			</if>
+			<if test="playertwoscore != null">
+				playerTwoScore = #{playertwoscore,jdbcType=VARCHAR},
+			</if>
+			<if test="playerthreeid != null">
+				playerThreeId = #{playerthreeid,jdbcType=INTEGER},
+			</if>
+			<if test="playerthreename != null">
+				playerThreeName = #{playerthreename,jdbcType=VARCHAR},
+			</if>
+			<if test="playerthreeimg != null">
+				playerThreeImg = #{playerthreeimg,jdbcType=VARCHAR},
+			</if>
+			<if test="playerthreelines != null">
+				playerThreeLines = #{playerthreelines,jdbcType=VARCHAR},
+			</if>
+			<if test="playerthreescore != null">
+				playerThreeScore = #{playerthreescore,jdbcType=VARCHAR},
+			</if>
+			<if test="playerfourid != null">
+				playerFourId = #{playerfourid,jdbcType=INTEGER},
+			</if>
+			<if test="playerfourname != null">
+				playerFourName = #{playerfourname,jdbcType=VARCHAR},
+			</if>
+			<if test="playerfourimg != null">
+				playerFourImg = #{playerfourimg,jdbcType=VARCHAR},
+			</if>
+			<if test="playerfourlines != null">
+				playerFourLines = #{playerfourlines,jdbcType=VARCHAR},
+			</if>
+			<if test="playerfourscore != null">
+				playerFourScore = #{playerfourscore,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where gameId = #{gameid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.els.bean.JhddGameInfo">
+		update jhdd_game_info
+		set roomId = #{roomid,jdbcType=INTEGER},
+		createTime = #{createtime,jdbcType=TIMESTAMP},
+		endTime = #{endtime,jdbcType=TIMESTAMP},
+		playerOneId = #{playeroneid,jdbcType=INTEGER},
+		playerOneName = #{playeronename,jdbcType=VARCHAR},
+		playerOneImg = #{playeroneimg,jdbcType=VARCHAR},
+		playerOneLines = #{playeronelines,jdbcType=VARCHAR},
+		playerOneScore = #{playeronescore,jdbcType=VARCHAR},
+		playerTwoId = #{playertwoid,jdbcType=INTEGER},
+		playerTwoName = #{playertwoname,jdbcType=VARCHAR},
+		playerTwoImg = #{playertwoimg,jdbcType=VARCHAR},
+		playerTwoLines = #{playertwolines,jdbcType=VARCHAR},
+		playerTwoScore = #{playertwoscore,jdbcType=VARCHAR},
+		playerThreeId = #{playerthreeid,jdbcType=INTEGER},
+		playerThreeName = #{playerthreename,jdbcType=VARCHAR},
+		playerThreeImg = #{playerthreeimg,jdbcType=VARCHAR},
+		playerThreeLines = #{playerthreelines,jdbcType=VARCHAR},
+		playerThreeScore = #{playerthreescore,jdbcType=VARCHAR},
+		playerFourId = #{playerfourid,jdbcType=INTEGER},
+		playerFourName = #{playerfourname,jdbcType=VARCHAR},
+		playerFourImg = #{playerfourimg,jdbcType=VARCHAR},
+		playerFourLines = #{playerfourlines,jdbcType=VARCHAR},
+		playerFourScore = #{playerfourscore,jdbcType=VARCHAR}
+		where gameId = #{gameid,jdbcType=INTEGER}
+	</update>
+</mapper>

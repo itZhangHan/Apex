@@ -94,6 +94,10 @@
 			order by ${orderByClause}
 		</if>
 	</select>
+	<select id="selectByHeadImg" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		 SELECT * FROM jhdd_users WHERE userPortrait = #{userPortrait}
+	</select>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select
