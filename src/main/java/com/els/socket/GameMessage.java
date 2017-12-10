@@ -12,7 +12,7 @@ public class GameMessage {
 	// 行数
 	private Integer lines;
 	// 道具名称
-	private Integer propsName;
+	private String propsName;
 	// 道具发起人
 	private String fromPlayer;
 	// 道具攻击人
@@ -66,11 +66,12 @@ public class GameMessage {
 
  
 
-	public Integer getPropsName() {
+ 
+	public String getPropsName() {
 		return propsName;
 	}
 
-	public void setPropsName(Integer propsName) {
+	public void setPropsName(String propsName) {
 		this.propsName = propsName;
 	}
 
