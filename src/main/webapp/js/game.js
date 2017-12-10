@@ -482,6 +482,7 @@ var Game = function () {
                 line++;
                 sendGamesMessage();
                 loadstart1();
+              
 
                 for(var k = 0; k<gameData[0].length; k++){
                     if(gameData[i][k] != 1){
