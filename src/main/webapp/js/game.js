@@ -498,7 +498,7 @@ var Game = function () {
                         this.na = na;
                         dj_a.src = "../img/a/dj"+(na-3)+".png";
                         stage_arr.splice(0,1);
-                        console.log("var na = this.stage_arr[0]==="+stage_arr[0])
+                        console.log("var na = this.stage_arr[0]===道具是道具师道具师"+stage_arr[0])
                         d_a = true;
                         this.d_a = d_a;
                     }

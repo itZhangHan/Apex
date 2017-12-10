@@ -800,6 +800,12 @@
 					+ "</span> <img id='img_2' src='../img/a/d.png'>"
 					+ "<img id='img_3' src='../img/a/c.png'>"+"<progress max='40' value='0' id='pg1'></progress>"
 					+ "</li>"
+
+					gamesInfo[i].onclick=function(){
+						if(game.na){
+							alert(game.na);
+						}
+					}
 			}
 			
 				var rankingUl = document.getElementById("rankingUl");
