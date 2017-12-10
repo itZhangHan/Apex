@@ -223,7 +223,7 @@ public class MutualProps implements InterfaceType {
 	}
 
 	@Test
-	public static void getProps(JhddPropsRecords propsRecords, String propsName) {
+	public  static void getProps(JhddPropsRecords propsRecords, String propsName) {
 		Properties prop = new Properties();
 		InputStream in = MutualProps.class.getClassLoader().getResourceAsStream("props/props.properties");
 		try {
@@ -233,21 +233,21 @@ public class MutualProps implements InterfaceType {
 			e.printStackTrace();
 		}
 		if ("4".equals(propsName)) {
-			propsRecords.setGamepropsname(prop.getProperty("4"));
+			propsRecords.setGamepropsname("定身");
 		} else if ("5".equals(propsName)) {
-			propsRecords.setGamepropsname(prop.getProperty("5"));
+			propsRecords.setGamepropsname("加速");
 		} else if ("6".equals(propsName)) {
-			propsRecords.setGamepropsname(prop.getProperty("6"));
+			propsRecords.setGamepropsname("减速");
 		} else if ("7".equals(propsName)) {
-			propsRecords.setGamepropsname(prop.getProperty("7"));
+			propsRecords.setGamepropsname("重生");
 		} else if ("8".equals(propsName)) {
-			propsRecords.setGamepropsname(prop.getProperty("8"));
+			propsRecords.setGamepropsname("分解");
 		} else if ("9".equals(propsName)) {
-			propsRecords.setGamepropsname(prop.getProperty("9"));
+			propsRecords.setGamepropsname("消融");
 		} else if ("10".equals(propsName)) {
-			propsRecords.setGamepropsname(prop.getProperty("10"));
+			propsRecords.setGamepropsname("变异");
 		} else if ("11".equals(propsName)) {
-			propsRecords.setGamepropsname(prop.getProperty("11"));
+			propsRecords.setGamepropsname("生根");
 		}
 
 	}
