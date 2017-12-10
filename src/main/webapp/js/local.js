@@ -46,6 +46,7 @@ var Local = function () {
           this.style.width = "89%";
           console.log("(game.na======"+game.na)
           if(game.d_a){
+            alert("点击了第一个道具赋值之前"+game.na+props);
             props=game.na;
             alert("点击了第一个道具赋值"+props)
               // if(game.na == 4){
@@ -95,6 +96,7 @@ var Local = function () {
      //     console.log("game.nb=================="+game.nb)
        //   game.addBotLine(generateBotLine(2))
           if(game.d_b){
+            alert("点击了第一个道具赋值之前"+game.nb+props);
             props=game.nb;
              alert("点击了第二个道具赋值"+props)
               // if(game.nb == 4){
