@@ -166,18 +166,30 @@
 	<div id="result">
 		<div class="result_k">
 			<img class="result_k_bg" src="../img/result/result_win_k.png"/>
-			<ul class="player_list">
-				<li>
-					<img src="../img/result/result_one.png"/>
+			<ul class="player_list" id="player_list">
+				<li id="phb">
+					<img class="sort_bs" src="../img/result/result_one.png"/>
+					<img class="player_icon" src="../img/icon1.png"/>
+					<span class="player_name">小啊</span>
+					<progress value="20" max="40" id="over_pro"></progress>
 				</li>
-				<li>
-					<img src="../img/result/result_two.png"/>
+				<li id="phb">
+					<img class="sort_bs" src="../img/result/result_two.png"/>
+					<img class="player_icon" src="../img/icon1.png"/>
+					<span class="player_name">小啊</span>
+					<progress value="15" max="40" id="over_pro"></progress>
 				</li>
-				<li>
-					<img src="../img/result/result_three.png"/>
+				<li id="phb">
+					<img class="sort_bs" src="../img/result/result_three.png"/>
+					<img class="player_icon" src="../img/icon1.png"/>
+					<span class="player_name">小啊</span>
+					<progress value="8" max="40" id="over_pro"></progress>
 				</li>
-				<li>
-					<img src="../img/result/result_four.png"/>
+				<li id="phb">
+					<img class="sort_bs" src="../img/result/result_four.png"/>
+					<img class="player_icon" src="../img/icon1.png"/>
+					<span class="player_name">小啊</span>
+					<progress value="2" max="40" id="over_pro"></progress>
 				</li>
 			</ul>
 			<div class="result_txt"></div>
@@ -224,7 +236,7 @@
 			var playerMessage = {};
 			playerMessage.type = "mutualProps";
 			playerMessage.roomId = roomId;//房间id
-			playerMessage.toUserName = "";//道具攻击人
+			playerMessage.toUserName = playerId;//道具攻击人
 			playerMessage.fromUserName = "";//道具发起人
 			playerMessage.msgStr = "";//弹幕
 			playerMessage.userStatus = userStatus;//玩家状态
@@ -1009,6 +1021,9 @@
 			if(b.type == 'mutualProps'){
 				local.clickplayerinfo();
 			}
+			if(b.type == 'endInfo'){
+				showOverPlayerInfo(b, imagelist, gamesInfo);
+			}
 		}
 		// 显示游戏玩家信息
        var showPlayerInfo=function(b, imagelist, gamesInfo) {
@@ -1049,6 +1064,35 @@
 
                 		alert("调用了函数");
                 	}
+        }
+
+        // 结果页显示游戏玩家信息
+       var showOverPlayerInfo=function(b, imagelist, gamesInfo) {
+            
+           
+            var over_palyer_count="";
+            
+
+            for (var i = 0; i < gamesInfo.length; i++) {
+
+                over_palyer_count = over_palyer_count
+                        + "<li id='phb'>"
+                        + "<img class='sort_bs' src='"+gamesInfo[i].playerImg+"'>"
+                        + "<img class='player_icon' src='"+gamesInfo[i].playerImg+"'>"
+                        + "<span class='player_name'>" + gamesInfo[i].playerName
+                        + "</span>"
+                        + "<progress max='3' value='"+gamesInfo[i].lines+"' id='over_pro'></progress>"
+                        + "</li>"
+
+                // gamesInfo[i].onclick=function(){
+                	
+                // }
+
+            }
+
+            var rankingoverUl = document.getElementById("player_list");
+            rankingoverUl.innerHTML = over_palyer_count;
+
         }
 
 		//显示旁观者信息

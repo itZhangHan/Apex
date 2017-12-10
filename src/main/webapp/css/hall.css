@@ -712,8 +712,11 @@ position: absolute;
 .result_k{width:90%;height:70%;position: absolute;top:2%;left:5%;}
 .result_k_bg{width:100%;margin-top:2%;margin-left:auto;margin-right:auto;z-index: 1;}
 .player_list{width:66%;margin-top:-66%;margin-left:auto;margin-right:auto;z-index: 2;}
-.player_list li{margin-bottom:1%;}
-.player_list li img{width:10%;}
+#phb{margin-bottom:1%;display: flex;justify-content: center;align-items: center;}
+.sort_bs{width:10%;}
+.player_icon{width:12%;margin-left:2%;}
+.player_name{color:white;margin-left:2%;margin-right:4%;}
+#over_pro{height:22px;}
 .result_btn{width:50%;margin-top:20%;margin-left:auto;margin-right:auto;z-index: 2;}
 .result_btn img{width:45%;margin-left:4%;}
 

@@ -482,7 +482,7 @@ var Game = function () {
                 line++;
                 sendGamesMessage();
                 loadstart1();
-              
+
 
                 for(var k = 0; k<gameData[0].length; k++){
                     if(gameData[i][k] != 1){
@@ -650,6 +650,38 @@ var Game = function () {
         console.log("分数"+score);
     }
 
+    // 发送游戏结束信号
+        function sendGamesOverMessage() {
+            var playMessage = {};
+            playMessage.type = "endInfo"
+            playMessage.roomId = roomId;//房间id
+            playMessage.toUserName = "";//道具攻击人
+            playMessage.fromUserName = "";//道具发起人
+            playMessage.msgStr = "";//弹幕
+            playMessage.userStatus = userStatus;//玩家状态
+            playMessage.roomState = roomState;
+            playMessage.position = "1";
+            playMessage.headimgurl = img;//头像
+            playMessage.nicakname = nicakname;//玩家姓名
+            playMessage.sex = sex;
+            playMessage.city = city;
+            playMessage.userId = userId;//userId
+            playMessage.propsName = "";//道具名称  
+            playMessage.isSelf = "";
+            playMessage.getOnclient = "";
+            playMessage.ownerImg = "";
+            playMessage.imgOne = document.getElementById("headImg1").src;
+            playMessage.imgTwo = document.getElementById("headImg2").src;
+            playMessage.imgThree = document.getElementById("headImg3").src;
+            playMessage.imgFour = document.getElementById("headImg4").src;
+            playMessage.score = score;//分数
+            playMessage.lines = line;//行数
+            playMessage.count = 0;//道具使用次数
+            playMessage.propsStatus = 0;
+            alert("发送消除行数分数请求！"+"||发送的分数：："+score+"||发送的行数：："+line);
+            websocket.send(JSON.stringify(playMessage));
+        }
+
     // 游戏结束
     var onGameOver = function (win) {
         alert("游戏结束"+line);
@@ -687,6 +719,7 @@ var Game = function () {
             ctx1.restore();
            
             restart();
+            sendGamesOverMessage();
             play_go.style.display = "none";
             document.getElementById("result").style.display="block";
 
