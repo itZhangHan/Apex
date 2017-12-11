@@ -35,29 +35,30 @@ public class MutualProps implements InterfaceType {
 		CopyOnWriteArraySet<WebSocketServer> arrayset = SocketManger.getRoomArray(message.getRoomId());
 		// 道具交互接口
 		MutualPropsService mutualPropsService = (MutualPropsService) SpringContextUtil.getBean("mutualPropsService");
- 
+
 		// 查询数据库位置信息
 		PositionImgService positionImgService = (PositionImgService) SpringContextUtil.getBean("positionImgService");
-		
+
 		// 调用玩家道具详细接口
 		GameInfoService gameInfoService = (GameInfoService) SpringContextUtil.getBean("gameInfoService");
-		
+
 		// 房间座位信息
 		JhddPositionimg jhddPositionimg = positionImgService.selectByRoomId(Integer.parseInt(message.getRoomId()));
 		JhddPropsRecords propsRecords = mutualPropsService.selectPropsRecords(Integer.parseInt(message.getRoomId()));
 		if (propsRecords == null) {
-			MutualProps.newPropsRecords(message, arrayset, gameInfoService, jhddPositionimg, mutualPropsService,toUserName);
+			MutualProps.newPropsRecords(message, arrayset, gameInfoService, jhddPositionimg, mutualPropsService,
+					toUserName);
 		} else {
 			propsRecords.setRoomid(Integer.parseInt(message.getRoomId()));
 			if (arrayset != null) {
 				for (WebSocketServer object : arrayset) {
 					// 一号玩家的详细信息
 					JhddUsers playerOne = gameInfoService.selectByHeadImg(jhddPositionimg.getImgone());
-					
+
 					// 如果是一号玩家
-					if (message.getUserId().equals(playerOne.getUserid()+"")) {
+					if (message.getUserId().equals(playerOne.getUserid() + "")) {
 						propsRecords.setUserfrom(playerOne.getUsername());
-						if(playerOne.getUserid() == Integer.parseInt(toUserName)){
+						if (playerOne.getUserid() == Integer.parseInt(toUserName)) {
 							String toWho = playerOne.getUsername();
 							propsRecords.setUserto(toWho);
 						}
@@ -67,10 +68,10 @@ public class MutualProps implements InterfaceType {
 					}
 					// 二号玩家的详细信息
 					JhddUsers playerTwo = gameInfoService.selectByHeadImg(jhddPositionimg.getImgtwo());
-					if(playerTwo != null){
-						if (message.getUserId().equals(playerTwo.getUserid()+"")) {
+					if (playerTwo != null) {
+						if (message.getUserId().equals(playerTwo.getUserid() + "")) {
 							propsRecords.setUserfrom(playerTwo.getUsername());
-							if(playerTwo.getUserid() == Integer.parseInt(toUserName)){
+							if (playerTwo.getUserid() == Integer.parseInt(toUserName)) {
 								String toWho = playerTwo.getUsername();
 								propsRecords.setUserto(toWho);
 							}
@@ -79,13 +80,13 @@ public class MutualProps implements InterfaceType {
 							MutualProps.getProps(propsRecords, propsName);
 						}
 					}
-					
+
 					// 仨号玩家的详细信息
 					JhddUsers playerThree = gameInfoService.selectByHeadImg(jhddPositionimg.getImgthree());
-					if(playerThree != null){
-						if (message.getUserId().equals(playerThree.getUserid()+"")) {
+					if (playerThree != null) {
+						if (message.getUserId().equals(playerThree.getUserid() + "")) {
 							propsRecords.setUserfrom(playerThree.getUsername());
-							if(playerThree.getUserid() == Integer.parseInt(toUserName)){
+							if (playerThree.getUserid() == Integer.parseInt(toUserName)) {
 								String toWho = playerThree.getUsername();
 								propsRecords.setUserto(toWho);
 							}
@@ -93,13 +94,13 @@ public class MutualProps implements InterfaceType {
 							MutualProps.getProps(propsRecords, propsName);
 						}
 					}
-					
+
 					// 四号玩家的详细信息
 					JhddUsers playerFour = gameInfoService.selectByHeadImg(jhddPositionimg.getImgfour());
-					if(playerFour != null){
-						if (message.getUserId().equals(playerFour.getUserid()+"")) {
+					if (playerFour != null) {
+						if (message.getUserId().equals(playerFour.getUserid() + "")) {
 							propsRecords.setUserfrom(playerFour.getUsername());
-							if(playerFour.getUserid() == Integer.parseInt(toUserName)){
+							if (playerFour.getUserid() == Integer.parseInt(toUserName)) {
 								String toWho = playerFour.getUsername();
 								propsRecords.setUserto(toWho);
 							}
@@ -107,13 +108,13 @@ public class MutualProps implements InterfaceType {
 							MutualProps.getProps(propsRecords, propsName);
 						}
 					}
-					
+
 				}
 			}
 
 			// 插入数据库
-			propsRecords.setGamepropstate((byte)1);
-			mutualPropsService.updatePropsRecords(propsRecords);
+			propsRecords.setGamepropstate((byte) 1);
+			mutualPropsService.addPropsRecords(propsRecords);
 			JhddPropsRecords selectPropsRecords = mutualPropsService
 					.selectPropsRecords(Integer.parseInt(message.getRoomId()));
 			for (WebSocketServer object : arrayset) {
@@ -121,6 +122,12 @@ public class MutualProps implements InterfaceType {
 				String userto = selectPropsRecords.getUserto();
 				String gamepropsname = selectPropsRecords.getGamepropsname();
 				message.setMsgStr(userfrom + "对" + userto + "使用了" + gamepropsname + "!");
+				// 攻击人
+				message.setToUserName(message.getToUserName());
+				// 道具名称
+				message.setProps(message.getProps());
+				// 本人
+				message.setFromUserName(message.getUserId());
 				message.setType("MutualProps");
 				// 分发
 				try {
@@ -136,7 +143,8 @@ public class MutualProps implements InterfaceType {
 	}
 
 	private static void newPropsRecords(SocketMessage message, CopyOnWriteArraySet<WebSocketServer> arrayset,
-			GameInfoService gameInfoService, JhddPositionimg jhddPositionimg, MutualPropsService mutualPropsService,String toUserName) {
+			GameInfoService gameInfoService, JhddPositionimg jhddPositionimg, MutualPropsService mutualPropsService,
+			String toUserName) {
 		// TODO Auto-generated method stub
 		JhddPropsRecords newPropsRecords = new JhddPropsRecords();
 		newPropsRecords.setRoomid(Integer.parseInt(message.getRoomId()));
@@ -144,10 +152,23 @@ public class MutualProps implements InterfaceType {
 			for (WebSocketServer object : arrayset) {
 				// 一号玩家的详细信息
 				JhddUsers playerOne = gameInfoService.selectByHeadImg(jhddPositionimg.getImgone());
+				JhddUsers playerTwo = gameInfoService.selectByHeadImg(jhddPositionimg.getImgtwo());
+				JhddUsers playerThree = gameInfoService.selectByHeadImg(jhddPositionimg.getImgthree());
+				JhddUsers playerFour = gameInfoService.selectByHeadImg(jhddPositionimg.getImgfour());
 				// 如果是一号玩家
-				if (message.getUserId().equals(playerOne.getUserid()+"")) {
+				if (message.getUserId().equals(playerOne.getUserid() + "")) {
+					//来自玩家
 					newPropsRecords.setUserfrom(playerOne.getUsername());
-					if(playerOne.getUserid() == Integer.parseInt(toUserName)){
+					if (playerOne.getUserid() == Integer.parseInt(toUserName)) {
+						String toWho = playerOne.getUsername();
+						newPropsRecords.setUserto(toWho);
+					}else if(playerTwo.getUserid() == Integer.parseInt(toUserName)){
+						String toWho = playerOne.getUsername();
+						newPropsRecords.setUserto(toWho);
+					}else if(playerThree.getUserid() == Integer.parseInt(toUserName)){
+						String toWho = playerOne.getUsername();
+						newPropsRecords.setUserto(toWho);
+					}else if(playerFour.getUserid() == Integer.parseInt(toUserName)){
 						String toWho = playerOne.getUsername();
 						newPropsRecords.setUserto(toWho);
 					}
@@ -156,39 +177,63 @@ public class MutualProps implements InterfaceType {
 					MutualProps.getProps(newPropsRecords, propsName);
 				}
 				// 二号玩家的详细信息
-				JhddUsers playerTwo = gameInfoService.selectByHeadImg(jhddPositionimg.getImgtwo());
-				if(playerTwo != null){
-					if (message.getUserId().equals(playerTwo.getUserid()+"")) {
+				if (playerTwo != null) {
+					if (message.getUserId().equals(playerTwo.getUserid() + "")) {
 						newPropsRecords.setUserfrom(playerTwo.getUsername());
-						if(playerTwo.getUserid() == Integer.parseInt(toUserName)){
+						if (playerOne.getUserid() == Integer.parseInt(toUserName)) {
+							String toWho = playerOne.getUsername();
+							newPropsRecords.setUserto(toWho);
+						}else if(playerTwo.getUserid() == Integer.parseInt(toUserName)){
+							String toWho = playerOne.getUsername();
+							newPropsRecords.setUserto(toWho);
+						}else if(playerThree.getUserid() == Integer.parseInt(toUserName)){
+							String toWho = playerOne.getUsername();
+							newPropsRecords.setUserto(toWho);
+						}else if(playerFour.getUserid() == Integer.parseInt(toUserName)){
+							String toWho = playerOne.getUsername();
+							newPropsRecords.setUserto(toWho);
+						}
+						String propsName = message.getProps();
+						MutualProps.getProps(newPropsRecords, propsName);
+					}
+				}
+
+				// 仨号玩家的详细信息
+				if (playerThree != null) {
+					if (message.getUserId().equals(playerThree.getUserid() + "")) {
+						newPropsRecords.setUserfrom(playerThree.getUsername());
+						if (playerOne.getUserid() == Integer.parseInt(toUserName)) {
+							String toWho = playerOne.getUsername();
+							newPropsRecords.setUserto(toWho);
+						}else if(playerTwo.getUserid() == Integer.parseInt(toUserName)){
+							String toWho = playerOne.getUsername();
+							newPropsRecords.setUserto(toWho);
+						}else if(playerThree.getUserid() == Integer.parseInt(toUserName)){
+							String toWho = playerOne.getUsername();
+							newPropsRecords.setUserto(toWho);
+						}else if(playerFour.getUserid() == Integer.parseInt(toUserName)){
+							String toWho = playerOne.getUsername();
+							newPropsRecords.setUserto(toWho);
+						}
+						String propsName = message.getProps();
+						MutualProps.getProps(newPropsRecords, propsName);
+					}
+				}
+
+				// 四号玩家的详细信息
+				if (playerFour != null) {
+					if (message.getUserId().equals(playerFour.getUserid() + "")) {
+						newPropsRecords.setUserfrom(playerFour.getUsername());
+						if (playerOne.getUserid() == Integer.parseInt(toUserName)) {
+							String toWho = playerOne.getUsername();
+							newPropsRecords.setUserto(toWho);
+						}else if(playerTwo.getUserid() == Integer.parseInt(toUserName)){
 							String toWho = playerTwo.getUsername();
 							newPropsRecords.setUserto(toWho);
-						}
-						String propsName = message.getProps();
-						MutualProps.getProps(newPropsRecords, propsName);
-					}
-				}
-				
-				// 仨号玩家的详细信息
-				JhddUsers playerThree = gameInfoService.selectByHeadImg(jhddPositionimg.getImgthree());
-				if(playerThree != null){
-					if (message.getUserId().equals(playerThree.getUserid()+"")) {
-						newPropsRecords.setUserfrom(playerThree.getUsername());
-						if(playerThree.getUserid() == Integer.parseInt(toUserName)){
+						}else if(playerThree.getUserid() == Integer.parseInt(toUserName)){
 							String toWho = playerThree.getUsername();
 							newPropsRecords.setUserto(toWho);
-						}
-						String propsName = message.getProps();
-						MutualProps.getProps(newPropsRecords, propsName);
-					}
-				}
-				
-				// 四号玩家的详细信息
-				JhddUsers playerFour = gameInfoService.selectByHeadImg(jhddPositionimg.getImgfour());
-				if(playerFour != null){
-					if (message.getUserId().equals(playerFour.getUserid()+"")) {
-						newPropsRecords.setUserfrom(playerFour.getUsername());
-						if(playerFour.getUserid() == Integer.parseInt(toUserName)){
+						}else if(playerFour.getUserid() == Integer.parseInt(toUserName)){
 							String toWho = playerFour.getUsername();
 							newPropsRecords.setUserto(toWho);
 						}
@@ -196,14 +241,14 @@ public class MutualProps implements InterfaceType {
 						MutualProps.getProps(newPropsRecords, propsName);
 					}
 				}
-				
+
 			}
-			newPropsRecords.setGamepropstate((byte)1);
+			newPropsRecords.setGamepropstate((byte) 1);
 			mutualPropsService.addPropsRecords(newPropsRecords);
-			//mutualPropsService.updatePropsRecords(newPropsRecords);
+			// mutualPropsService.updatePropsRecords(newPropsRecords);
 		}
 		// 插入数据库
-	//	mutualPropsService.updatePropsRecords(newPropsRecords);
+		// mutualPropsService.updatePropsRecords(newPropsRecords);
 		JhddPropsRecords selectPropsRecords = mutualPropsService
 				.selectPropsRecords(Integer.parseInt(message.getRoomId()));
 		for (WebSocketServer object : arrayset) {
@@ -211,6 +256,13 @@ public class MutualProps implements InterfaceType {
 			String userto = selectPropsRecords.getUserto();
 			String gamepropsname = selectPropsRecords.getGamepropsname();
 			message.setMsgStr(userfrom + "对" + userto + "使用了" + gamepropsname + "!");
+			// 道具名称
+			// 攻击人
+			message.setToUserName(message.getToUserName());
+			// 道具名称
+			message.setProps(message.getProps());
+			// 本人
+			message.setFromUserName(message.getUserId());
 			message.setType("MutualProps");
 			// 分发
 			try {
@@ -223,7 +275,7 @@ public class MutualProps implements InterfaceType {
 	}
 
 	@Test
-	public  static void getProps(JhddPropsRecords propsRecords, String propsName) {
+	public static void getProps(JhddPropsRecords propsRecords, String propsName) {
 		Properties prop = new Properties();
 		InputStream in = MutualProps.class.getClassLoader().getResourceAsStream("props/props.properties");
 		try {

@@ -73,10 +73,11 @@ public class UsersMessage extends BaseType {
 					list.add(object.getSocketUser());
 				}
 				positionImgService.updateImg(positionImg);
-				message.setImgOne(positionImg.getImgone());
-				message.setImgTwo(positionImg.getImgtwo());
-				message.setImgThree(positionImg.getImgthree());
-				message.setImgFour(positionImg.getImgfour());
+				JhddPositionimg selectByRoomId = positionImgService.selectByRoomId(Integer.parseInt(message.getRoomId()));
+				message.setImgOne(selectByRoomId.getImgone());
+				message.setImgTwo(selectByRoomId.getImgtwo());
+				message.setImgThree(selectByRoomId.getImgthree());
+				message.setImgFour(selectByRoomId.getImgfour());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

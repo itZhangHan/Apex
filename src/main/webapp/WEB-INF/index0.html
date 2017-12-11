@@ -623,7 +623,7 @@ alert("propsNamepropsNamepropsNamepropsNamepropsName===="+propsName);
 		function findCache(imagelist, b) {
 			//给位置填充图片  房主
 			document.getElementById("headImg1").src = b.imgOne;
-
+			
 			if (b.imgTwo != "")
 				document.getElementById("headImg2").src = b.imgTwo;
 			else
@@ -910,12 +910,13 @@ alert("propsNamepropsNamepropsNamepropsNamepropsName===="+propsName);
 			//图片数组 
 			imagelist = imagelist + b.imgOne + "---" + b.imgTwo + "---"
 					+ b.imgThree + "---" + b.imgFour;
+			 
 			oneImg = oneImg + b.imgOne;
 			twoImg = twoImg + b.imgTwo;
 			threeImg = threeImg + b.imgThree;
 			fourImg = fourImg + b.imgFour;
-			// alert("数据库中位置一的图片="+b.imgOne + ",,,位置二的图片"+b.imgTwo + ",,,位置三的图片"+b.imgThree
-			// 	+ ",,,位置四的图片"+b.imgFour);
+			 alert("数据库中位置一的图片="+b.imgOne + ",,,位置二的图片"+b.imgTwo + ",,,位置三的图片"+b.imgThree
+			 	+ ",,,位置四的图片"+b.imgFour);
 			//提取缓存数据
 			showUserList(b.listUsers);
 			findCache(imagelist, b);
@@ -939,6 +940,7 @@ alert("propsNamepropsNamepropsNamepropsNamepropsName===="+propsName);
 			if (b.type == 'message') {
 				//展示发送消息数据
 				showMessage(b);
+				findCache(imagelist, b);
 			}
 			if (b.type == 'up') {
 				//展示起立信息
@@ -985,7 +987,7 @@ alert("propsNamepropsNamepropsNamepropsNamepropsName===="+propsName);
 				showPlayerInfo(b, imagelist, gamesInfo);
 			}
 			if(b.type == 'MutualProps'){
-				local.clickplayerinfo();
+				toplayer(b);
 			}
 			if(b.type == 'endInfo'){
 				showOverPlayerInfo(b, imagelist, gamesInfo);
@@ -1063,7 +1065,14 @@ alert("propsNamepropsNamepropsNamepropsNamepropsName===="+propsName);
             rankingoverUl.innerHTML = over_palyer_count;
 
         }
-
+    // 判断被使用道具人
+		function toplayer(b){
+			if(b.ToUserName!==""){
+				if(propsName&&b.userId==b.ToUserName){
+					local.clickplayerinfo();
+				}
+			}
+		}
 		//显示旁观者信息
 		function showUserList(listUsers) {
 			for (var i = 0; i < listUsers.length; i++) {
